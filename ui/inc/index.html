@@ -1,0 +1,480 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Super Chef RGPD</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+	<link rel="stylesheet" href="css/fontawesome-all.css">
+	<style>
+
+	.fleft {float: left; }
+	.fright {float: right; }
+	.fifty { width: 50%; }
+
+	.b_bleu { background: #2196f3; }
+	.b_jaune { background: #fff176; }
+	.b_vert { background: #17ff2e; }
+	.b_rouge,
+	section p.b_rouge { background: #ff2c2d; }
+
+	.bleu, section h1.bleu, h2.bleu { color: #1b91ff; }
+	.bleu2 { color: #2196f3; }
+	.bleu3 { color: #90CAFA; }
+	.jaune, section h1.jaune,  h2.jaune { color: #fff176; }
+	.vert { color: #17ff2e; }
+	.rouge { color: #ff2c2d; }
+	.noir { color: #000; }
+
+	.reveal .chapitre { /*position: fixed; top: -20px; right: -20px;*/
+		font-size: 1.2rem !important; text-transform: uppercase; }
+		.reveal section.blanc_bleu { background: #fff; color: #2196f3; }
+		.reveal section.blanc_bleu h2,
+		.reveal section.blanc_bleu h3,
+		.reveal section.blanc_bleu p
+		{ background: #fff; color: #2196f3; }
+
+		.left, .right { width: 45%; }
+		.left { float: left; }
+		.right { float: right; }
+		.bleu_clair { color: #bbdefb; }
+		</style>
+
+		<!-- Printing and PDF exports -->
+		<script>
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<img src="img/gip.png" style="position:absolute;left:0;top:0;opacity:.7">
+				<section data-background="#222">
+					<h1>RGPD</h1>
+					<p><span class="bleu2">Territoires Numériques</span><br><small class="jaune">Bourgogne-Franche-Comté</small></p>
+				</section>
+
+				<section data-background="#222">
+					<p>Bonjour</p>
+					<p class="fragment">Tour de table ?</p>
+				</section>
+
+				<section data-background="#222">
+					<h2><span class="bleu2">2</span> objectifs</h2>
+					<p class="fragment jaune">Comprendre pourquoi il est important de collaborer avec le DPD</p>
+					<p class="fragment bleu2">Savoir entamer une démarche de mise en conformité</p>
+				</section>
+
+				<section data-background="#222">
+					<h2>Au menu</h2>
+					<ol>
+						<li class='fragment'>Contexte d'apparition :
+							<ul>
+								<li>Enjeu stratégique</li>
+								<li>Marchandisation des données</li>
+								<li>Confidentialité et piratage</li>
+							</ul>
+						</li>
+						<li class='fragment'>Objectifs du RGPD</li>
+						<li class='fragment'>Principes et définitions</li>
+						<li class="fragment">La démarche Super Chef RGPD</li>
+						<li class="fragment">Ateliers</li>
+					</ol>
+				</section>
+
+				<section data-background="#eee">
+					<h2>1. Contexte</h2>
+					<p><img src="img/tresor.png" /></p>
+				</section>
+
+				<section data-background="#eee">
+					<p class="chapitre noir">Contexte - Données personnelles = enjeu stratégique</p>
+					<p class='bleu'>Eric Schmidt, CEO de Google, Décembre 2009, CNBC</span></p>
+					<p><img src='img/eric-schmidt.jpg'></p>
+					<blockquote class='fragment'>
+						« Si vous faites quelque chose et que vous ne voulez que personne ne le sache, peut-être devriez-vous déjà commencer par ne pas le faire » (<a href='http://www.zdnet.fr/actualites/eric-schmidt-google-seuls-les-criminels-se-soucient-de-proteger-leurs-donnees-personnelles-39711378.htm
+						'>Zdnet</a>)
+					</blockquote>
+				</section>
+
+				<section data-background="#eee">
+					<p class="chapitre noir">Contexte - Données personnelles = enjeu stratégique</p>
+					<p class='bleu'>Mark Zuckerberg, fondateur de Facebook, Janvier 2010</p>
+					<p><img src='img/marc-zukerberg.jpg'></p>
+					<blockquote class='fragment'>
+						« Les gens sont désormais à l'aise avec l'idée de partager plus d'informations [...], de façon plus ouverte et avec plus de personnes&nbsp;»
+					</blockquote>
+					<p class='fragment'><small>Facebook avait à l’époque 400M de membres ... et le FBI et la NSA se servaient directement à la source.</small></p>
+				</section>
+
+				<section data-background="#eee">
+					<p class="chapitre noir">Contexte - Données personnelles = enjeu stratégique</p>
+					<p class='bleu'>Today is election day - <a href="https://www.ted.com/talks/zeynep_tufekci_we_re_building_a_dystopia_just_to_make_people_click_on_ads/transcript">ted.com</a></p>
+					<p><img src='img/facebook-vote.jpg'></p>
+					<p class='bleu'><small>En 2010, aux élections de mi-mandat, Facebook a conduit une expérience sur 61 millions de personnes américaines qui a été révélée après les faits...</small></p>
+				</section>
+
+				<section data-background="#eee">
+					<p class="chapitre noir">Contexte - Données personnelles = enjeu stratégique</p>
+					<p class='bleu'>Affaire Snowden, 6 juin 2013</p>
+					<p><img src='img/snowden.jpg'></p>
+					<p class='fragment'><small>Le programme de surveillance PRISM permet au FBI et à la NSA de surveiller les internautes. Ils utiliseraient pour cela des portes d'entrée cachées dans les logiciels fabriqués par les principales Entreprises informatiques américaines, et accèderaient aux serveurs de neuf d'entre elles, dont Microsoft, Google, Facebook, Apple.</small></p>
+				</section>
+
+				<section data-background="#eee">
+					<p class="chapitre noir">Contexte - Données personnelles = marchandise</p>
+					<p class='bleu'>Gmail, Juin 2016 </p>
+					<p><img src='img/gmail.png'></p>
+					<p class='fragment'><small>Google ne "lira plus le contenu" des boîtes mail des utilisateurs de son service Gmail dans le but de faire de la publicité ciblée, a annoncé ce vendredi 23 juin l'entreprise, qui faisait face à des poursuites à ce sujet.</small></p>
+				</section>
+
+				<section data-background="#eee">
+					<p class="chapitre noir">Contexte - Données personnelles = marchandise</p>
+					<p class='bleu'>Gmail, Juillet 2018 </p>
+					<p><img src='img/gmail.png'></p>
+					<p class='fragment'><small>Le <a href="https://www.zdnet.fr/actualites/gmail-ne-scanne-pas-vos-mails-ses-partenaires-en-revanche-39870632.htm">Wall Street Journal</a> : si Gmail a effectivement cessé d’analyser le contenu des messages, Google a en revanche laissé la porte ouverte aux développeurs tiers qui souhaiteraient en faire autant.</small></p>
+				</section>
+
+				<section data-background="#eee">
+					<p class="chapitre noir">Contexte - Données personnelles = marchandise</p>
+					<p><img src='img/gafam.jpg'></p>
+					<p class="fragment">Si c'est gratuit, c'est vous le produit</p>
+				</section>
+
+				<section data-background-iframe="rgpd-si-gratuit.html" data-background-interactive>
+				</section>
+
+
+				<section data-background="#eee">
+					<p class="chapitre noir">Contexte - Données personnelles = marchandise</p>
+					<p>La vidéo, créée par l'agence Adesias, a été éditée par Territoires Numériques</p>
+				</section>
+
+			<section data-background="url(img/voleur.gif)" data-background-size="800px auto" data-background-color="#fff" data-background-repeat="no-repeat" data-background-position="50% 50%">
+				<p class="fragment jaune b_rouge">Les données personnelles sont piratées tous les jours</p>
+			</section>
+
+			<section data-background="img/Wannacry.jpg">
+			</section>
+
+		<section data-background="#aa0000">
+			<p class="chapitre">Contexte - Confidentialité et piratage</p>
+			<p>Maif, Auchan, Renault, St Gobain<br>(perte globale : 250 M€ de CA, 80 M€ de résultat), des centaines de sociétés (PME) ont disparu</p>
+		</section>
+
+		<section data-background="#aa0000">
+			<p class="chapitre">Contexte - Confidentialité et piratage</p>
+			<p class='jaune'>Deloitte piraté, Septembre 2017</p>
+			<p><img src='img/deloitte.png'></p>
+			<p class='fragment'>5 millions de mails des 244.000 employés de Deloitte compromis</p>
+			<p class='fragment'><small>Une ou plusieurs personnes ont eu accès pendant aux moins quatre mois aux courriels d’une des plus grandes sociétés de conseil du monde.</small></p>
+		</section>
+
+		<section data-background="#aa0000">
+			<p class="chapitre">Contexte - Confidentialité et piratage</p>
+			<p class='jaune'>Uber piraté, Novembre 2017</p>
+			<p><img style="max-width: 40%" src='img/uber.jpg'></p>
+			<p class='fragment'>Piratage des données de 57 millions d’utilisateurs dont 600.000 chauffeurs.</p>
+			<p class='fragment'><small>Uber a payé 100.000$ aux hackers sans succès.</small></p>
+		</section>
+
+		<section data-background="#aa0000">
+			<p class="chapitre">Contexte - Confidentialité et piratage</p>
+			<p class='jaune'>L’Express piraté, Mars 2018</p>
+			<p><img src='img/pirate.png'></p>
+			<p class='fragment'>Les données de 700.000 lecteurs et abonnés à l’Express piratées.</p>
+		</section>
+
+		<section data-background="#aa0000">
+			<p class="chapitre">Contexte - Confidentialité et piratage</p>
+			<p class='jaune'>Ashley Madison, site de rencontres adultères, piraté, Juillet 2015.</p>
+			<p class='fragment'>Le piratage vise à dénoncer la publicité de la société ALM qui promet de supprimer toutes les données personnelles des utilisateurs moyennant 19 dollars. Cette option aurait rapporté 1,7 million de dollars à ALM en 2014.</p>
+			<p class='fragment'>Ce piratage prouve que ces données existent encore...</p>
+		</section>
+
+		<section data-background="#aa0000">
+			<p class="chapitre">Contexte - Confidentialité et piratage</p>
+			<p class="jaune">Quelle est la 1ère cause de piratage ?</p>
+			<p class="fragment">Les mots de passe faibles ou volés</p>
+		</section>
+
+		<section data-background="#aa0000">
+			<p class="chapitre">Contexte - Confidentialité et piratage</p>
+			<p class="jaune">Mots de passe les plus courants ?</p>
+			<ul class="fragment">
+				<li>123456</li>
+				<li>password</li>
+				<li>12345678</li>
+				<li>qwerty</li>
+				<li>abc123</li>
+			</ul>
+			<p class="fragment"><small><a style="color:#fff" href="https://www.bloomberg.com/news/articles/2011-01-27/the-problem-with-passwords">Source : Bloomberg</a></small></p>
+		</section>
+
+		<section data-background="#aa0000">
+			<p class="chapitre">Contexte - Confidentialité et piratage</p>
+			<p class="jaune">Temps nécessaire pour trouver un mot de passe ?</p>
+			<p class="fragment">6 caractères : <b class="jaune">abcdef</b> 10 minutes</p>
+			<p class="fragment">+ majuscules : <b class="jaune">AbCdEf</b> 10 heures</p>
+			<p class="fragment">+ chiffres et symboles : <b class="jaune">#b_2Ef</b> 18 jours<br></p>
+			<p class="fragment">9 caractères : <b class="jaune">abcdefghi</b> 4 mois</p>
+			<p class="fragment">+ majuscules : <b class="jaune">AbCdEfHhI</b> 178 ans</p>
+			<p class="fragment">+ chiffres et symboles : <b class="jaune">#b_dEf123</b> 44K ans</p>
+		</section>
+
+		<section data-background="#aa0000">
+			<p class="chapitre">Contexte - Confidentialité et piratage</p>
+			<p class="jaune">Mais aucun mot de passe<br>va nous protéger de nous mêmes</p>
+			<p class="fragment">IBM considère que 60% des attaques<br>... viennent de l'intérieur</p>
+			<p class="fragment"><small>Source : 2016 Cyber Security Intelligence Index</small></p>
+		</section>
+
+		<section data-background="#aa0000">
+			<p class="chapitre">Contexte - Confidentialité et piratage</p>
+			<p class="jaune">Et parfois, pas la peine de pirater ...</p>
+			<div class="fragment"><img src="img/maison.jpg" style="float:left; " />
+				<p>On a en permanence 3-4 stagiaires.</p>
+				<p>Pour gagner du temps, on a sur Google Drive un document avec les procédures internes et un autre nommé « codes » avec tous les logins et mots de passe.</p>
+				<p>Non, on ne change pas les mots de passe quand ils partent !</p>
+			</div>
+		</section>
+
+		<section data-background-color="#eee">
+			<p class="bleu">Entre temps, la CNIL travaillait avec la Loi Informatique et Libertés</p>
+			<p class="fragment bleu">... savez-vous ce qu'elle a fait ?</p>
+		</section>
+
+		<section data-background-iframe="tirop/cnil.html" data-background-interactive>
+		</section>
+		<!-- <section data-background-iframe="http://127.0.0.1/edsa-tirop/cnil.html" data-background-interactive>
+		</section> -->
+
+		<section data-background='url(img/ceu.jpg)' data-background-size="100%" data-background-color="#fff" data-background-repeat="no-repeat" data-background-position="50% 50%">
+		</section>
+
+		<section data-background='url(img/police2.gif)' data-background-size="100%" data-background-color="#fff" data-background-repeat="no-repeat" data-background-position="50% 50%">
+			<h1 class="fragment jaune b_rouge">20 000 000 € <br>4 % CA</h1>
+		</section>
+
+<section data-background="#222">
+	<h2>2. Agenda du RGPD</h2>
+</section>
+
+<section data-background="#222">
+	<p class="chapitre">2. Agenda du RGPD</p>
+	<p>1. Donner aux citoyens le contrôle sur leurs données</p>
+	<p class='fragment jaune'><small>Information, modification, suppression, portabilité, ...</small></p>
+</section>
+
+<section data-background="#222">
+	<p class="chapitre">2. Agenda du RGPD</p>
+	<p>1. Donner aux citoyens le contrôle sur leurs données</p>
+	<p class='jaune'>La liga</p>
+	<p><img src="img/liga.jpg"></p>
+</section>
+
+
+<section data-background="#222">
+	<p class="chapitre">2. Agenda du RGPD</p>
+	<p>2. Garantir la sécurité des données</p>
+	<p class='fragment jaune'><small>Mise en place de mesures de sécurité adaptées à la sensibilité et aux risques</small></p>
+</section>
+
+
+<section data-background="#222">
+	<p class="chapitre">2. Agenda du RGPD</p>
+	<p>3. Rendre compte à tout moment</p>
+	<p class='fragment jaune'><small>Registres de traitement, des sous-traitants, des violations, ...</small></p>
+	<p class='fragment'><small>Mais cela va plus loin, il faut avoir une connaissance détaillée de votre SI, des données qui transitent, des règles de conservation, des contrats, une cartographie des risques, etc</small></p>
+</section>
+
+<section data-background="#222">
+	<p class="chapitre">2. Agenda du RGPD</p>
+	<p>3. Rendre compte à tout moment</p>
+	<p><img style="border:none" src="img/frigo.png"></p>
+</section>
+
+<section data-background="#222">
+	<p class="chapitre">2. Agenda du RGPD</p>
+	<p>3. Rendre compte à tout moment</p>
+	<p>"Vous organisez vous-même votre conformité. Et vous l'organisez en fonction de vos <span class="jaune">contraintes</span>, en fonction de votre <span class="jaune">organisation interne</span> et des <span class="jaune">risques</span> que vous avez identifiés"</p>
+</section>
+
+<section data-background="#222">
+	<p class="chapitre">2. Agenda du RGPD</p>
+	<p><img src="img/funmooc.png"></p>
+	<p><small><span class="jaune">Guillaume DESGENS-PASANAU</span><br>Enseignant associé au CNAM, magistrat,<br>ancien chef du service des affaires juridiques de la CNIL</small></p>
+</section>
+
+
+<!-- Définitions-->
+<section data-background='#2196f3'>
+	<h2>3. Définitions et principes</h2>
+</section>
+
+<section data-background="#2196f3">
+	<p class="chapitre">Définitions - <b class="jaune">art. 1 - Objet</b></p>
+	<p class='fragment'>Protéger les <span class="jaune">personnes physiques</span></p>
+	<p class='fragment'>à l'égard du <span class="jaune">traitement</span></p>
+	<p class='fragment'>des <span class="jaune">données à caractère personnel</span>.</p>
+</section>
+
+<section data-background='#2196f3'>
+	<p class="chapitre">Définitions - <b class="jaune">art. 4.1</b></p>
+	<p><b class="jaune">Donnée à caractère personnel</b>: </p>
+	<p>Toute information se rapportant à une personne physique identifiée ou identifiable.</p>
+</section>
+
+<section data-background='url(img/dp_1280.png)' data-background-size="auto" data-background-repeat="no-repeat" data-background-position="50% 50%"  data-background-color="#fff">
+</section>
+
+<section data-background='#2196f3'>
+	<p class="chapitre">Définitions</p>
+	<p>La <span class="jaune">puissance fiscale</span> est une donnée à caractère personnel ?</p>
+	<p class="fragment">Et le <span class="jaune">taux d'imposition</span> ?</p>
+	<p class="fragment jaune"><b>Croisement de données</b></p>
+	<p class="fragment">Dans un village de 250 habitants, combien de personnes ont une voiture avec <span class="jaune">15 CV</span> fiscaux et paient <span class="jaune">45%</span> d'impôts sur le revenu ?</p>
+</section>
+
+<section data-background='url(img/csi.jpg)' data-background-size="auto" data-background-repeat="no-repeat" data-background-position="50% 50%">
+	<p><b class="jaune"><span class="fragment">Tout ce qui leur permet d'identifier une personne,<br></span><span class="fragment">est une donnée personnelle</span></b></p>
+</section>
+
+<section data-background='#2196f3'>
+	<p class="chapitre">Définitions - <b class="jaune">art. 4.2</b></p>
+	<p><b class="jaune">Traitement</b>: </p>
+	<p>Toute opération [...] telles que la collecte, l'enregistrement, l'organisation, la structuration, la conservation, l'adaptation ou la modification, l'extraction, <b class="jaune">la consultation</b>, l'utilisation, la communication par transmission, la diffusion ou toute autre forme de mise à disposition, le rapprochement ou l'interconnexion, la limitation, l'effacement ou la destruction.</p>
+</section>
+
+<section data-background='#2196f3'>
+	<p class="chapitre">Définitions - <b class="jaune">art. 4.7</b></p>
+	<p><b class="jaune">Responsable de traitement</b>: </p>
+	<p>La personne physique ou morale, l'autorité publique, le service ou un autre organisme qui détermine les finalités et les moyens du traitement.</p>
+</section>
+
+<section data-background='#2196f3'>
+	<p class="chapitre">Définitions - <b class="jaune">art. 4.8</b></p>
+	<p><b class="jaune">Sous-traitant</b>: </p>
+	<p>La personne physique ou morale, l'autorité publique, le service ou un autre organisme qui traite des données à caractère personnel pour le compte du responsable du traitement.</p>
+</section>
+
+<section data-background='#2196f3'>
+	<p class="chapitre">Définitions - <b class="jaune">art. 4.1</b></p>
+	<p><b class="jaune">Personne concernée</b>: </p>
+	<p>La personne physique identifiée ou identifiable dont on traite les données.</p>
+</section>
+
+<section data-background='#2196f3'>
+	<p class="chapitre">Définitions</p>
+	<p><b class="jaune">DPD / DPO</b>: </p>
+	<p>Collègue <s class="jaune">très apprécié</s> en charge de la protection des données.</p>
+</section>
+<!-- ./Définitions-->
+
+<section>
+	<p>Passons au site Super Chef RGPD ou aux docs Excel</p>
+	<p><a href="http://127.0.0.1/edsa-super-chef-drupal/accueil" target="_blank"><img src="img/recettes-rgpd-banner.png" alt="Super Chef RGPD"/></a></p>
+</section>
+
+
+<section data-background="#222">
+	<h4>Atelier - Identifier une donnée personnelle</h4>
+	<small>
+		<p>Dans un papier faites 2 colonnes :</p>
+		<ol>
+			<li class="jaune">Liste de données à caractère personnel</li>
+			<li class="bleu2">Liste de données non personnelles que vous traitez</li>
+		</ol>
+	</small>
+</section>
+
+<section data-background="#222">
+	<h4>Atelier - Localiser les données dans votre SI</h4>
+	<small>
+		<p>Dans un papier faites 2 colonnes :</p>
+		<ol>
+			<li class="jaune">Logiciels et applications</li>
+			<li class="bleu2">Matériel informatique</li>
+		</ol>
+		<p>Identifiez ensuite qui utilise le logiciel / matériel, où se trouve, quel type de données traite et toute autre information utile.</p>
+	</small>
+</section>
+
+<section data-background="#222">
+	<h4>Atelier - Localiser les contrats de sous-traitance</h4>
+	<small>
+		<p>Renseignez dans un papier tous les sous-traitants que vous avez. Indiquez pour chacun :</p>
+		<ul>
+			<li>Date de début de prestation</li>
+			<li>Date de fin de prestation</li>
+			<li>Réalise un traitement de données à caractère personnel</li>
+			<li>Type de données</li>
+			<li>Hébergement des données</li>
+		</ul>
+	</small>
+</section>
+
+<section data-background="#222">
+	<h4>Atelier - Recenser les traitements</h4>
+	<small>
+		<ul>
+			<li>Référence</li>
+			<li>Description et usage</li>
+			<li class="jaune">Responsable, responsable conjoint, sous-traitants, DPD</li>
+			<li><span title="consentement de la personne concernée
+				nécessaire à l'exécution du contrat
+				obligation légale
+				sauvegarde des intérêts vitaux de la personne concernée
+				tâche d'intérêt général ou exercice de l'autorité publique
+				intérêts légitimes du responsable de traitement ou d’un tiers
+				">Base juridique</span>, <span class="jaune">finalités</span>, proportionnalité, exactitude</li>
+				<li>Qui gère, accède, met à jour ?</li>
+				<li><span class="jaune">Sécurité technique et organisationnelle</span>, y-a-t-il une sauvegarde ?</li>
+				<li>Croissement de données, PIA, risques</li>
+				<li>Origine (source) et localisation actuelle des données</li>
+				<li class="jaune" title="Etat civil, identité, données d'identification, images…
+				Vie personnelle (habitudes de vie, situation familiale, etc.)
+				Informations d'ordre économique et financier (revenus, situation financière, situation fiscale, etc.)
+				Données de connexion (adress IP, logs, etc.)
+				Données de localisation (déplacements, données GPS, GSM, etc.)">Catég. de données, description, délai d'éffacement</li>
+				<li class="jaune">Données sensibles, description, délai d'éffacement</li>
+				<li class="jaune">Catég. de personnes concernées, description, délai d'éffacement</li>
+				<li class="jaune">Destinataires (type), description</li>
+				<li class="jaune">Transfert hors UE : Destinataire,	Pays,	Type de Garanties</li>
+				<li>Mentions d'information complètes</li>
+				<li>Les personnes peuvent exercer tous ses droits ?</li>
+			</ul>
+		</small>
+	</section>
+
+</div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+// More info about config & dependencies:
+// - https://github.com/hakimel/reveal.js#configuration
+// - https://github.com/hakimel/reveal.js#dependencies
+Reveal.initialize({
+	dependencies: [
+		{ src: 'plugin/markdown/marked.js' },
+		{ src: 'plugin/markdown/markdown.js' },
+		{ src: 'plugin/notes/notes.js', async: true },
+		{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+	]
+});
+</script>
+</body>
+</html>

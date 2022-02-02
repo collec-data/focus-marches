@@ -1,0 +1,11 @@
+#  tell Apache what configuration can be changed with .htaccess files
+# change
+# AllowOverride None
+# to
+# AllowOverride All
+
+Options +FollowSymlinks
+RewriteEngine on
+RewriteRule ^acheteur-([0-9]+)$ /acheteur.php?i=$1 [L]
+
+Redirect 301 /marches-publics-3/ui/acheteur.php?i=aillant_sur_tholon http://127.0.0.1/edsa-www/marches-publics-3/ui

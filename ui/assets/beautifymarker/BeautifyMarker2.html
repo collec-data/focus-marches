@@ -1,0 +1,66 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><link href="BeautifyMarker_fichiers/leaflet.css" rel="stylesheet">
+<script src="BeautifyMarker_fichiers/leaflet.js"></script>
+<link rel="stylesheet" href="BeautifyMarker_fichiers/font-awesome.css">
+<link href="BeautifyMarker_fichiers/icon.css" rel="stylesheet">
+<link rel="stylesheet" href="BeautifyMarker_fichiers/leaflet-beautify-marker-icon.css">
+<script src="BeautifyMarker_fichiers/leaflet-beautify-marker-icon.js"></script>
+<script>
+    window.onload = function () {
+
+            var dijon = [47.316, 5.016];
+            var zoom = 13;
+
+
+        var map = L.map('map').setView(dijon, zoom);
+
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        L.marker([33.89093747081252, 72.7734375], { icon: L.BeautifyIcon.icon(), draggable: true }).addTo(map).bindPopup("I'm Beautify");
+        var options = {
+            html: '<i class="material-icons">face</i>',
+            iconAnchor: [11, 10]
+        };
+        L.marker([47.316, 5.016], { icon: L.BeautifyIcon.icon(options), draggable: true }).addTo(map).bindPopup("I'm Beautify");
+
+
+        options = {
+            icon: 'leaf'
+                , iconShape: 'marker'
+        };
+        L.marker([47.310, 5.016], { icon: L.BeautifyIcon.icon(options), draggable: true }).addTo(map).bindPopup("popup").bindPopup("I'm Beautify");
+
+
+
+
+        options = {
+            iconShape: 'circle-dot'
+               , borderWidth: 5
+        };
+
+        L.marker([47.305, 5.016], { icon: L.BeautifyIcon.icon(options), draggable: true }).addTo(map).bindPopup("I'm Beautify");
+
+        options = {
+            iconShape: 'circle-dot'
+               , borderWidth: 5
+               , borderColor: '#b3334f'
+        };
+
+
+
+        options = {
+            iconShape: 'rectangle-dot'
+               , borderWidth: 5
+        };
+
+        L.marker([47.316, 5.010], { icon: L.BeautifyIcon.icon(options), draggable: true }).addTo(map).bindPopup("I'm Beautify");
+
+    }
+</script>
+<body>
+    Beautify Marker assets
+    <div id="map" style="height:100%; width:100%;"></div>
+</body>
+</html>
