@@ -1,38 +1,18 @@
 <?php
-  // paramètres
-  if ($_SERVER['SERVER_NAME'] == 'localhost')
+
+  // paramètres par défaut (confif pour attaquer la bdd docker)
+  $host = 'database';
+  $user = 'user';
+  $pass = 'password';
+  $name = 'marches_publics';
+
+    // serveur easyphp sous windows
+  if ($_SERVER['SERVER_NAME'] == 'localhost' or $_SERVER['SERVER_NAME'] == '127.0.0.1' )
   {
       $host = 'localhost';
-      $user = '';
+      $user = 'root';
       $pass = '';
       $name = 'marches_publics';
-  }
-
-  // serveur easyphp sous windows
-  if ($_SERVER['SERVER_NAME'] == '127.0.0.1')
-  {
-      $host = 'localhost';
-      $user = '';
-      $pass = '';
-      $name = 'marches_publics';
-  }
-
-  // serveur OVH du labo
-  if ($_SERVER['SERVER_NAME'] == 'labo.e-bourgogne.fr')
-  {
-    $host = '';
-    $user = '';
-    $pass = '';
-    $name = '';
-  }
-
-  // serveur OVH du labo
-  if ($_SERVER['SERVER_NAME'] == 'focus-marches.ternum-bfc.fr')
-  {
-    $host = '';
-    $user = '';
-    $pass = '';
-    $name = '';
   }
 
   $connect  = new mysqli($host, $user, $pass, $name);
