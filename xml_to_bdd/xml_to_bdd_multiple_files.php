@@ -21,6 +21,9 @@ Utiliser dans un navigateur sinon pas de variabls $_SERVER
 */
 
 
+  //on augmente le timeout pour gérer bcp d'insert
+  ini_set('max_execution_time', '500');
+
 //
 /* -------------------------------
 BDD
@@ -154,7 +157,7 @@ echo "<h2 class='subtitle'>Log import</h2>";
   //  "decp-2022.xml"
   //];
   $files = [
-      "decp-TEST.xml"
+  "decp-2019.xml"
   ];
 
 foreach ($files as $file)
