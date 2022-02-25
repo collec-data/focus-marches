@@ -150,15 +150,15 @@ $modifications_update = 0;
 echo "<h2 class='subtitle'>Log import</h2>";
 
 
-  //$files = [
-  //  "decp-2019.xml",
-  //  "decp-2020.xml",
-  //  "decp-2021.xml",
-  //  "decp-2022.xml"
-  //];
   $files = [
-  "decp-2019.xml"
+    "decp-2019.xml",
+    "decp-2020.xml",
+    "decp-2021.xml",
+    "decp-2022.xml"
   ];
+//  $files = [
+//  "decp-2019.xml"
+//  ];
 
 foreach ($files as $file)
 {
