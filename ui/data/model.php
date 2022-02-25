@@ -521,32 +521,18 @@ function getMontantCPVLieu ($connect, $categorie, $months=12)
       while ( $r = mysqli_fetch_assoc( $result ) )
       {
         $source[] = $s;
+        // TODO A variabiliser
         switch ($r['nom_lieu'])
         {
-          case "(21) Côte d'Or" : $t = 3; break;
-          case "(21) Côte-d'Or" : $t = 3; break;
-          case "Côte d'Or" : $t = 3; break;
-
-          case "(25) Doubs" : $t = 4; break;
-          case "Doubs" : $t = 4; break;
-
-          case "(70) Haute-Saône" : $t = 5; break;
-          case "Haute-Saône" : $t = 5; break;
-
-          case "(39) Jura" : $t = 6; break;
-          case "Jura" : $t = 6; break;
-
-          case "(58) Nièvre" : $t = 7; break;
-          case "Nièvre" : $t = 7; break;
-
-          case "(71) Saône-et-Loire" : $t = 8; break;
-          case "Saône-et-Loire" : $t = 8; break;
-
-          case "(90) Territoire de Belfort" : $t = 9; break;
-          case "Territoire de Belfort" : $t = 9; break;
-
-          case "(89) Yonne" : $t = 10; break;
-          case "Yonne" : $t = 10; break;
+            case "(35) Ille-et-Vilaine" : $t = 3; break;
+            case "(56) Morbihan" : $t = 4; break;
+            case "(22) Côtes-d'Armor" : $t = 5; break;
+            case "(29) Finistère" : $t = 6; break;
+            case "(44) Loire-Atlantique" : $t = 7; break;
+            case "(49) Maine-et-Loire" : $t = 8; break;
+            case "(02) Aisne" : $t = 9; break;
+            case "(75) Paris" : $t = 10; break;
+            case "(59) Nord" : $t = 11; break;
         }
         $target[] = $t;
         $values[] = $r['total'];

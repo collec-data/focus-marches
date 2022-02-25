@@ -743,7 +743,8 @@ var data =
   node:
   {
     pad: 20, thickness: 30, line: { color: "#fff", width: 1 },
-    label: ["Services", "Travaux", "Fournitures", "Côte-d'Or", "Doubs", "Haute-Saône", "Jura", "Nièvre", "Saône-et-Loire", "Territoire de Belfort", "Yonne"],
+    // TODO A variabiliser
+    label: ["Services", "Travaux", "Fournitures", "Ille-et-Vilaine", "Morbihan", "Côtes-d'Armor", "Finistère", "Loire-Atlantique", "Maine-et-Loire", "Aisne","Paris","Nord"],
     color: okabe_ito_sankey
   },
   link: {
