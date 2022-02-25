@@ -26,23 +26,21 @@ Utiliser dans un navigateur sinon pas de variabls $_SERVER
 BDD
 -------------------------------*/
 
-// serveur xampp sous windows
-if ($_SERVER['SERVER_NAME'] == 'localhost')
-{
-  $host = 'localhost';
-  $user = '';
-  $pass = '';
+  // paramètres par défaut (confif pour attaquer la bdd docker)
+  $host = 'database';
+  $user = 'user';
+  $pass = 'password';
   $name = 'marches_publics';
-}
 
-// serveur easyphp sous windows
-if ($_SERVER['SERVER_NAME'] == '127.0.0.1')
-{
-  $host = 'localhost';
-  $user = '';
-  $pass = '';
-  $name = 'marches_publics';
-}
+  // serveur easyphp sous windows
+  if ($_SERVER['SERVER_NAME'] == 'localhost' or $_SERVER['SERVER_NAME'] == '127.0.0.1' )
+  {
+      $host = 'localhost';
+      $user = 'root';
+      $pass = '';
+      $name = 'marches_publics';
+  }
+
 
 $connect  = new mysqli($host, $user, $pass, $name);
 $connect->query("SET NAMES 'utf8'");
@@ -149,37 +147,15 @@ $modifications_update = 0;
 echo "<h2 class='subtitle'>Log import</h2>";
 
 
-$files = [
-  "marches-19-01.xml",
-  "marches-19-02.xml",
-  "marches-19-03.xml",
-  "marches-19-04.xml",
-  "marches-19-05.xml",
-  "marches-19-06.xml",
-  "marches-19-07.xml",
-  "marches-19-08.xml",
-  "marches-19-09.xml",
-  "marches-19-10.xml",
-  "marches-19-11.xml",
-  "marches-19-12.xml",
-  "marches-20-01.xml",
-  "marches-20-02.xml",
-  "marches-20-03.xml",
-  "marches-20-04.xml",
-  "marches-20-05.xml",
-  "marches-20-06.xml",
-  "marches-20-07.xml",
-  "marches-20-08.xml",
-  "marches-20-09.xml",
-  "marches-20-10.xml",
-  "marches-20-11.xml",
-  "marches-20-12.xml",
-  "marches-21-01.xml",
-  "marches-21-02.xml",
-  "marches-21-03.xml",
-  "marches-21-04.xml",
-  "marches-21-05.xml",
-];
+  //$files = [
+  //  "decp-2019.xml",
+  //  "decp-2020.xml",
+  //  "decp-2021.xml",
+  //  "decp-2022.xml"
+  //];
+  $files = [
+      "decp-TEST.xml"
+  ];
 
 foreach ($files as $file)
 {

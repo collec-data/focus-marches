@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf8'?>
+<marches>
+
+  <marche>
+    <id>20402022S0000200</id>
+    <acheteur>
+      <id>26350579400028</id>
+      <nom>S.I.B </nom>
+    </acheteur>
+    <nature>Accord-cadre</nature>
+    <typeContrat>MARCHE_PUBLIC</typeContrat>
+    <objet>Accord-cadre multi-attributaires de prestations de services d'assistance technique dans le domaine de l’informatique.</objet>
+    <codeCPV>72611000</codeCPV>
+    <procedure>Appel d'offres ouvert</procedure>
+    <lieuExecution>
+      <code>35</code>
+      <typeCode>Code département</typeCode>
+      <nom>(35) Ille-et-Vilaine</nom>
+    </lieuExecution>
+    <dureeMois>24</dureeMois>
+    <dateNotification>2022-01-06</dateNotification>
+    <datePublicationDonnees>2022-01-06</datePublicationDonnees>
+    <montant>10000000</montant>
+    <formePrix />
+    <titulaires>
+      <titulaire>
+        <typeIdentifiant>SIRET</typeIdentifiant>
+        <id>83944332200046</id>
+        <denominationSociale>KANOMA</denominationSociale>
+      </titulaire>
+      <titulaire>
+        <typeIdentifiant>SIRET</typeIdentifiant>
+        <id>33833943500087</id>
+        <denominationSociale>IT LINK FRANCE</denominationSociale>
+      </titulaire>
+    </titulaires>
+    <uuid>D0E27FB7-0231-4055-9042-CB7FDAA99F1D</uuid>
+  </marche>
+
+</marches>
