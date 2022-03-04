@@ -29,5 +29,7 @@ COPY xml_to_bdd /app/xml_to_bdd
 COPY ui /app
 COPY api_siren_files /app/api_siren_files
 
+COPY APIs /app/import
+
 RUN a2enmod rewrite remoteip && \
     a2enconf z-app
