@@ -18,7 +18,7 @@ function getInfogreffe ($siren)
 {
   try
   {
-    $url = "https://opendata.datainfogreffe.fr/api/records/1.0/search/?dataset=chiffres-cles-2018&q=" . $siren . "&sort=ca_1";
+    $url = "https://opendata.datainfogreffe.fr/api/records/1.0/search/?dataset=chiffres-cles-2020&q=" . $siren . "&sort=ca_1";
 
     $ch = curl_init();
 

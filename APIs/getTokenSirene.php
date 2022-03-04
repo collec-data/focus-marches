@@ -10,8 +10,8 @@
 function getTokenSirene ()
 {
   $url_token = "https://api.insee.fr/token";
-  $consumer_key = "________________________";
-  $consumer_secret = "_________________________";
+  $consumer_key = "o6PlvyST6cA7dtsq8J2W1Ih9Iv8a";
+  $consumer_secret = "6kcyVdIePfJtB7z_SePlo2QZkaoa";
 
   $ch = curl_init();
 

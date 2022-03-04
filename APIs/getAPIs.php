@@ -9,6 +9,10 @@ include('getInfogreffe.php');
 /* -------------------------------
   Variables
   -------------------------------*/
+
+//on augmente le timeout pour gérer bcp d'insert
+ini_set('max_execution_time', '500');
+
 // Elements de connexion : retourne array( access_token, token_type)
 list($access_token, $token_type) = getTokenSirene();
 $interval = 2; // en secondes. Max 30 requêtes / minute.
@@ -35,10 +39,24 @@ function parse ($parent, $element)
 BDD - connexion
 -------------------------------*/
 
-$host = 'localhost';
-$user = '';
-$pass = '';
+// paramètres par défaut (confif pour attaquer la bdd docker)
+$host = 'database';
+$user = 'user';
+$pass = 'password';
 $name = 'marches_publics';
+
+// serveur easyphp sous windows
+if ($_SERVER['SERVER_NAME'] == 'localhost' or $_SERVER['SERVER_NAME'] == '127.0.0.1' )
+{
+  $host = 'localhost';
+  $user = 'root';
+  $pass = '';
+  $name = 'marches_publics';
+}
+
+
+
+
 $connect  = new mysqli($host, $user, $pass, $name);
 $connect->query("SET NAMES 'utf8'");
 
@@ -61,7 +79,7 @@ LIMIT   500";
 try
 {
   $result = $connect->query(  $sql );
-  echo "Nombre d'acheteurs à checker : " . mysqli_num_rows($result);
+  echo "<br>Nombre d'acheteurs à checker : " . mysqli_num_rows($result);
   getSirene($connect, $access_token, $token_type, $result, $interval);
 }
 catch (Exception $e)
@@ -84,7 +102,7 @@ LIMIT   500";
 try
 {
   $result = $connect->query(  $sql );
-  echo "Nombre d'acheteurs à checker : " . mysqli_num_rows($result);
+  echo "<br><br><br>Nombre de titulaires à checker : " . mysqli_num_rows($result);
   getSirene($connect, $access_token, $token_type, $result, $interval);
 }
 catch (Exception $e)
@@ -95,10 +113,11 @@ catch (Exception $e)
 function getSirene ($connect, $access_token, $token_type, $liste, $interval)
 {
   $i = 1;
+  echo "<br><br> DEBUT getSirene";
   while ($siret = mysqli_fetch_row ($liste))
   {
-    echo "\n\nGetSirene #$i (sleep $interval s...)";
-    sleep($interval);
+    echo "<br>GetSirene #$i (sleep $interval s...)";
+    //sleep($interval);
 
     /*
     Test de l'identifiant :
@@ -200,17 +219,21 @@ function getSirene ($connect, $access_token, $token_type, $liste, $interval)
 
 
   //// Données infogreffe
-
-  $infogreffe = getInfogreffe(substr($siret[0], 0, 9));
-  try
-  {
-    $ig = $infogreffe->records[0]->fields;
-  }
-  catch (Exception $e)
-  {
     $ig = "";
+  $infogreffe = getInfogreffe(substr($siret[0], 0, 9));
+
+  if (!empty( $infogreffe->records)) {
+    try
+    {
+      $ig = $infogreffe->records[0]->fields;
+    }
+    catch (Exception $e)
+    {
+      echo "<br>Infogreffe : ko";
+      $ig = "";
+    }
   }
- 
+
   $sql = "INSERT INTO `sirene` (
     `id_sirene`, `statut`, `date`, `siren`,
     `nic`, `siret`, `dateCreationEtablissement`, `trancheEffectifsEtablissement`,
@@ -304,10 +327,10 @@ function getSirene ($connect, $access_token, $token_type, $liste, $interval)
 
 mysqli_close($connect);
 
-echo "\n\n Identifiants invalides : \n";
-print_r($identifiants_invalides);
+//echo "<br><br> Identifiants invalides : <br>";
+//print_r($identifiants_invalides);
 
-echo "\n\n\n-------\nFIN";
+echo "<br><br><br>-------<br>FIN";
   /*
   CREATE TABLE `sirene` (
   `id_sirene` int(10) UNSIGNED NOT NULL,
