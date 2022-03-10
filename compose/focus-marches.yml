@@ -1,4 +1,8 @@
 version: "3.7"
+networks:
+  default:
+    external: true
+    name: app_network
 
 services:
   focus-marches:

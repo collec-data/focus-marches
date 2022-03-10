@@ -15,3 +15,8 @@ services:
       - focus-db:/var/lib/mysql
 volumes:
   focus-db:
+
+networks:
+  default:
+    external: true
+    name: app_network
