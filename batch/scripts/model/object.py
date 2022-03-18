@@ -1,4 +1,4 @@
-from scripts.settings import settings
+from settings import settings
 from sqlalchemy import Column, String, DateTime, BigInteger, Integer, create_engine, Text
 from sqlalchemy.dialects import mysql
 from sqlalchemy.orm import declarative_base, scoped_session, sessionmaker
