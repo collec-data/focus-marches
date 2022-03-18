@@ -14,6 +14,6 @@ COPY scripts scripts
 
 # set the working directory in the container
 WORKDIR /appli/scripts
-EXPOSE 80
+
 CMD ["python", "import_decp.py"]
 
