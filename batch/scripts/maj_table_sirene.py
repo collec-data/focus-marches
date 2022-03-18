@@ -1,5 +1,5 @@
 from model.object import InfoEtablissement, InfoEtablissementPrincipal, engine
-from settings import URL_API_SIREN_PERSO,enable_http_proxy, proxyDict
+from scripts.settings.settings import URL_API_SIREN_PERSO,enable_http_proxy, proxyDict
 import datetime,logging,requests,sqlalchemy
 from sqlalchemy import text
 

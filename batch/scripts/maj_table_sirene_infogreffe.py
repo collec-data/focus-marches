@@ -3,7 +3,7 @@ import requests
 from time import sleep
 from sqlalchemy import text
 from model.object import Sirene, InfoGreffe, db_session, engine
-from settings import URL_INFO_GREFFE, TEMPO_CALL_INFO_GREFFE,enable_http_proxy, proxyDict
+from scripts.settings.settings import URL_INFO_GREFFE, TEMPO_CALL_INFO_GREFFE,enable_http_proxy, proxyDict
 
 request_infogreffe =text("""select siren FROM sirene where fiche_identite is null""")
 
