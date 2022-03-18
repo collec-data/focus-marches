@@ -9,7 +9,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY settings.py .
-COPY scripts .
+COPY scripts scripts
 
 EXPOSE 80
 CMD ["python", "/appli/app/maj_table_sirene.py"]
