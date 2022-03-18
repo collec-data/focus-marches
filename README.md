@@ -35,68 +35,31 @@ Si votre machine comprend déjà une base installée sur `/var/lib/postgresql`, 
 MARIA_DATA=/path/to/other/data_folder
 ```
 
-Lancez les imports à l'aide des commandes rake (Cf plus bas, partie Mises à jour / Administration) précédées par `docker-compose run sirene`. Par exemple :
-
-    docker-compose run sirene rake sirene_as_api:populate_database
+C'est prêt ! vous pouvez accéder au service sur http://HOSTNAME:80
 
 
+### Mises à jour / Administration
 
 
+#### Importer les données
+#### A partir de fichier au format XML
 
+Déposer les fichiers XML dans le dossier $DECP_IN
 
+Lancez les imports à l'aide de la commande:
+```bash
+docker run --network focus-marche_default registry.csm.ovh:443/csm/focus-marches-batch/master:latest python import_decp.py
+```
 
+#### A partir de l'API ATEXO
+    todo
 
+#### A partir d'une URL (exemple url datagouv)
+    todo
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-Il faut maintenant préparer la base de données postgres :
-
-    sudo -u postgres -i
-    cd /path/vers/dossier/sirene_as_api
-    psql -f postgresql_setup.txt
-
-Assurez vous que tout s'est bien passé :
-
-    bundle exec rails db:create
-
-Puis éxécutez les migrations :
-
-    bundle exec rails db:migrate
-
-Si vous souhaitez utiliser les tests :
-
-    RAILS_ENV=test bundle exec rails db:migrate
-
-Vous pouvez maintenant lancer Solr :
-
-    RAILS_ENV=production bundle exec rake sunspot:solr:start
-
-Peuplez la base de données : Cette commande importe le dernier fichier stock mensuel
-ainsi que les mises à jour quotidiennes. Attention, cette commande s'éxécute sur
-une base vide.
-
-    bundle exec rake sirene_as_api:populate_database
-
-Si la commande précédente échoue en cours de route ou si la base n'est pas vide,
-éxecutez plutôt :
-
-    bundle exec rake sirene_as_api:update_database
-
-C'est prêt ! vous pouvez lancer le serveur :
-
-    bundle exec rails server
-
-## Mises à jour / Administration
-
-Les données ayant changé de format en 2019, nous assurons une continuité de service en convertissant les fichiers du nouveau format vers l'ancien. Il est donc pour le moment toujours possible d'utiliser les endpoints V1 et V2, bien qu'ils soient dépréciés.
+#### Mise à jour des données entreprise (API SIREN)
+    todo
+#### Mise à jour des données infogreffe (API infogreffe)
+    todo
+#### Mise à jour des données INSEE (information population)
+    todo
