@@ -44,6 +44,9 @@ export DECP_IN=/path/to/DECP_IN
 ```
 puis lancez-les imports des fichiers avec
 ```bash
+docker run -d --network focus-marche_default docker.csm.ovh/csm/focus-marches-batch/master:latest batch
+
+
 docker run --network focus-marche_default registry.csm.ovh:443/csm/focus-marches-batch/master:latest python import_decp.py
 ```
 
