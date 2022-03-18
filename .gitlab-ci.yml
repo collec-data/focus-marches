@@ -1,7 +1,7 @@
 stages:
   - 👨‍🚀 prepare
   - 🔨 build
-#  - 🚀 deploy
+  - 🚀 deploy
 
 👨‍🚀 prepare-stack:
   stage: 👨‍🚀 prepare
@@ -43,27 +43,27 @@ stages:
     DOCKER_FILE: "Dockerfile"
     IMAGE_NAME: "csm/focus-marches"
 
-🚀 deployBDD:
-  stage:
-    🚀 deploy
-  only:
-    - master
-  variables:
-    COMPOSE_FILE: "~/app/compose/database.yml"
-    STACK: focus
-  script:
-    - ssh $USER@$SERVER "docker network create -d overlay --attachable app_network || true"
-    - ssh $USER@$SERVER "docker stack deploy -c ${COMPOSE_FILE:?} ${STACK:?}"
-
-🚀 deployFocus:
-  stage:
-    🚀 deploy
-  needs: [ 🔨 buildFocus ]
-  only:
-    - master
-  variables:
-    COMPOSE_FILE: "~/app/compose/focus-marches.yml"
-    STACK: focus
-  script:
-    - ssh $USER@$SERVER "docker network create -d overlay --attachable app_network || true"
-    - ssh $USER@$SERVER "REGISTRY=${REGISTRY} BRANCH=${CI_COMMIT_BRANCH} CI_COMMIT=${CI_COMMIT_SHORT_SHA} docker stack deploy --with-registry-auth -c ${COMPOSE_FILE:?} ${STACK:?}"
+#🚀 deployBDD:
+#  stage:
+#    🚀 deploy
+#  only:
+#    - master
+#  variables:
+#    COMPOSE_FILE: "~/app/compose/database.yml"
+#    STACK: focus
+#  script:
+#    - ssh $USER@$SERVER "docker network create -d overlay --attachable app_network || true"
+#    - ssh $USER@$SERVER "docker stack deploy -c ${COMPOSE_FILE:?} ${STACK:?}"
+#
+#🚀 deployFocus:
+#  stage:
+#    🚀 deploy
+#  needs: [ 🔨 buildFocus ]
+#  only:
+#    - master
+#  variables:
+#    COMPOSE_FILE: "~/app/compose/focus-marches.yml"
+#    STACK: focus
+#  script:
+#    - ssh $USER@$SERVER "docker network create -d overlay --attachable app_network || true"
+#    - ssh $USER@$SERVER "REGISTRY=${REGISTRY} BRANCH=${CI_COMMIT_BRANCH} CI_COMMIT=${CI_COMMIT_SHORT_SHA} docker stack deploy --with-registry-auth -c ${COMPOSE_FILE:?} ${STACK:?}"
