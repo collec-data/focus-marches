@@ -20,6 +20,7 @@ logging.basicConfig(
      datefmt='%H:%M:%S'
  )
 
+enable_http_proxy=False
 proxyDict = {
               "http"  : "http://xxx:xxxx",
               "https" : "http://xxx:xxxx"

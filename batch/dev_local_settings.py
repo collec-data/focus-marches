@@ -19,7 +19,7 @@ logging.basicConfig(
      format= '[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s',
      datefmt='%H:%M:%S'
  )
-
+enable_http_proxy=False
 proxyDict = {
               "http"  : "http://pro01.sib.fr:3128",
               "https" : "http://pro01.sib.fr:3128"

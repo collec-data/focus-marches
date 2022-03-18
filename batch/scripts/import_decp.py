@@ -1,7 +1,7 @@
 import logging
 from functools import lru_cache
 import xmltodict
-from scripts.model.object import Lieu, db_session, Titulaire, Acheteur, Marche_titulaires, Marche
+from model.object import Lieu, db_session, Titulaire, Acheteur, Marche_titulaires, Marche
 
 
 @lru_cache(maxsize=10)
