@@ -5,8 +5,8 @@ Il est accessible via plusieurs URLs :
 - http://141.95.150.34/
 
 Le projet se découpe en 2 sous-projets :
-- Une interface web
-- Des scripts d'import
+- Une interface web (dossier ui)
+- Des scripts d'import (dossier batch)
 
 ## Installation et configuration
 
