@@ -12,6 +12,8 @@ RUN pip install -r requirements.txt
 COPY IN IN
 COPY scripts scripts
 
+# set the working directory in the container
+WORKDIR /appli/scripts
 EXPOSE 80
-CMD ["python", "python scripts/import_decp.py"]
+CMD ["python", "import_decp.py"]
 
