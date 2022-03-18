@@ -25,9 +25,8 @@ COPY conf/php.ini /usr/local/etc/php/conf.d/app.ini
 COPY errors /errors
 COPY conf/vhost.conf /etc/apache2/sites-available/000-default.conf
 COPY conf/apache.conf /etc/apache2/conf-available/z-app.conf
-COPY xml_to_bdd /app/xml_to_bdd
 COPY ui /app
-COPY api_siren_files /app/api_siren_files
+
 
 COPY APIs /app/import
 
