@@ -8,7 +8,8 @@ WORKDIR /appli
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY app .
+COPY settings.py .
+COPY scripts .
 
 EXPOSE 80
 CMD ["python", "/appli/app/maj_table_sirene.py"]
