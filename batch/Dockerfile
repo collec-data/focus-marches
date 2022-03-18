@@ -5,10 +5,11 @@ RUN apt-get update
 
 # set the working directory in the container
 WORKDIR /appli
-RUN mkdir /appli/IN
+
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
+COPY IN IN
 COPY scripts scripts
 
 EXPOSE 80
