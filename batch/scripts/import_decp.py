@@ -8,7 +8,7 @@ from model.object import Lieu, db_session, Titulaire, Acheteur, Marche_titulaire
 def getLieu(param):
     return Lieu.query.filter(Lieu.code == param).one_or_none()
 
-files = ['IN/decp-2022.xml', 'IN/decp-2021.xml','IN/decp-2020.xml','IN/decp-2019.xml']
+files = ['../IN/decp-2022.xml', '../IN/decp-2021.xml','../IN/decp-2020.xml','../IN/decp-2019.xml']
 
 dict_marche = []
 dict_titu = []

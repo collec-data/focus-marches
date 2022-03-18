@@ -14,7 +14,7 @@ URL_API_SIREN_PERSO='http://152.228.212.208:3000/v3'
 
 #LOG
 logging.basicConfig(
-     filename='batch-focus.log',
+     filename='../batch-focus.log',
      level=logging.INFO,
      format= '[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s',
      datefmt='%H:%M:%S'

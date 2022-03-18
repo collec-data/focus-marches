@@ -5,6 +5,7 @@ RUN apt-get update
 
 # set the working directory in the container
 WORKDIR /appli
+mkdir IN
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
