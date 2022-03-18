@@ -8,6 +8,7 @@ WORKDIR /appli
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
+COPY __init__.py .
 COPY settings.py .
 COPY scripts scripts
 
