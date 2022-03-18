@@ -5,12 +5,12 @@ RUN apt-get update
 
 # set the working directory in the container
 WORKDIR /appli
-mkdir IN
+RUN mkdir /appli/IN
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY scripts scripts
 
 EXPOSE 80
-CMD ["python", "/appli/app/maj_table_sirene.py"]
+CMD ["python", "python scripts/import_decp.py"]
 
