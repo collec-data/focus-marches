@@ -11636,15 +11636,6 @@ INSERT INTO `naf` (`id_naf`, `code_naf`, `libelle_naf`) VALUES
 
 -- --------------------------------------------------------
 
---
--- Structure de la table `nafa`
---
-
-CREATE TABLE `nafa` (
-  `id_nafa` int(10) UNSIGNED NOT NULL,
-  `code_nafa` varchar(10) NOT NULL,
-  `libelle_nafa` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `nafa`
@@ -11980,15 +11971,6 @@ INSERT INTO `nafa` (`id_nafa`, `code_nafa`, `libelle_nafa`) VALUES
 (338, '9602AA', 'COIFFURE EN SALON');
 
 -- --------------------------------------------------------
-
---
--- Structure de la table `nature`
---
-
-CREATE TABLE `nature` (
-  `id_nature` int(10) UNSIGNED NOT NULL,
-  `nom_nature` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `nature`
