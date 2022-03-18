@@ -12,8 +12,11 @@ services:
     expose:
       - '3306'
     volumes:
-      - focus-db:/var/lib/mysql
-      -
+      - focus-db-test:/var/lib/mysql
+      - ${HOST_APP_FOLDER}/sql/schema.sql:/docker-entrypoint-initdb.d/1.sql
+      - ${HOST_APP_FOLDER}/sql/data.sql:/docker-entrypoint-initdb.d/2.sql
+      - ${HOST_APP_FOLDER}/sql/index.sql:/docker-entrypoint-initdb.d/3.sql
+
   focus-marches:
     build: ${HOST_APP_FOLDER}
     image: ${FOCUS_MARCHE_IMAGE_NAME}
