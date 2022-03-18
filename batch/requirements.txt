@@ -1,0 +1,5 @@
+sqlalchemy==1.4.32
+pymysql==1.0.2
+requests===2.27.1
+lxml===4.8.0
+xmltodict===0.12.0

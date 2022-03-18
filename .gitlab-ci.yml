@@ -43,6 +43,14 @@ stages:
     DOCKER_FILE: "Dockerfile"
     IMAGE_NAME: "csm/focus-marches"
 
+🔨 buildBatchFocus:
+  extends: .docker-build
+  variables:
+    BUILD_CONTEXT: "batch"
+    DOCKER_FILE: "Dockerfile"
+    IMAGE_NAME: "csm/focus-marches-batch"
+
+
 #🚀 deployBDD:
 #  stage:
 #    🚀 deploy
