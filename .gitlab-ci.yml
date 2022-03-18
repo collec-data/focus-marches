@@ -1,7 +1,7 @@
 stages:
   - 👨‍🚀 prepare
   - 🔨 build
-  - 🚀 deploy
+#  - 🚀 deploy
 
 👨‍🚀 prepare-stack:
   stage: 👨‍🚀 prepare
