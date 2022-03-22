@@ -26,4 +26,10 @@ proxyDict = {
               "https" : "http://xxx:xxxx"
             }
 
+WORKDIR='/workdir'
 
+DIRECTORY_DECP_IN='/decp'
+IMPORT_FROM_DIRECTORY=1
+IMPORT_FROM_API=0
+API_URL='https://marches.megalis.bretagne.bzh/app.php/api/v1/donnees-essentielles/contrat/format-pivot'
+API_TOKEN='*******************************************************************************************'
