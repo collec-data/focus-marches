@@ -19,7 +19,7 @@ class Sirene(Model):
     siren = Column('siren', String(9), nullable=True)
     siren = Column('siren', String(9), nullable=True)
     nic = Column('nic', String(9), nullable=True)
-    siret = Column('siret', String(9), nullable=True)
+    siret = Column('siret', String(14), nullable=True)
     dateCreationEtablissement = Column('dateCreationEtablissement', DateTime, nullable=True)
     trancheEffectifsEtablissement = Column(String(10), nullable=True)
     anneeEffectifsEtablissement = Column(String(10), nullable=True)
