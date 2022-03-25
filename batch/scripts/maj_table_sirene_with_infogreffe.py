@@ -84,7 +84,9 @@ def load_infogreffe():
                               'CA 1': 'str','CA 2': 'str', 'CA 3': 'float64', 'Millesime 1': 'str', 'Millesime 2': 'str',
                               'Millesime 3': 'str'})
 
-# chargement du fichier info greffe
-df = load_infogreffe()
-with engine.connect() as con:
-    complete_with_infogreffe(con, request_infogreffe, df)
+
+def maj_info_greffe():
+    # chargement du fichier info greffe
+    df = load_infogreffe()
+    with engine.connect() as con:
+        complete_with_infogreffe(con, request_infogreffe, df)

@@ -6,11 +6,12 @@ from datetime import time
 from functools import lru_cache
 from xml.dom import minidom
 from xml.etree.ElementTree import ElementTree
-
+from os import listdir
+from os.path import isfile, join
 import requests
 import xmltodict
 from model.object import Lieu, db_session, Titulaire, Acheteur, Marche_titulaires, Marche
-from settings.settings import WORKDIR, API_TOKEN
+from settings.settings import WORKDIR, API_TOKEN, IMPORT_FROM_DIRECTORY, IMPORT_FROM_API, DIRECTORY_DECP_IN
 
 
 @lru_cache(maxsize=10)
@@ -102,7 +103,6 @@ def recuperer_all_decp_from_api():
         print("END " + str(annee_a_generer))
 
     print("END recuperer_all_decp_from_api")
-
 def import_one_file(file,dict_titu,dict_acheteur):
     logging.info('DEBUT fichier :' + file)
     print('DEBUT fichier :' + file)
@@ -318,4 +318,20 @@ def import_one_file(file,dict_titu,dict_acheteur):
     db_session.bulk_insert_mappings(Marche_titulaires, marche_titulaire_mappings)
     db_session.bulk_insert_mappings(Marche, marche_mappings)
     db_session.commit()
+
+def importer_decp():
+    dict_titu = []
+    dict_acheteur = []
+
+    if IMPORT_FROM_DIRECTORY == 1:
+        files = [f for f in listdir(DIRECTORY_DECP_IN) if isfile(join(DIRECTORY_DECP_IN, f))]
+        for file in files:
+            import_one_file(file, dict_titu, dict_acheteur)
+
+    if IMPORT_FROM_API == 1:
+        recuperer_all_decp_from_api()
+        files = [f for f in listdir(WORKDIR) if isfile(join(WORKDIR, f))]
+        for file in files:
+            import_one_file(file, dict_titu, dict_acheteur)
+
 
