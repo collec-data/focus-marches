@@ -1,8 +1,7 @@
-import calendar
+import calendar,time
 import errno
 import logging
 import os
-from datetime import time
 from functools import lru_cache
 from xml.dom import minidom
 from xml.etree.ElementTree import ElementTree
