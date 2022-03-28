@@ -1,4 +1,4 @@
-import calendar,time
+import calendar, time
 import errno
 import logging
 import os
@@ -27,16 +27,18 @@ def get_or_create_workdir():
             raise
         pass
     return WORKDIR
+
+
 def clear_wordir():
     DIR = get_or_create_workdir()
-    filelist = [ f for f in os.listdir(DIR) ]
+    filelist = [f for f in os.listdir(DIR)]
     for f in filelist:
         os.remove(os.path.join(DIR, f))
 
 
 def recuperer_decp_in_workdir(annee):
     ANNEE = str(annee)
-    print("DEBUT recuperer_decp_in_workdir pour "+ ANNEE)
+    print("DEBUT recuperer_decp_in_workdir pour " + ANNEE)
     clear_wordir()
     url_jeton_sdm = API_TOKEN
     try:
@@ -52,22 +54,22 @@ def recuperer_decp_in_workdir(annee):
         MOIS_EN_COURS = time.strftime('%m', t)
 
         xml_data = None
-        month=1
+        month = 1
 
-        #Récupération par mois pour éviter des timeouts
+        # Récupération par mois pour éviter des timeouts
         while month <= 12:
             monthStr = "{:02d}".format(month)
-            maxDay=calendar.monthrange(int(annee), month)[1]
+            maxDay = calendar.monthrange(int(annee), month)[1]
 
-            if int(annee) == int (ANNEE_EN_COURS):
+            if int(annee) == int(ANNEE_EN_COURS):
                 if (month > int(MOIS_EN_COURS)):
                     break
 
             reponse_export_pivot = requests.post(url_format_pivot, json={
                 'token': jeton,
                 'format': 'xml',
-                'date_notif_min': '01-'+monthStr+'-' + str(ANNEE),
-                'date_notif_max': str(maxDay)+'-'+monthStr+'-' + str(ANNEE)
+                'date_notif_min': '01-' + monthStr + '-' + str(ANNEE),
+                'date_notif_max': str(maxDay) + '-' + monthStr + '-' + str(ANNEE)
             })
 
             data = ElementTree.fromstring(reponse_export_pivot.text)
@@ -75,11 +77,11 @@ def recuperer_decp_in_workdir(annee):
                 xml_data = data
             else:
                 xml_data.extend(data)
-            month=month+1
+            month = month + 1
 
         # Ecriture du fichier dans dossier workdir
-        print("ecrire le fichier dans "+ get_or_create_workdir() + 'decp-' + str(ANNEE) + ' .xml')
-        f = open(get_or_create_workdir() + 'decp-' + str(ANNEE) + ' .xml', 'w',encoding='utf8')
+        print("ecrire le fichier dans " + get_or_create_workdir() + 'decp-' + str(ANNEE) + ' .xml')
+        f = open(get_or_create_workdir() + 'decp-' + str(ANNEE) + ' .xml', 'w', encoding='utf8')
         if xml_data is not None:
             xmlstr = ElementTree.tostring(xml_data, encoding='utf8', method='xml')
             f.write(xmlstr.decode("utf8"))
@@ -88,9 +90,10 @@ def recuperer_decp_in_workdir(annee):
     except Exception as e:
         print("Erreur lors de la récupération du jeton SDM", e)
 
-    print("END recuperer_decp_in_workdir pour "+ ANNEE)
-def recuperer_all_decp_from_api():
+    print("END recuperer_decp_in_workdir pour " + ANNEE)
 
+
+def recuperer_all_decp_from_api():
     annee_debut = 2019
     # generation annee
     t = time.localtime()
@@ -102,7 +105,9 @@ def recuperer_all_decp_from_api():
         print("END " + str(annee_a_generer))
         annee_a_generer += 1
     print("END recuperer_all_decp_from_api")
-def import_one_file(file,dict_titu,dict_acheteur):
+
+
+def import_one_file(file, dict_titu, dict_acheteur):
     logging.info('DEBUT fichier :' + file)
     print('DEBUT fichier :' + file)
     marche_mappings = []
@@ -318,6 +323,7 @@ def import_one_file(file,dict_titu,dict_acheteur):
     db_session.bulk_insert_mappings(Marche, marche_mappings)
     db_session.commit()
 
+
 def importer_decp():
     dict_titu = []
     dict_acheteur = []
@@ -332,5 +338,3 @@ def importer_decp():
         files = [f for f in listdir(WORKDIR) if isfile(join(WORKDIR, f))]
         for file in files:
             import_one_file(file, dict_titu, dict_acheteur)
-
-
