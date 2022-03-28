@@ -78,6 +78,7 @@ def recuperer_decp_in_workdir(annee):
             month=month+1
 
         # Ecriture du fichier dans dossier workdir
+        print("ecrire le fichier dans "+ get_or_create_workdir() + 'decp-' + str(ANNEE) + ' .xml')
         f = open(get_or_create_workdir() + 'decp-' + str(ANNEE) + ' .xml', 'w',encoding='utf8')
         if xml_data is not None:
             xmlstr = ElementTree.tostring(xml_data, encoding='utf8', method='xml')
@@ -98,9 +99,8 @@ def recuperer_all_decp_from_api():
 
     while annee_courante >= annee_a_generer:
         recuperer_decp_in_workdir(str(annee_a_generer))
-        annee_a_generer += 1
         print("END " + str(annee_a_generer))
-
+        annee_a_generer += 1
     print("END recuperer_all_decp_from_api")
 def import_one_file(file,dict_titu,dict_acheteur):
     logging.info('DEBUT fichier :' + file)
