@@ -338,4 +338,5 @@ def importer_decp():
         recuperer_all_decp_from_api()
         files = [f for f in listdir(WORKDIR) if isfile(join(WORKDIR, f))]
         for file in files:
-            import_one_file(WORKDIR+"/"+file, dict_titu, dict_acheteur)
+            if "decp-" in file:
+                import_one_file(WORKDIR+"/"+file, dict_titu, dict_acheteur)
