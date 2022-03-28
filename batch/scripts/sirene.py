@@ -160,6 +160,7 @@ def complete_with_infogreffe(con, request, df):
         if cpt_update >499:
             db_session.commit()
             cpt_update = 0
+            print('maj:+'+str(nb_maj) +' / notFound:'+str(nb_not_found))
         try:
             info = df.query("(siren=='"+siren+"') and (nic=='"+nic+"')")
             sirene_record = Sirene.query.filter(Sirene.siret == siren + nic).one()
@@ -200,9 +201,6 @@ def complete_with_infogreffe(con, request, df):
                 sirene_record.fiche_identite = "https://www.infogreffe.fr/recherche-siret-entreprise/chercher-siret-entreprise.html"
                 db_session.add(sirene_record)
                 nb_not_found=nb_not_found+1
-
-            print('maj:+'+str(nb_maj) +' / notFound:'+str(nb_not_found))
-
 
         except Exception as e:
             logging.exception(e)

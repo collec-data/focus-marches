@@ -95,6 +95,7 @@ def recuperer_decp_in_workdir(annee):
 
 
 def recuperer_all_decp_from_api():
+    print("DEBUT recuperer_all_decp_from_api")
     annee_debut = START_YEAR
     # generation annee
     t = time.localtime()
@@ -103,14 +104,13 @@ def recuperer_all_decp_from_api():
 
     while annee_courante >= annee_a_generer:
         recuperer_decp_in_workdir(str(annee_a_generer))
-        print("END " + str(annee_a_generer))
+        # print("END " + str(annee_a_generer))
         annee_a_generer += 1
     print("END recuperer_all_decp_from_api")
 
 
 def import_one_file(file, dict_titu, dict_acheteur):
-    logging.info('DEBUT fichier :' + file)
-    print('DEBUT fichier :' + file)
+    print('DEBUT import decp :' + file)
     marche_mappings = []
     marche_titulaire_mappings = []
     titu_mappings = []
@@ -127,8 +127,8 @@ def import_one_file(file, dict_titu, dict_acheteur):
         doc = xmltodict.parse(fd.read())
         for marcheXml in doc['marches']['marche']:
             if cpt > 1000:
-                logging.info("INSERT bulk")
-                print("INSERT bulk")
+                # logging.info("INSERT bulk")
+                # print("INSERT bulk")
                 db_session.bulk_insert_mappings(Titulaire, titu_mappings)
                 db_session.bulk_insert_mappings(Acheteur, acheteur_mappings)
                 db_session.bulk_insert_mappings(Marche_titulaires, marche_titulaire_mappings)
@@ -316,13 +316,14 @@ def import_one_file(file, dict_titu, dict_acheteur):
 
             marche_mappings.append(marche.serialize)
             cpt = cpt + 1
-    logging.info("INSERT bulk")
-    print('LAST INSERT bulk for ' + file)
+    # logging.info("INSERT bulk")
+    # print('LAST INSERT bulk for ' + file)
     db_session.bulk_insert_mappings(Titulaire, titu_mappings)
     db_session.bulk_insert_mappings(Acheteur, acheteur_mappings)
     db_session.bulk_insert_mappings(Marche_titulaires, marche_titulaire_mappings)
     db_session.bulk_insert_mappings(Marche, marche_mappings)
     db_session.commit()
+    print('FIN import decp :' + file)
 
 
 def importer_decp():
