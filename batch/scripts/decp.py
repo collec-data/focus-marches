@@ -252,7 +252,7 @@ def import_one_file(file, dict_titu, dict_acheteur):
                     titulaire = Titulaire()
                     titulaire.id_titulaire = str(titulaireXml['id'])[0:14]
                     titulaire.type_identifiant = titulaireXml['typeIdentifiant']
-                    titulaire.denomination_sociale = titulaireXml['denominationSociale']
+                    titulaire.denomination_sociale = titulaireXml['denominationSociale'][0:249]
                     dict_titu.append(str(titulaireXml['id'])[0:14])
                     titu_mappings.append(titulaire.serialize)
 
@@ -321,8 +321,11 @@ def import_one_file(file, dict_titu, dict_acheteur):
     # logging.info("INSERT bulk")
     # print('LAST INSERT bulk for ' + file)
     db_session.bulk_insert_mappings(Titulaire, titu_mappings)
+    db_session.commit()
     db_session.bulk_insert_mappings(Acheteur, acheteur_mappings)
+    db_session.commit()
     db_session.bulk_insert_mappings(Marche_titulaires, marche_titulaire_mappings)
+    db_session.commit()
     db_session.bulk_insert_mappings(Marche, marche_mappings)
     db_session.commit()
     print('FIN import decp :' + file)
