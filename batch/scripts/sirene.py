@@ -7,7 +7,7 @@ import pandas as pd
 
 request_acheteur = text("""select id_acheteur FROM acheteur WHERE id_acheteur NOT IN  (SELECT id_sirene FROM sirene)""")
 request_titulaire = text("""select id_titulaire FROM titulaire WHERE id_titulaire NOT IN  (SELECT id_sirene FROM sirene)""")
-request_infogreffe =text("""select siren FROM sirene where fiche_identite is null""")
+request_infogreffe = text("""select siren,nic FROM sirene where fiche_identite is null""")
 
 
 sql_insert_sirene = """INSERT INTO `sirene` (`id_sirene`, `statut`, `date`, `siren`,`nic`, `siret`, `dateCreationEtablissement`, `trancheEffectifsEtablissement`,
@@ -160,36 +160,36 @@ def complete_with_infogreffe(con, request, df):
             db_session.commit()
             cpt_update = 0
         try:
-            info = df.query("(Siren=='"+siren+"') and (Nic=='"+nic+"')")
+            info = df.query("(siren=='"+siren+"') and (nic=='"+nic+"')")
             sirene_record = Sirene.query.filter(Sirene.siret == siren + nic).one()
             if not info.empty:
-                if str(info['Millesime 1'].values[0]) != 'nan':
-                    sirene_record.millesime_1 = info['Millesime 1'].values[0]
-                if str(info['Millesime 2'].values[0]) != 'nan':
-                    sirene_record.millesime_2 = info['Millesime 2'].values[0]
-                if str(info['Millesime 3'].values[0]) != 'nan':
-                    sirene_record.millesime_3 = info['Millesime 3'].values[0]
+                if str(info['millesime_1'].values[0]) != 'nan':
+                    sirene_record.millesime_1 = info['millesime_1'].values[0]
+                if str(info['millesime_2'].values[0]) != 'nan':
+                    sirene_record.millesime_2 = info['millesime_2'].values[0]
+                if str(info['millesime_3'].values[0]) != 'nan':
+                    sirene_record.millesime_3 = info['millesime_3'].values[0]
 
-                if str(info['CA 1'].values[0]) != 'nan':
-                    sirene_record.ca_1 = info['CA 1'].values[0]
-                if str(info['CA 2'].values[0]) != 'nan':
-                    sirene_record.ca_2 = info['CA 2'].values[0]
-                if str(info['CA 3'].values[0]) != 'nan':
-                    sirene_record.ca_3 = info['CA 3'].values[0]
+                if str(info['ca_1'].values[0]) != 'nan':
+                    sirene_record.ca_1 = info['ca_1'].values[0]
+                if str(info['ca_2'].values[0]) != 'nan':
+                    sirene_record.ca_2 = info['ca_2'].values[0]
+                if str(info['ca_3'].values[0]) != 'nan':
+                    sirene_record.ca_3 = info['ca_3'].values[0]
 
-                if str(info['Résultat 1'].values[0]) != 'nan':
-                    sirene_record.resultat_1 = info['Résultat 1'].values[0]
-                if str(info['Résultat 2'].values[0]) != 'nan':
-                    sirene_record.resultat_2 = info['Résultat 2'].values[0]
-                if str(info['Résultat 3'].values[0]) != 'nan':
-                    sirene_record.resultat_3 = info['Résultat 3'].values[0]
+                if str(info['resultat_1'].values[0]) != 'nan':
+                    sirene_record.resultat_1 = info['resultat_1'].values[0]
+                if str(info['resultat_2'].values[0]) != 'nan':
+                    sirene_record.resultat_2 = info['resultat_2'].values[0]
+                if str(info['resultat_3'].values[0]) != 'nan':
+                    sirene_record.resultat_3 = info['resultat_3'].values[0]
 
-                if str(info['Effectif 1'].values[0]) != 'nan':
-                    sirene_record.effectif_1 = info['Effectif 1'].values[0]
-                if str(info['Effectif 2'].values[0]) != 'nan':
-                    sirene_record.effectif_2 = info['Effectif 2'].values[0]
-                if str(info['Effectif 3'].values[0]) != 'nan':
-                    sirene_record.effectif_3 = info['Effectif 3'].values[0]
+                if str(info['effectif_1'].values[0]) != 'nan':
+                    sirene_record.effectif_1 = info['effectif_1'].values[0]
+                if str(info['effectif_2'].values[0]) != 'nan':
+                    sirene_record.effectif_2 = info['effectif_2'].values[0]
+                if str(info['effectif_3'].values[0]) != 'nan':
+                    sirene_record.effectif_3 = info['effectif_3'].values[0]
 
                 if str(info['fiche_identite'].values[0]) != 'nan':
                     sirene_record.fiche_identite = info['fiche_identite'].values[0]
@@ -215,14 +215,14 @@ def load_infogreffe():
     print('Debut du telechargement du fichier ...' + URL_FICHIER_INFOS_GREFFE)
     urllib.request.urlretrieve(URL_FICHIER_INFOS_GREFFE, WORKDIR + '/chiffres-cles-2020.csv')
     print('fin du telechargement du fichier ...' + URL_FICHIER_INFOS_GREFFE)
-    return pd.read_csv(WORKDIR + '/chiffres-cles-2020.csv', sep=';', index_col='Siren',
-                       usecols=['Siren', 'Nic', 'Millesime 1', 'Millesime 2', 'Millesime 3', 'CA 1', 'CA 2', 'CA 3',
-                                'Résultat 1', 'Résultat 2', 'Résultat 3', 'Effectif 1', 'Effectif 2', 'Effectif 3',
+    return pd.read_csv(WORKDIR + '/chiffres-cles-2020.csv', sep=';', index_col='siren',
+                       usecols=['siren', 'nic', 'millesime_1', 'millesime_2', 'millesime_3', 'ca_1', 'ca_2', 'ca_3',
+                                'resultat_1', 'resultat_2', 'resultat_3', 'effectif_1', 'effectif_2', 'effectif_3',
                                 'fiche_identite'],
-                       dtype={'Siren': 'str', 'Nic': 'str', 'Effectif 1': 'str', 'Effectif 2': 'str',
-                              'Effectif 3': 'str','Résultat 1': 'str', 'Résultat 1': 'str', 'Résultat 1': 'str',
-                              'CA 1': 'str','CA 2': 'str', 'CA 3': 'float64', 'Millesime 1': 'str', 'Millesime 2': 'str',
-                              'Millesime 3': 'str'})
+                       dtype={'siren': 'str', 'nic': 'str', 'effectif_1': 'str', 'effectif_2': 'str',
+                              'effectif_3': 'str','resultat_1': 'str', 'resultat_2': 'str', 'resultat_3': 'str',
+                              'ca_1': 'str','ca_2': 'str', 'ca_3': 'float64', 'millesime_1': 'str', 'millesime_2': 'str',
+                              'millesime_3': 'str'})
 
 def maj_info_greffe():
     # chargement du fichier info greffe

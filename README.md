@@ -44,10 +44,15 @@ export DECP_IN=/path/to/DECP_IN
 ```
 puis lancez-les imports des fichiers avec
 ```bash
-docker run -d --network focus-marche_default docker.csm.ovh/csm/focus-marches-batch/master:latest batch
 
 
-docker run --network focus-marche_default registry.csm.ovh:443/csm/focus-marches-batch/master:latest python import_decp.py
+docker run -it --rm -v /home/debian/IN:/decp -v /home/debian/focus-marche/batch/scripts/settings/settings.py:/appli/scripts/settings/settings.py --network focus-marche_default docker.csm.ovh/csm/focus-marches-batch/master:latest bash
+
+
+
+
+
+docker run --rm -v /home/debian/IN:/decp --network focus-marche_default docker.csm.ovh/csm/focus-marches-batch/master:latest
 ```
 
 #### A partir de l'API ATEXO
@@ -57,7 +62,11 @@ docker run --network focus-marche_default registry.csm.ovh:443/csm/focus-marches
     todo
 
 #### Mise à jour des données entreprise (API SIREN)
-    todo
+lancez la mise à jour des infos 
+```bash
+docker run -d --network focus-marche_default docker.csm.ovh/csm/focus-marches-batch/master:latest python maj_table_sirene.py
+```
+
 #### Mise à jour des données infogreffe (API infogreffe)
     todo
 #### Mise à jour des données INSEE (information population)
