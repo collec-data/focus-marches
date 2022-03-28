@@ -30,17 +30,17 @@ def get_or_create_workdir():
     return WORKDIR
 
 
-def clear_wordir():
-    DIR = get_or_create_workdir()
-    filelist = [f for f in os.listdir(DIR)]
-    for f in filelist:
-        os.remove(os.path.join(DIR, f))
+# def clear_wordir():
+#     DIR = get_or_create_workdir()
+#     filelist = [f for f in os.listdir(DIR)]
+#     for f in filelist:
+#         os.remove(os.path.join(DIR, f))
 
 
 def recuperer_decp_in_workdir(annee):
     ANNEE = str(annee)
     print("DEBUT recuperer_decp_in_workdir pour " + ANNEE)
-    clear_wordir()
+    # clear_wordir()
     url_jeton_sdm = API_TOKEN
     try:
         response = requests.get(url_jeton_sdm)
