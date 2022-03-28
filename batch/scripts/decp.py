@@ -167,7 +167,7 @@ def import_one_file(file, dict_titu, dict_acheteur):
                 continue
 
             if 'dureeMois' in marcheXml:
-                if len(str(marcheXml['dureeMois'])) < 4:
+                if str(marcheXml['dureeMois']).isnumeric() and int(marcheXml['dureeMois']) < 255:
                     marche.duree_mois = marcheXml['dureeMois']
 
             marche.date_notification = marcheXml['dateNotification'] if 'dateNotification' in marcheXml else None
@@ -332,11 +332,11 @@ def importer_decp():
     if IMPORT_FROM_DIRECTORY == 1:
         files = [f for f in listdir(DIRECTORY_DECP_IN) if isfile(join(DIRECTORY_DECP_IN, f))]
         for file in files:
-            import_one_file(DIRECTORY_DECP_IN+"/"+file, dict_titu, dict_acheteur)
+            import_one_file(DIRECTORY_DECP_IN + "/" + file, dict_titu, dict_acheteur)
 
     if IMPORT_FROM_API == 1:
         recuperer_all_decp_from_api()
         files = [f for f in listdir(WORKDIR) if isfile(join(WORKDIR, f))]
         for file in files:
             if "decp-" in file:
-                import_one_file(WORKDIR+"/"+file, dict_titu, dict_acheteur)
+                import_one_file(WORKDIR + "/" + file, dict_titu, dict_acheteur)
