@@ -69,7 +69,7 @@ CREATE TABLE `forme_prix` (
 
 CREATE TABLE `lieu` (
   `id_lieu` int(10) UNSIGNED NOT NULL,
-  `code` varchar(3) DEFAULT NULL,
+  `code` varchar(10) DEFAULT NULL,
   `type_code` varchar(45) DEFAULT NULL,
   `nom_lieu` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
