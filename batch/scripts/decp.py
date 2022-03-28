@@ -271,7 +271,11 @@ def import_one_file(file, dict_titu, dict_acheteur):
                         titulaire.type_identifiant = titulaireXml['typeIdentifiant']
                         titulaire.denomination_sociale = titulaireXml['denominationSociale']
                         dict_titu.append(str(titulaireXml['id'])[0:14])
-                        titu_mappings.append(titulaire.serialize)
+                        # titu_mappings.append(titulaire.serialize)
+                        db_session.add(titulaire)
+                        db_session.commit()
+
+
 
                     marche_titulaire = Marche_titulaires()
                     marche_titulaire.id_titulaires = str(titulaireXml['id'])[0:14]
