@@ -4,7 +4,7 @@ import logging
 import os
 from functools import lru_cache
 from xml.dom import minidom
-from xml.etree.ElementTree import ElementTree
+from xml.etree import ElementTree
 from os import listdir
 from os.path import isfile, join
 import requests
