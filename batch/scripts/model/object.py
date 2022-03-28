@@ -133,7 +133,7 @@ class Lieu(Model):
     __tablename__ = 'lieu'
     id_lieu = Column(mysql.INTEGER(10), nullable=False, primary_key=True)
     #TODO 3 -> 5
-    code = Column(String(5), nullable=False)
+    code = Column(String(10), nullable=False)
     type_code = Column(String(45), nullable=False)
     nom_lieu = Column(String(250), nullable=False)
 class Marche_titulaires(Model):
