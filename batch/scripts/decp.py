@@ -80,8 +80,8 @@ def recuperer_decp_in_workdir(annee):
             month = month + 1
 
         # Ecriture du fichier dans dossier workdir
-        print("ecrire le fichier dans " + get_or_create_workdir() + 'decp-' + str(ANNEE) + ' .xml')
-        f = open(get_or_create_workdir() + 'decp-' + str(ANNEE) + ' .xml', 'w', encoding='utf8')
+        print("ecrire le fichier dans " + get_or_create_workdir() + '/decp-' + str(ANNEE) + ' .xml')
+        f = open(get_or_create_workdir() + '/decp-' + str(ANNEE) + ' .xml', 'w', encoding='utf8')
         if xml_data is not None:
             xmlstr = ElementTree.tostring(xml_data, encoding='utf8', method='xml')
             f.write(xmlstr.decode("utf8"))
