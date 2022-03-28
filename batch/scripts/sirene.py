@@ -215,7 +215,7 @@ def load_infogreffe():
     print('Debut du telechargement du fichier ...' + URL_FICHIER_INFOS_GREFFE)
     urllib.request.urlretrieve(URL_FICHIER_INFOS_GREFFE, WORKDIR + '/chiffres-cles-2020.csv')
     print('fin du telechargement du fichier ...' + URL_FICHIER_INFOS_GREFFE)
-    return pd.read_csv(URL_FICHIER_INFOS_GREFFE, WORKDIR + '/chiffres-cles-2020.csv', sep=';', index_col='Siren',
+    return pd.read_csv(WORKDIR + '/chiffres-cles-2020.csv', sep=';', index_col='Siren',
                        usecols=['Siren', 'Nic', 'Millesime 1', 'Millesime 2', 'Millesime 3', 'CA 1', 'CA 2', 'CA 3',
                                 'Résultat 1', 'Résultat 2', 'Résultat 3', 'Effectif 1', 'Effectif 2', 'Effectif 3',
                                 'fiche_identite'],
