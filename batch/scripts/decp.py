@@ -10,7 +10,7 @@ from os.path import isfile, join
 import requests
 import xmltodict
 from model.object import Lieu, db_session, Titulaire, Acheteur, Marche_titulaires, Marche
-from settings.settings import WORKDIR, API_TOKEN, IMPORT_FROM_DIRECTORY, IMPORT_FROM_API, DIRECTORY_DECP_IN
+from settings.settings import WORKDIR, API_TOKEN, IMPORT_FROM_DIRECTORY, IMPORT_FROM_API, DIRECTORY_DECP_IN, API_URL
 
 
 @lru_cache(maxsize=10)
@@ -40,11 +40,11 @@ def recuperer_decp_in_workdir(annee):
     clear_wordir()
     url_jeton_sdm = API_TOKEN
     try:
-        response = requests.get(url_jeton_sdm);
+        response = requests.get(url_jeton_sdm)
         doc = minidom.parseString(response.text)
         jeton = doc.getElementsByTagName("ticket")[0].firstChild.data
 
-        url_format_pivot = API_TOKEN
+        url_format_pivot = API_URL
 
         # generation annee
         t = time.localtime()
@@ -90,7 +90,7 @@ def recuperer_decp_in_workdir(annee):
     print("END recuperer_decp_in_workdir pour "+ ANNEE)
 def recuperer_all_decp_from_api():
 
-    annee_debut = 2014
+    annee_debut = 2019
     # generation annee
     t = time.localtime()
     annee_courante = int(time.strftime('%Y', t))
