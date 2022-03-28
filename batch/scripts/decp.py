@@ -161,10 +161,12 @@ def import_one_file(file, dict_titu, dict_acheteur):
                 marche.montant = float(marcheXml['montant'])
                 if marche.montant < 0:
                     marche.montant = marche.montant * -1
-                marche.objet = marcheXml['objet']
             else:
                 logging.debug("pas de montant on zappe le marche " + str(marcheBDD.id))
                 continue
+
+            if 'objet' in marcheXml:
+                marche.objet = marcheXml['objet']
 
             if 'dureeMois' in marcheXml:
                 if str(marcheXml['dureeMois']).isnumeric() and int(marcheXml['dureeMois']) < 255:
