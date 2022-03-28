@@ -332,10 +332,10 @@ def importer_decp():
     if IMPORT_FROM_DIRECTORY == 1:
         files = [f for f in listdir(DIRECTORY_DECP_IN) if isfile(join(DIRECTORY_DECP_IN, f))]
         for file in files:
-            import_one_file(file, dict_titu, dict_acheteur)
+            import_one_file(DIRECTORY_DECP_IN+"/"+file, dict_titu, dict_acheteur)
 
     if IMPORT_FROM_API == 1:
         recuperer_all_decp_from_api()
         files = [f for f in listdir(WORKDIR) if isfile(join(WORKDIR, f))]
         for file in files:
-            import_one_file(file, dict_titu, dict_acheteur)
+            import_one_file(WORKDIR+"/"+file, dict_titu, dict_acheteur)
