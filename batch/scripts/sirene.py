@@ -1,5 +1,6 @@
 from model.object import InfoEtablissement, InfoEtablissementPrincipal, Sirene,db_session, engine
-from settings.settings import URL_API_SIREN_PERSO,enable_http_proxy, proxyDict,URL_FICHIER_INFOS_GREFFE, WORKDIR
+from settings.settings import URL_API_SIREN_PERSO, enable_http_proxy, proxyDict, URL_FICHIER_INFOS_GREFFE, WORKDIR, \
+    DOWNLOAD_INFOS_GREFFE
 import datetime, logging,requests, sqlalchemy, urllib
 from sqlalchemy import text
 import pandas as pd
@@ -212,9 +213,13 @@ def complete_with_infogreffe(con, request, df):
     print("FIN  complete_with_infogreffe")
 
 def load_infogreffe():
-    print('Debut du telechargement du fichier ...' + URL_FICHIER_INFOS_GREFFE)
-    urllib.request.urlretrieve(URL_FICHIER_INFOS_GREFFE, WORKDIR + '/chiffres-cles-2020.csv')
-    print('fin du telechargement du fichier ...' + URL_FICHIER_INFOS_GREFFE)
+
+    if DOWNLOAD_INFOS_GREFFE !=0:
+        print('Debut du telechargement du fichier ...' + URL_FICHIER_INFOS_GREFFE)
+        urllib.request.urlretrieve(URL_FICHIER_INFOS_GREFFE, WORKDIR + '/chiffres-cles-2020.csv')
+        print('fin du telechargement du fichier ...' + URL_FICHIER_INFOS_GREFFE)
+
+    print('Parsing info greffe...')
     return pd.read_csv(WORKDIR + '/chiffres-cles-2020.csv', sep=';', index_col='siren',
                        usecols=['siren', 'nic', 'millesime_1', 'millesime_2', 'millesime_3', 'ca_1', 'ca_2', 'ca_3',
                                 'resultat_1', 'resultat_2', 'resultat_3', 'effectif_1', 'effectif_2', 'effectif_3',

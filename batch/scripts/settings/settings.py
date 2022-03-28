@@ -9,6 +9,7 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://user:password@database:3306/marches_p
 
 #URL
 URL_FICHIER_INFOS_GREFFE='https://www.data.gouv.fr/fr/datasets/r/8d5774e7-8106-427b-bb6b-790a59d272bd'
+DOWNLOAD_INFOS_GREFFE=0
 URL_INFO_GREFFE='https://opendata.datainfogreffe.fr/api/records/1.0/search/?dataset=chiffres-cles-2020&q='
 TEMPO_CALL_INFO_GREFFE=5
 URL_API_SIREN_PERSO='http://152.228.212.208:3000/v3'
@@ -29,6 +30,7 @@ proxyDict = {
 
 WORKDIR='/workdir'
 START_YEAR=2022
+
 DIRECTORY_DECP_IN='/decp'
 IMPORT_FROM_DIRECTORY=0
 IMPORT_FROM_API=1
