@@ -324,8 +324,8 @@ def import_one_file(file, dict_titu, dict_acheteur):
             cpt = cpt + 1
     # logging.info("INSERT bulk")
     # print('LAST INSERT bulk for ' + file)
-    db_session.bulk_insert_mappings(Titulaire, titu_mappings)
-    db_session.commit()
+    # db_session.bulk_insert_mappings(Titulaire, titu_mappings)
+    # db_session.commit()
     db_session.bulk_insert_mappings(Acheteur, acheteur_mappings)
     db_session.commit()
     db_session.bulk_insert_mappings(Marche_titulaires, marche_titulaire_mappings)
