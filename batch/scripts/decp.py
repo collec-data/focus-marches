@@ -10,7 +10,8 @@ from os.path import isfile, join
 import requests
 import xmltodict
 from model.object import Lieu, db_session, Titulaire, Acheteur, Marche_titulaires, Marche
-from settings.settings import WORKDIR, API_TOKEN, IMPORT_FROM_DIRECTORY, IMPORT_FROM_API, DIRECTORY_DECP_IN, API_URL
+from settings.settings import WORKDIR, API_TOKEN, IMPORT_FROM_DIRECTORY, IMPORT_FROM_API, DIRECTORY_DECP_IN, API_URL, \
+    START_YEAR
 
 
 @lru_cache(maxsize=10)
@@ -80,8 +81,8 @@ def recuperer_decp_in_workdir(annee):
             month = month + 1
 
         # Ecriture du fichier dans dossier workdir
-        print("ecrire le fichier dans " + get_or_create_workdir() + '/decp-' + str(ANNEE) + ' .xml')
-        f = open(get_or_create_workdir() + '/decp-' + str(ANNEE) + ' .xml', 'w', encoding='utf8')
+        print("ecrire le fichier dans " + get_or_create_workdir() + '/decp-' + str(ANNEE) + '.xml')
+        f = open(get_or_create_workdir() + '/decp-' + str(ANNEE) + '.xml', 'w', encoding='utf8')
         if xml_data is not None:
             xmlstr = ElementTree.tostring(xml_data, encoding='utf8', method='xml')
             f.write(xmlstr.decode("utf8"))
@@ -94,7 +95,7 @@ def recuperer_decp_in_workdir(annee):
 
 
 def recuperer_all_decp_from_api():
-    annee_debut = 2019
+    annee_debut = START_YEAR
     # generation annee
     t = time.localtime()
     annee_courante = int(time.strftime('%Y', t))
