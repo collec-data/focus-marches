@@ -9,7 +9,7 @@ from os import listdir
 from os.path import isfile, join
 import requests
 import xmltodict
-from model.object import Lieu, db_session, Titulaire, Acheteur, Marche_titulaires, Marche
+from model.object import Lieu, db_session, Titulaire, Acheteur, Marche_titulaires, Marche, engine
 from settings.settings import WORKDIR, API_TOKEN, IMPORT_FROM_DIRECTORY, IMPORT_FROM_API, DIRECTORY_DECP_IN, API_URL, \
     START_YEAR
 
@@ -338,12 +338,16 @@ def import_one_file(file, dict_titu, dict_acheteur):
 
 
 def importer_decp():
-    with engine.connect() as con:
-        result = con.execute("select id from titulaire")
-        result = con.execute("truncate table acheteur")
-
     dict_titu = []
     dict_acheteur = []
+
+    with engine.connect() as con:
+        result = con.execute("select id_titulaire from titulaire")
+        for row in result:
+            dict_titu.append(str(row[0])[0:14])
+        result = con.execute("select id_acheteur from acheteur")
+        for row in result:
+            dict_acheteur.append(str(row[0])[0:14])
 
     if IMPORT_FROM_DIRECTORY == 1:
         files = [f for f in listdir(DIRECTORY_DECP_IN) if isfile(join(DIRECTORY_DECP_IN, f))]
