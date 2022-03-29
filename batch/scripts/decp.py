@@ -248,7 +248,7 @@ def import_one_file(file, dict_titu, dict_acheteur):
                 titulaireXml = marcheXml['titulaires']['titulaire']
                 # titulaireBDD = Titulaire.query.filter(Titulaire.id_titulaire == titulaireXml['id']).one_or_none()
                 # Le titulaire existe t'il déja en bdd ?
-                if (type(titulaireXml['id']) == str):
+                if ('id' in titulaireXml and type(titulaireXml['id']) == str):
                     if str(titulaireXml['id'])[0:14] not in dict_titu:
                         titulaire = Titulaire()
                         titulaire.id_titulaire = str(titulaireXml['id'])[0:14]
@@ -269,7 +269,7 @@ def import_one_file(file, dict_titu, dict_acheteur):
                 for titulaireXml in marcheXml['titulaires']['titulaire']:
                     # titulaireBDD = Titulaire.query.filter(Titulaire.id_titulaire == titulaireXml['id']).one_or_none()
                     # Le titulaire existe t'il déja en bdd ?
-                    if (type(titulaireXml['id']) == str):
+                    if ('id' in titulaireXml and type(titulaireXml['id']) == str):
                         if str(titulaireXml['id'])[0:14] not in dict_titu:
 
                             titulaire = Titulaire()
