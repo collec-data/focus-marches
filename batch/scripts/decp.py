@@ -248,39 +248,44 @@ def import_one_file(file, dict_titu, dict_acheteur):
                 titulaireXml = marcheXml['titulaires']['titulaire']
                 # titulaireBDD = Titulaire.query.filter(Titulaire.id_titulaire == titulaireXml['id']).one_or_none()
                 # Le titulaire existe t'il déja en bdd ?
-                if str(titulaireXml['id'])[0:14] not in dict_titu:
-                    titulaire = Titulaire()
-                    titulaire.id_titulaire = str(titulaireXml['id'])[0:14]
-                    titulaire.type_identifiant = titulaireXml['typeIdentifiant']
-                    titulaire.denomination_sociale = titulaireXml['denominationSociale'][0:249]
-                    dict_titu.append(str(titulaireXml['id'])[0:14])
-                    titu_mappings.append(titulaire.serialize)
-
-                marche_titulaire = Marche_titulaires()
-                marche_titulaire.id_titulaires = str(titulaireXml['id'])[0:14]
-                marche_titulaire.id_marche = marche.id_marche
-                marche_titulaire_mappings.append(marche_titulaire.serialize)
-
-            else:
-                for titulaireXml in marcheXml['titulaires']['titulaire']:
-                    # titulaireBDD = Titulaire.query.filter(Titulaire.id_titulaire == titulaireXml['id']).one_or_none()
-                    # Le titulaire existe t'il déja en bdd ?
+                if (type(titulaireXml['id']) == str):
                     if str(titulaireXml['id'])[0:14] not in dict_titu:
                         titulaire = Titulaire()
                         titulaire.id_titulaire = str(titulaireXml['id'])[0:14]
                         titulaire.type_identifiant = titulaireXml['typeIdentifiant']
-                        titulaire.denomination_sociale = titulaireXml['denominationSociale']
+                        titulaire.denomination_sociale = titulaireXml['denominationSociale'][0:249]
                         dict_titu.append(str(titulaireXml['id'])[0:14])
-                        # titu_mappings.append(titulaire.serialize)
-                        db_session.add(titulaire)
-                        db_session.commit()
-
-
+                        titu_mappings.append(titulaire.serialize)
 
                     marche_titulaire = Marche_titulaires()
                     marche_titulaire.id_titulaires = str(titulaireXml['id'])[0:14]
                     marche_titulaire.id_marche = marche.id_marche
                     marche_titulaire_mappings.append(marche_titulaire.serialize)
+                else:
+                    logging.error(marche.id_marche + " : mauvais format titulaire, on l'ignore")
+                    continue
+
+            else:
+                for titulaireXml in marcheXml['titulaires']['titulaire']:
+                    # titulaireBDD = Titulaire.query.filter(Titulaire.id_titulaire == titulaireXml['id']).one_or_none()
+                    # Le titulaire existe t'il déja en bdd ?
+                    if (type(titulaireXml['id']) == str):
+                        if str(titulaireXml['id'])[0:14] not in dict_titu:
+
+                            titulaire = Titulaire()
+                            titulaire.id_titulaire = str(titulaireXml['id'])[0:14]
+                            titulaire.type_identifiant = titulaireXml['typeIdentifiant']
+                            titulaire.denomination_sociale = titulaireXml['denominationSociale']
+                            dict_titu.append(str(titulaireXml['id'])[0:14])
+                            titu_mappings.append(titulaire.serialize)
+
+                        marche_titulaire = Marche_titulaires()
+                        marche_titulaire.id_titulaires = str(titulaireXml['id'])[0:14]
+                        marche_titulaire.id_marche = marche.id_marche
+                        marche_titulaire_mappings.append(marche_titulaire.serialize)
+                    else:
+                        logging.error(marche.id_marche + " : mauvais format titulaire, on l'ignore")
+                        continue
 
             if ('acheteur' in marcheXml):
                 acheteurXml = marcheXml['acheteur']
@@ -324,12 +329,9 @@ def import_one_file(file, dict_titu, dict_acheteur):
             cpt = cpt + 1
     # logging.info("INSERT bulk")
     # print('LAST INSERT bulk for ' + file)
-    # db_session.bulk_insert_mappings(Titulaire, titu_mappings)
-    # db_session.commit()
+    db_session.bulk_insert_mappings(Titulaire, titu_mappings)
     db_session.bulk_insert_mappings(Acheteur, acheteur_mappings)
-    db_session.commit()
     db_session.bulk_insert_mappings(Marche_titulaires, marche_titulaire_mappings)
-    db_session.commit()
     db_session.bulk_insert_mappings(Marche, marche_mappings)
     db_session.commit()
     print('FIN import decp :' + file)

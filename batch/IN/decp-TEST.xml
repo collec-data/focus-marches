@@ -1,134 +1,69 @@
 <?xml version='1.0' encoding='utf8'?>
 <marches>
-
-      <marche>
-    <id>20222021S0004800</id>
+  <marche>
     <acheteur>
-      <id>25350262900020</id>
-      <nom>Collectivité Eau du Bassin Rennais </nom>
+      <id>20007075300013</id>
+      <nom>CA RLV</nom>
+    </acheteur>
+    <codeCPV>79410000-1</codeCPV>
+    <dateNotification>2022-03-14+01:00</dateNotification>
+    <datePublicationDonnees>2022-03-22+01:00</datePublicationDonnees>
+    <dureeMois>12</dureeMois>
+    <formePrix>Ferme et actualisable</formePrix>
+    <id>2022RLV2107300</id>
+    <lieuExecution>
+      <code>63201</code>
+      <nom>Riom-Cedex</nom>
+      <typeCode>Code postal</typeCode>
+    </lieuExecution>
+    <montant>40940</montant>
+    <nature>Marché</nature>
+    <objet>Accompagmenent en vue de fédérer des partenaires autour du projet de l'Abbaye de Mozac</objet>
+    <procedure>Procédure adaptée</procedure>
+    <source>data.gouv.fr_pes</source>
+    <uid>200070753000132022RLV2107300</uid>
+    <titulaires>
+      <titulaire>
+        <denominationSociale>ANCORIS</denominationSociale>
+        <id>88314088100011</id>
+        <typeIdentifiant>SIRET</typeIdentifiant>
+        <denominationSociale>SCET</denominationSociale>
+        <id>56200034902188</id>
+        <typeIdentifiant>SIRET</typeIdentifiant>
+      </titulaire>
+    </titulaires>
+    <modifications>
+      <modification/>
+    </modifications>
+  </marche>
+  <marche>
+    <id>20222021S0000100</id>
+    <acheteur>
+      <id>21350204000016</id>
+      <nom>Commune de Nouvoitou </nom>
     </acheteur>
     <nature>Marché</nature>
     <typeContrat>MARCHE_PUBLIC</typeContrat>
-    <objet>La présente mission de maîtrise d´œuvre concerne la réfection du génie civil des évacuateurs de crue du barrage de Pont Muzard. </objet>
-    <codeCPV>71300000</codeCPV>
+    <objet>Marché public de prestation de services en assurance - DOMMAGES AUX BIENS ET RISQUES ANNEXES</objet>
+    <codeCPV>66515200</codeCPV>
     <procedure>Procédure adaptée</procedure>
     <lieuExecution>
       <code>35</code>
       <typeCode>Code département</typeCode>
       <nom>(35) Ille-et-Vilaine</nom>
     </lieuExecution>
-    <dureeMois>24</dureeMois>
-    <dateNotification>2022-01-10</dateNotification>
-    <datePublicationDonnees>2022-01-10</datePublicationDonnees>
-    <montant>21300</montant>
+    <dureeMois>36</dureeMois>
+    <dateNotification>2022-01-01</dateNotification>
+    <datePublicationDonnees>2022-01-01</datePublicationDonnees>
+    <montant>7281.18</montant>
     <formePrix>Révisable</formePrix>
     <titulaires>
       <titulaire>
-        <typeIdentifiant>HORS-UE</typeIdentifiant>
-        <id>CHE-107.893.328CHE-1</id>
-        <denominationSociale>GEOS INGENIEURS CONSEILS SA</denominationSociale>
-      </titulaire>
-    </titulaires>
-    <uuid>EB296DAC-9C68-4B77-884A-A87B036D20B0</uuid>
-  </marche>
-
-    <marche>
-    <id>2020RHIDIDES0402</id>
-    <source>data.gouv.fr_pes</source>
-    <uid>200056927000112020RHIDIDES0402</uid>
-    <acheteur>
-      <id>20005692700011</id>
-      <nom>RECEVEUR MUNICIPAL</nom>
-    </acheteur>
-    <nature>Marché</nature>
-    <objet>LOT 4 - COUVERTURE ARDOISES ET ZINC ETANCHEITE BARDAGE</objet>
-    <codeCPV>45261210-9</codeCPV>
-    <procedure>Procédure adaptée</procedure>
-    <lieuExecution>
-      <code>48400</code>
-      <typeCode>Code postal</typeCode>
-      <nom>Florac</nom>
-    </lieuExecution>
-    <dureeMois>20</dureeMois>
-    <dateNotification>2020-09-25+02:00</dateNotification>
-    <datePublicationDonnees>2020-10-20+02:00</datePublicationDonnees>
-    <montant>105903.8</montant>
-    <formePrix>Ferme et actualisable</formePrix>
-    <titulaires>
-      <titulaire>
         <typeIdentifiant>SIRET</typeIdentifiant>
-        <id>79958954400011</id>
-        <denominationSociale>TINEL Hervé</denominationSociale>
+        <id>30130960500410</id>
+        <denominationSociale>SMACL ASSURANCES</denominationSociale>
       </titulaire>
     </titulaires>
-    <modifications>
-      <modification/>
-    </modifications>
-  </marche>
-    <marche>
-    <id>202121-005-PUM00</id>
-    <source>data.gouv.fr_pes</source>
-    <uid>20005692700011202121-005-PUM00</uid>
-    <acheteur>
-      <id>20005692700011</id>
-      <nom>RECEVEUR MUNICIPAL</nom>
-    </acheteur>
-    <nature>Marché</nature>
-    <objet>CONCEPTION REALISATION ET INSERTION PAYSAGERE D'UN EQUIPEMENT SPORTIF DE TYPE PUMPTRACK</objet>
-    <codeCPV>45212200-8</codeCPV>
-    <procedure>Procédure adaptée</procedure>
-    <lieuExecution>
-      <code>48400</code>
-      <typeCode>Code postal</typeCode>
-      <nom>Florac</nom>
-    </lieuExecution>
-    <dureeMois>6</dureeMois>
-    <dateNotification>2021-11-15+01:00</dateNotification>
-    <datePublicationDonnees>2021-12-06+01:00</datePublicationDonnees>
-    <montant>99848.25</montant>
-    <formePrix>Ferme et actualisable</formePrix>
-    <titulaires>
-      <titulaire>
-        <typeIdentifiant>SIRET</typeIdentifiant>
-        <id>31831027300020</id>
-        <denominationSociale>AB TRAVAUX SERVICES</denominationSociale>
-      </titulaire>
-    </titulaires>
-    <modifications>
-      <modification/>
-    </modifications>
-  </marche>
-    <marche>
-    <id>2021911500</id>
-    <source>data.gouv.fr_pes</source>
-    <uid>200056927000112021911500</uid>
-    <acheteur>
-      <id>20005692700011</id>
-      <nom>RECEVEUR MUNICIPAL</nom>
-    </acheteur>
-    <nature>Marché</nature>
-    <objet>FOURNITURE ET POSE</objet>
-    <codeCPV>45215000-7</codeCPV>
-    <procedure>Procédure adaptée</procedure>
-    <lieuExecution>
-      <code>48400</code>
-      <typeCode>Code postal</typeCode>
-      <nom>Florac</nom>
-    </lieuExecution>
-    <dureeMois>4</dureeMois>
-    <dateNotification>2021-06-28+02:00</dateNotification>
-    <datePublicationDonnees>2021-10-11+02:00</datePublicationDonnees>
-    <montant>71420</montant>
-    <formePrix>Ferme</formePrix>
-    <titulaires>
-      <titulaire>
-        <typeIdentifiant>SIRET</typeIdentifiant>
-        <id>38903059400045</id>
-        <denominationSociale>MPS TOILETTES AUTOMATIQUES</denominationSociale>
-      </titulaire>
-    </titulaires>
-    <modifications>
-      <modification/>
-    </modifications>
+    <uuid>58FB174A-3889-45C0-8E71-AECCCAF41C52</uuid>
   </marche>
 </marches>
