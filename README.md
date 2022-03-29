@@ -19,7 +19,7 @@ Une fois cloné ce répertoire à l'aide de:
 
     git clone https://gitlab.csm.ovh/csm/focus-marche.git && cd focus-marche
 
-Construisez le container avec `docker-compose build` et lancez-le avec `docker-compose up`.
+Construisez les container avec `docker-compose build && docker build batch/. -t batch ` et lancez-le avec `docker-compose -d up`.
 
 La base de donnée sera persistée dans le dossier `/var/lib/mysql` par défaut. Il est possible  de changer l'emplacement d'installation des données ou d'indiquer un emplacement d'installation existante en modifiant la variable d'environnement `MYSQL_DATA` dans le fichier `.env`.
 
@@ -36,6 +36,8 @@ C'est prêt ! vous pouvez accéder au service sur http://HOSTNAME:80
 ### Mises à jour / Administration
 #### Importer les données
 
+
+
 **_A partir de fichier au format XML_**
 
 Déposer les fichiers XML dans le répertoire d'entrée ```$DECP_IN```, libre à vous de valoriser la variable d'env  :
@@ -44,15 +46,7 @@ export DECP_IN=/path/to/DECP_IN
 ```
 puis lancez-les imports des fichiers avec
 ```bash
-
-
-docker run -it --rm -v /home/debian/IN:/decp -v /home/debian/focus-marche/batch/scripts/settings/settings.py:/appli/scripts/settings/settings.py --network focus-marche_default docker.csm.ovh/csm/focus-marches-batch/master:latest bash
-
-
-
-
-
-docker run --rm -v /home/debian/IN:/decp --network focus-marche_default docker.csm.ovh/csm/focus-marches-batch/master:latest
+docker run -it --rm -v /home/debian/IN:/decp -v /home/debian/settings.py:/appli/scripts/settings/settings.py -v /home/debian/chiffres-cles-2020.csv:/workdir/chiffres-cles-2020.csv --network focus-marche_default batch bash
 ```
 
 #### A partir de l'API ATEXO

@@ -185,13 +185,13 @@ def import_one_file(file, dict_titu, dict_acheteur):
                     marche.id_procedure = 2
                 elif marcheXml['procedure'] == "Appel d'offres restreint":
                     marche.id_procedure = 3
-                elif marcheXml['nature'] == "Procédure concurrentielle avec négociation":
+                elif marcheXml['procedure'] == "Procédure concurrentielle avec négociation":
                     marche.id_procedure = 4
-                elif marcheXml['nature'] == "Procédure négociée avec mise en concurrence préalable":
+                elif marcheXml['procedure'] == "Procédure négociée avec mise en concurrence préalable":
                     marche.id_procedure = 5
-                elif marcheXml['nature'] == "Marché négocié sans publicité ni mise en concurrence préalable":
+                elif marcheXml['procedure'] == "Marché négocié sans publicité ni mise en concurrence préalable":
                     marche.id_procedure = 6
-                elif marcheXml['nature'] == "Dialogue compétitif":
+                elif marcheXml['procedure'] == "Dialogue compétitif":
                     marche.id_procedure = 7
                 else:
                     marche.id_procedure = 1
