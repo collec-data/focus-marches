@@ -126,7 +126,7 @@ def import_one_file(file, dict_titu, dict_acheteur):
     with open(file, encoding='utf-8') as fd:
         doc = xmltodict.parse(fd.read())
         for marcheXml in doc['marches']['marche']:
-            if cpt > 1000:
+            if cpt > 100:
                 # logging.info("INSERT bulk")
                 # print("INSERT bulk")
                 db_session.bulk_insert_mappings(Titulaire, titu_mappings)
