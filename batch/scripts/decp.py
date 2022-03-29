@@ -295,8 +295,8 @@ def import_one_file(file, dict_titu, dict_acheteur):
                     # creation acheteur
                     acheteur = Acheteur()
                     acheteur.id_acheteur = str(acheteurXml['id'])[0:14]
-                    acheteur.nom_acheteur = acheteurXml['nom']
-                    acheteur.nom_ui = acheteurXml['nom']
+                    acheteur.nom_acheteur = acheteurXml['nom'] if 'nom' in acheteurXml else ''
+                    acheteur.nom_ui = acheteurXml['nom'] if 'nom' in acheteurXml else ''
                     dict_acheteur.append(str(acheteurXml['id'])[0:14])
                     acheteur_mappings.append(acheteur.serialize)
 
@@ -338,6 +338,10 @@ def import_one_file(file, dict_titu, dict_acheteur):
 
 
 def importer_decp():
+    with engine.connect() as con:
+        result = con.execute("select id from titulaire")
+        result = con.execute("truncate table acheteur")
+
     dict_titu = []
     dict_acheteur = []
 
