@@ -158,11 +158,16 @@ def import_one_file(file, dict_titu, dict_acheteur):
                 logging.debug("Existe deja " + str(marcheBDD.id))
                 continue
             if 'montant' in marcheXml:
+
                 marche.montant = float(marcheXml['montant'])
                 if marche.montant < 0:
                     marche.montant = marche.montant * -1
             else:
-                logging.debug("pas de montant on zappe le marche " + str(marcheBDD.id))
+                logging.warning("pas de montant on zappe le marche " + str(marcheBDD.id))
+                continue
+
+            if marche.montant > 2147483646:
+                logging.warning("montant trop eleve " + str(marcheBDD.id))
                 continue
 
             if 'objet' in marcheXml:
