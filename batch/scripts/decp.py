@@ -152,7 +152,11 @@ def import_one_file(file, dict_titu, dict_acheteur):
                 logging.warning(str(marche.id_marche) + " : pas de code cpv, on l'ignore")
                 continue
 
-            marcheBDD = Marche.query.filter(Marche.id_marche == marche.id_marche).one_or_none()
+            try:
+                marcheBDD = Marche.query.filter(Marche.id_marche == marche.id_marche).one_or_none()
+            except Exception as e:
+                logging.exception(e)
+                continue
 
             if marcheBDD is not None:
                 logging.debug("Existe deja " + str(marcheBDD.id))
