@@ -9,11 +9,6 @@ select
 require_once('connect.php');
 $connect->set_charset("utf8"); // nexesario pra real_escape_string
 
-
-// Starting clock time in seconds
-$start_time_all = microtime(true);
-$start_time1 = microtime(true);
-
 $sql = "SELECT t.id_titulaire, denomination_sociale, libelle_naf as naf,
         codePostalEtablissement as cp, trancheEffectifsEtablissement,
         tr.libelle_tranche as libelle_tranche_etablissement, libelle_categories_juridiques, COUNT(m.id) nb, SUM(m.montant) total, s.ca_1, s.resultat_1
@@ -28,29 +23,20 @@ $sql = "SELECT t.id_titulaire, denomination_sociale, libelle_naf as naf,
         WHERE       m.date_notification > '2018-12-31'
         GROUP BY    t.id_titulaire
         ORDER BY    denomination_sociale  ASC";
-  // echo $sql;
-  try
+// echo $sql;
+try
+{
+  $result = $connect->query($sql);
+
+  if ($result)
   {
-    $result = $connect->query($sql);
+    $out = '{ "data" :[';
 
-    // End clock time in seconds
-    $end_time1 = microtime(true);
-    // Calculate script execution time
-    $execution_time = ($end_time1 - $start_time1);
-    echo " Execution time of sql = ".$execution_time." sec";
-
-    $start_time_fetch = microtime(true);
-
-
-    if ($result)
+    while ( $r = mysqli_fetch_assoc( $result ) )
     {
-      $out = '{ "data" :[';
-
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
-        if ($r['trancheEffectifsEtablissement']==="00" || $r['trancheEffectifsEtablissement']==="NN") $r['libelle_tranche_etablissement'] = "-";
-        $r['denomination_sociale'] = str_replace('"', '\"',$r['denomination_sociale']);
-        $out .= '{"cp":"' . $r['cp'] . '",'
+      if ($r['trancheEffectifsEtablissement']==="00" || $r['trancheEffectifsEtablissement']==="NN") $r['libelle_tranche_etablissement'] = "-";
+      $r['denomination_sociale'] = str_replace('"', '\"',$r['denomination_sociale']);
+      $out .= '{"cp":"' . $r['cp'] . '",'
           . '"denomination_sociale":"<a href=\"titulaire.php?i=' . $r['id_titulaire'] . '\">' . $r['denomination_sociale'] . '</a>",'
           . '"naf":"' . $r['naf'] . '",'
           . '"nb":"' . $r['nb'] . '",'
@@ -58,29 +44,18 @@ $sql = "SELECT t.id_titulaire, denomination_sociale, libelle_naf as naf,
           . '"libelle_tranche_etablissement":"' . $r['libelle_tranche_etablissement'] . '",'
           . '"ca_1":"' . $r['ca_1'] . '",'
           . '"resultat_1":"' . $r['resultat_1'] . '" },';
-      }
-      $out = substr($out, 0, -1);
-      $out .="]}";
-      mysqli_free_result($result);
     }
-
-    // End clock time in seconds
-    $end_time3 = microtime(true);
-    // Calculate script execution time
-    $execution_time = ($end_time3- $start_time_fetch);
-    echo "Execution time of fetch = ".$execution_time." sec";
-
-
-    $end_time_all = microtime(true);
-    $execution_time_all = ($end_time_all- $start_time_all);
-    echo " Execution time of all = ".$execution_time_all." sec";
+    $out = substr($out, 0, -1);
+    $out .="]}";
+    mysqli_free_result($result);
   }
-  catch (Exception $e)
-  {
-    $out = 0;
-  }
+}
+catch (Exception $e)
+{
+  $out = 0;
+}
 
-  $connect->close();
-  echo( $out);
+$connect->close();
+echo( $out);
 
 ?>
