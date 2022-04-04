@@ -11,7 +11,8 @@ $connect->set_charset("utf8"); // nexesario pra real_escape_string
 
 
 // Starting clock time in seconds
-$start_time = microtime(true);
+$start_time_all = microtime(true);
+$start_time1 = microtime(true);
 
 $sql = "SELECT t.id_titulaire, denomination_sociale, libelle_naf as naf,
         codePostalEtablissement as cp, trancheEffectifsEtablissement,
@@ -33,12 +34,13 @@ $sql = "SELECT t.id_titulaire, denomination_sociale, libelle_naf as naf,
     $result = $connect->query($sql);
 
     // End clock time in seconds
-    $end_time = microtime(true);
-
+    $end_time1 = microtime(true);
     // Calculate script execution time
-    $execution_time = ($end_time - $start_time);
+    $execution_time = ($end_time1 - $start_time1);
+    echo " Execution time of sql = ".$execution_time." sec";
 
-    console.log(" Execution time of sql = ".$execution_time." sec");
+    $start_time_fetch = microtime(true);
+
 
     if ($result)
     {
@@ -63,11 +65,15 @@ $sql = "SELECT t.id_titulaire, denomination_sociale, libelle_naf as naf,
     }
 
     // End clock time in seconds
-    $end_time2 = microtime(true);
-
+    $end_time3 = microtime(true);
     // Calculate script execution time
-    $execution_time = ($end_time2 - $start_time);
-    console.log(" Execution time of fetch = ".$execution_time." sec");
+    $execution_time = ($end_time3- $start_time_fetch);
+    echo "Execution time of fetch = ".$execution_time." sec";
+
+
+    $end_time_all = microtime(true);
+    $execution_time_all = ($end_time_all- $start_time_all);
+    echo " Execution time of all = ".$execution_time_all." sec";
   }
   catch (Exception $e)
   {
