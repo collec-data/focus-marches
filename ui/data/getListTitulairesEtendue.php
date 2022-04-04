@@ -9,6 +9,10 @@ select
 require_once('connect.php');
 $connect->set_charset("utf8"); // nexesario pra real_escape_string
 
+
+// Starting clock time in seconds
+$start_time = microtime(true);
+
 $sql = "SELECT t.id_titulaire, denomination_sociale, libelle_naf as naf,
         codePostalEtablissement as cp, trancheEffectifsEtablissement,
         tr.libelle_tranche as libelle_tranche_etablissement, libelle_categories_juridiques, COUNT(m.id) nb, SUM(m.montant) total, s.ca_1, s.resultat_1
@@ -27,6 +31,14 @@ $sql = "SELECT t.id_titulaire, denomination_sociale, libelle_naf as naf,
   try
   {
     $result = $connect->query($sql);
+
+    // End clock time in seconds
+    $end_time = microtime(true);
+
+    // Calculate script execution time
+    $execution_time = ($end_time - $start_time);
+
+    console.log(" Execution time of sql = ".$execution_time." sec");
 
     if ($result)
     {
@@ -49,6 +61,13 @@ $sql = "SELECT t.id_titulaire, denomination_sociale, libelle_naf as naf,
       $out .="]}";
       mysqli_free_result($result);
     }
+
+    // End clock time in seconds
+    $end_time2 = microtime(true);
+
+    // Calculate script execution time
+    $execution_time = ($end_time2 - $start_time);
+    console.log(" Execution time of fetch = ".$execution_time." sec");
   }
   catch (Exception $e)
   {
