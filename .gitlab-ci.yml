@@ -31,7 +31,7 @@ stages:
     - export IMAGE=${REGISTRY}${IMAGE_NAME}/$CI_COMMIT_REF_NAME
     - echo $IMAGE
     - docker build -f ${BUILD_CONTEXT}/${DOCKER_FILE} -t ${IMAGE} ${BUILD_CONTEXT}
-#    - echo ${REGISTRY_PASSWORD} | docker login ${REGISTRY} -u ${REGISTRY_USER} --password-stdin
+    - echo ${REGISTRY_PASSWORD} | docker login ${REGISTRY} -u ${REGISTRY_USER} --password-stdin
     - docker tag ${IMAGE} ${IMAGE}:${CI_COMMIT_SHA:0:8}
     - echo "push ${IMAGE}:latest" && docker push ${IMAGE}:latest
     - echo "push ${IMAGE}:${CI_COMMIT_SHA:0:8}" && docker push ${IMAGE}:${CI_COMMIT_SHA:0:8}
