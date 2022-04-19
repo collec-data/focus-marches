@@ -33,35 +33,48 @@ MARIA_DATA=/path/to/other/data_folder
 C'est prêt ! vous pouvez accéder au service sur http://HOSTNAME:80
 
 
-### Mises à jour / Administration
-#### Importer les données
+### Paramétrage
 
+Editez le fichier de paramétrage : `focus-marche/batch/scripts/settings/settings.py`
 
+| Paramètre| Valeur possible | Description |
+| :-------------|:------------:| :-----|
+| IMPORT_FROM_DIRECTORY |0 ou 1| Active ou non l'import des fichiers decp présent dans  le repertoire DIRECTORY_DECP_IN|
+| DIRECTORY_DECP_IN | 0 ou 1 |  Répertoire des fichiers decps à importer  |
+| IMPORT_FROM_API | 0 ou 1 |   Active ou non l'import des marchés depuis l'api Atexo |
+| API_URL | https://marches-url.bzh/app.php/api/v1/donnees-essentielles/contrat/format-pivot  |    Url de l'API atexo à utliser lors des imports |
+| API_TOKEN |https://marches-url.bzhh/auth/aaa_xxxx/xxxxxxxxx|    Url d'obtention d'un token pour l'API atexo |
+| START_YEAR |2022|  Première année à importer, utilisé en cas d'import avec l'api Atexo |
+| URL_FICHIER_INFOS_GREFFE |https://www.data.gouv.fr/fr/datasets/r/8d5774e7-8106-427b-bb6b-790a59d272bd| URL de téléchargement du dataset info greffe |
+| DOWNLOAD_INFOS_GREFFE | 0 ou 1| Active ou non le téléchargement du fichier info greffe|
+| URL_INFO_GREFFE |https://opendata.datainfogreffe.fr/api/records/1.0/search/?dataset=chiffres-cles-2020&q=| URL api info greffe|
+| TEMPO_CALL_INFO_GREFFE | entier         |    Valeur de ma temposiration entre les appels à l'api info greffe |
+| enable_http_proxy | True ou False         | Active ou non l'utilisation d'un proxy http  |
+| proxyDict | ```proxyDict```|   Parémétrage du proxy http |
 
-**_A partir de fichier au format XML_**
-
-Déposer les fichiers XML dans le répertoire d'entrée ```$DECP_IN```, libre à vous de valoriser la variable d'env  :
+### Import des données
+Lancez l'import avec la commande suivante:
 ```bash
-export DECP_IN=/path/to/DECP_IN
-```
-puis lancez-les imports des fichiers avec
-```bash
-docker run -it --rm -v /home/debian/IN:/decp -v /home/debian/settings.py:/appli/scripts/settings/settings.py -v /home/debian/chiffres-cles-2020.csv:/workdir/chiffres-cles-2020.csv --network focus-marche_default batch bash
-```
-
-#### A partir de l'API ATEXO
-    todo
-
-#### A partir d'une URL (exemple url datagouv)
-    todo
-
-#### Mise à jour des données entreprise (API SIREN)
-lancez la mise à jour des infos 
-```bash
-docker run -d --network focus-marche_default docker.csm.ovh/csm/focus-marches-batch/master:latest python maj_table_sirene.py
+docker run -it --rm -v /home/debian/IN:/decp -v /home/debian/settings.py:/appli/scripts/settings/settings.py -v /home/debian/chiffres-cles-2020.csv:/workdir/chiffres-cles-2020.csv --network focus-marche_default batch
 ```
 
-#### Mise à jour des données infogreffe (API infogreffe)
-    todo
-#### Mise à jour des données INSEE (information population)
-    todo
+
+TODO expliquer les volumes docker (-v /home/debian/IN:/decp -v /home/debian/settings.py:/appli/scripts/settings/settings.py -v /home/debian/chiffres-cles-2020.csv:/workdir/chiffres-cles-2020.csv)
+
+
+### Autres commandes ...
+
+purger les toutes les données:
+```bash
+docker run -it --rm -v /home/debian/IN:/decp -v /home/debian/settings.py:/appli/scripts/settings/settings.py -v /home/debian/chiffres-cles-2020.csv:/workdir/chiffres-cles-2020.csv --network focus-marche_default batch python 
+```
+
+
+```bash
+docker run -it --rm -v /home/debian/IN:/decp -v /home/debian/settings.py:/appli/scripts/settings/settings.py -v /home/debian/chiffres-cles-2020.csv:/workdir/chiffres-cles-2020.csv --network focus-marche_default batch python 
+```
+
+
+```bash
+docker run -it --rm -v /home/debian/IN:/decp -v /home/debian/settings.py:/appli/scripts/settings/settings.py -v /home/debian/chiffres-cles-2020.csv:/workdir/chiffres-cles-2020.csv --network focus-marche_default batch python 
+```
