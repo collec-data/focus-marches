@@ -158,4 +158,38 @@ ALTER TABLE `sirene`
 --
 ALTER TABLE `tranches`
     MODIFY `id_tranche` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+
+
+
+CREATE OR REPLACE INDEX idx_nef_code_naf ON naf (code_naf);
+CREATE OR REPLACE INDEX idx_sirene_activitePrincipaleUniteLegale ON sirene (activitePrincipaleUniteLegale);
+CREATE OR REPLACE INDEX idx_categories_juridiques_code_categories_juridiques ON categories_juridiques (code_categories_juridiques);
+CREATE OR REPLACE INDEX idx_sirene_categorieJuridiqueUniteLegale ON sirene (categorieJuridiqueUniteLegale);
+CREATE OR REPLACE INDEX idx_tranches_code_tranche ON tranches (code_tranche);
+CREATE OR REPLACE INDEX idx_sirene_trancheEffectifsEtablissement ON sirene (trancheEffectifsEtablissement);
+
+CREATE OR REPLACE INDEX idx_marche_id_acheteur ON marche (id_acheteur);
+CREATE OR REPLACE INDEX idx_organismes_codeInsee ON organismes (codeInsee);
+CREATE OR REPLACE INDEX idx_sirene_codeCommuneEtablissement ON sirene (codeCommuneEtablissement);
+
 COMMIT;
+
+
+-- update all engine-independent statistics for all columns and indexes
+-- ANALYZE TABLE acheteur PERSISTENT FOR ALL;
+-- ANALYZE TABLE categories_juridiques PERSISTENT FOR ALL;
+-- ANALYZE TABLE cpv PERSISTENT FOR ALL;
+-- ANALYZE TABLE forme_prix PERSISTENT FOR ALL;
+-- ANALYZE TABLE lieu PERSISTENT FOR ALL;
+-- ANALYZE TABLE marche PERSISTENT FOR ALL;
+-- ANALYZE TABLE marche_titulaires PERSISTENT FOR ALL;
+-- ANALYZE TABLE mois PERSISTENT FOR ALL;
+-- ANALYZE TABLE naf PERSISTENT FOR ALL;
+-- ANALYZE TABLE nafa PERSISTENT FOR ALL;
+-- ANALYZE TABLE nature PERSISTENT FOR ALL;
+-- ANALYZE TABLE organismes PERSISTENT FOR ALL;
+-- ANALYZE TABLE procedure_marche PERSISTENT FOR ALL;
+-- ANALYZE TABLE sirene PERSISTENT FOR ALL;
+-- ANALYZE TABLE titulaire PERSISTENT FOR ALL;
+-- ANALYZE TABLE tranches PERSISTENT FOR ALL;
