@@ -34,7 +34,7 @@ $kpi = getKPI($connect, null, $nb_mois, $dept);
       </p>
     </div>
   </div>
-  <h1 class='is-size-4 is-size-4-mobile'>Données essentielles du profil d'acheteur de TerNum BFC</h1>
+  <h1 class='is-size-4 is-size-4-mobile'>Données essentielles du profil d'acheteur de Mégalis Bretagne.</h1>
 </div>
 
 <div id="main">
@@ -42,7 +42,7 @@ $kpi = getKPI($connect, null, $nb_mois, $dept);
 
       <h2 class="is-size-2 has-text-centered is-size-2-desktop is-size-3-mobile">Echelle régionale</h2>
 
-      <h2 id="dates" class="has-text-centered subtitle">Cet outil explore les données essentielles de plus de <b class='under-warning'>1 700 acheteurs publics</b> de Bourgogne Franche-Comté, adhérents au GIP Ternum BFC. Les contrats de type accords-cadres sont exclus à ce jour, mais ils seront intégrés dans une prochaine version de l'outil.</h2>
+      <h2 id="dates" class="has-text-centered subtitle">Cet outil explore les données essentielles des adhérents de Mégalis Bretagne. Les contrats de type accords-cadres sont exclus à ce jour, mais ils seront intégrés dans une prochaine version de l'outil.</h2>
 
     <div id="dates" class="has-text-centered">
       <span class='tags has-addons'>
