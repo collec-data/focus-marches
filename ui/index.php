@@ -22,7 +22,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
 ?>
 <div id="bandeauHome">
 <!--  <img id="halles" src="img/Dijon_Halles_01.jpg" alt="Les Halles de Dijon - Marché public" />-->
- <img id="halles" src="img/places_des_lices_rennes.jpeg" alt="Les Halles de Rennes - Marché public" />
+ <img id="halles" src="img/salle-marches-rennes.jpg" alt="Les Halles de Rennes - Marché public" />
   <div id="statsHome">
     <div style="max-width: 940px; padding: 0 20px; margin: 0 auto;">
       <p id="phraseHome">
