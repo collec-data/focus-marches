@@ -13,7 +13,7 @@
           <p>Notre page <a href="mentions-legales.php">Mentions légales</a> contient des informations concernant la protection de la vie privée et vous permet de configurer le suivi ou pas par notre outil d'analyse de visites.  </p>
         </div>
       </div>
-      <p>Crédit de la photo du Pavillon nord des Halles Martenot, Rennes : <a href="https://commons.wikimedia.org/wiki/User:EdouardHue"> EdouardHue/a></p>
+      <p>Crédit de la photo du Pavillon nord des Halles Martenot, Rennes : <a href="https://commons.wikimedia.org/wiki/User:EdouardHue"> EdouardHue<a/></p>
       <p><a href="https://www.ternum-bfc.fr/"><img id="footerLogo" src="img/footer_logo.png" alt="Territoires Numériques" /></a></p>
   </div>
 </div>
