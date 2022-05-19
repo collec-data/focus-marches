@@ -26,6 +26,6 @@ COPY errors /errors
 COPY conf/vhost.conf /etc/apache2/sites-available/000-default.conf
 COPY conf/apache.conf /etc/apache2/conf-available/z-app.conf
 COPY ui /app
-
+RUN ln -s /app /app/focus-marches
 RUN a2enmod rewrite remoteip && \
     a2enconf z-app
