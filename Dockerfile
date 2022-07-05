@@ -18,7 +18,7 @@ RUN apt-get update -qq && \
 # PHP Extensions
 #RUN docker-php-ext-install -j$(nproc) opcache pdo_mysql
 #RUN docker-php-ext-install curl
-RUN docker-php-ext-install mysqli pdo_mysql mbstring
+RUN docker-php-ext-install mysqli pdo_mysql mbstring gettext
 COPY conf/php.ini /usr/local/etc/php/conf.d/app.ini
 
 # Apache
