@@ -21,8 +21,6 @@ stages:
 .docker-build:
   image: docker:stable-dind
   stage: 🔨 build
-  only:
-    - master
   variables:
     BUILD_CONTEXT: "."
     DOCKER_FILE: "Dockerfile"
