@@ -15,7 +15,7 @@ stages:
       rm -rf ~/app || true
       mkdir -p ~/app
     "
-    scp -r compose $USER@$SERVER:~/app/compose
+#    scp -r compose $USER@$SERVER:~/app/compose
 
 # job pour construction image docker
 .docker-build:
