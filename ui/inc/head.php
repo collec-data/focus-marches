@@ -23,7 +23,7 @@ Juillet 2019
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="icon" type="image/png" href="favicon_TerNum.png">
+<!--  <link rel="icon" type="image/png" href="favicon_TerNum.png">-->
   <link rel="stylesheet" href="assets/bulma/bulma.min.css">
   <link rel="stylesheet" href="assets/font-awesome/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: 2022-07-11 17:09+0200\n"
-"PO-Revision-Date: 2022-07-12 09:23+0200\n"
+"Project-Id-Version: focus-marches\n"
+"POT-Creation-Date: 2022-07-12 15:13+0200\n"
+"PO-Revision-Date: 2022-07-12 16:42+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -11,15 +11,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 3.1.1\n"
-"X-Poedit-Basepath: ..\n"
+"X-Poedit-Basepath: ../../..\n"
 "X-Poedit-KeywordsList: _;gettext\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: js\n"
-"X-Poedit-SearchPathExcluded-1: assets\n"
-"X-Poedit-SearchPathExcluded-2: css\n"
-"X-Poedit-SearchPathExcluded-3: img\n"
-"X-Poedit-SearchPathExcluded-4: locale\n"
-"X-Poedit-SearchPathExcluded-5: pdf\n"
+"X-Poedit-SearchPathExcluded-0: *js\n"
 
 #: index.php:26
 msgid "Les Halles de Rennes - Marché public"
@@ -27,22 +22,41 @@ msgstr ""
 
 #: index.php:36
 msgid "Données essentielles du profil d'acheteur de"
-msgstr "Données non essentielles  "
+msgstr ""
 
-#: index.php:36
-msgid "Megalis Bretagne"
-msgstr "Terre numérique"
+#: index.php:36 index.php:44
+msgid "Mégalis Bretagne"
+msgstr "Mégalis Bretagne"
+
+#: index.php:44
+msgid "Cet outil explore les données essentielles des adhérents de "
+msgstr ""
 
 #: index.php:44
 msgid ""
-"Cet outil explore les données essentielles des adhérents de Mégalis "
-"Bretagne. Les contrats de type accords-cadres sont exclus à ce jour, mais "
-"ils seront intégrés dans une prochaine version de l'outil."
+" Les contrats de type accords-cadres sont exclus à ce jour, mais ils seront "
+"intégrés dans une prochaine version de l'outil."
 msgstr ""
-"Cet outil explore les données essentielles des adhérents de Terre "
-"numérique Les contrats de type accords-cadres sont exclus à ce jour, mais "
-"ils seront intégrés dans une prochaine version de l'outil."
 
-#: localization.php:69
-msgid "Bienvenue dans mon application PHP"
-msgstr "Welcome  in my php app"
+#: index.php:48
+msgid "Contrats conclus à partir du "
+msgstr ""
+
+#: index.php:50
+msgid "Données mises à jour le "
+msgstr ""
+
+#: index.php:62
+msgid "Indicateurs clés"
+msgstr ""
+
+#: index.php:63
+msgid "Principaux indicateurs des "
+msgstr ""
+
+#: index.php:63
+msgid "  derniers mois"
+msgstr ""
+
+#~ msgid "Bienvenue dans mon application PHP"
+#~ msgstr "Welcome  in my php app"
