@@ -6,6 +6,7 @@ $desc = "Données essentielles du profil d'acheteur de Territoires Numériques";
 
 include('inc/head.php');
 include('inc/config.php');
+include('localization.php');
 ?>
 <!-- entre heads : ajouter extra css , ... -->
 
@@ -22,7 +23,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
 ?>
 <div id="bandeauHome">
 <!--  <img id="halles" src="img/Dijon_Halles_01.jpg" alt="Les Halles de Dijon - Marché public" />-->
- <img id="halles" src="img/salle-marches-rennes.jpg" alt="Les Halles de Rennes - Marché public" />
+ <img id="halles" src="img/salle-marches-rennes.jpg" alt=<?php echo gettext("Les Halles de Rennes - Marché public") ?> />
   <div id="statsHome">
     <div style="max-width: 940px; padding: 0 20px; margin: 0 auto;">
       <p id="phraseHome">
@@ -32,7 +33,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
       </p>
     </div>
   </div>
-  <h1 class='is-size-4 is-size-4-mobile'>Données essentielles du profil d'acheteur de Megalis Bretagne</h1>
+  <h1 class='is-size-4 is-size-4-mobile'><?php echo gettext("Données essentielles du profil d'acheteur de");  echo(" "); echo _("Megalis Bretagne") ?></h1>
 </div>
 
 <div id="main">
@@ -40,7 +41,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
 
       <h2 class="is-size-2 has-text-centered is-size-2-desktop is-size-3-mobile">Echelle régionale</h2>
 
-      <h2 id="dates" class="has-text-centered subtitle">Cet outil explore les données essentielles des adhérents de Mégalis Bretagne. Les contrats de type accords-cadres sont exclus à ce jour, mais ils seront intégrés dans une prochaine version de l'outil.</h2>
+      <h2 id="dates" class="has-text-centered subtitle"><?php echo gettext("Cet outil explore les données essentielles des adhérents de Mégalis Bretagne. Les contrats de type accords-cadres sont exclus à ce jour, mais ils seront intégrés dans une prochaine version de l'outil.") ?></h2>
 
     <div id="dates" class="has-text-centered">
       <span class='tags has-addons'>
