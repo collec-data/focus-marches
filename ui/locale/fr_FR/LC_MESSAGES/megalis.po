@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2022-07-11 17:09+0200\n"
-"PO-Revision-Date: 2022-07-11 17:47+0200\n"
+"PO-Revision-Date: 2022-07-12 09:23+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -31,7 +31,7 @@ msgstr "Données non essentielles  "
 
 #: index.php:36
 msgid "Megalis Bretagne"
-msgstr "Megalis Bretagne"
+msgstr "Terre numérique"
 
 #: index.php:44
 msgid ""
@@ -39,10 +39,10 @@ msgid ""
 "Bretagne. Les contrats de type accords-cadres sont exclus à ce jour, mais "
 "ils seront intégrés dans une prochaine version de l'outil."
 msgstr ""
-"Cet outil explore les données essentielles des adhérents de XXXXXXXXXX "
-"Les contrats de type accords-cadres sont exclus à ce jour, mais ils "
-"seront intégrés dans une prochaine version de l'outil."
+"Cet outil explore les données essentielles des adhérents de Terre "
+"numérique Les contrats de type accords-cadres sont exclus à ce jour, mais "
+"ils seront intégrés dans une prochaine version de l'outil."
 
 #: localization.php:69
 msgid "Bienvenue dans mon application PHP"
-msgstr "Welcome dans mon application PHP"
+msgstr "Welcome  in my php app"
