@@ -11,7 +11,7 @@ RUN apt-get update -qq && \
     git \
     gnupg \
     unzip \
-    zip && \
+    zip  \
     locales && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
