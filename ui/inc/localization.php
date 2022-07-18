@@ -12,5 +12,5 @@ bindtextdomain("megalis", "./locale");
 textdomain("megalis");
 
 //test
-echo _("Bourgogne-Franche-Comté");
+//echo _("Bourgogne-Franche-Comté");
 
