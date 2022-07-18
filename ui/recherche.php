@@ -1,7 +1,7 @@
 <?php
 $page = "recherche";
-$title = "Recherche | Marchés publics en Bourgogne-Franche-Comté";
-$desc = "Recherche | Marchés publics en Bourgogne-Franche-Comté";
+$title = "Recherche | Marchés publics en ".gettext("Bourgogne-Franche-Comté");
+$desc = "Recherche | Marchés publics en ".gettext("Bourgogne-Franche-Comté");
 
 include('inc/head.php');
 include('inc/config.php');
@@ -81,7 +81,7 @@ include('inc/config.php');
           <input id="in_id_titulaire" type="hidden" value="">
           <p>
             <label>Fournisseur <i class="fas fa-question-circle has-text-grey-light" title="Commencez à saissir le nom du fournisseur et sélectionnez-le dans la liste"></i></label>
-            <input id="in_denomination_sociale" type="text" value="" placeholder="Entité ayant gagné le marché">
+            <input id="in_denomination_sociale" type="text" value="" placeholder=<?php echo gettext("Entité ayant gagné le marché")?>>
             <span id="denomination_select"></span>
           </p>
         </div>

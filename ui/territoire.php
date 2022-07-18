@@ -1,8 +1,8 @@
 <?php
 
 $page = "accueil";
-$title = "Données essentielles du profil d'acheteur de Territoires Numériques";
-$desc = "Données essentielles du profil d'acheteur de Territoires Numériques";
+$title = "Données essentielles du profil d'acheteur de ".gettext("Territoires Numériques");
+$desc = "Données essentielles du profil d'acheteur de ".gettext("Territoires Numériques");
 
 include('inc/head.php');
 include('inc/config.php');

@@ -33,24 +33,27 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
 
     <div class="container">
 
-<!--        <h1 class='is-size-4 is-size-4-mobile'>--><?php //echo gettext("Données essentielles du profil d'acheteur de");  echo(" "); echo _("Mégalis Bretagne") ?><!--</h1>-->
-
-        <div id="statsHome">
-            <div style="max-width: 940px; padding: 0 20px; margin: 0 auto;">
-                <p id="phraseHome">
-                    A partir du <b><?php echo  /*nf($kpi['periode'])*/$donnees_a_partir_du; ?></b></br>
-                    il y a eu <b><?php echo  nf($kpi['nombre']) ; ?></b> marchés</br>
-                    pour un total de <b><?php echo nf($kpi['montant_total']) ; ?></b> €
-                </p>
+        <div class="columns">
+            <div  class="column is-one-quarter" style="padding: 50px 0px;">
+                    <p id="phraseHome">
+                        <?php echo gettext("à partir du ");?><b><?php echo  /*nf($kpi['periode'])*/$donnees_a_partir_du; ?></b></br>
+                        il y a eu <b><?php echo  nf($kpi['nombre']) ; ?></b> marchés</br>
+                        pour un total de <b><?php echo nf($kpi['montant_total']) ; ?></b> €
+                    </p>
+            </div>
+            <div class="column" >
+            <h2 class=" is-size-2 has-text-right is-size-2-desktop is-size-3-mobile">Données essentielles des marchés publics de la plateforme Mégalis Bretagne</h2>
             </div>
         </div>
 
-        <h2 class="is-size-2 has-text-centered is-size-2-desktop is-size-3-mobile">Données essentielles des marchés publics de la plateforme Mégalis Bretagne</h2>
+<!--        <h1 class='is-size-4 is-size-4-mobile'>--><?php //echo gettext("Données essentielles du profil d'acheteur de");  echo(" "); echo _("Mégalis Bretagne") ?><!--</h1>-->
+
+
 
         <h2 id="dates" class="has-text-centered subtitle"><?php echo gettext("Cet outil exploite les données essentielles des marchés publics passés en Bretagne sous réserves "); ?>
-            que l'organisme qui passe le marché public <a href="https://geobretagne.fr/mviewer/?config=/apps/megalis-services/config.xml#">soit adhérent au service proposé par <?php echo gettext("Mégalis Bretagne"); ?></a>
+            que l'organisme qui passe le marché public <a target="_blank" href="https://geobretagne.fr/mviewer/?config=/apps/megalis-services/config.xml#">soit adhérent au service proposé par <?php echo gettext("Mégalis Bretagne"); ?></a>
             et qu'il  ait bien complété toutes les informations nécessaires dans la salle des marchés publics (bien renseigné l'étape décision).
-            On ne trouvera pas, par exemple, les marchés des services de l'Etat qui utilisent<a href="https://www.marches-publics.gouv.fr/">leur propre plateforme</a> <br><br>Les contrats de type accords-cadres sont exclus à ce jour, mais ils seront intégrés dans une prochaine version de l'outil.
+            On ne trouvera pas, par exemple, les marchés des services de l'Etat qui utilisent <a target="_blank" href="https://www.marches-publics.gouv.fr/">leur propre plateforme</a> <br><br>Les contrats de type accords-cadres sont exclus à ce jour, mais ils seront intégrés dans une prochaine version de l'outil.
         </h2>
 
 

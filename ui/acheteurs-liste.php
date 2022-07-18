@@ -1,8 +1,8 @@
 <?php
 
 $page = "acheteurs";
-$title = "Marchés publics en Bourgogne-Franche-Comté";
-$desc = "Marchés publics en Bourgogne-Franche-Comté";
+$title = "Marchés publics ".gettext("Bourgogne-Franche-Comté");
+$desc = "Marchés publics ".gettext("Bourgogne-Franche-Comté");
 
 include('inc/head.php');
 ?>
@@ -21,7 +21,7 @@ $connect->set_charset("utf8");
 
 <div id="main">
   <div class="container">
-  <h1 class='title'>Liste d'acheteurs du profil d'acheteur de Territoires Numériques</h1>
+  <h1 class='title'>Liste d'acheteurs du profil d'acheteur de <?php echo gettext("Territoires Numériques");?></h1>
   <div class="columns">
     <div class="column"><p><img src="img/TN_ruralite_connectee_400.png" ></p></div>
     <div class="column">

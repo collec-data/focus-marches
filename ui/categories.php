@@ -1,7 +1,7 @@
 <?php
 $page = "categories";
-$title = "Codes CPV | Marchés publics en Bourgogne-Franche-Comté";
-$desc = "Codes CPV | Marchés publics en Bourgogne-Franche-Comté";
+$title = "Codes CPV | Marchés publics en ".gettext("Bourgogne-Franche-Comté");
+$desc = "Codes CPV | Marchés publics en ".gettext("Bourgogne-Franche-Comté");
 
 include('inc/head-1.php');
 ?>

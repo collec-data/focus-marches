@@ -1,8 +1,8 @@
 <?php
 
 $page = "acheteurs";
-$title = "Les organismes du profil d'acheteur de Ternum BFC ";
-$desc = "Les organismes du profil d'acheteur de Ternum BFC ";
+$title = "Les organismes du profil d'acheteur de ".gettext("Ternum BFC");
+$desc = "Les organismes du profil d'acheteur de ".gettext("Ternum BFC");
 
 include('inc/head.php');
 ?>
