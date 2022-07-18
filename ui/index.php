@@ -6,7 +6,7 @@ $desc = "Données essentielles du profil d'acheteur de ".gettext("Mégalis Breta
 
 include('inc/head.php');
 include('inc/config.php');
-include('localization.php');
+include('inc/localization.php');
 ?>
 <!-- entre heads : ajouter extra css , ... -->
 

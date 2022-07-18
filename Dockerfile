@@ -12,7 +12,16 @@ RUN apt-get update -qq && \
     gnupg \
     unzip \
     zip && \
+    locales && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+    sed -i -e 's/# fr_FR.UTF-8 UTF-8/fr_FR.UTF-8 UTF-8/' /etc/locale.gen && \
+    dpkg-reconfigure --frontend=noninteractive locales && \
+    update-locale LANG=fr_FR.UTF-8
+ENV LC_ALL fr_FR.UTF-8
+ENV LANGUAGE fr_FR:en_US:fr
+ENV LANG fr_FR.UTF-8
 
 # PHP Extensions
 #RUN docker-php-ext-install -j$(nproc) opcache pdo_mysql

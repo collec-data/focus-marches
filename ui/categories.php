@@ -4,6 +4,7 @@ $title = "Codes CPV | Marchés publics en ".gettext("Bourgogne-Franche-Comté");
 $desc = "Codes CPV | Marchés publics en ".gettext("Bourgogne-Franche-Comté");
 
 include('inc/head-1.php');
+include('inc/localization.php');
 ?>
 <!-- entre heads : ajouter extra css , ... -->
 

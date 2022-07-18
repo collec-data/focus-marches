@@ -5,6 +5,7 @@ $title = "Marchés publics en ".gettext("Bourgogne-Franche-Comté");
 $desc = "Marchés publics en ".gettext("Bourgogne-Franche-Comté");
 
 include('inc/head.php');
+include('inc/localization.php');
 ?>
 <!-- entre heads : ajouter extra css , ... -->
 

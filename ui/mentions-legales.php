@@ -7,6 +7,7 @@ $desc = "Mentions légales | Données essentielles du profil d'acheteur de ".get
 
 include('inc/head.php');
 include('inc/config.php');
+include('inc/localization.php');
 ?>
 <!-- entre heads : ajouter extra css , ... -->
 <style>

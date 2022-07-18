@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: focus-marches\n"
-"POT-Creation-Date: 2022-07-18 11:57+0200\n"
-"PO-Revision-Date: 2022-07-18 11:58+0200\n"
+"POT-Creation-Date: 2022-07-18 15:42+0200\n"
+"PO-Revision-Date: 2022-07-18 15:43+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -16,25 +16,32 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *js\n"
 
-#: acheteur.php:4 acheteur.php:5 acheteurs-liste.php:24 mentions-legales.php:4
-#: mentions-legales.php:5 territoire.php:4 territoire.php:5
+#: acheteur.php:4 acheteur.php:5 acheteurs-liste.php:25 inc/footer.php:18
+#: mentions-legales.php:4 mentions-legales.php:5 territoire.php:4
+#: territoire.php:5
 msgid "Territoires Numériques"
 msgstr "Mégalis Bretagne"
 
 #: acheteurs-liste.php:4 acheteurs-liste.php:5 categories.php:3
-#: categories.php:4 localization.php:13 recherche-plus.php:3
+#: categories.php:4 inc/localization.php:15 recherche-plus.php:3
 #: recherche-plus.php:4 recherche.php:3 recherche.php:4 titulaires.php:4
 #: titulaires.php:5
 msgid "Bourgogne-Franche-Comté"
 msgstr "Bretagne"
 
-#: acheteurs.php:4 acheteurs.php:5 titulaires.php:24
+#: acheteurs.php:4 acheteurs.php:5 titulaires.php:25
 msgid "Ternum BFC"
-msgstr ""
+msgstr "Mégalis Bretagne"
+
+#: inc/footer.php:17
+msgid ""
+"Crédit de la photo du Pavillon nord des Halles Martenot, Rennes : <a href="
+"\"https://commons.wikimedia.org/wiki/User:EdouardHue\"> EdouardHue<a/>"
+msgstr "<br>"
 
 #: index.php:4 index.php:5 index.php:54
 msgid "Mégalis Bretagne"
-msgstr "Mégalis Bretagne TOTO"
+msgstr "Mégalis Bretagne"
 
 #: index.php:39
 msgid "à partir du "
@@ -66,25 +73,25 @@ msgstr ""
 msgid "  derniers mois"
 msgstr ""
 
-#: mentions-legales.php:24
+#: mentions-legales.php:25
 msgid ""
 "Le site Focus Marchés est édité par le GIP Territoires Numériques Bourgogne-"
 "Franche-Comté."
 msgstr "Le site Focus Marchés est édité par Mégalis Bretagne"
 
-#: mentions-legales.php:31
+#: mentions-legales.php:32
 msgid "Directeur de la publication&nbsp;: Gilles Delamarche"
 msgstr ""
 "<b>Directeur de la publication&nbsp;:</b> Patrick Malfait, directeur "
 "général, Mégalis Bretagne"
 
-#: mentions-legales.php:33
+#: mentions-legales.php:34
 msgid "Hébergement&nbsp;: OVH"
 msgstr ""
 "<b>Hébergement&nbsp;:</b> <a target=\"_blank\" href=\" https://www.sib.fr/"
 "\">SIB </a>"
 
-#: mentions-legales.php:81
+#: mentions-legales.php:82
 msgid ""
 "Le responsable du traitement des données à caractère personnel est : M "
 "Gilles DELAMARCHE. Il peut être contacté de la manière suivante :"
@@ -94,7 +101,7 @@ msgstr ""
 "Le responsable du traitement des données à caractère personnel est : M Loïg "
 "Chesnais-Girard, Président de Mégalis Bretagne"
 
-#: mentions-legales.php:85
+#: mentions-legales.php:86
 msgid ""
 "La personne suivante a été nommée Délégué à la Protection des Données : M "
 "Victor VILA. Il peut être joint de la manière suivante :<br>Téléphone : 03 "
@@ -105,7 +112,7 @@ msgstr ""
 "Sébastien Dekeyser. Il peut être joint de la manière suivante :<br>E-mail : "
 "<a href=\"mailto:dpo@megalis.bretagne.bzh\">dpo@megalis.bretagne.bzh</a>"
 
-#: mentions-legales.php:112
+#: mentions-legales.php:113
 msgid ""
 "Pour faire valoir vos droits, vous pouvez contacter le Délégué à la "
 "Protection de Données du GIP Territoires Numériques M Victor VILA qui peut "
@@ -117,12 +124,12 @@ msgstr ""
 "être joint par téléphone au 03 80 20 04 20 ou par e-mail à l'adresse <a href="
 "\"mailto:dpo@megalis.bretagne.bzh\">dpo@megalis.bretagne.bzh</a> ."
 
-#: mentions-legales.php:128
+#: mentions-legales.php:129
 msgid ""
 "<p>La présente décharge de responsabilité concerne le site Focus Marchés.</p>"
 msgstr ""
 
-#: mentions-legales.php:129
+#: mentions-legales.php:130
 msgid ""
 "<p>Territoires Numériques n’est tenu que d’une simple obligation de moyens "
 "concernant les informations qu’elle met à disposition des personnes qui "
@@ -149,13 +156,13 @@ msgstr ""
 "cependant nous ne pouvons pas garantir ni l'exactitude ni la complétude des "
 "données ouvertes sur lesquelles s'appuie le site.</strong></p>"
 
-#: mentions-legales.php:132
+#: mentions-legales.php:133
 msgid ""
 "<p>Ces données publiées sont publiées sous la <a href=\"pdf/ETALAB-Licence-"
 "Ouverte-v2.0.pdf\">Licence Ouverte Version 2.0 - Etalab</a></p>"
 msgstr ""
 
-#: mentions-legales.php:133
+#: mentions-legales.php:134
 msgid ""
 "<p>Le <a href=\"https://marches.ternum-bfc.fr/?page=entreprise."
 "EntrepriseRechercherListeMarches&search\">téléchargement des données</a> se "
@@ -165,7 +172,7 @@ msgstr ""
 "href=\" https://www.data.gouv.fr/fr/datasets/donnees-essentielles-du-profil-"
 "acheteur-megalis-bretagne/\">le portail opendata national</a> </p>"
 
-#: mentions-legales.php:139
+#: mentions-legales.php:140
 msgid ""
 "Données essentielles de la commande publique du profil d'acheteur de "
 "Territoires Numériques.  Licence Ouverte / Open Licence version 2.0 ."
@@ -173,35 +180,35 @@ msgstr ""
 "Données essentielles de la commande publique du profil d'acheteur de Mégalis "
 "Bretagne.  Licence Ouverte / Open Licence version 2.0 ."
 
-#: mentions-legales.php:140
+#: mentions-legales.php:141
 msgid "Codes CPV : simap.ted.europa.eu"
 msgstr ""
 
-#: mentions-legales.php:141
+#: mentions-legales.php:142
 msgid "Populations légales 2015 : https://www.insee.fr/fr/statistiques/3292701"
 msgstr ""
 
-#: mentions-legales.php:142
+#: mentions-legales.php:143
 msgid "API SIRENE. Licence Ouverte / Open Licence version 2.0 "
 msgstr ""
 
-#: mentions-legales.php:143
+#: mentions-legales.php:144
 msgid "API GEO : geo.api.gouv.fr. Licence Ouverte / Open Licence version 2.0 "
 msgstr ""
 
-#: mentions-legales.php:144
+#: mentions-legales.php:145
 msgid "Codes NAF (INSEE)"
 msgstr ""
 
-#: mentions-legales.php:145
+#: mentions-legales.php:146
 msgid "Codes NAFA (INSEE)"
 msgstr ""
 
-#: mentions-legales.php:146
+#: mentions-legales.php:147
 msgid "Catégories juridiques (INSEE)"
 msgstr ""
 
-#: recherche.php:84
+#: recherche.php:85
 msgid "Entité ayant gagné le marché"
 msgstr "Entité ayant obtenu le marché"
 

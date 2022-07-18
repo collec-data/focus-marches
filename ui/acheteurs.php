@@ -5,6 +5,7 @@ $title = "Les organismes du profil d'acheteur de ".gettext("Ternum BFC");
 $desc = "Les organismes du profil d'acheteur de ".gettext("Ternum BFC");
 
 include('inc/head.php');
+include('inc/localization.php');
 ?>
 <!-- entre heads : ajouter extra css , ... -->
 

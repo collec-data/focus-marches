@@ -6,6 +6,7 @@ $desc = "Données essentielles du profil d'acheteur de ".gettext("Territoires Nu
 
 include('inc/head.php');
 include('inc/config.php');
+include('inc/localization.php');
 ?>
 <!-- entre heads : ajouter extra css , ... -->
 

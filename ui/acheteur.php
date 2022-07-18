@@ -6,6 +6,7 @@ $desc = "Acheteur | Données essentielles du profil d'acheteur ".gettext("Territ
 
 include('inc/head.php');
 include('inc/config.php');
+include('inc/localization.php');
 ?>
 <!-- entre heads : ajouter extra css , ... -->
 <link rel="stylesheet" href="assets/leaflet/leaflet.css" />

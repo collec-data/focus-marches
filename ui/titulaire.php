@@ -6,6 +6,7 @@ $desc = "Titulaire | Données essentielles du profil d'acheteur de Territoires N
 
 include('inc/head.php');
 include('inc/config.php');
+include('inc/localization.php');
 ?>
 <!-- entre heads : ajouter extra css , ... -->
 <link rel="stylesheet" href="assets/leaflet/leaflet.css" />
