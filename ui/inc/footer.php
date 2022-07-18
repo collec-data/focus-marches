@@ -7,7 +7,7 @@
         <div class="column">
           <p>Cet outil est alimenté avec les données du profil d'acheteur de la salle de marchés de Mégalis Bretagne.</p>
 
-          <p>Il a été conçu par le service <b><a href="https://www.ternum-bfc.fr">Données Ouvertes</a></b> de <a href="https://www.ternum-bfc.fr/">ARNia/a> pour faciliter l'exploitation des informations contenues dans les données essentielles de la commande publique.</p>
+          <p>Il a été conçu par le service <b><a href="https://www.ternum-bfc.fr">Données Ouvertes</a></b> de <a href="https://www.ternum-bfc.fr/">ARNia</a> pour faciliter l'exploitation des informations contenues dans les données essentielles de la commande publique.</p>
         </div>
         <div class="column">
           <p>Données publiées sous la <a href="pdf/ETALAB-Licence-Ouverte-v2.0.pdf">Licence Ouverte Version 2.0 - Etalab</a>. Le <a href="https://marches.megalis.bretagne.bzh/?page=Entreprise.EntrepriseAdvancedSearch&searchAnnCons">téléchargement des données</a> se fait sur notre salle des marchés.</p>
