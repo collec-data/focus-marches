@@ -26,7 +26,7 @@ ENV LANG fr_FR.UTF-8
 # PHP Extensions
 #RUN docker-php-ext-install -j$(nproc) opcache pdo_mysql
 #RUN docker-php-ext-install curl
-RUN docker-php-ext-install mysqli pdo_mysql mbstring gettext
+RUN docker-php-ext-install mysqli pdo_mysql mbstring gettext intl
 COPY conf/php.ini /usr/local/etc/php/conf.d/app.ini
 
 # Apache

@@ -30,7 +30,7 @@ CREATE TABLE `acheteur` (
 -- Structure de la table `config`
 --
 
-CREATE TABLE `config` (     `nom` varchar(255) NOT NULL
+CREATE TABLE `config` (     `nom` varchar(255) NOT NULL,
                             `date_mise_a_jour` date DEFAULT NULL,
                             `date_debut` date DEFAULT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
