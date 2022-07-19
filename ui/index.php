@@ -34,11 +34,11 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
     <div class="container">
 
         <div class="columns">
-            <div  class="column" style="width: auto; padding: 50px 0px;">
+            <div  class="column is-one-quarter" style="padding: 50px 0px;">
                     <p id="phraseHome">
                         <?php echo gettext("à partir du ");?><b><?php echo  /*nf($kpi['periode'])*/$donnees_a_partir_du; ?></b></br>
-                        il y a eu <b><?php echo  nf($kpi['nombre']) ; ?></b> marchés</br>
-                        pour un total de <b><?php echo nf($kpi['montant_total']) ; ?></b> €
+                        il y a eu <b><?php echo  nf($kpi['nombre']) ; ?></b> marchés pour</br>
+                        un total de <b><?php echo nf($kpi['montant_total']) ; ?></b> €
                     </p>
             </div>
             <div class="column" >
