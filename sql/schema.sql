@@ -19,9 +19,20 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `acheteur` (
-  `id_acheteur` varchar(14) NOT NULL,
-  `nom_acheteur` varchar(250) DEFAULT NULL,
-  `nom_ui` varchar(250) DEFAULT NULL
+                            `id_acheteur` varchar(14) NOT NULL,
+                            `nom_acheteur` varchar(250) DEFAULT NULL,
+                            `nom_ui` varchar(250) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `config`
+--
+
+CREATE TABLE `config` (     `nom` varchar(255) NOT NULL
+                            `date_mise_a_jour` date DEFAULT NULL,
+                            `date_debut` date DEFAULT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

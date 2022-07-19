@@ -158,6 +158,39 @@ function getNom ($connect, $id=0)
   return $nom;
 }
 
+
+function getConfig ($connect)
+{
+    $sql = "SELECT date_mise_a_jour,date_debut
+          FROM config";
+
+    try
+    {
+        $result = $connect->query($sql);
+
+        if ($result)
+        {
+            while ( $obj = mysqli_fetch_object( $result ) )
+            {
+                $date_mise_a_jour= $obj->date_mise_a_jour;
+                $date_debut= $obj->date_debut;
+            }
+            mysqli_free_result($result);
+        }
+    }
+    catch (Exception $e)
+    {
+        $nom = $e;
+    }
+
+    $out = [];
+    // resultat au format json
+    $out['date_mise_a_jour'] = $date_mise_a_jour;
+    $out['date_debut'] = $date_debut;
+    return $out;
+}
+
+
 /* -------------------------------
 getNomTitulaire($id)
 ----------------------------------
