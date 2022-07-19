@@ -25,5 +25,5 @@ $nb_mois = $yearsInMonths + $months;
 $donnees_mises_a_jour = $formatter->format(new DateTime($config['date_mise_a_jour']));
 $donnees_a_partir_du = $formatter->format(new DateTime($config['date_debut']));
 
-echo $donnees_mises_a_jour;
+//echo $donnees_mises_a_jour;
 ?>
