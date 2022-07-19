@@ -13,7 +13,7 @@ SET time_zone = "+00:00";
 -- Base de données : `marches_publics`
 --
 
-INSERT INTO `config` (`name`, `date_mise_a_jour`, `date_debut`) VALUES ('conf','2022-01-01','2019-01-01');
+INSERT INTO `config` (`nom`, `date_mise_a_jour`, `date_debut`) VALUES ('conf','2022-01-01','2019-01-01');
 --
 -- Déchargement des données de la table `categories_juridiques`
 --
