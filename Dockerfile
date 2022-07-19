@@ -12,6 +12,7 @@ RUN apt-get update -qq && \
     gnupg \
     unzip \
     zip  \
+    libicu-dev \
     locales && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -26,6 +27,7 @@ ENV LANG fr_FR.UTF-8
 # PHP Extensions
 #RUN docker-php-ext-install -j$(nproc) opcache pdo_mysql
 #RUN docker-php-ext-install curl
+RUN docker-php-ext-configure intl
 RUN docker-php-ext-install mysqli pdo_mysql mbstring gettext intl
 COPY conf/php.ini /usr/local/etc/php/conf.d/app.ini
 
