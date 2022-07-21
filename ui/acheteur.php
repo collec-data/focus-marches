@@ -30,9 +30,21 @@ if ($secured == true)
   $marches = getDatesMontantsLieu($connect, $id, $nb_mois);
   $sirene = getDataSiretAcheteur($connect, $id);
   $revenuMoyenNational = getMedianeNiveauVie($connect);
+
+  $protocol = stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0 ? 'https://' : 'http://';
+  $url=strtok("$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]",'?');
+  $iframe_code="<iframe ";
+  $iframe_code.= "src=\"$url?i=";
+  $iframe_code.=$id;
+  $iframe_code.="\" ";
+  $iframe_code.= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
+  $iframe_code.= "style=\"border: 0;\" ";
+  $iframe_code.= "title=\"Marque blanche focus-marches\" width=\"100%\" height=\"600px\">";
+  $iframe_code.= "</iframe>";
+
 }
 
-// L'affichage de certains éléments dépend de si on est face à une collectivité ou pas
+// L"affichage de certains éléments dépend de si on est face à une collectivité ou pas
 $colter = false;
 if ($sirene['categorieJuridiqueUniteLegale'] === '7210')
 {
@@ -40,11 +52,10 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210')
 }
 
 ?>
-
 <div id="main">
 
   <div class="container">
-    <div class="columns">
+      <div class="columns">
       <div class="column ">
         <h1 class='title is-clearfix' id='h1Fixe'> <span>Tableau de bord de l'acheteur :</span><br><b><?php echo $nom;?></b></h1>
       </div>
@@ -436,6 +447,12 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210')
   </div>
 
   <?php include('inc/aideProcedures.php');?>
+</div>
+
+<div class="container">
+    <h3>Intégrer à son site</h3>
+    <p>Copier le code ci-dessous pour intégrer cette page à votre site internet.</p>
+    <textarea class="textarea"><?php echo $iframe_code;?></textarea>
 </div>
 
 <!-- Modal Liste titulaires -->
