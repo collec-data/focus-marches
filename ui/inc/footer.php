@@ -20,6 +20,7 @@
 </div>
   </footer>
 <!-- Matomo -->
+
 <!--  <script type="text/javascript">-->
 <!--    var _paq = window._paq = window._paq || [];-->
 <!--    _paq.push([function()-->
@@ -49,6 +50,7 @@
 <!--      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);-->
 <!--    })();-->
 <!--  </script>-->
-<!--  <!-- End Matomo Code -->-->
 <!--</body>-->
+
+<!-- End Matomo Code -->
 </html>
