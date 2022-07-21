@@ -31,7 +31,8 @@ if ($secured == true)
   $sirene = getDataSiretAcheteur($connect, $id);
   $revenuMoyenNational = getMedianeNiveauVie($connect);
 
-  $protocol = stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0 ? 'https://' : 'http://';
+//  $protocol = stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0 ? 'https://' : 'http://';
+  $protocol ='https://';
   $url=strtok("$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]",'?');
   $iframe_code="<iframe ";
   $iframe_code.= "src=\"$url?i=";
@@ -449,7 +450,7 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210')
   <?php include('inc/aideProcedures.php');?>
 </div>
 
-<div class="container">
+<div id="integration-iframe" class="container">
     <h3>Intégrer à son site</h3>
     <p>Copier le code ci-dessous pour intégrer cette page à votre site internet.</p>
     <textarea class="textarea"><?php echo $iframe_code;?></textarea>
@@ -590,6 +591,15 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210')
 
 <script>
 $( document ).ready(function() {
+
+    // Display header / footer /  integration-iframe if not in an iFrame.
+    if (window.top != window.self) {
+        // Finally show header.
+        document.getElementById("navWrap").hidden =true;
+        document.getElementById("integration-iframe").hidden =true;
+        document.getElementById("footerWrap").hidden =true;
+    }
+
 
   //// Tabs
   $('.tabContainer').hide();
