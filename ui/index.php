@@ -42,7 +42,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
                     </p>
             </div>
             <div class="column" >
-            <h2 class=" is-size-2 has-text-right is-size-2-desktop is-size-3-mobile">Données essentielles des marchés publics de la plateforme Mégalis Bretagne</h2>
+            <h2 class=" is-size-2 has-text-right is-size-2-desktop is-size-3-mobile"><?php echo gettext("Données essentielles des marchés publics de la plateforme Mégalis Bretagne");?></h2>
             </div>
         </div>
 

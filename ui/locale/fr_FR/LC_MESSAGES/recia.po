@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: focus-marches\n"
-"POT-Creation-Date: 2022-07-18 15:42+0200\n"
-"PO-Revision-Date: 2022-10-13 10:57+0200\n"
+"POT-Creation-Date: 2022-10-13 11:37+0200\n"
+"PO-Revision-Date: 2022-10-13 11:38+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -23,9 +23,8 @@ msgid "Territoires Numériques"
 msgstr "GIP RECIA"
 
 #: acheteurs-liste.php:4 acheteurs-liste.php:5 categories.php:3
-#: categories.php:4 inc/localization.php:15 recherche-plus.php:3
-#: recherche-plus.php:4 recherche.php:3 recherche.php:4 titulaires.php:4
-#: titulaires.php:5
+#: categories.php:4 recherche-plus.php:3 recherche-plus.php:4 recherche.php:3
+#: recherche.php:4 titulaires.php:4 titulaires.php:5
 msgid "Bourgogne-Franche-Comté"
 msgstr "Centre val de Loire"
 
@@ -46,6 +45,11 @@ msgstr "GIP RECIA"
 #: index.php:39
 msgid "à partir du "
 msgstr "Depuis le "
+
+#: index.php:45
+msgid ""
+"Données essentielles des marchés publics de la plateforme Mégalis Bretagne"
+msgstr "Données essentielles des marchés publics de la plateforme RECIA"
 
 #: index.php:53
 msgid ""
