@@ -149,7 +149,7 @@ def import_one_file(file, dict_titu, dict_acheteur):
                 continue
                 marche.id_marche = marcheXml['uid']
             elif 'uuid' in marcheXml:
-                if isBlank(marcheXml['uid']):
+                if isBlank(marcheXml['uuid']):
                     logging.error("Pas d'id de marche, on ignore le marche")
                     continue
                 marche.id_marche = marcheXml['uuid']
