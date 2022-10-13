@@ -29,6 +29,8 @@ def get_or_create_workdir():
         pass
     return WORKDIR
 
+def isBlank (myString):
+    return not (myString and myString.strip())
 
 # def clear_wordir():
 #     DIR = get_or_create_workdir()
@@ -142,11 +144,18 @@ def import_one_file(file, dict_titu, dict_acheteur):
 
             marche = Marche()
             if 'uid' in marcheXml:
+                if isBlank(marcheXml['uid']):
+                    logging.error("Pas d'id de marche, on ignore le marche")
+                continue
                 marche.id_marche = marcheXml['uid']
             elif 'uuid' in marcheXml:
+                if isBlank(marcheXml['uid']):
+                    logging.error("Pas d'id de marche, on ignore le marche")
+                    continue
                 marche.id_marche = marcheXml['uuid']
             else:
                 logging.error("Pas d'id de marche, on ignore le marche")
+                continue
 
             if 'codeCPV' not in marcheXml:
                 logging.warning(str(marche.id_marche) + " : pas de code cpv, on l'ignore")
