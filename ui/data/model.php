@@ -557,15 +557,13 @@ function getMontantCPVLieu ($connect, $categorie, $months=12)
         // TODO A variabiliser
         switch ($r['nom_lieu'])
         {
-            case "(35) Ille-et-Vilaine" : $t = 3; break;
-            case "(56) Morbihan" : $t = 4; break;
-            case "(22) Côtes-d'Armor" : $t = 5; break;
-            case "(29) Finistère" : $t = 6; break;
-            case "(44) Loire-Atlantique" : $t = 7; break;
-            case "(49) Maine-et-Loire" : $t = 8; break;
-            case "(02) Aisne" : $t = 9; break;
+            case "(18) Cher" : $t = 3; break;
+            case "(28) Eure-et-Loir" : $t = 4; break;
+            case "(36) Indre" : $t = 5; break;
+            case "(37) Indre-et-Loire" : $t = 6; break;
+            case "(41) Loir-et-Cher" : $t = 7; break;
+            case "(45) Loiret" : $t = 8; break;
             case "(75) Paris" : $t = 10; break;
-            case "(59) Nord" : $t = 11; break;
         }
         $target[] = $t;
         $values[] = $r['total'];
