@@ -1,10 +1,10 @@
 <?php
 
 //  // paramètres par défaut (confif pour attaquer la bdd docker)
-  $host = '152.228.212.208';
-  $user = 'user';
-  $pass = 'password';
-  $name = 'marches_publics';
+$host = 'database';
+$user = 'user';
+$pass = 'password';
+$name = 'marches_publics';
 
     // serveur easyphp sous windows
   if ($_SERVER['SERVER_NAME'] == 'localhost' or $_SERVER['SERVER_NAME'] == '127.0.0.1' )
