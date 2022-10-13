@@ -15,7 +15,7 @@ $name = 'marches_publics';
       $name = 'marches_publics';
   }
 
-  $connect  = new mysqli($host, $user, $pass, $name,"8080");
+  $connect  = new mysqli($host, $user, $pass, $name);
   $connect->query("SET NAMES 'utf8'");
 
   // check
