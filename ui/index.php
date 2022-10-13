@@ -748,7 +748,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
                     {
                         pad: 20, thickness: 30, line: { color: "#fff", width: 1 },
                         // TODO A variabiliser
-                        label: ["Services", "Travaux", "Fournitures", "Ille-et-Vilaine", "Morbihan", "Côtes-d'Armor", "Finistère", "Loire-Atlantique", "Maine-et-Loire", "Aisne","Paris","Nord"],
+                        label: ["Services", "Travaux", "Fournitures", "Cher", "Eure-et-Loir", "Indre", "Indre-et-Loire", "Loir-et-Cher", "Loiret", "Paris"],
                         color: okabe_ito_sankey
                     },
                 link: {
