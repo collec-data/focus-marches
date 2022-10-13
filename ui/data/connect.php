@@ -1,7 +1,7 @@
 <?php
 
-  // paramètres par défaut (confif pour attaquer la bdd docker)
-  $host = 'database';
+//  // paramètres par défaut (confif pour attaquer la bdd docker)
+  $host = '152.228.212.208';
   $user = 'user';
   $pass = 'password';
   $name = 'marches_publics';
@@ -9,13 +9,13 @@
     // serveur easyphp sous windows
   if ($_SERVER['SERVER_NAME'] == 'localhost' or $_SERVER['SERVER_NAME'] == '127.0.0.1' )
   {
-      $host = 'localhost';
-      $user = 'root';
-      $pass = '';
+      $host = '152.228.212.208';
+      $user = 'user';
+      $pass = 'password';
       $name = 'marches_publics';
   }
 
-  $connect  = new mysqli($host, $user, $pass, $name);
+  $connect  = new mysqli($host, $user, $pass, $name,"8080");
   $connect->query("SET NAMES 'utf8'");
 
   // check

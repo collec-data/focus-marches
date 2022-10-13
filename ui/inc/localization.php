@@ -8,8 +8,8 @@ $res = setlocale(LC_ALL, 'fr_FR.UTF-8', 'fr_FR.', 'fr');
 //$res = setlocale(LANG, 'fr_FR.UTF-8', 'fr_FR.', 'fr');
 
 //set domain
-bindtextdomain("megalis", "./locale");
-textdomain("megalis");
+bindtextdomain("recia", "./locale");
+textdomain("recia");
 
 //test
 //echo _("Bourgogne-Franche-Comté");

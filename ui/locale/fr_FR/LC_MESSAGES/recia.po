@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: focus-marches\n"
 "POT-Creation-Date: 2022-07-18 15:42+0200\n"
-"PO-Revision-Date: 2022-07-18 15:43+0200\n"
+"PO-Revision-Date: 2022-10-13 10:57+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -20,18 +20,18 @@ msgstr ""
 #: mentions-legales.php:4 mentions-legales.php:5 territoire.php:4
 #: territoire.php:5
 msgid "Territoires Numériques"
-msgstr "Mégalis Bretagne"
+msgstr "GIP RECIA"
 
 #: acheteurs-liste.php:4 acheteurs-liste.php:5 categories.php:3
 #: categories.php:4 inc/localization.php:15 recherche-plus.php:3
 #: recherche-plus.php:4 recherche.php:3 recherche.php:4 titulaires.php:4
 #: titulaires.php:5
 msgid "Bourgogne-Franche-Comté"
-msgstr "Bretagne"
+msgstr "Centre val de Loire"
 
 #: acheteurs.php:4 acheteurs.php:5 titulaires.php:25
 msgid "Ternum BFC"
-msgstr "Mégalis Bretagne"
+msgstr "GIP RECIA"
 
 #: inc/footer.php:17
 msgid ""
@@ -41,7 +41,7 @@ msgstr "<br>"
 
 #: index.php:4 index.php:5 index.php:54
 msgid "Mégalis Bretagne"
-msgstr "Mégalis Bretagne"
+msgstr "GIP RECIA"
 
 #: index.php:39
 msgid "à partir du "
@@ -52,6 +52,8 @@ msgid ""
 "Cet outil exploite les données essentielles des marchés publics passés en "
 "Bretagne sous réserves "
 msgstr ""
+"Cet outil exploite les données essentielles des marchés publics passés dans "
+"la région centre val de Loire sous réserves "
 
 #: index.php:62
 msgid "Contrats conclus à partir du "
