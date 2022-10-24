@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: focus-marches\n"
 "POT-Creation-Date: 2022-10-24 13:14+0200\n"
-"PO-Revision-Date: 2022-10-24 13:14+0200\n"
+"PO-Revision-Date: 2022-10-24 13:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -33,11 +33,10 @@ msgid "Ternum BFC"
 msgstr "GIP RECIA"
 
 #: inc/footer.php:17
-#, fuzzy
 msgid ""
 "Crédit de la photo du Pavillon nord des Halles Martenot, Rennes : <a href="
 "\"https://commons.wikimedia.org/wiki/User:EdouardHue\"> EdouardHue<a/>"
-msgstr "<br>"
+msgstr ""
 
 #: index.php:4 index.php:5 index.php:54
 msgid "Mégalis Bretagne"
@@ -48,15 +47,11 @@ msgid "à partir du "
 msgstr "Depuis le "
 
 #: index.php:45
-#, fuzzy
-#| msgid ""
-#| "Cet outil exploite les données essentielles des marchés publics passés en "
-#| "Bretagne sous réserves "
 msgid ""
 "Données essentielles des marchés publics de la plateforme Mégalis Bretagne"
 msgstr ""
 "Cet outil exploite les données essentielles des marchés publics passés en "
-"région Centre-Val de Loire sous réserves "
+"région Centre-Val de Loire sous réserves"
 
 #: index.php:53
 msgid ""
@@ -90,7 +85,7 @@ msgstr ""
 msgid ""
 "Le site Focus Marchés est édité par le GIP Territoires Numériques Bourgogne-"
 "Franche-Comté."
-msgstr "Le site Focus Marchés est édité par le GIP RECIA"
+msgstr "Le site Focus Marchés est édité par le GIP RECIA."
 
 #: mentions-legales.php:32
 msgid "Directeur de la publication&nbsp;: Gilles Delamarche"
