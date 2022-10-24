@@ -15,7 +15,7 @@
         </div>
       </div>
         <p><?php echo gettext('Crédit de la photo du Pavillon nord des Halles Martenot, Rennes : <a href="https://commons.wikimedia.org/wiki/User:EdouardHue"> EdouardHue<a/>')?> </p>
-        <p><a href="https://www.megalis.bretagne.bzh/"><img id="footerLogo" src="img/footer_logo.png" alt=<?php echo gettext('Territoires Numériques')?> /></a></p>
+        <p><a href="https://www.recia.fr/"><img id="footerLogo" src="img/footer_logo.png" alt=<?php echo gettext('Territoires Numériques')?> /></a></p>
   </div>
 </div>
   </footer>

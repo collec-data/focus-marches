@@ -51,7 +51,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
 
 
         <h2 id="dates" class="has-text-centered subtitle"><?php echo gettext("Cet outil exploite les données essentielles des marchés publics passés en Bretagne sous réserves "); ?>
-            que l'organisme qui passe le marché public <a target="_blank" href="https://geobretagne.fr/mviewer/?config=/apps/megalis-services/config.xml#">soit adhérent au service proposé par <?php echo gettext("Mégalis Bretagne"); ?></a>
+            que l'organisme qui passe le marché public soit adhérent au service proposé par <?php echo gettext("Mégalis Bretagne"); ?></a>
             et qu'il  ait bien complété toutes les informations nécessaires dans la salle des marchés publics (bien renseigné l'étape décision).
             On ne trouvera pas, par exemple, les marchés des services de l'Etat qui utilisent <a target="_blank" href="https://www.marches-publics.gouv.fr/">leur propre plateforme</a> <br><br>Les contrats de type accords-cadres sont exclus à ce jour, mais ils seront intégrés dans une prochaine version de l'outil.
         </h2>
