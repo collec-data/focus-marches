@@ -25,6 +25,7 @@ Load Bluebird before fetch:
 <script src="assets/jquery/jquery-3.3.1.min.js"></script>
 <script src="assets/d3js/d3.v5.min.js"></script>
 <script src="assets/plotly/plotly-1.43.1.min.js"></script>
+<script src="assets/clipboard/clipboard.min.js"></script>
 <!-- <script src="https://cdn.plot.ly/plotly-locale-fr-latest.js"></script> -->
 <script>
 // var config = {locale: 'fr'};

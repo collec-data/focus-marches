@@ -4,6 +4,8 @@
   Config : quelques variables globales
   -------------------------------------
 */
+
+error_reporting(E_ALL);
 require_once('data/model.php');
 require_once('data/connect.php');
 $connect->set_charset("utf8");
@@ -24,6 +26,10 @@ $nb_mois = $yearsInMonths + $months;
 // messages sur la dimension temporelle des des données
 $donnees_mises_a_jour = $formatter->format(new DateTime($config['date_mise_a_jour']));
 $donnees_a_partir_du = $formatter->format(new DateTime($config['date_debut']));
+
+
+$path_prefix="edsa-focus-marches-new";
+$protocol="https://";
 
 //echo $donnees_mises_a_jour;
 ?>
