@@ -114,6 +114,76 @@ if ($iframe == true){
         </div>
 
 
+        <div id="modalMarche" class="modal mini-fiche-marche">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title"><i class="far fa-handshake pb5"></i> Détails du contrat</p>
+                    <button id="ferme-marche" class="has-text-centered button is-btn-marron">Fermer</button>
+                </header>
+                <section class="modal-card-body">
+                    <div id="enCharge">
+                        <p>Je cherche les données, une seconde ... :)</p>
+                        <p><img src="img/spinner-wedges.gif"></p>
+                    </div>
+
+                    <div id="modalMessage">
+
+                        <div class="columns">
+
+                            <!-- Colonne 1 -->
+                            <div id="details-1" class="column is-one-quarter">
+                                <h4>Montant</h4>
+                                <p id="m_montant" class="roboto l"></p>
+                                <h4>Durée</h4>
+                                <p id="m_duree"></p>
+                                <h4>Lieu d'exécution</h4>
+                                <p id="m_lieu"></p>
+                                <h4>Date de notification </h4>
+                                <p id="m_date_notification"></p>
+                                <h4>Type de marché</h4>
+                                <p id="m_nature">Marché de partenariat</p>
+                                <h4>Procédure</h4>
+                                <p id="m_procedure">Procédure adaptée</p>
+                                <h4>Forme de prix</h4>
+                                <p id="m_forme_prix">Révisable</p>
+                                <span id="m_id"></span>
+                            </div>
+
+                            <!-- Colonne 2 -->
+                            <div class="column">
+
+                                <div class="columns">
+                                    <!-- Colonne 2 A -->
+                                    <div class="column">
+                                        <h4>Acheteur</h4>
+                                        <p>
+                                            <span id="m_acheteur"></span>
+                                            <span id="m_acheteur_siret" class="siret"></span></p>
+                                    </div>
+
+                                    <!-- Colonne 2 B -->
+                                    <div class="column">
+                                        <h4>Titulaire</h4>
+                                        <p>
+                                            <span id="m_titulaire"></span> <span id="m_titulaire_siret" class="siret"></span></p>
+                                        <p>
+                                            <span id="m_titulaire_a" class="link"></span>
+                                        </p>
+                                    </div>
+                                </div><!-- ./Colonnes 2A et 2B -->
+                                <div id="m_wrap_cpv">
+                                    <h4>Code CPV : </h4>
+                                    <p><span id="m_cpv_code"></span> - <span id="m_cpv_libelle"></span></p>
+                                </div>
+                                <h4>Objet</h4>
+                                <p id="m_objet"></p>
+                            </div>
+                        </div>
+                    </div><!-- ./ modalMessage -->
+                </section>
+            </div>
+        </div>
 
 
         <?php

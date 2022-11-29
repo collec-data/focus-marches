@@ -110,106 +110,9 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210')
     <textarea class="textarea"><?php echo $iframe_code;?></textarea>
 </div>
 
-<!-- Modal Liste titulaires -->
-
-  <div id="modalListe" class="modal">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-    <section class="modal-card-body">
-      <div id="enCharge">
-        <p>Je cherche les données, une seconde ... :)</p>
-        <p><img src="img/spinner-wedges.gif"></p>
-      </div>
-      <div id="modalMessageList">
-        <h2 class="modalH2">Liste de fournisseurs <small>(les marchés sont groupés par fournisseur)</small></h2>
-        <table class="display table table-striped table-bordered table-hover dataTable no-footer" id="tableList"  style="width:100%;margin-top:10px; ">
-          <thead>
-            <tr>
-              <th width="6%">Détails</th>
-              <th width="68%">Nom</th>
-              <th width="26%">Montant</th>
-            </tr>
-          </thead>
-        </table>
-      </div>
-      <button id="ferme-modal-liste" class="has-text-centered button is-btn-marron">Fermer</button>
-    </section>
-  </div><!-- ./modal-card -->
-</div><!-- ./modalListe -->
 
 
 
-
-<div id="modalMarche" class="modal mini-fiche-marche">
-  <div class="modal-background"></div>
-  <div class="modal-card">
-     <header class="modal-card-head">
-      <p class="modal-card-title"><i class="far fa-handshake pb5"></i> Détails du contrat</p>
-        <button id="ferme-marche" class="has-text-centered button is-btn-marron">Fermer</button>
-    </header>
-    <section class="modal-card-body">
-    <div id="enCharge">
-      <p>Je cherche les données, une seconde ... :)</p>
-      <p><img src="img/spinner-wedges.gif"></p>
-    </div>
-
-    <div id="modalMessage">
-
-      <div class="columns">
-
-        <!-- Colonne 1 -->
-        <div id="details-1" class="column is-one-quarter">
-          <h4>Montant</h4>
-          <p id="m_montant" class="roboto l"></p>
-          <h4>Durée</h4>
-          <p id="m_duree"></p>
-          <h4>Lieu d'exécution</h4>
-          <p id="m_lieu"></p>
-          <h4>Date de notification </h4>
-          <p id="m_date_notification"></p>
-          <h4>Type de marché</h4>
-          <p id="m_nature">Marché de partenariat</p>
-          <h4>Procédure</h4>
-          <p id="m_procedure">Procédure adaptée</p>
-          <h4>Forme de prix</h4>
-          <p id="m_forme_prix">Révisable</p>
-          <span id="m_id"></span>
-        </div>
-
-        <!-- Colonne 2 -->
-        <div class="column">
-
-          <div class="columns">
-            <!-- Colonne 2 A -->
-            <div class="column">
-              <h4>Acheteur</h4>
-              <p>
-                <span id="m_acheteur"></span>
-                <span id="m_acheteur_siret" class="siret"></span></p>
-            </div>
-
-            <!-- Colonne 2 B -->
-            <div class="column">
-              <h4>Titulaire</h4>
-              <p>
-                <span id="m_titulaire"></span> <span id="m_titulaire_siret" class="siret"></span></p>
-               <p>
-                <span id="m_titulaire_a" class="link"></span>
-              </p>
-            </div>
-          </div><!-- ./Colonnes 2A et 2B -->
-          <div id="m_wrap_cpv">
-            <h4>Code CPV : </h4>
-            <p><span id="m_cpv_code"></span> - <span id="m_cpv_libelle"></span></p>
-          </div>
-          <h4>Objet</h4>
-          <p id="m_objet"></p>
-      </div>
-    </div>
-</div><!-- ./ modalMessage -->
-</section>
-</div>
-</div>
 
 </div> <!-- ./ main -->
 
@@ -292,82 +195,11 @@ $( document ).ready(function() {
     }
   });
 
-
-  $('#aideCPVLieuxBtn').click(function()
-  {
-    $('#aideCPVLieux').toggle();
-  });
-
-    //// toggle aide charte
-    $('#rechercheTempAide').on('click', function ()
-    {
-      $('#rechercheTempContenu').toggle();
-    });
-
-
-
-
-/* --------------------------------------
-    Modal liste acheteurs
-   --------------------------------------*/
-//// Initialiser la table une fois
-var tableList = $('#tableList').DataTable({
-  "responsive": true,
-  "dom": '<"wrapper"Bfltip>',
-  "language": francais_neutre,
-  "columns": [
-    { "data": "details" },
-    { "data": "nom" },
-    { "data": "montant",
-    render: $.fn.dataTable.render.number( ' ', '.', 0, '', '€' ) }
-  ],
-  "paging": true,
-  "buttons": ['copy', 'csv', 'excel', 'pdf', 'print'],
-  "order": [[ 1, "asc" ],[ 2, "asc" ]],
-  "columnDefs": [{
-      targets: 0,
-      className: 'dt-body-right'
-  }]
-});
-
-
-//// Ouvrir la modal liste - version titulaires
-$('#getListeTitulaires').on('click', function()
-{
-  $('#modalMessageList').css('display', 'none');
-  $('#modalListe #enCharge').css('display', 'block');
-  $('#modalListe').addClass('is-active');
-
-  tableList.ajax.url( 'data/getListTitulaires.php?m=<?php echo $nb_mois;?>&i=<?php echo $id;?>' ).load( function()
-  {
-    if (tableList.data().length === 0)
-    {
-      console.log('pas de données');
-      // $('#rechercheSansResultats').css('display', 'block');
-      // $('#rechercheResultats').css('display', 'none');
-    }
-    else
-    {
-      $('#modalMessageList').css('display', 'block');
-      $('#modalListe #enCharge').css('display', 'none');
-      console.log("On a " + tableList.data().length + " lignes de données");
-      // $('#rechercheSansResultats').css('display', 'none');
-      // $('#rechercheResultats').css('display', 'block');
-    }
-  });
-}); // END Ouvrir modal
-
-
-  //// Fermer modal liste acheteurs et titulaires
-  $('.modal-card .delete, .modal-background, #ferme-modal-liste').on('click', function ()
-  {
-    $('#modalListe').removeClass('is-active');
-    $('#modalListe #enCharge').css('display', 'block');
-    $('input[type="search"]').html("");
-  });
-
-
-
+  //
+  // $('#aideCPVLieuxBtn').click(function()
+  // {
+  //   $('#aideCPVLieux').toggle();
+  // });
 
 
 

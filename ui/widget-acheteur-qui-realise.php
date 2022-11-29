@@ -183,6 +183,36 @@ if ($iframe == true){
 
 
 
+        <!-- Modal Liste titulaires -->
+
+        <div id="modalListe" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <section class="modal-card-body">
+                    <div id="enCharge">
+                        <p>Je cherche les données, une seconde ... :)</p>
+                        <p><img src="img/spinner-wedges.gif"></p>
+                    </div>
+                    <div id="modalMessageList">
+                        <h2 class="modalH2">Liste de fournisseurs <small>(les marchés sont groupés par fournisseur)</small></h2>
+                        <table class="display table table-striped table-bordered table-hover dataTable no-footer" id="tableList"  style="width:100%;margin-top:10px; ">
+                            <thead>
+                            <tr>
+                                <th width="6%">Détails</th>
+                                <th width="68%">Nom</th>
+                                <th width="26%">Montant</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <button id="ferme-modal-liste" class="has-text-centered button is-btn-marron">Fermer</button>
+                </section>
+            </div><!-- ./modal-card -->
+        </div><!-- ./modalListe -->
+
+
+
+
 
 
         <?php
@@ -232,6 +262,68 @@ if ($iframe == true){
     setQui('topTitulairesFournitures',
         [<?php echo $noms; ?>],
         [<?php echo implode(',', array_column($titulairesFournitures, 2)); ?>] );
+
+
+
+
+    /* --------------------------------------
+        Modal liste acheteurs
+       --------------------------------------*/
+    //// Initialiser la table une fois
+    var tableList = $('#tableList').DataTable({
+        "responsive": true,
+        "dom": '<"wrapper"Bfltip>',
+        "language": francais_neutre,
+        "columns": [
+            { "data": "details" },
+            { "data": "nom" },
+            { "data": "montant",
+                render: $.fn.dataTable.render.number( ' ', '.', 0, '', '€' ) }
+        ],
+        "paging": true,
+        "buttons": ['copy', 'csv', 'excel', 'pdf', 'print'],
+        "order": [[ 1, "asc" ],[ 2, "asc" ]],
+        "columnDefs": [{
+            targets: 0,
+            className: 'dt-body-right'
+        }]
+    });
+
+
+    //// Ouvrir la modal liste - version titulaires
+    $('#getListeTitulaires').on('click', function()
+    {
+        $('#modalMessageList').css('display', 'none');
+        $('#modalListe #enCharge').css('display', 'block');
+        $('#modalListe').addClass('is-active');
+
+        tableList.ajax.url( 'data/getListTitulaires.php?m=<?php echo $nb_mois;?>&i=<?php echo $id;?>' ).load( function()
+        {
+            if (tableList.data().length === 0)
+            {
+                console.log('pas de données');
+                // $('#rechercheSansResultats').css('display', 'block');
+                // $('#rechercheResultats').css('display', 'none');
+            }
+            else
+            {
+                $('#modalMessageList').css('display', 'block');
+                $('#modalListe #enCharge').css('display', 'none');
+                console.log("On a " + tableList.data().length + " lignes de données");
+                // $('#rechercheSansResultats').css('display', 'none');
+                // $('#rechercheResultats').css('display', 'block');
+            }
+        });
+    }); // END Ouvrir modal
+
+    //// Fermer modal liste acheteurs et titulaires
+    $('.modal-card .delete, .modal-background, #ferme-modal-liste').on('click', function ()
+    {
+        $('#modalListe').removeClass('is-active');
+        $('#modalListe #enCharge').css('display', 'block');
+        $('input[type="search"]').html("");
+    });
+
 
 
 

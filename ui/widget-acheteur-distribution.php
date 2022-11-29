@@ -95,6 +95,9 @@ if ($iframe == true){
 }   ?>
 
 <script>
+
+
+
     <?php
     // différents layouts et fonctions pour paramétrer les graphiques
     include('inc/plotly-layouts-fonctions.php');

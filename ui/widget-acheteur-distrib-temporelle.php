@@ -370,11 +370,16 @@ if ($iframe == true){
     }
     ajaxCall();
 
-
-
     /* --------------------------------------
       Table de marchés
       --------------------------------------*/
     //// format € https://datatables.net/manual/data/renderers#Number-helper
+
+
+    //// toggle aide charte
+    $('#rechercheTempAide').on('click', function ()
+    {
+        $('#rechercheTempContenu').toggle();
+    });
 
 </script>

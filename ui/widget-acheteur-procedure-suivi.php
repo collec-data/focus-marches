@@ -112,7 +112,11 @@ if ($iframe == true){
     include('inc/plotly-layouts-fonctions.php');
 
     ?>
-
+    //// toggle aide nature
+    $('#aideProcedureButton').on('click', function ()
+    {
+        $('#aideProcedure').toggle();
+    });
 
     /* --------------------------------------
   Nature des marchés
