@@ -116,7 +116,7 @@ if ($iframe == true){
                 ?>
                 <div>
                     <p class="has-text-right">
-                        <button class="button has-text-link is-link-bg is-small" data-clipboard-text='<?php echo $iframe_code_1;?>' ><i class="fa fa-code"></i>&nbsp;intégrer le widget</button></p>
+                        <button class="btnCopy button has-text-link is-link-bg is-small" data-clipboard-text='<?php echo $iframe_code_1;?>' ><i class="fa fa-code"></i>&nbsp;intégrer le widget</button></p>
                 </div>
                 <?php
             }

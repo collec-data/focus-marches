@@ -10,7 +10,7 @@ include('inc/localization.php');
 ?>
 <!-- entre heads : ajouter extra css , ... -->
 <link rel="stylesheet" href="assets/leaflet/leaflet.css" />
-
+<link href="assets/toastr/toastr.min.css" rel="stylesheet" />
 <?php
 include('inc/nav.php');
 require_once('data/connect.php');
@@ -120,38 +120,28 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210')
     <script type="text/javascript">
 
 
-
-        // $('button').tooltip({
-        //     trigger: 'click',
-        //     placement: 'bottom'
-        // });
-        //
-        // function setTooltip(message) {
-        //     $('button').tooltip('hide')
-        //         .attr('data-original-title', message)
-        //         .tooltip('show');
-        // }
-        //
-        // function hideTooltip() {
-        //     setTimeout(function() {
-        //         $('button').tooltip('hide');
-        //     }, 1000);
-        // }
-
         // Clipboard
 
-        var clipboard = new ClipboardJS('button');
+        var clipboard = new ClipboardJS('.btnCopy');
 
         clipboard.on('success', function(e) {
             console.log('Copié!');
-            // setTooltip('Copié');
-            // hideTooltip();
+            toastr.options = {
+                "positionClass": "toast-bottom-center",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "20",
+                "hideDuration": "50",
+                "timeOut": "500",
+                "extendedTimeOut": "500",
+            }
+            toastr.success('<b>Copié !</b>')
+
         });
 
         clipboard.on('error', function(e) {
             console.log('Failed!');
-            // setTooltip('Failed!');
-            // hideTooltip();
+            toastr["error"]("<b>Failed!</b")
         });
     </script>
     <script src="assets/jquery/jquery-3.3.1.min.js"></script>
