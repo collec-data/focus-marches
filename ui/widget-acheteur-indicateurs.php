@@ -12,6 +12,8 @@ if (is_numeric($_GET['i'])) $secured = true;
 }
 
 if ($iframe == true){
+
+    $title ="Indicateurs clés";
     include('inc/head.php');
     include('inc/config.php');
     include('inc/localization.php');
@@ -154,10 +156,21 @@ if ($iframe == true){
             <?php
             if ($iframe == false){
 
+                $url=strtok("$protocol$_SERVER[HTTP_HOST]",'?');
+                $iframe_code_gen="<iframe ";
+                $iframe_code_gen.= "src=\"$url/$path_prefix/ui/widget-acheteur-indicateurs.php?i=";
+                $iframe_code_gen.=$id;
+                $iframe_code_gen.="&widget=1\" ";
+                $iframe_code_gen.= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
+                $iframe_code_gen.= "style=\"border: 0;\" ";
+                $iframe_code_gen.= "width=\"100%\" height=\"600px\">";
+                $iframe_code_gen.= "</iframe>";
+                $iframe_code_1 = $iframe_code_gen
+
                 ?>
                 <div>
                     <p class="has-text-right">
-                        <button class="button has-text-link is-link-bg is-small" data-clipboard-text="http://127.0.0.1:8080/edsa-focus-marches-new/ui/widget-acheteur-indicateurs.php?i=24360023600018&widget=1" ><i class="fa fa-code"></i>&nbsp;intégrer le widget</button></p>
+                        <button class="button has-text-link is-link-bg is-small" data-clipboard-text='<?php echo $iframe_code_1;?>' ><i class="fa fa-code"></i>&nbsp;intégrer le widget</button></p>
                 </div>
                 <?php
             }
