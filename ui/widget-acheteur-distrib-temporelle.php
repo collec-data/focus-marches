@@ -89,7 +89,7 @@ if ($iframe == true){
 
                 $url=strtok("$protocol$_SERVER[HTTP_HOST]",'?');
                 $iframe_code_gen="<iframe ";
-                $iframe_code_gen.= "src=\"$url/$path_prefix/ui/widget-acheteur-distrib-temporelle.php?i=";
+                $iframe_code_gen.= "src=\"$url/widget-acheteur-distrib-temporelle.php?i=";
                 $iframe_code_gen.=$id;
                 $iframe_code_gen.="&widget=1\" ";
                 $iframe_code_gen.= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
