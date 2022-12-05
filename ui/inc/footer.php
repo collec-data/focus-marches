@@ -18,7 +18,7 @@
                 <h3>A propos de cet outil</h3>
                 <div class="columns has-text-justified">
                     <div class="column">
-                        <p>Cet outil est alimenté avec les données du profil d'acheteur de la salle de marchés de Mégalis Bretagne.</p>
+                        <p>Cet outil est alimenté avec les données du profil d'acheteur de la salle de marchés de <?php echo gettext("NOM_OPSN")?>.</p>
                         <p>Il a été conçu par le service <b><a href="https://www.ternum-bfc.fr">Données Ouvertes</a></b> de <a href="https://www.ternum-bfc.fr/">ARNia</a> pour faciliter l'exploitation des informations contenues dans les données essentielles de la commande publique.</p>
                     </div>
                     <div class="column">
@@ -26,7 +26,6 @@
                         <p>Notre page <a href="mentions-legales.php">Mentions légales</a> contient des informations concernant la protection de la vie privée et vous permet de configurer le suivi ou pas par notre outil d'analyse de visites.  </p>
                     </div>
                 </div>
-<!--                <p>--><?php //echo gettext('Crédit de la photo du Pavillon nord des Halles Martenot, Rennes : <a href="https://commons.wikimedia.org/wiki/User:EdouardHue"> EdouardHue<a/>')?><!-- </p>-->
                 <p><a href="https://www.recia.fr/"><img id="footerLogo" src="img/footer_logo.png" alt=<?php echo gettext('NOM_OPSN')?> /></a></p>
             </div>
         </div>
