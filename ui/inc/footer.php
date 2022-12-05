@@ -19,11 +19,10 @@
                 <div class="columns has-text-justified">
                     <div class="column">
                         <p>Cet outil est alimenté avec les données du profil d'acheteur de la salle de marchés de Mégalis Bretagne.</p>
-
                         <p>Il a été conçu par le service <b><a href="https://www.ternum-bfc.fr">Données Ouvertes</a></b> de <a href="https://www.ternum-bfc.fr/">ARNia</a> pour faciliter l'exploitation des informations contenues dans les données essentielles de la commande publique.</p>
                     </div>
                     <div class="column">
-                        <p>Données publiées sous la <a href="pdf/ETALAB-Licence-Ouverte-v2.0.pdf">Licence Ouverte Version 2.0 - Etalab</a>. Le <a href="https://www.data.gouv.fr/fr/datasets/donnees-essentielles-du-profil-acheteur-megalis-bretagne/">téléchargement des données</a> se fait librement sur le portail opendata national.</p>
+                        <?php echo gettext('TELECHARGEMENT_DATA')?>
                         <p>Notre page <a href="mentions-legales.php">Mentions légales</a> contient des informations concernant la protection de la vie privée et vous permet de configurer le suivi ou pas par notre outil d'analyse de visites.  </p>
                     </div>
                 </div>

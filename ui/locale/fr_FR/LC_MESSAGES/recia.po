@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: focus-marches\n"
-"POT-Creation-Date: 2022-12-05 15:44+0100\n"
-"PO-Revision-Date: 2022-12-05 15:49+0100\n"
+"POT-Creation-Date: 2022-12-05 16:45+0100\n"
+"PO-Revision-Date: 2022-12-05 16:53+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -17,19 +17,22 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *js\n"
 
 #: acheteur.php:4 acheteur.php:5 acheteurs-liste.php:25 acheteurs.php:4
-#: acheteurs.php:5 acheteurs.php:25 inc/footer.php:31 inc/localization.php:15
-#: index.php:5 index.php:6 index.php:49 mentions-legales.php:4
-#: mentions-legales.php:5 territoire.php:4 territoire.php:5 titulaire.php:4
-#: titulaire.php:5 titulaires.php:25
+#: acheteurs.php:5 acheteurs.php:25 inc/footer.php:33 index.php:5 index.php:6
+#: index.php:49 index.php:57 mentions-legales.php:4 mentions-legales.php:5
+#: territoire.php:4 territoire.php:5 titulaire.php:4 titulaire.php:5
+#: titulaires.php:25
 msgid "NOM_OPSN"
 msgstr "GIP RECIA"
 
 #: acheteurs-liste.php:4 acheteurs-liste.php:5 categories.php:3
-#: categories.php:4 inc/localization.php:16 index.php:57 recherche-plus.php:3
-#: recherche-plus.php:4 recherche.php:3 recherche.php:4 titulaires.php:4
-#: titulaires.php:5
+#: categories.php:4 index.php:57 recherche-plus.php:3 recherche-plus.php:4
+#: recherche.php:3 recherche.php:4 titulaires.php:4 titulaires.php:5
 msgid "NOM_REGION"
 msgstr "Centre-Val de Loire"
+
+#: inc/footer.php:26
+msgid "TELECHARGEMENT_DATA"
+msgstr "<p></p>"
 
 #: index.php:43
 msgid "à partir du "
@@ -69,8 +72,6 @@ msgstr ""
 #: mentions-legales.php:29
 msgid "Hébergement&nbsp;: OVH"
 msgstr ""
-"<b>Hébergement&nbsp;:</b> <a target=\"_blank\" href=\" https://www.sib.fr/"
-"\">SIB </a>"
 
 #: mentions-legales.php:37
 msgid ""
@@ -91,7 +92,7 @@ msgid ""
 msgstr ""
 "La personne suivante a été nommée Délégué à la Protection des Données : M. "
 "Maxence-Amaury GUILLON. Il peut être joint de la manière suivante :<br>E-"
-"mail : <a href=\"mailto:dpo@recia.fr>dpo@recia.fr</a>"
+"mail : <a href=\"mailto:dpo@recia.fr\">dpo@recia.fr</a>"
 
 #: mentions-legales.php:68
 msgid ""
