@@ -1,12 +1,14 @@
 <?php
+include('inc/localization.php');
 
 $page = "accueil";
-$title = "Données essentielles du profil d'acheteur de ".gettext("Mégalis Bretagne");
-$desc = "Données essentielles du profil d'acheteur de ".gettext("Mégalis Bretagne");
+$title = "Données essentielles du profil d'acheteur de ".gettext("NOM_OPSN");
+$desc = "Données essentielles du profil d'acheteur de ".gettext("NOM_OPSN");
 
 include('inc/head.php');
 include('inc/config.php');
-include('inc/localization.php');
+
+
 ?>
 <!-- entre heads : ajouter extra css , ... -->
 
@@ -23,7 +25,9 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
 
 
 <div id="bandeauHome">
-    <!--  <img id="halles" src="img/Dijon_Halles_01.jpg" alt="Les Halles de Dijon - Marché public" />-->
+    <!--  <img id="halles" src="img/Dijon_Halles_01.jpg" alt
+
+    ="Les Halles de Dijon - Marché public" />-->
 <!--    <img id="halles" src="img/salle-marches-rennes.jpg" alt=--><?php //echo gettext("Les Halles de Rennes - Marché public") ?><!-- />-->
 
 
@@ -42,7 +46,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
                     </p>
             </div>
             <div class="column" >
-            <h2 class=" is-size-2 has-text-right is-size-2-desktop is-size-3-mobile"><?php echo gettext("Données essentielles des marchés publics de la plateforme Mégalis Bretagne");?></h2>
+            <h2 class=" is-size-2 has-text-right is-size-2-desktop is-size-3-mobile">Données essentielles des marchés publics de la plateforme <?php echo gettext("NOM_OPSN")?></h2>
             </div>
         </div>
 
@@ -50,8 +54,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
 
 
 
-        <h2 id="dates" class="has-text-centered subtitle"><?php echo gettext("Cet outil exploite les données essentielles des marchés publics passés en Bretagne sous réserves "); ?>
-            que l'organisme qui passe le marché public soit adhérent au service proposé par <?php echo gettext("Mégalis Bretagne"); ?></a>
+        <h2 id="dates" class="has-text-centered subtitle">Cet outil exploite les données essentielles des marchés publics passés en <?php echo gettext("NOM_REGION"); ?> sous réserves
             et qu'il  ait bien complété toutes les informations nécessaires dans la salle des marchés publics (bien renseigné l'étape décision).
             On ne trouvera pas, par exemple, les marchés des services de l'Etat qui utilisent <a target="_blank" href="https://www.marches-publics.gouv.fr/">leur propre plateforme</a> <br><br>Les contrats de type accords-cadres sont exclus à ce jour, mais ils seront intégrés dans une prochaine version de l'outil.
         </h2>

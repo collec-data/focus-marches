@@ -1,8 +1,8 @@
 <?php
 
 $page = "titulaires";
-$title = "Marchés publics en ".gettext("Bourgogne-Franche-Comté");
-$desc = "Marchés publics en ".gettext("Bourgogne-Franche-Comté");
+$title = "Marchés publics en ".gettext("NOM_REGION");
+$desc = "Marchés publics en ".gettext("NOM_REGION");
 
 include('inc/head.php');
 include('inc/localization.php');
@@ -22,7 +22,7 @@ $connect->set_charset("utf8");
 
 <div id="main">
   <div class="container">
-  <h1 class='title'>Les fournisseurs répertoriés dans les profils d'acheteur de <?php echo gettext("Ternum BFC")?></h1>
+  <h1 class='title'>Les fournisseurs répertoriés dans les profils d'acheteur de <?php echo gettext("NOM_OPSN")?></h1>
   <div class="columns">
     <div class="column">
       <p>Cliquez sur chaque élement de la liste pour découvrir le profil détaillé du titulaire. Le montant affiché correspond au total des contrats gagnés par le titulaire. La table est triée alphabetiquement par la dénomination des titulaires.</p>

@@ -1,8 +1,8 @@
 <?php
 
 $page = "mentions-legales";
-$title = "Mentions légales | Données essentielles du profil d'acheteur de ".gettext("Territoires Numériques");
-$desc = "Mentions légales | Données essentielles du profil d'acheteur de ".gettext("Territoires Numériques");
+$title = "Mentions légales | Données essentielles du profil d'acheteur de ".gettext("NOM_OPSN");
+$desc = "Mentions légales | Données essentielles du profil d'acheteur de ".gettext("NOM_OPSN");
 
 
 include('inc/head.php');
@@ -23,11 +23,6 @@ include('inc/nav.php');
 
   <h1 class='title'>Mentions légales</h1>
   <p><?php echo gettext("Le site Focus Marchés est édité par le GIP Territoires Numériques Bourgogne-Franche-Comté.");?></p>
-<!--  <ul>-->
-<!--    <li><a href="http://focus-marches.e-bourgogne.fr/">http://focus-marches.e-bourgogne.fr/</a></li>-->
-<!--    <li><a href="http://labo.e-bourgogne.fr/dataviz/donnees-essentielles/">http://labo.e-bourgogne.fr/dataviz/donnees-essentielles/</a></li>-->
-<!--  </ul>-->
-
   <h2 class="title is-2">Crédits</h2>
   <p><?php echo gettext("Directeur de la publication&nbsp;: Gilles Delamarche");?><br>
       <b>Conception et réalisation de l'outil Focus marchés :</b> Arnia (Agence Régionale du Numérique et de l'intelligence artificielle) en Bourgogne - Franche-Comté<br>
@@ -35,46 +30,6 @@ include('inc/nav.php');
   <p>
 
   <h2 class="title is-2">Protection de la vie privée</h2>
-<!--  <h3 class="title is-3">1. Quelles données sont collectées par ce site ?</h3>-->
-<!--<p>Nous utilisons différents cookies pour améliorer l’interactivité du site et nos services.</p>-->
-<!--<p><strong>Qu'est-ce qu'un "cookie" ?</strong></p>-->
-<!--<p>Un "cookie" est un fichier de taille limitée, généralement constitué de lettres et de chiffres, envoyé par le serveur internet au fichier cookie du navigateur situé sur le disque dur de votre ordinateur.</p>-->
-<!--<p><a href="https://www.cnil.fr/fr/cookies-les-outils-pour-les-maitriser">En savoir plus sur les cookies, leur fonctionnement et les moyens de s’y opposer</a></p>-->
-<!--<p><strong>Cookies de mesure d’audience</strong></p>-->
-<!--<p>En vue d’adapter le site aux demandes de ses visiteurs, nous mesurons des métriques comme le nombre de visites, le nombre de pages vues ainsi que l'activité des visiteurs sur le site et leur fréquence de retour.</p>-->
-<!--<p><a href="https://matomo.org/">Matomo</a>, l'outil de statistiques utilisé par la Territoires Numériques, génère les cookies suivants :</p>-->
-<!--<table style="width:500px;" cellspacing="1" cellpadding="1" border="1">-->
-<!--  <tbody>-->
-<!--    <tr>-->
-<!--      <td>Nom du cookie</td>-->
-<!--      <td>Finalité</td>-->
-<!--<td>Durée de conservation</td>-->
-<!--</tr>-->
-<!--<tr>-->
-<!--  <td>pk_session&nbsp;</td>-->
-<!--<td>Statistiques Matomo</td>-->
-<!--<td>1/2 h</td>-->
-<!--</tr>-->
-<!--<tr>-->
-<!--  <td>_pk_id</td>-->
-<!--<td>Statistiques Matomo</td>-->
-<!--<td>13 mois</td>-->
-<!--</tr>-->
-<!--<tr>-->
-<!--  <td>piwik_ignore</td>-->
-<!--<td>Cookie permettant d’indiquer à Matomo que vous vous&nbsp; opposez au suivi statistique</td>-->
-<!--<td>13 mois</td>-->
-<!--</tr>-->
-<!--</tbody>-->
-<!--</table>-->
-<!---->
-<!--<p>Nous collectons également votre adresse IP, afin de déterminer la ville depuis laquelle vous vous connectez. Celle-ci est immédiatement anonymisée après utilisation. Territoires Numériques ne peut donc en aucun cas remonter par ce biais à une personne physique.</p>-->
-<!--<p>Les données personnelles recueillies (identifiant du cookie) sont conservées par Territoires Numériques pour une durée de 13 mois. Elles ne sont pas cédées à des tiers ni utilisées à d'autres fins.</p>-->
-<!--<p>Vous pouvez choisir de refuser les cookies et l’analyse statistique de vos données de navigation.</p>-->
-<!--<p>Pour faire ce choix, utilisez la case à cocher ci-après :</p>-->
-<!---->
-<!--<p><iframe src="https://suivi-trafic.ternum-bfc.fr/index.php?module=CoreAdminHome&action=optOut&language=fr&amp;backgroundColor=#ffffdd&amp;fontColor=&amp;fontSize=1rem&amp;fontFamily=sans-serif" style="border: 1px solid red; padding: 20px; font-family: Arial, sans-serif; width: 100%;"></iframe></p>-->
-
 
 <h3 class="title is-3">1. Qui est le Responsable des traitements, et le Délégué à la Protection des Données&nbsp;?<br></h3>
 <p>

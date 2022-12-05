@@ -1,7 +1,7 @@
 <?php
 $page = "categories";
-$title = "Codes CPV | Marchés publics en ".gettext("Bourgogne-Franche-Comté");
-$desc = "Codes CPV | Marchés publics en ".gettext("Bourgogne-Franche-Comté");
+$title = "Codes CPV | Marchés publics en ".gettext("NOM_REGION");
+$desc = "Codes CPV | Marchés publics en ".gettext("NOM_REGION");
 
 include('inc/head-1.php');
 include('inc/localization.php');

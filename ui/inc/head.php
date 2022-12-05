@@ -10,13 +10,7 @@ header('X-Robots-Tag: noindex');
 //error_reporting(E_ALL);
 
 ?>
-<!--
-Réutilisation des données essentielles des marchés publics du profil d'acheteur de Territoires Numériques
 
-Une idée d'amélioration ? un bug ? contactez Victor VILA au 03 80 20 04 20
-
-Juillet 2019
--->
 <!doctype html>
 <html>
 <head>

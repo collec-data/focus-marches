@@ -1,8 +1,8 @@
 <?php
 
 $page = "acheteurs";
-$title = "Marchés publics ".gettext("Bourgogne-Franche-Comté");
-$desc = "Marchés publics ".gettext("Bourgogne-Franche-Comté");
+$title = "Marchés publics ".gettext("NOM_REGION");
+$desc = "Marchés publics ".gettext("NOM_REGION");
 
 include('inc/head.php');
 include('inc/localization.php');
@@ -22,7 +22,7 @@ $connect->set_charset("utf8");
 
 <div id="main">
   <div class="container">
-  <h1 class='title'>Liste d'acheteurs du profil d'acheteur de <?php echo gettext("Territoires Numériques");?></h1>
+  <h1 class='title'>Liste d'acheteurs du profil d'acheteur de <?php echo gettext("NOM_OPSN")?></h1>
   <div class="columns">
     <div class="column"><p><img src="img/TN_ruralite_connectee_400.png" ></p></div>
     <div class="column">

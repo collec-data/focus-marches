@@ -1,8 +1,8 @@
 <?php
 
 $page = "acheteurs";
-$title = "Les organismes du profil d'acheteur de ".gettext("Ternum BFC");
-$desc = "Les organismes du profil d'acheteur de ".gettext("Ternum BFC");
+$title = "Les organismes du profil d'acheteur de ".gettext("NOM_OPSN");
+$desc = "Les organismes du profil d'acheteur de ".gettext("NOM_OPSN");
 
 include('inc/head.php');
 include('inc/localization.php');
@@ -22,7 +22,7 @@ $connect->set_charset("utf8");
 
 <div id="main">
   <div class="container">
-  <h1 class='title'>Les organismes du profil d'acheteur de Mégalis Bretagne</h1>
+  <h1 class='title'>Les organismes du profil d'acheteur de <?php echo gettext("NOM_OPSN")?></h1>
   <div class="columns">
     <!-- <div class="column"><p><img src="img/TN_ruralite_connectee_400.png" ></p></div> -->
     <div class="column">

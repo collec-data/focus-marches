@@ -1,7 +1,7 @@
 <?php
 $page = "recherche";
-$title = "Recherche | Marchés publics en ".gettext("Bourgogne-Franche-Comté");
-$desc = "Recherche | Marchés publics en ".gettext("Bourgogne-Franche-Comté");
+$title = "Recherche | Marchés publics en ".gettext("NOM_REGION");
+$desc = "Recherche | Marchés publics en ".gettext("NOM_REGION");
 
 include('inc/head.php');
 include('inc/config.php');

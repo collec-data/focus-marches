@@ -1,8 +1,8 @@
 <?php
 
 $page = "acheteur";
-$title = "Acheteur | Données essentielles du profil d'acheteur ".gettext("Territoires Numériques");
-$desc = "Acheteur | Données essentielles du profil d'acheteur ".gettext("Territoires Numériques");
+$title = "Acheteur | Données essentielles du profil d'acheteur ".gettext("NOM_OPSN");
+$desc = "Acheteur | Données essentielles du profil d'acheteur ".gettext("NOM_OPSN");
 
 include('inc/head.php');
 include('inc/config.php');
@@ -184,13 +184,6 @@ $( document ).ready(function() {
       $('#'+ t + 'C').fadeIn('slow');
     }
   });
-
-  //
-  // $('#aideCPVLieuxBtn').click(function()
-  // {
-  //   $('#aideCPVLieux').toggle();
-  // });
-
 
 
 }); // document ready

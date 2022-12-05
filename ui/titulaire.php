@@ -1,8 +1,8 @@
 <?php
 
 $page = "titulaire";
-$title = "Titulaire | Données essentielles du profil d'acheteur de Territoires Numériques";
-$desc = "Titulaire | Données essentielles du profil d'acheteur de Territoires Numériques";
+$title = "Titulaire | Données essentielles du profil d'acheteur de ".gettext("NOM_OPSN")
+$desc = "Titulaire | Données essentielles du profil d'acheteur de ".gettext("NOM_OPSN")
 
 include('inc/head.php');
 include('inc/config.php');
