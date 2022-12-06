@@ -144,13 +144,12 @@ ul.inP {margin: -10px 0 0 0; padding: 0 0 0 50px; border-left: 3px solid #d6d6d6
 /*
 Bandeau home
 ----------------*/
-/* #bandeauHome { position: relative; } */
-#intro {margin: -20px auto;}
+#bandeauHome { position: relative; }
 #bandeauHome img { max-width: 100%; }
-#bandeauHome h1 { text-align: center; bottom: 20px; font-size: 2.75rem; /*color: #fff;*/ margin: 30px auto 0; }
+#bandeauHome h1 { text-align: center; bottom: 20px; font-size: 2.75rem; color: #fff; margin: -90px auto 0; }
 @media and screen(min-width: 1024px)
 {
-    #bandeauHome h1 { margin: 30px auto 50px; }
+  #bandeauHome h1 { margin: -90px auto 50px; }
 }
 
 /*
@@ -171,7 +170,11 @@ h1Fixe
 /*
 Stats Home
 -------------------*/
-#statsHome { display: none;/* position: absolute; top: 20px;*/ width: 100%; }
+#statsHome {
+  display: none;
+  position: absolute;
+  /*top: 20px;*/
+  width: 100%; }
 @media screen and (min-width: 768px)
 {
     #statsHome { display: block; }
@@ -182,7 +185,7 @@ Mise à jour -dates
 -------------------*/
 #dates { margin-top: 30px; }
 #dates .tags:not(:last-child) { margin-bottom: 0; }
-#accueil #dates { margin-top: -10px; line-height: 1.6; margin-bottom: -30px;}
+#accueil #dates { margin-top: 0; line-height: 1.6}
 /* #accueil #dates .tag:not(body) { font-size: 1.2rem; } */
 #dates .tags { display:block; }
 
