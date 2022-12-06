@@ -83,8 +83,6 @@ Lancez l'import avec la commande suivante:
 docker run --rm -v /home/debian/IN:/decp -v /home/debian/settings.py:/appli/scripts/settings/settings.py -v /home/debian/chiffres-cles-2020.csv:/workdir/chiffres-cles-2020.csv --network focus-marche_default batch
 ```
 
-_TODO expliquer les volumes docker (-v /home/debian/IN:/decp -v /home/debian/settings.py:/appli/scripts/settings/settings.py -v /home/debian/chiffres-cles-2020.csv:/workdir/chiffres-cles-2020.csv)_
-
 
 ### Autres commandes ...
 
