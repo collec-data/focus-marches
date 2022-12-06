@@ -11,6 +11,10 @@ Le projet se découpe en 2 sous-projets :
 ## Installation et configuration
 
 
+
+### Personalisation
+
+
 ### Installation avec Docker
 
 Si vous disposez de docker et de docker-compose, vous pouvez lancer le serveur avec les commandes suivantes :

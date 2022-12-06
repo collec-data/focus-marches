@@ -1,0 +1,252 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: focus-marches\n"
+"POT-Creation-Date: 2022-12-05 16:45+0100\n"
+"PO-Revision-Date: 2022-12-06 14:44+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.1.1\n"
+"X-Poedit-Basepath: ../../..\n"
+"X-Poedit-KeywordsList: _;gettext\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *js\n"
+
+#: acheteur.php:4 acheteur.php:5 acheteurs-liste.php:25 acheteurs.php:4
+#: acheteurs.php:5 acheteurs.php:25 inc/footer.php:33 index.php:5 index.php:6
+#: index.php:49 index.php:57 mentions-legales.php:4 mentions-legales.php:5
+#: territoire.php:4 territoire.php:5 titulaire.php:4 titulaire.php:5
+#: titulaires.php:25
+msgid "NOM_OPSN"
+msgstr "ARNiA"
+
+#: acheteurs-liste.php:4 acheteurs-liste.php:5 categories.php:3
+#: categories.php:4 index.php:57 recherche-plus.php:3 recherche-plus.php:4
+#: recherche.php:3 recherche.php:4 titulaires.php:4 titulaires.php:5
+msgid "NOM_REGION"
+msgstr "Bourgogne Franche-Comté"
+
+#: inc/footer.php:26
+msgid "TELECHARGEMENT_DATA"
+msgstr ""
+"<p>Données publiées sous la <a href=\"pdf/ETALAB-Licence-Ouverte-v2.0.pdf"
+"\">Licence Ouverte Version 2.0 - Etalab</a>. Le <a href=\"https://marches."
+"ternum-bfc.fr/?page=entreprise.EntrepriseRechercherListeMarches&amp;search"
+"\">téléchargement des données</a> se fait sur notre salle des marchés.</p>"
+
+#: index.php:43
+msgid "à partir du "
+msgstr ""
+
+#: index.php:65
+msgid "Contrats conclus à partir du "
+msgstr ""
+
+#: index.php:67
+msgid "Données mises à jour le "
+msgstr ""
+
+#: index.php:79
+msgid "Indicateurs clés"
+msgstr ""
+
+#: index.php:80
+msgid "Principaux indicateurs des "
+msgstr ""
+
+#: index.php:80
+msgid "  derniers mois"
+msgstr ""
+
+#: mentions-legales.php:25
+msgid ""
+"Le site Focus Marchés est édité par le GIP Territoires Numériques Bourgogne-"
+"Franche-Comté."
+msgstr ""
+"<p>Le site Focus Marchés est édité par le GIP ARNiA. Il est accessible via "
+"plusieurs URLs :</p>\n"
+"<ul>\n"
+"    <li><a href=\"http://focus-marches.e-bourgogne.fr/\">http://focus-"
+"marches.e-bourgogne.fr/</a></li>\n"
+"    <li><a href=\"http://labo.e-bourgogne.fr/dataviz/donnees-essentielles/"
+"\">http://labo.e-bourgogne.fr/dataviz/donnees-essentielles/</a></li>\n"
+"  </ul>"
+
+#: mentions-legales.php:27
+msgid "Directeur de la publication&nbsp;: Gilles Delamarche"
+msgstr ""
+"<p>Directeur de la publication&nbsp;: Laurent Peterschmitt<br>\n"
+" Conception et réalisation&nbsp;: ARNiA, téléphone : <strong>03 80 20 04 20</"
+"strong>, e-mail : <b>contact@arnia-bfc.fr</b><br>"
+
+#: mentions-legales.php:29
+msgid "Hébergement&nbsp;: OVH"
+msgstr ""
+
+#: mentions-legales.php:37
+msgid ""
+"Le responsable du traitement des données à caractère personnel est : M "
+"Gilles DELAMARCHE. Il peut être contacté de la manière suivante :"
+"<br>Téléphone : 03 80 20 04 20<br>E-mail : <a href=\"mailto:contact@ternum-"
+"bfc.fr\">contact@ternum-bfc.fr</a>"
+msgstr ""
+"<p>\n"
+"Le responsable du traitement des données à caractère personnel est : M "
+"Laurent Peterschmitt. Il peut être contacté de la manière suivante :<br>\n"
+"Téléphone : 03 80 20 04 20<br>\n"
+"E-mail : <a href=\"mailto:contact@arnia-bfc.fr\">contact@arnia-bfc.fr</a>\n"
+"</p>"
+
+#: mentions-legales.php:41
+msgid ""
+"La personne suivante a été nommée Délégué à la Protection des Données : M "
+"Victor VILA. Il peut être joint de la manière suivante :<br>Téléphone : 03 "
+"80 20 04 20<br>E-mail : <a href=\"mailto:dpo@ternum-bfc.fr\">dpo@ternum-bfc."
+"fr</a>"
+msgstr ""
+"<p>\n"
+"\tLe responsable du traitement des données à caractère personnel est : M "
+"Laurent Peterschmitt. Il peut être contacté de la manière suivante :<br>\n"
+"\tTéléphone : 03 80 20 04 20<br>\n"
+"\tE-mail : <a href=\"mailto:contact@arnia-bfc.fr\">contact@arnia-bfc.fr</a>\n"
+"</p>"
+
+#: mentions-legales.php:68
+msgid ""
+"Pour faire valoir vos droits, vous pouvez contacter le Délégué à la "
+"Protection de Données du GIP Territoires Numériques M Victor VILA qui peut "
+"être joint par téléphone au 03 80 20 04 20 ou par e-mail à l'adresse <a href="
+"\"mailto:dpo@ternum-bfc.fr\">dpo@ternum-bfc.fr</a> ."
+msgstr ""
+"Pour faire valoir vos droits, vous pouvez contacter le Délégué à la "
+"Protection de Données du GIP RECIA M. Maxence-Amaury GUILLON qui peut être "
+"joint par téléphone au 02 38 42 14 70 ou par e-mail à l'adresse <a href="
+"\"mailto:dpo@recia.fr\">dpo@recia.fr</a> ."
+
+#: mentions-legales.php:84
+msgid ""
+"<p>La présente décharge de responsabilité concerne le site Focus Marchés.</p>"
+msgstr ""
+
+#: mentions-legales.php:85
+msgid ""
+"<p>Territoires Numériques n’est tenu que d’une simple obligation de moyens "
+"concernant les informations qu’elle met à disposition des personnes qui "
+"accèdent à son site Internet. Territoires Numériques ne peut encourir aucune "
+"responsabilité du fait d’erreurs, d’omissions, ou pour les résultats qui "
+"pourraient être obtenus par l’usage de ces informations. Notamment, l’usage "
+"de liens hypertextes peut conduire votre consultation de notre site vers "
+"d’autres serveurs pour prendre connaissance de l’information recherchée, "
+"serveurs sur lesquels Territoires Numériques n’a aucun contrôle.</"
+"p><p><strong>Ce site Internet a été créé afin de montrer le potentiel des "
+"données ouvertes, cépendant nous ne pouvons pas garantir ni l'exactitude ni "
+"la complétude des données ouvertes sur lesquelles s`'appuie le site</strong>."
+"</p>"
+msgstr ""
+"<p>Le GIP RECIA n’est tenu que d’une simple obligation de moyens concernant "
+"les informations qu’il met à disposition des personnes qui accèdent à son "
+"site Internet. Le GIP RECIA ne peut encourir aucune responsabilité du fait "
+"d’erreurs, d’omissions, ou pour les résultats qui pourraient être obtenus "
+"par l’usage de ces informations. Notamment, l’usage de liens hypertextes "
+"peut conduire votre consultation de notre site vers d’autres serveurs pour "
+"prendre connaissance de l’information recherchée, serveurs sur lesquels le "
+"GIP RECIA n’a aucun contrôle.</p><p><strong>Ce site Internet a été créé afin "
+"de montrer le potentiel des données ouvertes, cependant nous ne pouvons pas "
+"garantir ni l'exactitude ni la complétude des données ouvertes sur "
+"lesquelles s'appuie le site.</strong></p>"
+
+#: mentions-legales.php:88
+msgid ""
+"<p>Ces données publiées sont publiées sous la <a href=\"pdf/ETALAB-Licence-"
+"Ouverte-v2.0.pdf\">Licence Ouverte Version 2.0 - Etalab</a></p>"
+msgstr ""
+
+#: mentions-legales.php:89
+msgid ""
+"<p>Le <a href=\"https://marches.ternum-bfc.fr/?page=entreprise."
+"EntrepriseRechercherListeMarches&search\">téléchargement des données</a> se "
+"fait librement sur notre salle de marchés.</p>"
+msgstr ""
+
+#: mentions-legales.php:95
+msgid ""
+"Données essentielles de la commande publique du profil d'acheteur de "
+"Territoires Numériques.  Licence Ouverte / Open Licence version 2.0 ."
+msgstr ""
+
+#: mentions-legales.php:96
+msgid "Codes CPV : simap.ted.europa.eu"
+msgstr ""
+
+#: mentions-legales.php:97
+msgid "Populations légales 2015 : https://www.insee.fr/fr/statistiques/3292701"
+msgstr ""
+
+#: mentions-legales.php:98
+msgid "API SIRENE. Licence Ouverte / Open Licence version 2.0 "
+msgstr ""
+
+#: mentions-legales.php:99
+msgid "API GEO : geo.api.gouv.fr. Licence Ouverte / Open Licence version 2.0 "
+msgstr ""
+
+#: mentions-legales.php:100
+msgid "Codes NAF (INSEE)"
+msgstr ""
+
+#: mentions-legales.php:101
+msgid "Codes NAFA (INSEE)"
+msgstr ""
+
+#: mentions-legales.php:102
+msgid "Catégories juridiques (INSEE)"
+msgstr ""
+
+#: recherche.php:85
+msgid "Entité ayant gagné le marché"
+msgstr "Entité ayant obtenu le marché"
+
+#~ msgid "OPSN"
+#~ msgstr "GIP RECIA"
+
+#~ msgid ""
+#~ "Crédit de la photo du Pavillon nord des Halles Martenot, Rennes : <a href="
+#~ "\"https://commons.wikimedia.org/wiki/User:EdouardHue\"> EdouardHue<a/>"
+#~ msgstr "<br>"
+
+#~ msgid "Territoires Numériques"
+#~ msgstr "tdatadtatdtd"
+
+#, fuzzy
+#~| msgid "Territoires Numériques"
+#~ msgid "Territoires opsn"
+#~ msgstr "GIP RECIA"
+
+#~ msgid "Bourgogne-Franche-Comté"
+#~ msgstr "Centre-Val de Loire"
+
+#~ msgid "Ternum BFC"
+#~ msgstr "GIP RECIA"
+
+#~ msgid "Mégalis Bretagne"
+#~ msgstr "GIP RECIA"
+
+#~ msgid ""
+#~ "Données essentielles des marchés publics de la plateforme Mégalis Bretagne"
+#~ msgstr ""
+#~ "Cet outil exploite les données essentielles des marchés publics passés en "
+#~ "région Centre-Val de Loire sous réserves"
+
+#~ msgid ""
+#~ "Cet outil exploite les données essentielles des marchés publics passés en "
+#~ "Bretagne sous réserves "
+#~ msgstr ""
+#~ "Cet outil exploite les données essentielles des marchés publics passés en "
+#~ "région Centre-Val de Loire sous réserves "
+
+#~ msgid "Bienvenue dans mon application PHP"
+#~ msgstr "Welcome  in my php app"
