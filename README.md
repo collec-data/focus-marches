@@ -11,10 +11,6 @@ Le projet se découpe en 2 sous-projets :
 ## Installation et configuration
 
 
-
-### Personalisation
-
-
 ### Installation avec Docker
 
 Si vous disposez de docker et de docker-compose, vous pouvez lancer le serveur avec les commandes suivantes :
@@ -23,7 +19,7 @@ Une fois cloné ce répertoire à l'aide de:
 
     git clone https://gitlab.csm.ovh/csm/focus-marche.git && cd focus-marche
 
-Construisez les container avec `docker-compose build && docker build batch/. -t batch ` et lancez-le avec `docker-compose -d up`.
+Construisez les container avec docker-compose build && docker build batch/. -t batch ` et lancez-le avec `docker-compose -d up`.
 
 La base de donnée sera persistée dans le dossier `/var/lib/mysql` par défaut. Il est possible  de changer l'emplacement d'installation des données ou d'indiquer un emplacement d'installation existante en modifiant la variable d'environnement `MYSQL_DATA` dans le fichier `.env`.
 
@@ -36,6 +32,15 @@ MARIA_DATA=/path/to/other/data_folder
 
 C'est prêt ! vous pouvez accéder au service sur http://HOSTNAME:80
 
+
+### Personaliser son instance focus marchés
+Dupliquer un dossier de personalisation pour creer le votre, par exemple nous allons dupliquer` cp ui/personalisation/arnia  ui/personalisation/monorga`
+
+Dans notre exemple, 
+- pour modifier les textes je dois renommer le fichier arnia.po en monorga.po et éditer le fichier avec l'utilitaire poedit (Poedit Translation Editor — https://poedit.net) afin de creer mon catalogue de texte.
+- remplacer les différents logos par ceux de mon organisation
+- adapter le css si besoin (modification est couleur et police par exemple)
+- Enfin, déployer mon instance de focus marche avec la variable **ENVP=monorga**
 
 
 
