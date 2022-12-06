@@ -2,7 +2,8 @@
 Le projet Focus Marchés a été conçu par le service Données Ouvertes de Ternum BFC pour faciliter l'exploitation des informations contenues dans les données essentielles de la commande publique.
 Il est accessible via plusieurs URLs :
 - http://focus-marches.ternum-bfc.fr/
-- http://141.95.150.34/
+- https://focus.recia.solutions/
+- https://data.megalis.bretagne.bzh/focus-marches/
 
 Le projet se découpe en 2 sous-projets :
 - Une interface web (dossier ui)
