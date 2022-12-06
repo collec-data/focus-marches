@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: focus-marches\n"
-"POT-Creation-Date: 2022-12-05 16:45+0100\n"
-"PO-Revision-Date: 2022-12-06 09:22+0100\n"
+"POT-Creation-Date: 2022-12-06 09:21+0100\n"
+"PO-Revision-Date: 2022-12-06 09:21+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -17,22 +17,30 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *js\n"
 
 #: acheteur.php:4 acheteur.php:5 acheteurs-liste.php:25 acheteurs.php:4
-#: acheteurs.php:5 acheteurs.php:25 inc/footer.php:33 index.php:5 index.php:6
-#: index.php:49 index.php:57 mentions-legales.php:4 mentions-legales.php:5
-#: territoire.php:4 territoire.php:5 titulaire.php:4 titulaire.php:5
-#: titulaires.php:25
+#: acheteurs.php:5 acheteurs.php:25 inc/footer.php:21 inc/footer.php:29
+#: index.php:5 index.php:6 index.php:49 index.php:57 mentions-legales.php:4
+#: mentions-legales.php:5 territoire.php:4 territoire.php:5 titulaire.php:4
+#: titulaire.php:5 titulaires.php:25
 msgid "NOM_OPSN"
-msgstr "GIP RECIA"
+msgstr "Mégalis Bretagne"
 
 #: acheteurs-liste.php:4 acheteurs-liste.php:5 categories.php:3
 #: categories.php:4 index.php:57 recherche-plus.php:3 recherche-plus.php:4
 #: recherche.php:3 recherche.php:4 titulaires.php:4 titulaires.php:5
 msgid "NOM_REGION"
-msgstr "Centre-Val de Loire"
+msgstr "Bretagne"
 
-#: inc/footer.php:26
+#: inc/footer.php:25
 msgid "TELECHARGEMENT_DATA"
-msgstr "<p></p>"
+msgstr ""
+"<p>Données publiées sous la <a href=\"pdf/ETALAB-Licence-Ouverte-v2.0.pdf"
+"\">Licence Ouverte Version 2.0 - Etalab</a>. Le <a href=\"https://www.data."
+"gouv.fr/fr/datasets/donnees-essentielles-du-profil-acheteur-megalis-bretagne/"
+"\">téléchargement des données</a> se fait librement sur le portail opendata "
+"national.</p>\n"
+"<p>Notre page <a href=\"mentions-legales.php\">Mentions légales</a> contient "
+"des informations concernant la protection de la vie privée et vous permet de "
+"configurer le suivi ou pas par notre outil d'analyse de visites.  </p>"
 
 #: index.php:43
 msgid "à partir du "
@@ -62,16 +70,19 @@ msgstr ""
 msgid ""
 "Le site Focus Marchés est édité par le GIP Territoires Numériques Bourgogne-"
 "Franche-Comté."
-msgstr "Le site Focus Marchés est édité par le GIP RECIA."
+msgstr "Le site Focus Marchés est édité par Mégalis Bretagne"
 
 #: mentions-legales.php:27
 msgid "Directeur de la publication&nbsp;: Gilles Delamarche"
 msgstr ""
-"<b>Directeur de la publication&nbsp;:</b> Olivier JOUIN, directeur, GIP RECIA"
+"<b>Directeur de la publication&nbsp;:</b> Patrick Malfait, directeur "
+"général, Mégalis Bretagne"
 
 #: mentions-legales.php:29
 msgid "Hébergement&nbsp;: OVH"
 msgstr ""
+"<b>Hébergement&nbsp;:</b> <a target=\"_blank\" href=\" https://www.sib.fr/"
+"\">SIB </a>"
 
 #: mentions-legales.php:37
 msgid ""
@@ -80,8 +91,8 @@ msgid ""
 "<br>Téléphone : 03 80 20 04 20<br>E-mail : <a href=\"mailto:contact@ternum-"
 "bfc.fr\">contact@ternum-bfc.fr</a>"
 msgstr ""
-"Le responsable du traitement des données à caractère personnel est : M "
-"Guillaume CREPIN, Président du GIP RECIA"
+"Le responsable du traitement des données à caractère personnel est : M Loïg "
+"Chesnais-Girard, Président de Mégalis Bretagne"
 
 #: mentions-legales.php:41
 msgid ""
@@ -91,8 +102,8 @@ msgid ""
 "fr</a>"
 msgstr ""
 "La personne suivante a été nommée Délégué à la Protection des Données : M. "
-"Maxence-Amaury GUILLON. Il peut être joint de la manière suivante :<br>E-"
-"mail : <a href=\"mailto:dpo@recia.fr\">dpo@recia.fr</a>"
+"Sébastien Dekeyser. Il peut être joint de la manière suivante :<br>E-mail : "
+"<a href=\"mailto:dpo@megalis.bretagne.bzh\">dpo@megalis.bretagne.bzh</a>"
 
 #: mentions-legales.php:68
 msgid ""
@@ -102,9 +113,9 @@ msgid ""
 "\"mailto:dpo@ternum-bfc.fr\">dpo@ternum-bfc.fr</a> ."
 msgstr ""
 "Pour faire valoir vos droits, vous pouvez contacter le Délégué à la "
-"Protection de Données du GIP RECIA M. Maxence-Amaury GUILLON qui peut être "
-"joint par téléphone au 02 38 42 14 70 ou par e-mail à l'adresse <a href="
-"\"mailto:dpo@recia.fr\">dpo@recia.fr</a> ."
+"Protection de Données de Mégalis Bretagne M. Sébastien Dekeyser qui peut "
+"être joint par téléphone au 03 80 20 04 20 ou par e-mail à l'adresse <a href="
+"\"mailto:dpo@megalis.bretagne.bzh\">dpo@megalis.bretagne.bzh</a> ."
 
 #: mentions-legales.php:84
 msgid ""
@@ -126,17 +137,17 @@ msgid ""
 "la complétude des données ouvertes sur lesquelles s`'appuie le site</strong>."
 "</p>"
 msgstr ""
-"<p>Le GIP RECIA n’est tenu que d’une simple obligation de moyens concernant "
-"les informations qu’il met à disposition des personnes qui accèdent à son "
-"site Internet. Le GIP RECIA ne peut encourir aucune responsabilité du fait "
-"d’erreurs, d’omissions, ou pour les résultats qui pourraient être obtenus "
-"par l’usage de ces informations. Notamment, l’usage de liens hypertextes "
-"peut conduire votre consultation de notre site vers d’autres serveurs pour "
-"prendre connaissance de l’information recherchée, serveurs sur lesquels le "
-"GIP RECIA n’a aucun contrôle.</p><p><strong>Ce site Internet a été créé afin "
-"de montrer le potentiel des données ouvertes, cependant nous ne pouvons pas "
-"garantir ni l'exactitude ni la complétude des données ouvertes sur "
-"lesquelles s'appuie le site.</strong></p>"
+"<p>Mégalis Bretagne n’est tenu que d’une simple obligation de moyens "
+"concernant les informations qu’elle met à disposition des personnes qui "
+"accèdent à son site Internet. Mégalis Bretagne ne peut encourir aucune "
+"responsabilité du fait d’erreurs, d’omissions, ou pour les résultats qui "
+"pourraient être obtenus par l’usage de ces informations. Notamment, l’usage "
+"de liens hypertextes peut conduire votre consultation de notre site vers "
+"d’autres serveurs pour prendre connaissance de l’information recherchée, "
+"serveurs sur lesquels  Mégalis Bretagne n’a aucun contrôle.</p><p><strong>Ce "
+"site Internet a été créé afin de montrer le potentiel des données ouvertes, "
+"cependant nous ne pouvons pas garantir ni l'exactitude ni la complétude des "
+"données ouvertes sur lesquelles s'appuie le site.</strong></p>"
 
 #: mentions-legales.php:88
 msgid ""
@@ -150,16 +161,17 @@ msgid ""
 "EntrepriseRechercherListeMarches&search\">téléchargement des données</a> se "
 "fait librement sur notre salle de marchés.</p>"
 msgstr ""
-"<p>Le téléchargement des données pourra bientôt se faire librement sur  <a "
-"target=\"_blank\" href=\" https://www.doterr.fr/accueil\">Doterr</a> </p>"
+"<p>Le téléchargement des données se fait librement sur  <a target=\"_blank\" "
+"href=\" https://www.data.gouv.fr/fr/datasets/donnees-essentielles-du-profil-"
+"acheteur-megalis-bretagne/\">le portail opendata national</a> </p>"
 
 #: mentions-legales.php:95
 msgid ""
 "Données essentielles de la commande publique du profil d'acheteur de "
 "Territoires Numériques.  Licence Ouverte / Open Licence version 2.0 ."
 msgstr ""
-"Données essentielles de la commande publique du profil d'acheteur du GIP "
-"RECIA.  Licence Ouverte / Open Licence version 2.0 ."
+"Données essentielles de la commande publique du profil d'acheteur de Mégalis "
+"Bretagne.  Licence Ouverte / Open Licence version 2.0 ."
 
 #: mentions-legales.php:96
 msgid "Codes CPV : simap.ted.europa.eu"
