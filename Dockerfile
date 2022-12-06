@@ -40,4 +40,6 @@ RUN ln -s /app /app/focus-marches
 RUN a2enmod rewrite remoteip && \
     a2enconf z-app
 
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod u+x /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
