@@ -39,3 +39,5 @@ COPY ui /app
 RUN ln -s /app /app/focus-marches
 RUN a2enmod rewrite remoteip && \
     a2enconf z-app
+
+ENTRYPOINT ["/docker-entrypoint.sh"]

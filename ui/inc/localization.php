@@ -7,8 +7,8 @@ putenv("LANG=fr_FR.UTF-8");
 $res = setlocale(LC_ALL, 'fr_FR.UTF-8', 'fr_FR.', 'fr');
 
 //set domain
-bindtextdomain("recia", "./locale");
-textdomain("recia");
+bindtextdomain("dico", "./locale");
+textdomain("dico");
 
 //test
 
