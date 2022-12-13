@@ -20,7 +20,7 @@ Une fois cloné ce répertoire à l'aide de:
 
     git clone https://gitlab.csm.ovh/csm/focus-marche.git && cd focus-marche
 
-Construisez les container avec `docker-compose build && docker build batch/. -t batch ` et lancez-le avec `docker-compose -d up`.
+Construisez les container avec `docker-compose build && docker build batch/. -t batch ` et lancez-le avec `docker-compose up -d `.
 
 La base de donnée sera persistée dans le dossier `/var/lib/mysql` par défaut. Il est possible  de changer l'emplacement d'installation des données ou d'indiquer un emplacement d'installation existante en modifiant la variable d'environnement `MYSQL_DATA` dans le fichier `.env`.
 
