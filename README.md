@@ -34,8 +34,8 @@ MARIA_DATA=/path/to/other/data_folder
 C'est prêt ! vous pouvez accéder au service sur http://HOSTNAME:80
 
 
-### Personaliser son instance focus marchés
-Dupliquer un dossier de personalisation pour creer le votre, par exemple nous allons dupliquer` cp ui/personalisation/arnia  ui/personalisation/monorga`
+### Personnaliser son instance focus marchés
+Dupliquer un dossier de personnalisation pour creer le votre, par exemple nous allons dupliquer` cp ui/personalisation/arnia  ui/personalisation/monorga`
 
 Dans notre exemple, 
 - pour modifier les textes je dois renommer le fichier arnia.po en monorga.po et éditer le fichier avec l'utilitaire poedit (Poedit Translation Editor — https://poedit.net) afin de creer mon catalogue de texte.
