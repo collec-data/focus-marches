@@ -1136,6 +1136,18 @@ $('#aideNatureButton').on('click', function ()
 {
   $('#aideNature').toggle();
 });
+
+$('#rechercheTempAide').on('click', function ()
+{
+  $('#rechercheTempContenu').toggle();
+});
+
+$('#aideProcedureButton').on('click', function ()
+{
+  $('#aideProcedure').toggle();
+});
+
+
 }); // document ready
 </script>
 
