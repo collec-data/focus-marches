@@ -92,9 +92,10 @@ if ($iframe == true){
             <?php
             if ($iframe == false){
 
-                $url=strtok("$protocol$_SERVER[HTTP_HOST]",'?');
+                $url=strtok("$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]",'?');
+
                 $iframe_code_gen="<iframe ";
-                $iframe_code_gen.= "src=\"$url/widget-acheteur-procedure-suivi.php?i=";
+                $iframe_code_gen.= "src=\"$url/../widget-acheteur-procedure-suivi.php?i=";
                 $iframe_code_gen.=$id;
                 $iframe_code_gen.="&widget=1\" ";
                 $iframe_code_gen.= "referrerpolicy=\"strict-origin-when-cross-origin\" ";

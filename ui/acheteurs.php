@@ -64,33 +64,6 @@ $connect->set_charset("utf8");
 <script src="assets/datatables/buttons.html5.min.js"></script>
 <script src="assets/datatables/buttons.print.min.js "></script>
 
-<!-- <script src="assets/leaflet/leaflet.js"></script> -->
-<!-- <script src="assets/jquery/jquery-3.3.1.min.js"></script> -->
-<!-- <script src="assets/geojson/region-bourgogne-franche-comte.geojson"></script> -->
-<!-- <script>
-$( document ).ready(function() {
-
-  var dijon = [47.316, 5.016];
-  var zoom = 7;
-  var map = L.map('mapa').setView(dijon, zoom);
-  var tiles = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-  var attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-
-  L.tileLayer( tiles, { attribution: attribution } ).addTo(map);
-  function styleReg(feature){
-    return{
-      fillColor: '#23d160',
-      weight: 2,
-      opacity: 0.5,
-      color: '#0093b6',
-      fillOpacity: 0.4
-    };
-  }
-
-  var regionGeoJs = L.geoJson(regionBFC,{style:styleReg}).addTo(map);
-
-});
-</script> -->
 
 <script ype="text/javascript">
 $( document ).ready(function() {
@@ -100,7 +73,6 @@ $( document ).ready(function() {
   francais.sInfo = "Affichage des organismes _START_ &agrave; _END_ sur _TOTAL_ organismes";
   francais.sZeroRecords = "Aucun marché &agrave; afficher";
 
-  console.log(francais);
   //// Configuration de la table
   var tableUI = $('#tableUI').DataTable({
     "responsive": true,
@@ -117,7 +89,6 @@ $( document ).ready(function() {
     ],
     "paging": true,
     "buttons": ['copy', 'csv', 'excel', 'pdf', 'print'],
-    // "order": [[ 2, "asc" ],[ 4, "asc" ]]
   });
 
   $('#enChargeFlask').toggle();
