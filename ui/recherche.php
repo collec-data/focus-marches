@@ -116,7 +116,7 @@ include('inc/localization.php');
             <p><label>Lieu</label>
               <select id="in_lieu">
                 <option value="0">Tous les départements</option>
-                <option value="21">21 - Côte d'Or</option>
+                <option value="35">21 - Côte d'Or</option>
                 <option value="25">25 - Doubs</option>
                 <option value="39">39 - Jura</option>
                 <option value="58">58 - Nièvre</option>

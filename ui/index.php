@@ -406,12 +406,15 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
         <?php
         //// 8. Distribution - sankey
 
-
-
-        $s_services = getMontantCPVLieu($connect, 'services', $nb_mois);
-        $s_travaux = getMontantCPVLieu($connect, 'travaux', $nb_mois);
-        $s_fournitures = getMontantCPVLieu($connect, 'fournitures', $nb_mois);
+        $lieux = getBestLieux($connect,$nb_mois, 5);
+        $nom_lieux =  array_values($lieux); // contient les lieux avec en index l'ordre d'apparition
+        $s_services = getMontantCPVLieu($connect, 'services',$lieux, $nb_mois);
+       
+        $s_travaux = getMontantCPVLieu($connect, 'travaux',$lieux, $nb_mois);
+        $s_fournitures = getMontantCPVLieu($connect, 'fournitures',$lieux, $nb_mois);
         $sankey = array_merge_recursive($s_services, $s_travaux, $s_fournitures);
+        
+        $label_cpv_lieux = array_merge(["Services", "Travaux", "Fournitures"],$nom_lieux);
         ?>
         <h3>Distribution des achats par département</h3>
         <div id="distribCPVLieux"></div>
@@ -750,8 +753,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
                 node:
                     {
                         pad: 20, thickness: 30, line: { color: "#fff", width: 1 },
-                        // TODO A variabiliser
-                        label: ["Services", "Travaux", "Fournitures", "Cher", "Eure-et-Loir", "Indre", "Indre-et-Loire", "Loir-et-Cher", "Loiret", "Paris"],
+                        label: ["<?php echo implode( '","', $label_cpv_lieux); ?>"],
                         color: okabe_ito_sankey
                     },
                 link: {

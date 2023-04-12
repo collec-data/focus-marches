@@ -507,16 +507,43 @@ function getKPITitulaire ($connect, $id=0, $months=0)
 }
 
 
+/**
+ * Retourne les id des meilleurs lieux dans l'ordre, ordonner par les ids
+ */
+function getBestLieux($connect,$months=12, $limit=10)
+{
+  $sql = "SELECT SUM(montant) total, id_lieu_execution,nom_lieu FROM marche m
+    INNER JOIN lieu l ON m.id_lieu_execution = l.id_lieu
+    WHERE m.date_notification > '0000-00-00' AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)
+    GROUP BY id_lieu_execution
+    ORDER BY id_lieu_execution LIMIT $limit";
+
+  $result = $connect->query($sql);
+  if ($result)
+  {
+    $lieux = [];
+    while ( $r = mysqli_fetch_assoc( $result ) )
+    {
+      $lieux[$r['id_lieu_execution']] = $r['nom_lieu'];
+    }
+  }
+
+  return $lieux;
+}
+
 /* -------------------------------
 getMontant par CPV et lieu
 ----------------------------------
 */
-function getMontantCPVLieu ($connect, $categorie, $months=12)
+function getMontantCPVLieu ($connect, $categorie, $lieux, $months=12)
 {
-  $sql = "SELECT SUM(montant) total, nom_lieu
+  $id_lieux =  implode(",", array_keys($lieux)); // la liste des id lieux
+
+  $sql = "SELECT SUM(montant) total, nom_lieu, l.id_lieu
   FROM marche m
   INNER JOIN lieu l ON m.id_lieu_execution = l.id_lieu
   WHERE m.date_notification > '0000-00-00'
+  AND m.id_lieu_execution IN ($id_lieux)
   AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)
   AND ";
 
@@ -539,44 +566,30 @@ function getMontantCPVLieu ($connect, $categorie, $months=12)
 
   }
 
-  $sql .= " GROUP BY nom_lieu";
+  $sql .= " GROUP BY l.id_lieu";
+  $sql .= " ORDER BY l.id_lieu"; // on fait bien le order by id_lieu pour construire le graphique
 
   try
   {
     $result = $connect->query($sql);
-
     $source = [];
     $target = [];
     $values = [];
 
     if ($result)
     {
+      $index = 0;
       while ( $r = mysqli_fetch_assoc( $result ) )
       {
         $source[] = $s;
-        // TODO A variabiliser
-        switch ($r['nom_lieu'])
-        {
-            case "(18) Cher" : $t = 3; break;
-            case "(28) Eure-et-Loir" : $t = 4; break;
-            case "(36) Indre" : $t = 5; break;
-            case "(37) Indre-et-Loire" : $t = 6; break;
-            case "(41) Loir-et-Cher" : $t = 7; break;
-            case "(45) Loiret" : $t = 8; break;
-            case "(75) Paris" : $t = 10; break;
-        }
-        $target[] = $t;
+        $target[] = $index + 3;
         $values[] = $r['total'];
+        $index ++;
       }
       mysqli_free_result($result);
     }
   }
   catch (Exception $e) {  }
-  // return array(
-  //   "source" => implode( ",", $source),
-  //   "target" => implode( ",", $target),
-  //   "values" => implode( ",", $values)
-  // );
   return array(
     "source" => $source,
     "target" => $target,
