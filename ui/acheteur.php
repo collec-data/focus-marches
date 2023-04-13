@@ -45,6 +45,7 @@ if ($secured == true) {
 
 // L"affichage de certains éléments dépend de si on est face à une collectivité ou pas
 $colter = false;
+var_dump($sirene);
 if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
   $colter = true;
 }

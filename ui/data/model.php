@@ -42,6 +42,16 @@ function clean_get_dept()
   }
 }
 
+/* -------------------------------
+hsc($arg)
+----------------------------------
+applique htmlspecialchars avec les options par défaut
+*/
+function hsc($arg)
+{
+  return htmlspecialchars($arg, ENT_QUOTES, 'UTF-8');
+}
+
 
 /* -------------------------------
 clean($string)
@@ -795,59 +805,6 @@ function getTitulaires($connect, $nb = 5)
     "value" => implode(",", $value)
   );
 }
-
-
-/* -------------------------------
-getMontantSankey
-----------------------------------
-*/
-function getMontantSankey($connect)
-{
-  $sql = "SELECT SUM(montant) total, nom_lieu
-  FROM marche m
-  INNER JOIN lieu l ON m.id_lieu_execution = l.id_lieu
-  WHERE ";
-
-  switch ($categorie) {
-    case 'services':
-      $sql .= "code_cpv > 49999999";
-      break;
-
-    case 'fournitures':
-      $sql .= "code_cpv < 45000000";
-      break;
-
-    case 'travaux':
-      $sql .= "code_cpv < 50000000 AND code_cpv > 44999999";
-      break;
-  }
-
-  $sql .= " GROUP BY nom_lieu";
-
-  try {
-    $result = $connect->query($sql);
-
-    $source = [];
-    $target = [];
-    $values = [];
-
-    if ($result) {
-      while ($r = mysqli_fetch_assoc($result)) {
-        $source[] = '"' . $categorie . '"';
-        $target[] = '"' . $r['nom_lieu'] . '"';
-        $values[] = $r['total'];
-      }
-      mysqli_free_result($result);
-    }
-  } catch (Exception $e) {
-  }
-  return array(
-    "source" => implode(",", $source),
-    "target" => implode(",", $target),
-    "values" => implode(",", $values)
-  );
-}
-
 
 /* -------------------------------
 class Cats
@@ -1914,7 +1871,6 @@ function getDataSiretAcheteur($connect, $siret)
             LEFT JOIN  categories_juridiques ct ON ct.code_categories_juridiques = s.categorieJuridiqueUniteLegale
             LEFT JOIN organismes o ON o.codeInsee = s.codeCommuneEtablissement
             WHERE       id_sirene = '" . $siret . "'";
-  // echo $sql;
   try {
     $result = $connect->query($sql);
 

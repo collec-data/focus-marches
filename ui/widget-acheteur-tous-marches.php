@@ -24,7 +24,6 @@ if ($iframe == true) {
     <link rel="stylesheet" href="assets/leaflet/leaflet.css" />
 
     <?php
-    //    include('inc/nav.php');
     require_once('data/connect.php');
     require_once('data/model.php');
 
@@ -303,9 +302,7 @@ if (isset($sirene['siren'])) {
                 $('#m_cpv_libelle').html(data.m_cpv_libelle);
                 $('#m_acheteur').html(data.m_acheteur);
                 $('#m_acheteur_siret').html(data.m_acheteur_siret);
-                // $('#m_acheteur_btn').attr('data-id-acheteur', data.m_acheteur_btn);
                 $('#m_titulaire').html(data.m_titulaire);
-                // $('#m_titulaire_btn').attr('data-id-titulaire', data.m_titulaire_btn);
                 $('#m_titulaire_a').html('<a href="titulaire.php?i=' + data.m_titulaire_btn + '"><i class="fas fa-link"></i>&nbsp;Page du titulaire</a>');
                 $('#m_titulaire_siret').html(data.m_titulaire_siret);
                 $('#m_procedure').html(data.m_procedure);
