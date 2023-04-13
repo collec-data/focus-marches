@@ -10,7 +10,12 @@ include('inc/config.php');
 ?>
 <!-- entre heads : ajouter extra css , ... -->
 
-<?php include('inc/nav.php'); ?>
+<?php
+include('inc/nav.php');
+require_once('data/model.php');
+
+$lieux = getBestLieux($connect, 36);
+?>
 
 <div id="main">
   <div class="container">
@@ -131,14 +136,11 @@ include('inc/config.php');
             <p><label>Lieu</label>
               <select id="in_lieu">
                 <option value="0">Tous les départements</option>
-                <option value="21">21 - Côte d'Or</option>
-                <option value="25">25 - Doubs</option>
-                <option value="39">39 - Jura</option>
-                <option value="58">58 - Nièvre</option>
-                <option value="70">70 - Haute-Saône</option>
-                <option value="71">71 - Saône-et-Loire</option>
-                <option value="89">89 - Yonne</option>
-                <option value="90">90 - Territoire de Belfort</option>
+                <?php
+                foreach ($lieux as $lieu) {
+                  echo "<option value='" . $lieu['code'] . "'>" . $lieu['nom_lieu'] . "</option>";
+                }
+                ?>
               </select>
             </p>
           </div>

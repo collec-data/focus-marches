@@ -408,7 +408,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
         //// 8. Distribution - sankey
 
         $lieux = getBestLieux($connect,$nb_mois, 5);
-        $nom_lieux =  array_values($lieux); // contient les lieux avec en index l'ordre d'apparition
+        $nom_lieux =  array_map( function($val) { return $val['nom_lieu'];}, $lieux); // contient les lieux avec en index l'ordre d'apparition
         $s_services = getMontantCPVLieu($connect, 'services',$lieux, $nb_mois);
        
         $s_travaux = getMontantCPVLieu($connect, 'travaux',$lieux, $nb_mois);
