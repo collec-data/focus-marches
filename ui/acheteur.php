@@ -2,21 +2,9 @@
 
 include('inc/localization.php');
 $page = "acheteur";
-$title = "Acheteur | Données essentielles du profil d'acheteur " . gettext("NOM_OPSN");
-$desc = "Acheteur | Données essentielles du profil d'acheteur " . gettext("NOM_OPSN");
-
-include('inc/head.php');
-include('inc/config.php');
-?>
-<!-- entre heads : ajouter extra css , ... -->
-<link rel="stylesheet" href="assets/leaflet/leaflet.css" />
-<link href="assets/toastr/toastr.min.css" rel="stylesheet" />
-<?php
-include('inc/nav.php');
 require_once('data/connect.php');
 require_once('data/model.php');
 
-$connect->set_charset("utf8");
 
 ///// Sécurisation
 $secured = false;
@@ -24,8 +12,25 @@ if (is_numeric($_GET['i']))
   $secured = true;
 
 if ($secured == true) {
+
+
   $id = $_GET['i'];
   $nom = getNom($connect, $id);
+  $title = "Acheteur | Données essentielles du profil d'acheteur " . $nom;
+  $desc = "Acheteur | Données essentielles du profil d'acheteur " . $nom;
+
+  include('inc/head.php');
+  include('inc/config.php');
+  $connect->set_charset("utf8");
+  ?>
+  <!-- entre heads : ajouter extra css , ... -->
+  <link rel="stylesheet" href="assets/leaflet/leaflet.css" />
+  <link href="assets/toastr/toastr.min.css" rel="stylesheet" />
+  <?php
+  include('inc/nav.php');
+
+
+
   $kpi = getKPI($connect, $id, $nb_mois, 0);
   $marches = getDatesMontantsLieu($connect, $id, $nb_mois);
   $sirene = getDataSiretAcheteur($connect, $id);
