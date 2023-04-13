@@ -1,2 +1,6 @@
 /.idea/
 /ui/data/connect_dev.php
+/ui/css/style.css
+/ui/favicon.ico
+/ui/locale/fr_FR/LC_MESSAGES/dico.mo
+/ui/locale/fr_FR/LC_MESSAGES/dico.po
