@@ -1,12 +1,12 @@
 <?php
 
+include('inc/localization.php');
 $page = "titulaire";
 $title = "Titulaire | Données essentielles du profil d'acheteur de ".gettext("NOM_OPSN");
 $desc = "Titulaire | Données essentielles du profil d'acheteur de ".gettext("NOM_OPSN");
 
 include('inc/head.php');
 include('inc/config.php');
-include('inc/localization.php');
 ?>
 <!-- entre heads : ajouter extra css , ... -->
 <link rel="stylesheet" href="assets/leaflet/leaflet.css" />

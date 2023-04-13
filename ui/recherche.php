@@ -1,11 +1,11 @@
 <?php
+include('inc/localization.php');
 $page = "recherche";
-$title = "Recherche | Marchés publics en ".gettext("NOM_REGION");
-$desc = "Recherche | Marchés publics en ".gettext("NOM_REGION");
+$title = "Recherche | Marchés publics en " . gettext("NOM_REGION");
+$desc = "Recherche | Marchés publics en " . gettext("NOM_REGION");
 
 include('inc/head.php');
 include('inc/config.php');
-include('inc/localization.php');
 ?>
 <!-- entre heads : ajouter extra css , ... -->
 
@@ -17,9 +17,12 @@ include('inc/localization.php');
     <p>Quel est l'historique d'achat d'une collectivité ? Ai-j'ai obtenu un bon prix pour mes marchés ?</p>
     <div class="columns">
       <div class="column is-four-fifths">
-        <p class="is-clearfix">Découvrez les réponses à ces questions et à bien d'autres avec ces filtres de recherche. </p>
+        <p class="is-clearfix">Découvrez les réponses à ces questions et à bien d'autres avec ces filtres de recherche.
+        </p>
       </div>
-      <div class="column has-text-right"><button id="aideRechercheButton" class="button has-text-link is-link-bg is-small"><i class="far fa-lightbulb"></i>&nbsp;Idées de recherches </button></div>
+      <div class="column has-text-right"><button id="aideRechercheButton"
+          class="button has-text-link is-link-bg is-small"><i class="far fa-lightbulb"></i>&nbsp;Idées de recherches
+        </button></div>
     </div>
 
     <div id="aideRecherche" class="aide">
@@ -30,8 +33,10 @@ include('inc/localization.php');
             <div class="message-body has-text-justified">
               <p class="has-text-centered"><i class="fas fa-history fa-3x"></i></p>
               <p class="message-title">Quel est l'historique d'achat d'une collectivité ? </p>
-              <p>Commencez à écrire le nom de la collectivité dans la boîte "acheteur". Au fur et mesure, des propositions vont appraître.</p>
-              <p>Dès que vous allez répérer la collectivité qui vous intéresse, cliquez sur celle-ci, puis sur le bouton bleu "Chercher". L'historique de ses achat s'affichera sur le tableau en bas de page.</p>
+              <p>Commencez à écrire le nom de la collectivité dans la boîte "acheteur". Au fur et mesure, des
+                propositions vont appraître.</p>
+              <p>Dès que vous allez répérer la collectivité qui vous intéresse, cliquez sur celle-ci, puis sur le bouton
+                bleu "Chercher". L'historique de ses achat s'affichera sur le tableau en bas de page.</p>
             </div>
           </article>
 
@@ -41,8 +46,11 @@ include('inc/localization.php');
             <div class="message-body has-text-justified">
               <p class="has-text-centered"><i class="fab fa-angellist fa-3x"></i></p>
               <p class="message-title">Comment savoir si j'ai obtenu un bon prix ? </p>
-              <p>Les conditions des achats ne sont jamais identiques, mais vous pouvez lister tous les marchés ayant un code CPV proche du votre.</p>
-              <p>La recherche sur le code CPV fonctionne de gauche à droite : si vous tapez "45" vous aurez tous les marchés de la catégorie "Travaux", tandis que si vous tapez "45261410" vous limiterez la recherche aux "Travaux d'isolation de toiture".</p>
+              <p>Les conditions des achats ne sont jamais identiques, mais vous pouvez lister tous les marchés ayant un
+                code CPV proche du votre.</p>
+              <p>La recherche sur le code CPV fonctionne de gauche à droite : si vous tapez "45" vous aurez tous les
+                marchés de la catégorie "Travaux", tandis que si vous tapez "45261410" vous limiterez la recherche aux
+                "Travaux d'isolation de toiture".</p>
             </div>
           </article>
 
@@ -52,7 +60,8 @@ include('inc/localization.php');
             <div class="message-body has-text-justified">
               <p class="has-text-centered"><i class="fas fa-microscope fa-3x"></i></p>
               <p class="message-title">Quels marchés ont été passés par l'ancienne équipe&nbsp;?</p>
-              <p>Renseignez d'abord la case "acheteur" avec le nom de la commune. Ensuite, cliquez sur "avancé". Vous verrez alors deux cases vous permettant de delimiter la période de recherche.</p>
+              <p>Renseignez d'abord la case "acheteur" avec le nom de la commune. Ensuite, cliquez sur "avancé". Vous
+                verrez alors deux cases vous permettant de delimiter la période de recherche.</p>
             </div>
           </article>
         </div>
@@ -64,7 +73,8 @@ include('inc/localization.php');
       <div id="rechercheOptionsWrapper" class="is-clearfix">
         <div class="tags has-addons is-pulled-right">
           <span id="rechercheSimple" class="tag is-info" title="Recherche simple avec options limitées">Simple</span>
-          <span id="rechercheAvancee" class="tag is-white" title="Recherche avancée avec toutes les options">Avancée</span>
+          <span id="rechercheAvancee" class="tag is-white"
+            title="Recherche avancée avec toutes les options">Avancée</span>
         </div>
       </div>
 
@@ -72,7 +82,8 @@ include('inc/localization.php');
 
         <div class="ajaxContainer column">
           <input id="in_id_acheteur" type="hidden" value="">
-          <p><label>Acheteur <i class="fas fa-question-circle has-text-grey-light" title="Commencez à saissir le nom de l'acheteur et sélectionnez-le dans la liste"></i></label>
+          <p><label>Acheteur <i class="fas fa-question-circle has-text-grey-light"
+                title="Commencez à saissir le nom de l'acheteur et sélectionnez-le dans la liste"></i></label>
             <input id="in_nom_acheteur" type="text" value="" placeholder="Organisme qui a créé la consultation">
             <span id="acheteur_select"></span>
           </p>
@@ -81,15 +92,17 @@ include('inc/localization.php');
         <div class="ajaxContainer column">
           <input id="in_id_titulaire" type="hidden" value="">
           <p>
-            <label>Fournisseur <i class="fas fa-question-circle has-text-grey-light" title="Commencez à saissir le nom du fournisseur et sélectionnez-le dans la liste"></i></label>
-            <input id="in_denomination_sociale" type="text" value="" placeholder=<?php echo gettext("Entité ayant gagné le marché")?>>
+            <label>Fournisseur <i class="fas fa-question-circle has-text-grey-light"
+                title="Commencez à saissir le nom du fournisseur et sélectionnez-le dans la liste"></i></label>
+            <input id="in_denomination_sociale" type="text" value="" placeholder=<?php echo gettext("Entité ayant gagné le marché") ?>>
             <span id="denomination_select"></span>
           </p>
         </div>
 
         <div class="column">
           <p>
-            <label>Objet <i class="fas fa-question-circle has-text-grey-light" title="Saisissez 1 ou plusieurs mots-clés devant apparaître dans l'objet du marché, séparés par des virgules"></i></label>
+            <label>Objet <i class="fas fa-question-circle has-text-grey-light"
+                title="Saisissez 1 ou plusieurs mots-clés devant apparaître dans l'objet du marché, séparés par des virgules"></i></label>
             <input id="in_objet" type="text" value="" placeholder="Ex: ordinateur, tablette">
           </p>
         </div>
@@ -107,7 +120,8 @@ include('inc/localization.php');
 
           <div class="column">
             <p>
-              <label>Libellé CPV <i class="fas fa-question-circle has-text-grey-light" title="Saisissez 1 ou plusieurs mots-clés séparés par des virgules"></i></label>
+              <label>Libellé CPV <i class="fas fa-question-circle has-text-grey-light"
+                  title="Saisissez 1 ou plusieurs mots-clés séparés par des virgules"></i></label>
               <input id="in_libelle_cpv" type="text" value="" placeholder="Ex: ordinateur, tablette">
             </p>
           </div>
@@ -225,10 +239,12 @@ include('inc/localization.php');
       </div><!--rechercheOptions -->
 
       <div class="column">
-        <button id="rechercheBouton" class="button is-info is-fullwidth" type="button" role="button" aria-label="search">Chercher</button>
+        <button id="rechercheBouton" class="button is-info is-fullwidth" type="button" role="button"
+          aria-label="search">Chercher</button>
       </div>
 
-      <p class="has-text-centered is-size-9 has-text-grey">Cliquez sur "Chercher" pour afficher tous les marchés. Limitez la recherche en utilisant les différents filtres</p>
+      <p class="has-text-centered is-size-9 has-text-grey">Cliquez sur "Chercher" pour afficher tous les marchés.
+        Limitez la recherche en utilisant les différents filtres</p>
 
     </div><!-- ./rechercheForm -->
 
@@ -246,7 +262,8 @@ include('inc/localization.php');
       <div class="kpis columns">
         <div class="column kpi">
           <i class="far fa-calendar-alt fa-3x has-text-blue-light pb-1"></i>
-          <span title="Différence exprimée en mois entre la date de consultation la plus recente et la date de consultation la plus ancienne." >Période</span>
+          <span
+            title="Différence exprimée en mois entre la date de consultation la plus recente et la date de consultation la plus ancienne.">Période</span>
           <b id="kpi-periode"></b>
         </div>
         <div class="column kpi">
@@ -255,21 +272,21 @@ include('inc/localization.php');
           <b id="kpi-nb-marches"></b>
         </div>
         <div class="column kpi">
-            <i class="fas fa-calculator fa-3x has-text-blue-light"></i>
-            <span>Montant total</span>
-            <b id="kpi-montant-total"></b>
+          <i class="fas fa-calculator fa-3x has-text-blue-light"></i>
+          <span>Montant total</span>
+          <b id="kpi-montant-total"></b>
         </div>
         <div class="column kpi">
-            <!-- <i class="far fas fa-thermometer-half fa-3x has-text-blue-light"></i> -->
-            <i class="fas fa-divide fa-3x has-text-blue-light "></i>
-            <span>Montant moyen</span>
-            <b id="kpi-moyenne"></b>
+          <!-- <i class="far fas fa-thermometer-half fa-3x has-text-blue-light"></i> -->
+          <i class="fas fa-divide fa-3x has-text-blue-light "></i>
+          <span>Montant moyen</span>
+          <b id="kpi-moyenne"></b>
         </div>
         <div class="column kpi">
-            <!-- <i class="far fas fa-thermometer-full fa-3x has-text-blue-light"></i> -->
-            <i class="fas fa-mountain fa-3x has-text-blue-light "></i>
-            <span>Montant max.</span>
-            <b id="kpi-max"></b>
+          <!-- <i class="far fas fa-thermometer-full fa-3x has-text-blue-light"></i> -->
+          <i class="fas fa-mountain fa-3x has-text-blue-light "></i>
+          <span>Montant max.</span>
+          <b id="kpi-max"></b>
         </div>
       </div>
     </div>
@@ -281,18 +298,22 @@ include('inc/localization.php');
       </div>
 
       <div id="rechercheTempChart"></div>
-      <?php include ('inc/aideRecherche.php');?>
+      <?php include('inc/aideRecherche.php'); ?>
     </div>
 
 
     <div class="container">
       <h3 id="titreTableUI">Toutes les données de votre recherche</h3>
-      <p class="pb-40 is-size-9">Ce tableau affiche les principales informations des marchés de votre sélection. Cliquez sur "Voir" pour accéder au détail de chaque marché. </p>
-      <table class="display table table-striped table-bordered table-hover dataTable no-footer" id="tableUI"  style="width:100%">
+      <p class="pb-40 is-size-9">Ce tableau affiche les principales informations des marchés de votre sélection. Cliquez
+        sur "Voir" pour accéder au détail de chaque marché. </p>
+      <table class="display table table-striped table-bordered table-hover dataTable no-footer" id="tableUI"
+        style="width:100%">
         <thead>
           <tr>
             <th width="7%">Détails</th>
-            <th width="38%">CPV <i class="fas fa-question-circle has-text-grey-light" title="Le vocabulaire commun des marchés publics ou CPV (Common Procurement Vocabulary) est composé de codes normalisés, utilisés pour décrire l’objet des contrats à l’aide d’un système unique de classification pour les marchés publics."></i></th>
+            <th width="38%">CPV <i class="fas fa-question-circle has-text-grey-light"
+                title="Le vocabulaire commun des marchés publics ou CPV (Common Procurement Vocabulary) est composé de codes normalisés, utilisés pour décrire l’objet des contrats à l’aide d’un système unique de classification pour les marchés publics."></i>
+            </th>
             <th width="20%">Acheteur</th>
             <th width="20%">Fournisseur</th>
             <th width="10%">Date</th>
@@ -302,17 +323,17 @@ include('inc/localization.php');
       </table>
     </div>
 
-    </div> <!-- recherche Resultats -->
-  </div>
+  </div> <!-- recherche Resultats -->
+</div>
 
-  <!-- fenêtre modal pour afficher les marchés sans perdre sa recherche -->
+<!-- fenêtre modal pour afficher les marchés sans perdre sa recherche -->
 
-  <div id="modalMarche" class="modal">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-       <header class="modal-card-head">
+<div id="modalMarche" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
       <p class="modal-card-title"><i class="far fa-handshake pb5"></i> Détails du contrat</p>
-        <button id="ferme-marche" class="has-text-centered button is-btn-marron">Fermer</button>
+      <button id="ferme-marche" class="has-text-centered button is-btn-marron">Fermer</button>
     </header>
     <section class="modal-card-body">
       <div id="enCharge">
@@ -353,9 +374,12 @@ include('inc/localization.php');
               <div class="column">
                 <h4>Acheteur</h4>
                 <p>
-                  <span id="m_acheteur"></span> <span id="m_acheteur_siret" class="siret"></span></p>
+                  <span id="m_acheteur"></span> <span id="m_acheteur_siret" class="siret"></span>
+                </p>
                 <p>
-                   <span id="m_acheteur_btn" class="tag is-btn-a plus-acheteur " title="Chercher tous les marchés de cet acheteur" data-id-acheteur=""><i class="fas fa-table"></i>&nbsp;Tous ses marchés</span>
+                  <span id="m_acheteur_btn" class="tag is-btn-a plus-acheteur "
+                    title="Chercher tous les marchés de cet acheteur" data-id-acheteur=""><i
+                      class="fas fa-table"></i>&nbsp;Tous ses marchés</span>
                   <span id="m_acheteur_a" class="link"></span>
                 </p>
               </div>
@@ -364,9 +388,12 @@ include('inc/localization.php');
               <div class="column">
                 <h4>Fournisseur</h4>
                 <p>
-                  <span id="m_titulaire"></span> <span id="m_titulaire_siret" class="siret"></span></p>
+                  <span id="m_titulaire"></span> <span id="m_titulaire_siret" class="siret"></span>
+                </p>
                 <p>
-                  <span id="m_titulaire_btn"  class="tag is-btn-a plus-titulaire " title="Chercher tous les marchés gagnés par ce fournisseur" data-id-titulaire=""><i class="fas fa-table"></i>&nbsp;Tous ses marchés</span>
+                  <span id="m_titulaire_btn" class="tag is-btn-a plus-titulaire "
+                    title="Chercher tous les marchés gagnés par ce fournisseur" data-id-titulaire=""><i
+                      class="fas fa-table"></i>&nbsp;Tous ses marchés</span>
                   <span id="m_titulaire_a" class="link"></span>
                 </p>
               </div>
@@ -374,20 +401,22 @@ include('inc/localization.php');
             <div id="m_wrap_cpv">
               <h4>Code CPV : </h4>
               <p id="m_cpv_libelle"></p>
-              <p><span id="m_cpv_code" class="tag is-btn-a plus-cpv" title="Chercher tous les marchés qui correspondent à ce code CPV" data-cpv=""><i class="fas fa-table"></i>&nbsp;Marchés avec ce code</span></p>
-          </div>
+              <p><span id="m_cpv_code" class="tag is-btn-a plus-cpv"
+                  title="Chercher tous les marchés qui correspondent à ce code CPV" data-cpv=""><i
+                    class="fas fa-table"></i>&nbsp;Marchés avec ce code</span></p>
+            </div>
             <h4>Objet</h4>
             <p id="m_objet"></p>
+          </div>
         </div>
-      </div>
 
-      <!-- <button id="ferme-marche" class="has-text-centered button is-btn-marron">Fermer</button> -->
+        <!-- <button id="ferme-marche" class="has-text-centered button is-btn-marron">Fermer</button> -->
     </section>
   </div><!-- ./ modalMessage -->
 </div>
 </div> <!-- ./ main -->
 
-<?php include('js/common-js.php');?>
+<?php include('js/common-js.php'); ?>
 
 <!-- <script src="assets/datatables/datatables.min.js"></script> -->
 <script src="assets/datatables/jquery.dataTables.min.js"></script>

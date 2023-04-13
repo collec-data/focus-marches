@@ -1,25 +1,26 @@
 <?php
+include('inc/localization.php');
 $page = "categories";
-$title = "Codes CPV | Marchés publics en ".gettext("NOM_REGION");
-$desc = "Codes CPV | Marchés publics en ".gettext("NOM_REGION");
+$title = "Codes CPV | Marchés publics en " . gettext("NOM_REGION");
+$desc = "Codes CPV | Marchés publics en " . gettext("NOM_REGION");
 
 include('inc/head-1.php');
-include('inc/localization.php');
+
 ?>
 <!-- entre heads : ajouter extra css , ... -->
 
 <?php include('inc/head-2.php'); ?>
 
 
-  <h1>Recherche de marchés par code CPV</h1>
-  <h2>Chercher des marchés par code CPV</h2>
-  <h2>Naviguer dans les codes CPV pour trouver les marchés</h2>
+<h1>Recherche de marchés par code CPV</h1>
+<h2>Chercher des marchés par code CPV</h2>
+<h2>Naviguer dans les codes CPV pour trouver les marchés</h2>
 
-  </main>
-  <?php include('js/common-js.php');?>
+</main>
+<?php include('js/common-js.php'); ?>
 
-  <script>
+<script>
 
-  </script>
+</script>
 
 <?php include('inc/footer.php'); ?>
