@@ -54,7 +54,8 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
 
 
 
-        <h2 id="dates" class="has-text-centered subtitle">Cet outil exploite les données essentielles des marchés publics passés en <?php echo gettext("NOM_REGION"); ?> sous réserves que l'organisme qui passe le marché public soit adhérent au service proposé par <?php echo gettext("NOM_OPSN")?>
+        <h2 id="dates" class="has-text-centered subtitle">Cet outil exploite les données essentielles des marchés publics passés en <?php echo gettext("NOM_REGION"); ?> sous réserves que l'organisme qui passe le marché public soit adhérent au service proposé par 
+            <?php echo gettext("NOM_OPSN_LINK")?>
             et qu'il  ait bien complété toutes les informations nécessaires dans la salle des marchés publics (bien renseigné l'étape décision).
             On ne trouvera pas, par exemple, les marchés des services de l'Etat qui utilisent <a target="_blank" href="https://www.marches-publics.gouv.fr/">leur propre plateforme.</a>
         </h2>
