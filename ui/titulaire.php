@@ -629,7 +629,7 @@ var procedureNBData = [
     y: [<?php echo $procedure['nom_procedure'];?>],
     marker:{
       color: okabe_ito_reverse,
-      line: { color: okabe_ito_reverse_border, width: 1 }
+      line: { color: okabe_ito_reverse, width: 1 }
     },
     orientation: 'h'
   }
@@ -644,7 +644,7 @@ var procedureMTData = [
     y: [<?php echo $procedure['nom_procedure'];?>],
     marker:{
       color: okabe_ito_reverse,
-      line: { color: okabe_ito_reverse_border, width: 1 }
+      line: { color: okabe_ito_reverse, width: 1 }
     },
     orientation: 'h'
   }

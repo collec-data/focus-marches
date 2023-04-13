@@ -299,7 +299,7 @@ getDeptsMontants
 Montant total de tous les marchés groupés par dépt
 
 */
-function getDepts ($connect, $months=12)
+function getDepts ($connect, $months=12, $limit=15)
 {
   $sql = "SELECT nom_lieu, sum(montant) as montant, count(m.id) as nombre
   FROM marche m
@@ -307,7 +307,7 @@ function getDepts ($connect, $months=12)
   WHERE m.date_notification > '0000-00-00'
   AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)
   GROUP BY nom_lieu
-  ORDER BY nom_lieu DESC";
+  ORDER BY montant, nom_lieu DESC LIMIT $limit";
 
   $lieu = [];
   $montant = [];

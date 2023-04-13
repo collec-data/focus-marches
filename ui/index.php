@@ -569,7 +569,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
         */
         var setQui = function (id, x, y)
         {
-            var chartData = [{ type: 'bar', y: y, x: x, marker:{ color: okabe_ito_reverse, line: { color: okabe_ito_reverse_border, width: 1 } }, orientation: 'v'}];
+            var chartData = [{ type: 'bar', y: y, x: x, marker:{ color: okabe_ito_reverse, line: { color: okabe_ito_reverse, width: 1 } }, orientation: 'v'}];
             Plotly.newPlot( id, chartData, layoutMini, optionsPlotly);
         };
 
@@ -690,7 +690,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
                 y: [<?php echo $procedure['nom_procedure'];?>],
                 marker:{
                     color: okabe_ito_reverse,
-                    line: { color: okabe_ito_reverse_border, width: 1 }
+                    line: { color: okabe_ito_reverse, width: 1 }
                 },
                 orientation: 'h'
             }
@@ -705,7 +705,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
                 y: [<?php echo $procedure['nom_procedure'];?>],
                 marker:{
                     color: okabe_ito_reverse,
-                    line: { color: okabe_ito_reverse_border, width: 1 }
+                    line: { color: okabe_ito_reverse, width: 1 }
                 },
                 orientation: 'h'
             }
@@ -724,7 +724,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
             y: [<?php echo $depts['lieu']; ?>],
             marker:{
                 color: okabe_ito,
-                line: { color: okabe_ito_border, width: 1 }
+                line: { color: okabe_ito, width: 1 }
             },
             orientation: 'h'
         }];
@@ -738,12 +738,11 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
             y: [<?php echo $depts['lieu']; ?>],
             marker:{
                 color: okabe_ito,
-                line: { color: okabe_ito_border, width: 1 }
+                line: { color: okabe_ito, width: 1 }
             },
             orientation: 'h'
         }];
         Plotly.newPlot('deptsNB', deptsNBData, layout, optionsPlotly);
-
 
 ///// Distribution des achats par département
         var data =

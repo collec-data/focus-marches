@@ -51,6 +51,6 @@ var setQui = function (id, x, y)
     $('#' + id).html("<span class='pasData'>Il n'y a pas eu de contrat pour cette catégorie</span>");
     return;
   }
-var chartData = [{ type: 'bar', y: y, x: x, marker:{ color: okabe_ito_reverse, line: { color: okabe_ito_reverse_border, width: 1 } }, orientation: 'v'}];
+var chartData = [{ type: 'bar', y: y, x: x, marker:{ color: okabe_ito_reverse, line: { color: okabe_ito_reverse, width: 1 } }, orientation: 'v'}];
 Plotly.newPlot( id, chartData, layoutQui, optionsPlotly);
 };
