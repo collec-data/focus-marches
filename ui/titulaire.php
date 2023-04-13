@@ -27,7 +27,6 @@ if ($secured == true)
   $id = $_GET['i'];
   $nom = getNomTitulaire($connect, $id);
   $kpi = getKPITitulaire($connect, $id, $nb_mois);
-  // print_r($kpi);
   $marches = getDatesMontantsLieu($connect, $id, 12);
   $sirene = getDataSiret($connect, $id);
 }
