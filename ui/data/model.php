@@ -6,8 +6,7 @@ $debug = true;
 function d($var)
 {
   global $debug;
-  if ($debug)
-  {
+  if ($debug) {
     echo "<pre>";
     print_r($var);
     echo "</pre>";
@@ -26,26 +25,19 @@ contrôle les valeurs présents dans GET[dept]
 */
 function clean_get_dept()
 {
-  try
-  {
+  try {
     $dept_valides = [21, 25, 39, 58, 70, 71, 89, 90];
-    if (isset($_GET))
-    {
-      if (isset($_GET['dept']))
-      {
-        if (is_numeric($_GET['dept']))
-        {
-          if (in_array($_GET['dept'], $dept_valides))
-          {
+    if (isset($_GET)) {
+      if (isset($_GET['dept'])) {
+        if (is_numeric($_GET['dept'])) {
+          if (in_array($_GET['dept'], $dept_valides)) {
             return $_GET['dept'];
           }
         }
       }
     }
     return 0;
-  }
-  catch (Exception $e)
-  {
+  } catch (Exception $e) {
     return 0;
   }
 }
@@ -58,15 +50,13 @@ supprime les espaces et caractères qui risquent de casser le JSON
 */
 function clean($str)
 {
-  try
-  {
+  try {
     return str_replace(
       ['"', "\r", "\t", "\n"],
       [" ", "", " ", "<br>"],
-      $str);
-  }
-  catch (Exception $e)
-  {
+      $str
+    );
+  } catch (Exception $e) {
     return $e;
   }
 }
@@ -75,11 +65,10 @@ function clean($str)
 nf($n)
 ----------------------------------
 Formatte le chiffre french style
-
 */
-function nf ($n)
+function nf($n)
 {
-  return number_format ($n, 0, ",", " ");
+  return number_format($n, 0, ",", " ");
 }
 
 /* -------------------------------
@@ -88,9 +77,9 @@ pf($total, $partie)
 Calcule et formatte le pourcentage avec 2d
 retourne le chiffre entre parenthèses avec %
 */
-function pf ($total, $partie)
+function pf($total, $partie)
 {
-  return " <i>(" . number_format ( (( $partie * 100 ) / $total), 2, ",", " ") . "&nbsp;%)</i>";
+  return " <i>(" . number_format((($partie * 100) / $total), 2, ",", " ") . "&nbsp;%)</i>";
 }
 
 /* -------------------------------
@@ -98,10 +87,9 @@ ft($value)
 ----------------------------------
 Formatte une valeur qui peut être '-' ou un numéro
 */
-function ft ($value, $unite)
+function ft($value, $unite)
 {
-  if (is_numeric($value))
-  {
+  if (is_numeric($value)) {
     return nf($value) . " $unite";
   }
   return $value;
@@ -111,12 +99,10 @@ function ft ($value, $unite)
 coupe($str, $n)
 ----------------------------------
 Formatte reduit une str
-
 */
-function coupe ($str, $n)
+function coupe($str, $n)
 {
-  if (strlen($str) > $n)
-  {
+  if (strlen($str) > $n) {
     $str = substr($str, 0, $n) . ' ...';
   }
   return $str;
@@ -125,101 +111,87 @@ function coupe ($str, $n)
 /* -------------------------------
 getNom($id)
 ----------------------------------
-
 */
-function getNom ($connect, $id=0)
+function getNom($connect, $id = 0)
 {
-  if ($id === 0) return "0";
-  if (!is_numeric($id)) return "no numeric";
+  if ($id === 0)
+    return "0";
+  if (!is_numeric($id))
+    return "no numeric";
 
   $sql = "SELECT nom_acheteur nom
   FROM acheteur a
   INNER JOIN marche m ON m.id_acheteur = a.id_acheteur
-  WHERE a.id_acheteur = '" .  $id . "'";
+  WHERE a.id_acheteur = '" . $id . "'";
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
 
-    if ($result)
-    {
-      while ( $obj = mysqli_fetch_object( $result ) )
-      {
+    if ($result) {
+      while ($obj = mysqli_fetch_object($result)) {
         $nom = $obj->nom;
-        // $nom = print_r($obj);
       }
       mysqli_free_result($result);
     }
-  }
-  catch (Exception $e)
-  {
+  } catch (Exception $e) {
     $nom = $e;
   }
   return $nom;
 }
 
 
-function getConfig ($connect)
+function getConfig($connect)
 {
-    $sql = "SELECT date_mise_a_jour,date_debut
+  $sql = "SELECT date_mise_a_jour,date_debut
           FROM config";
 
-    try
-    {
-        $result = $connect->query($sql);
+  try {
+    $result = $connect->query($sql);
 
-        if ($result)
-        {
-            while ( $obj = mysqli_fetch_object( $result ) )
-            {
-                $date_mise_a_jour= $obj->date_mise_a_jour;
-                $date_debut= $obj->date_debut;
-            }
-            mysqli_free_result($result);
-        }
+    if ($result) {
+      while ($obj = mysqli_fetch_object($result)) {
+        $date_mise_a_jour = $obj->date_mise_a_jour;
+        $date_debut = $obj->date_debut;
+      }
+      mysqli_free_result($result);
     }
-    catch (Exception $e)
-    {
-        $nom = $e;
-    }
+  } catch (Exception $e) {
+    $nom = $e;
+  }
 
-    $out = [];
-    // resultat au format json
-    $out['date_mise_a_jour'] = $date_mise_a_jour;
-    $out['date_debut'] = $date_debut;
-    return $out;
+  $out = [];
+  // resultat au format json
+  $out['date_mise_a_jour'] = $date_mise_a_jour;
+  $out['date_debut'] = $date_debut;
+  return $out;
 }
 
 
 /* -------------------------------
 getNomTitulaire($id)
 ----------------------------------
-
 */
-function getNomTitulaire ($connect, $id=0)
+function getNomTitulaire($connect, $id = 0)
 {
-  if ($id === 0) return "0";
-  if (!is_numeric($id)) return "no numeric";
+  if ($id === 0)
+    return "0";
+  if (!is_numeric($id))
+    return "no numeric";
 
   $sql = "SELECT denomination_sociale
           FROM titulaire
-          WHERE id_titulaire = '" .  $id . "'";
+          WHERE id_titulaire = '" . $id . "'";
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
 
-    if ($result)
-    {
-      while ( $obj = mysqli_fetch_object( $result ) )
-      {
+    if ($result) {
+      while ($obj = mysqli_fetch_object($result)) {
         $nom = $obj->denomination_sociale;
       }
       mysqli_free_result($result);
     }
-  }
-  catch (Exception $e)
-  {
+  } catch (Exception $e) {
     $nom = $e;
   }
   return $nom;
@@ -229,33 +201,27 @@ function getNomTitulaire ($connect, $id=0)
 /* -------------------------------
 getCommune($id)
 ----------------------------------
-
 */
-function getCommune ($connect, $nom=null)
+function getCommune($connect, $nom = null)
 {
-  if (is_null($nom)) return "0";
+  if (is_null($nom))
+    return "0";
 
   $sql = "SELECT *
   FROM communes
-  WHERE nccenr = '" .  $nom . "'";
+  WHERE nccenr = '" . $nom . "'";
   // return $sql;
-  try
-  {
+  try {
     $result = $connect->query($sql);
     $out = [];
 
-    if ($result)
-    {
-      while ( $obj = mysqli_fetch_object( $result ) )
-      {
+    if ($result) {
+      while ($obj = mysqli_fetch_object($result)) {
         $out['pop_2015'] = $obj->pop_2015;
-        // $nom = print_r($obj);
       }
       mysqli_free_result($result);
     }
-  }
-  catch (Exception $e)
-  {
+  } catch (Exception $e) {
     $out = $e;
   }
   return $out;
@@ -266,27 +232,21 @@ function getCommune ($connect, $nom=null)
 getMontantTotal
 ----------------------------------
 Montant total de tous les marchés
-
 */
-function getMontantTotal ($connect)
+function getMontantTotal($connect)
 {
   $sql = "SELECT sum(montant) as montantTotal FROM marche";
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
 
-    if ($result)
-    {
-      while ( $obj = mysqli_fetch_object( $result ) )
-      {
+    if ($result) {
+      while ($obj = mysqli_fetch_object($result)) {
         $montantTotal = $obj->montantTotal;
       }
       mysqli_free_result($result);
     }
-  }
-  catch (Exception $e)
-  {
+  } catch (Exception $e) {
     $montantTotal = 0;
   }
   return $montantTotal;
@@ -297,9 +257,8 @@ function getMontantTotal ($connect)
 getDeptsMontants
 ----------------------------------
 Montant total de tous les marchés groupés par dépt
-
 */
-function getDepts ($connect, $months=12, $limit=15)
+function getDepts($connect, $months = 12, $limit = 15)
 {
   $sql = "SELECT nom_lieu, sum(montant) as montant, count(m.id) as nombre
   FROM marche m
@@ -313,29 +272,24 @@ function getDepts ($connect, $months=12, $limit=15)
   $montant = [];
   $nombre = [];
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
-        $lieu[]     = '"' . $r['nom_lieu'] . '"';
-        $montant[]  = $r['montant'];
-        $nombre[]   = $r['nombre'];
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
+        $lieu[] = '"' . $r['nom_lieu'] . '"';
+        $montant[] = $r['montant'];
+        $nombre[] = $r['nombre'];
       }
       mysqli_free_result($result);
     }
-  }
-  catch (Exception $e)
-  {
-    $out [0] = "Pas de données";
+  } catch (Exception $e) {
+    $out[0] = "Pas de données";
   }
   return array(
-    "lieu" => implode( ",", $lieu),
-    "montant" => implode( ",", $montant),
-    "nombre" => implode( ",", $nombre)
+    "lieu" => implode(",", $lieu),
+    "montant" => implode(",", $montant),
+    "nombre" => implode(",", $nombre)
   );
 
 }
@@ -346,7 +300,7 @@ getKPIAll - Toutes les périodes
 ----------------------------------
 */
 
-function getKPIAll ($connect)
+function getKPIAll($connect)
 {
   $sql = "SELECT SUM(montant) as montant_total,
   COUNT(m.id) as nombre,
@@ -358,16 +312,13 @@ function getKPIAll ($connect)
   FROM marche ma2
   WHERE ma2.date_notification > '0000-00-00') m2 ";
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
 
     $kpi = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
         $kpi['montant_total'] = $r['montant_total'];
         $kpi['nombre'] = $r['nombre'];
         $kpi['maximum'] = $r['maximum'];
@@ -376,8 +327,8 @@ function getKPIAll ($connect)
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
   return $kpi;
 }
 
@@ -389,7 +340,7 @@ getKPI (pour les acheteurs )
 SELECT CURRENT_DATE(), DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR)
 */
 
-function getKPI ($connect, $id=0, $months=0, $dept=0)
+function getKPI($connect, $id = 0, $months = 0, $dept = 0)
 {
   $sql = "SELECT SUM(montant) as montant_total,
   COUNT(m.id) as nombre,
@@ -405,33 +356,27 @@ function getKPI ($connect, $id=0, $months=0, $dept=0)
   INNER JOIN lieu l ON l.id_lieu = m.id_lieu_execution
   WHERE m.date_notification > '0000-00-00' ";
 
-  if ($months > 0)
-  {
+  if ($months > 0) {
     $sql .= " AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
   }
-  if ($dept > 0)
-  {
+  if ($dept > 0) {
     $sql .= " AND l.code = " . $dept;
   }
 
 
-  if ($id > 0)
-  {
+  if ($id > 0) {
     $sql .= " AND m.id_acheteur = '" . $id . "'";
   }
 
   // return $sql;
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
 
     $kpi = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
         $kpi['montant_total'] = $r['montant_total'];
         $kpi['nombre'] = $r['nombre'];
         $kpi['maximum'] = $r['maximum'];
@@ -443,8 +388,8 @@ function getKPI ($connect, $id=0, $months=0, $dept=0)
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
   // d($kpi);
   return $kpi;
 }
@@ -456,7 +401,7 @@ getKPITitulaire
 SELECT CURRENT_DATE(), DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR)
 */
 
-function getKPITitulaire ($connect, $id=0, $months=0)
+function getKPITitulaire($connect, $id = 0, $months = 0)
 {
   /*COUNT(DISTINCT(a.nom_acheteur)) nb_acheteurs*/
   $sql = "SELECT SUM(montant) as montant_total,
@@ -471,26 +416,21 @@ function getKPITitulaire ($connect, $id=0, $months=0)
   INNER JOIN titulaire t ON t.id_titulaire = mt.id_titulaires
   WHERE m.date_notification > '0000-00-00' ";
 
-  if ($months > 0)
-  {
+  if ($months > 0) {
     $sql .= " AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
   }
 
-  if ($id > 0)
-  {
+  if ($id > 0) {
     $sql .= " AND t.id_titulaire = '" . $id . "'";
   }
-// return $sql;
-  try
-  {
+  // return $sql;
+  try {
     $result = $connect->query($sql);
 
     $kpi = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
         $kpi['montant_total'] = $r['montant_total'];
         $kpi['nombre'] = $r['nombre'];
         $kpi['maximum'] = $r['maximum'];
@@ -501,8 +441,8 @@ function getKPITitulaire ($connect, $id=0, $months=0)
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
   return $kpi;
 }
 
@@ -510,7 +450,7 @@ function getKPITitulaire ($connect, $id=0, $months=0)
 /**
  * Retourne les id des meilleurs lieux dans l'ordre, ordonner par les ids
  */
-function getBestLieux($connect,$months=12, $limit=10)
+function getBestLieux($connect, $months = 12, $limit = 10)
 {
   $sql = "SELECT SUM(montant) total, id_lieu_execution,nom_lieu FROM marche m
     INNER JOIN lieu l ON m.id_lieu_execution = l.id_lieu
@@ -519,11 +459,9 @@ function getBestLieux($connect,$months=12, $limit=10)
     ORDER BY id_lieu_execution LIMIT $limit";
 
   $result = $connect->query($sql);
-  if ($result)
-  {
+  if ($result) {
     $lieux = [];
-    while ( $r = mysqli_fetch_assoc( $result ) )
-    {
+    while ($r = mysqli_fetch_assoc($result)) {
       $lieux[$r['id_lieu_execution']] = $r['nom_lieu'];
     }
   }
@@ -535,9 +473,9 @@ function getBestLieux($connect,$months=12, $limit=10)
 getMontant par CPV et lieu
 ----------------------------------
 */
-function getMontantCPVLieu ($connect, $categorie, $lieux, $months=12)
+function getMontantCPVLieu($connect, $categorie, $lieux, $months = 12)
 {
-  $id_lieux =  implode(",", array_keys($lieux)); // la liste des id lieux
+  $id_lieux = implode(",", array_keys($lieux)); // la liste des id lieux
 
   $sql = "SELECT SUM(montant) total, nom_lieu, l.id_lieu
   FROM marche m
@@ -547,49 +485,45 @@ function getMontantCPVLieu ($connect, $categorie, $lieux, $months=12)
   AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)
   AND ";
 
-  switch ($categorie)
-  {
+  switch ($categorie) {
     case 'services':
-    $s= 0;
-    $sql .= "code_cpv > 49999999";
-    break;
+      $s = 0;
+      $sql .= "code_cpv > 49999999";
+      break;
 
     case 'travaux':
-    $s = 1;
-    $sql .= "code_cpv < 50000000 AND code_cpv > 44999999";
-    break;
+      $s = 1;
+      $sql .= "code_cpv < 50000000 AND code_cpv > 44999999";
+      break;
 
     case 'fournitures':
-    $s = 2;
-    $sql .= "code_cpv < 45000000";
-    break;
+      $s = 2;
+      $sql .= "code_cpv < 45000000";
+      break;
 
   }
 
   $sql .= " GROUP BY l.id_lieu";
   $sql .= " ORDER BY l.id_lieu"; // on fait bien le order by id_lieu pour construire le graphique
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
     $source = [];
     $target = [];
     $values = [];
 
-    if ($result)
-    {
+    if ($result) {
       $index = 0;
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
+      while ($r = mysqli_fetch_assoc($result)) {
         $source[] = $s;
         $target[] = $index + 3;
         $values[] = $r['total'];
-        $index ++;
+        $index++;
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
   return array(
     "source" => $source,
     "target" => $target,
@@ -602,40 +536,36 @@ function getMontantCPVLieu ($connect, $categorie, $lieux, $months=12)
 getDatesMontantsLieu par lieu
 ----------------------------------
 */
-function getDatesMontantsLieu ($connect, $nom=null, $months=0)
+function getDatesMontantsLieu($connect, $nom = null, $months = 0)
 {
   $sql = "SELECT montant, date_notification
   FROM marche m
   INNER JOIN acheteur a ON m.id_acheteur = a.id_acheteur
   WHERE a.nom_acheteur = '" . $nom . "' ";
 
-  if ($months > 0)
-  {
+  if ($months > 0) {
     $sql .= " AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
   }
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
 
     $montant = [];
     $date = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
         $montant[] = $r['montant'];
         $date[] = "'" . $r['date_notification'] . "'";
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
 
   return array(
-    "montant" => implode( ",", $montant),
-    "date" => implode( ",", $date)
+    "montant" => implode(",", $montant),
+    "date" => implode(",", $date)
   );
 }
 
@@ -646,36 +576,34 @@ get Top acheteurs
 Si nb == 0 retourne tout
 Sortie formatée pour plotly
 */
-function getAcheteurs ($connect, $nb=5)
+function getAcheteurs($connect, $nb = 5)
 {
   $sql = "SELECT a.nom_acheteur, sum(m.`montant`) montant
   FROM `marche` m
   INNER JOIN acheteur a ON m.id_acheteur = a.id_acheteur
   GROUP BY a.nom_acheteur
   ORDER BY montant DESC ";
-  if ($nb !== 0) $sql .= "LIMIT $nb";
+  if ($nb !== 0)
+    $sql .= "LIMIT $nb";
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
 
     $entite = [];
     $value = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
         $entite[] = '"' . $r['nom_acheteur'] . '"';
         $value[] = $r['montant'];
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
   return array(
-    "entite" => implode( ",", $entite),
-    "value" => implode( ",", $value)
+    "entite" => implode(",", $entite),
+    "value" => implode(",", $value)
   );
 }
 
@@ -684,10 +612,7 @@ get Top acheteurs List
 ----------------------------------
 Si nb == 0 retourne tout
 Sortie formatée pour plotly
-
-
 requête pour un seul département "PLUS GROS ACHETEUR"
-
 SELECT a.nom_acheteur nom, sum(m.`montant`) montant , id_lieu, nom_lieu
 FROM `marche` m
 INNER JOIN acheteur a ON m.id_acheteur = a.id_acheteur
@@ -697,30 +622,27 @@ AND m.date_notification > 2019-04-13
 GROUP BY m.id_acheteur
 ORDER BY montant DESC
 */
-function getAcheteursList ($connect, $nb=5, $categorie=null)
+function getAcheteursList($connect, $nb = 5, $categorie = null)
 {
   $sql = "SELECT a.nom_acheteur nom, categorie, sum(m.`montant`) montant
   FROM `marche` m
   INNER JOIN acheteur a ON m.id_acheteur = a.id_acheteur ";
-  if ($categorie)
-  {
+  if ($categorie) {
     $sql .= " WHERE categorie = '" . $categorie . "'";
   }
   $sql .= " GROUP BY a.nom_acheteur ";
   // if ($categorie == null) $sql.= ", categorie ";
-  $sql.= " ORDER BY montant DESC ";
-  if ($nb !== 0) $sql .= "LIMIT $nb";
-// echo $sql;
-  try
-  {
+  $sql .= " ORDER BY montant DESC ";
+  if ($nb !== 0)
+    $sql .= "LIMIT $nb";
+  // echo $sql;
+  try {
     $result = $connect->query($sql);
 
     $out = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
         $row = array();
         $row[] = clean($r['nom']);
         $row[] = $categorie;
@@ -729,8 +651,8 @@ function getAcheteursList ($connect, $nb=5, $categorie=null)
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
   return $out;
 }
 
@@ -740,10 +662,9 @@ getAcheteursListByTitulaire
 $nb : nombre de titulaires à retourner
 $categorie : services, travaux, fournitures
 $id_titulaire : id du titulaire
-
- getTitulairesList($connect, 12, 'services', $id, $nb_mois);
+getTitulairesList($connect, 12, 'services', $id, $nb_mois);
 */
-function getAcheteursListByTitulaire ($connect, $nb=5, $categorie=null, $id_titulaire=0, $months=12)
+function getAcheteursListByTitulaire($connect, $nb = 5, $categorie = null, $id_titulaire = 0, $months = 12)
 {
   $sql = "SELECT a.nom_acheteur nom, categorie, sum(m.`montant`) montant
   FROM `marche` m
@@ -753,31 +674,27 @@ function getAcheteursListByTitulaire ($connect, $nb=5, $categorie=null, $id_titu
   WHERE m.date_notification > '0000-00-00'
   AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
 
-  if ($categorie)
-  {
+  if ($categorie) {
     $sql .= " AND categorie = '" . $categorie . "' ";
   }
 
-  if ($id_titulaire > 0)
-  {
+  if ($id_titulaire > 0) {
     $sql .= " AND t.id_titulaire = '" . $id_titulaire . "' ";
   }
 
   $sql .= " GROUP BY nom ";
   // if ($categorie == null) $sql.= ", categorie ";
   $sql .= " ORDER BY montant DESC ";
-  if ($nb !== 0) $sql .= "LIMIT $nb";
+  if ($nb !== 0)
+    $sql .= "LIMIT $nb";
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
 
     $out = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
         $row = array();
         $row[] = clean($r['nom']);
         $row[] = $categorie;
@@ -786,8 +703,8 @@ function getAcheteursListByTitulaire ($connect, $nb=5, $categorie=null, $id_titu
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
   // return $sql;
   return $out;
 }
@@ -798,10 +715,9 @@ getTitulairesList
 $nb : nombre de titulaires à retourner
 $categorie : services, travaux, fournitures
 $id_acheteur : id de l'acheteur
-
- getTitulairesList($connect, 12, 'services', $id, $nb_mois);
+getTitulairesList($connect, 12, 'services', $id, $nb_mois);
 */
-function getTitulairesList ($connect, $nb=5, $categorie=null, $id_acheteur=0, $months=12)
+function getTitulairesList($connect, $nb = 5, $categorie = null, $id_acheteur = 0, $months = 12)
 {
   $sql = "SELECT t.denomination_sociale nom, categorie, sum(m.`montant`) montant
   FROM `marche` m
@@ -810,31 +726,27 @@ function getTitulairesList ($connect, $nb=5, $categorie=null, $id_acheteur=0, $m
   WHERE m.date_notification > '0000-00-00'
   AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
 
-  if ($categorie)
-  {
+  if ($categorie) {
     $sql .= " AND categorie = '" . $categorie . "' ";
   }
 
-  if ($id_acheteur > 0)
-  {
+  if ($id_acheteur > 0) {
     $sql .= " AND m.id_acheteur = '" . $id_acheteur . "' ";
   }
 
   $sql .= " GROUP BY nom ";
   // if ($categorie == null) $sql.= ", categorie ";
   $sql .= " ORDER BY montant DESC ";
-  if ($nb !== 0) $sql .= "LIMIT $nb";
+  if ($nb !== 0)
+    $sql .= "LIMIT $nb";
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
 
     $out = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
         $row = array();
         $row[] = clean($r['nom']);
         $row[] = $categorie;
@@ -843,9 +755,8 @@ function getTitulairesList ($connect, $nb=5, $categorie=null, $id_acheteur=0, $m
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
-  // print_r( $sql) ;echo "<br>";
   return $out;
 }
 
@@ -853,7 +764,7 @@ function getTitulairesList ($connect, $nb=5, $categorie=null, $id_acheteur=0, $m
 get Top titulaires
 ----------------------------------
 */
-function getTitulaires ($connect, $nb=5)
+function getTitulaires($connect, $nb = 5)
 {
   $sql = "SELECT t.denomination_sociale, sum(m.`montant`) montant
   FROM `marche` m
@@ -861,29 +772,27 @@ function getTitulaires ($connect, $nb=5)
   INNER JOIN titulaire t ON mt.id_titulaires = t.id_titulaire
   GROUP BY t.denomination_sociale
   ORDER BY montant DESC ";
-  if ($nb !== 0) $sql .= "LIMIT $nb";
+  if ($nb !== 0)
+    $sql .= "LIMIT $nb";
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
 
     $entite = [];
     $value = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
         $entite[] = '"' . $r['denomination_sociale'] . '"';
         $value[] = $r['montant'];
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
   return array(
-    "entite" => implode( ",", $entite),
-    "value" => implode( ",", $value)
+    "entite" => implode(",", $entite),
+    "value" => implode(",", $value)
   );
 }
 
@@ -892,54 +801,50 @@ function getTitulaires ($connect, $nb=5)
 getMontantSankey
 ----------------------------------
 */
-function getMontantSankey ($connect)
+function getMontantSankey($connect)
 {
   $sql = "SELECT SUM(montant) total, nom_lieu
   FROM marche m
   INNER JOIN lieu l ON m.id_lieu_execution = l.id_lieu
   WHERE ";
 
-  switch ($categorie)
-  {
+  switch ($categorie) {
     case 'services':
-    $sql .= "code_cpv > 49999999";
-    break;
+      $sql .= "code_cpv > 49999999";
+      break;
 
     case 'fournitures':
-    $sql .= "code_cpv < 45000000";
-    break;
+      $sql .= "code_cpv < 45000000";
+      break;
 
     case 'travaux':
-    $sql .= "code_cpv < 50000000 AND code_cpv > 44999999";
-    break;
+      $sql .= "code_cpv < 50000000 AND code_cpv > 44999999";
+      break;
   }
 
   $sql .= " GROUP BY nom_lieu";
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
 
     $source = [];
     $target = [];
     $values = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
         $source[] = '"' . $categorie . '"';
         $target[] = '"' . $r['nom_lieu'] . '"';
         $values[] = $r['total'];
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
   return array(
-    "source" => implode( ",", $source),
-    "target" => implode( ",", $target),
-    "values" => implode( ",", $values)
+    "source" => implode(",", $source),
+    "target" => implode(",", $target),
+    "values" => implode(",", $values)
   );
 }
 
@@ -974,37 +879,36 @@ class Cats
 getCategoriesPrincipales
 ----------------------------------
 */
-function getCategoriesPrincipales ($connect, $months=12, $id=0, $version="acheteur")
+function getCategoriesPrincipales($connect, $months = 12, $id = 0, $version = "acheteur")
 {
   $cats = new Cats();
 
-  switch($version)
-  {
-    case "acheteur" :
-    $cats->services = getListByTypeArrZeros($connect, 'services', $months, $id);
-    $cats->travaux = getListByTypeArrZeros($connect, 'travaux', $months, $id);
-    $cats->fournitures = getListByTypeArrZeros($connect, 'fournitures', $months, $id);
-    $cats->tousMarches = getListByTypeArrZeros($connect, null, $months, $id);
-    break;
-    case "titulaire" :
-    $cats->services = getListByTypeArrZerosTitulaires($connect, 'services', $months, $id);
-    $cats->travaux = getListByTypeArrZerosTitulaires($connect, 'travaux', $months, $id);
-    $cats->fournitures = getListByTypeArrZerosTitulaires($connect, 'fournitures', $months, $id);
-    $cats->tousMarches = getListByTypeArrZerosTitulaires($connect, null, $months, $id);
-    break;
+  switch ($version) {
+    case "acheteur":
+      $cats->services = getListByTypeArrZeros($connect, 'services', $months, $id);
+      $cats->travaux = getListByTypeArrZeros($connect, 'travaux', $months, $id);
+      $cats->fournitures = getListByTypeArrZeros($connect, 'fournitures', $months, $id);
+      $cats->tousMarches = getListByTypeArrZeros($connect, null, $months, $id);
+      break;
+    case "titulaire":
+      $cats->services = getListByTypeArrZerosTitulaires($connect, 'services', $months, $id);
+      $cats->travaux = getListByTypeArrZerosTitulaires($connect, 'travaux', $months, $id);
+      $cats->fournitures = getListByTypeArrZerosTitulaires($connect, 'fournitures', $months, $id);
+      $cats->tousMarches = getListByTypeArrZerosTitulaires($connect, null, $months, $id);
+      break;
   }
 
-  $cats->montantServices = array_sum ($cats->services['montants']) ;
-  $cats->nombreServices = array_sum ($cats->services['nombre']) ;
+  $cats->montantServices = array_sum($cats->services['montants']);
+  $cats->nombreServices = array_sum($cats->services['nombre']);
 
-  $cats->montantTravaux = array_sum ($cats->travaux['montants']) ;
-  $cats->nombreTravaux = array_sum ($cats->travaux['nombre']) ;
+  $cats->montantTravaux = array_sum($cats->travaux['montants']);
+  $cats->nombreTravaux = array_sum($cats->travaux['nombre']);
 
-  $cats->montantFournitures = array_sum ($cats->fournitures['montants']) ;
-  $cats->nombreFournitures = array_sum ($cats->fournitures['nombre']) ;
+  $cats->montantFournitures = array_sum($cats->fournitures['montants']);
+  $cats->nombreFournitures = array_sum($cats->fournitures['nombre']);
 
-  $cats->totalMontant = array_sum ($cats->tousMarches['montants']) ;
-  $cats->totalNombre = array_sum ($cats->tousMarches['nombre']) ;
+  $cats->totalMontant = array_sum($cats->tousMarches['montants']);
+  $cats->totalNombre = array_sum($cats->tousMarches['nombre']);
 
   // d($cats);
 
@@ -1016,54 +920,49 @@ function getCategoriesPrincipales ($connect, $months=12, $id=0, $version="achete
 getListByType
 ----------------------------------
 */
-function getListByType ($connect, $type=null, $months=12, $id=0)
+function getListByType($connect, $type = null, $months = 12, $id = 0)
 {
   $sql = "SELECT SUBSTR(date_notification, 1, 7) dates, sum(montant) montant, count(id) nombre
           FROM marche m
           WHERE m.date_notification > '0000-00-00'
           AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
 
-  switch ($type)
-  {
+  switch ($type) {
     case 'services':
-    $sql .= " AND code_cpv > 49999999";
-    break;
+      $sql .= " AND code_cpv > 49999999";
+      break;
 
     case 'fournitures':
-    $sql .= " AND code_cpv < 45000000";
-    break;
+      $sql .= " AND code_cpv < 45000000";
+      break;
 
     case 'travaux':
-    $sql .= " AND (code_cpv < 50000000 AND code_cpv > 44999999)";
-    break;
+      $sql .= " AND (code_cpv < 50000000 AND code_cpv > 44999999)";
+      break;
   }
 
-  if ($id > 0)
-  {
+  if ($id > 0) {
     $sql .= " AND m.id_acheteur = '" . $id . "'";
   }
 
   $sql .= " GROUP BY dates ORDER BY dates ASC";
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
     $dates = [];
     $montants = [];
     $nombre = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
         $dates[] = '"' . $r['dates'] . '"';
         $montants[] = $r['montant'];
         $nombre[] = $r['nombre'];
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
   return array(
     "dates" => implode(',', $dates),
     "montants" => implode(',', $montants),
@@ -1079,36 +978,35 @@ function getListByType ($connect, $type=null, $months=12, $id=0)
 getListByTypeArr
 ----------------------------------
 */
-function getListByTypeArr ($connect, $type=null, $months=12, $id=0)
+function getListByTypeArr($connect, $type = null, $months = 12, $id = 0)
 {
   $sql = "SELECT SUBSTR(date_notification, 1, 7) dates, sum(montant) montant, count(id) nombre
           FROM marche m
           WHERE m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
-  if (isset($type)) $sql .= " AND m.categorie = '" . $type . "' ";
+  if (isset($type))
+    $sql .= " AND m.categorie = '" . $type . "' ";
 
-  if ($id > 0) $sql .= " AND m.id_acheteur = '" . $id . "'";
+  if ($id > 0)
+    $sql .= " AND m.id_acheteur = '" . $id . "'";
 
   $sql .= " GROUP BY dates ORDER BY dates ASC";
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
     $dates = [];
     $montants = [];
     $nombre = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
         $dates[] = '"' . $r['dates'] . '"';
         $montants[] = $r['montant'];
         $nombre[] = $r['nombre'];
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
   return array(
     "dates" => $dates,
     "montants" => $montants,
@@ -1117,68 +1015,93 @@ function getListByTypeArr ($connect, $type=null, $months=12, $id=0)
   return $out;
 }
 
+/**
+ * Génère un tableau contenant les derniers mois de l'année en cours.
+ * 
+ * Par défaut 36
+ */
+function genLastMonths($month = 36)
+{
+  // Date actuelle
+  $dateActuelle = new DateTime();
+  // Tableau pour stocker les mois
+  $moisArray = array();
+  for ($i = 0; $i <= $month; $i++) {
+    // Ajouter le mois actuel dans le tableau
+    $moisArray[] = $dateActuelle->format('Y-m');
+    // Décrémenter la date d'un mois
+    $dateActuelle->modify('-1 month');
+  }
 
+  // Afficher le tableau
+  return $moisArray;
+}
 
 
 /* -------------------------------
 getListByTypeArrZeros
 ----------------------------------
 inclut les dates avec zéro marchés
-
 à garder ces fonctions sur les dates
 ajoute le nombre de jours écoulés dans le mois à un mois qui démarre à 01
 DATE_ADD(mo.date_mois, INTERVAL DAYOFMONTH(CURRENT_DATE()) DAY)
-        > DATE_SUB(CURRENT_DATE(), INTERVAL (12) MONTH)
+> DATE_SUB(CURRENT_DATE(), INTERVAL (12) MONTH)
 */
-function getListByTypeArrZeros ($connect, $type=null, $months=12, $id=0)
+function getListByTypeArrZeros($connect, $type = null, $months = 12, $id = 0)
 {
-  $sql = "SELECT
-            SUBSTR(mo.date_mois, 1, 7) dates,
-            COALESCE(SUM(montant), 0) montants,
-            COALESCE(COUNT(id), 0) nombre,
-            categorie
-          FROM mois mo
-          LEFT JOIN
-            (
-                SELECT *
-                FROM marche
-                WHERE date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)
-                ";
-  if (isset($type)) $sql .= " AND categorie = '" . $type . "'";
 
-  if ($id > 0) $sql .= " AND id_acheteur = '" . $id . "' ";
+  $sql = "SELECT SUBSTR(date_notification, 1, 7) AS dates, COALESCE(SUM(montant), 0) montants, COALESCE(COUNT(id), 0) nombre, categorie 
+          FROM marche 
+          WHERE date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL 36 MONTH) AND date_notification < CURRENT_DATE() ";
+  if (isset($type))
+    $sql .= " AND categorie = '" . $type . "'";
 
-  $sql .= ") ma
+  if ($id > 0)
+    $sql .= " AND id_acheteur = '" . $id . "' ";
 
-          ON SUBSTR(ma.date_notification, 1, 7) = SUBSTR(mo.date_mois, 1, 7)
+  $sql .= " GROUP BY SUBSTR(date_notification, 1, 7) ORDER BY dates ASC";
 
-          WHERE DATE_ADD(mo.date_mois, INTERVAL DAYOFMONTH(CURRENT_DATE()) DAY)
-        > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)
-          AND date_mois < CURRENT_DATE()
 
-          GROUP BY SUBSTR(mo.date_mois, 1, 7)
-          ORDER BY date_mois ASC";
-// echo $sql;
-  try
-  {
+  // récupération des 36 derniers mois de l'année dans l'ordre
+  $last_months = genLastMonths();
+  try {
     $result = $connect->query($sql);
     $dates = [];
     $montants = [];
     $nombre = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
+    // positionnement d'un index a la fin du tableau des mois
+    $index_month = count($last_months) - 1;
+
+    if ($result) {
+      // parcours des résultats de la requêtes
+      while ($r = mysqli_fetch_assoc($result)) {
+        //si tant que le mois n'a pas été remonté par le sql, alors on possitionne les montants et nombre à 0
+        while ($last_months[$index_month] != $r['dates']) {
+          $dates[] = '"' . $last_months[$index_month] . '"';
+          $montants[] = 0;
+          $nombre[] = 0;
+          $index_month--; // on passe au mois suivant
+        }
+
         $dates[] = '"' . $r['dates'] . '"';
         $montants[] = $r['montants'];
         $nombre[] = $r['nombre'];
+        $index_month--; // on passe au mois suivant
       }
+
+      //si il nous reste des mois à parcourir, on ajouter les mois à 0
+      while ($index_month >= 0) {
+        $dates[] = '"' . $last_months[$index_month] . '"';
+        $montants[] = 0;
+        $nombre[] = 0;
+        $index_month--;
+
+      }
+
       mysqli_free_result($result);
     }
-  }
-  catch (Exception $e)
-  {
+  } catch (Exception $e) {
     return array(
       "sql" => $sql,
       "erreur" => $e
@@ -1190,7 +1113,6 @@ function getListByTypeArrZeros ($connect, $type=null, $months=12, $id=0)
     "nombre" => $nombre,
     "sql" => $sql
   );
-  return $out;
 }
 
 
@@ -1200,56 +1122,61 @@ getListByTypeArrZerosTitulaires
 ----------------------------------
 version titulaires
 */
-function getListByTypeArrZerosTitulaires ($connect, $type=null, $months=12, $id=0)
+function getListByTypeArrZerosTitulaires($connect, $type = null, $months = 12, $id = 0)
 {
-  $sql = "SELECT
-            SUBSTR(mo.date_mois, 1, 7) dates,
-            COALESCE(SUM(montant), 0) montants,
-            COALESCE(COUNT(id), 0) nombre,
-            categorie
-          FROM mois mo
-          LEFT JOIN
-            (
-                SELECT m.*
-                FROM marche m
-                INNER JOIN marche_titulaires mt ON mt.id_marche = m.id_marche
-                WHERE date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)
-                ";
-  if (isset($type)) $sql .= " AND categorie = '" . $type . "'";
+  $sql = "SELECT SUBSTR(date_notification, 1, 7) AS dates, COALESCE(SUM(montant), 0) montants, COALESCE(COUNT(id), 0) nombre, categorie 
+          FROM marche m
+          INNER JOIN marche_titulaires mt ON mt.id_marche = m.id_marche 
+          WHERE date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL 36 MONTH) AND date_notification < CURRENT_DATE()";
 
-  if ($id > 0) $sql .= " AND mt.id_titulaires = '" . $id . "' ";
+  if (isset($type))
+    $sql .= " AND categorie = '" . $type . "'";
 
-  $sql .= ") ma
+  if ($id > 0)
+    $sql .= " AND mt.id_titulaires = '" . $id . "' ";
 
-          ON SUBSTR(ma.date_notification, 1, 7) = SUBSTR(mo.date_mois, 1, 7)
+  $sql .= " GROUP BY SUBSTR(date_notification, 1, 7) ORDER BY dates ASC";
 
-          WHERE DATE_ADD(mo.date_mois, INTERVAL DAYOFMONTH(CURRENT_DATE()) DAY)
-        > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)
-          AND date_mois < CURRENT_DATE()
+  // récupération des 36 derniers mois de l'année dans l'ordre
+  $last_months = genLastMonths();
 
-          GROUP BY SUBSTR(mo.date_mois, 1, 7)
-          ORDER BY date_mois ASC";
-
-  try
-  {
+  try {
     $result = $connect->query($sql);
     $dates = [];
     $montants = [];
     $nombre = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
+    // positionnement d'un index a la fin du tableau des mois
+    $index_month = count($last_months) - 1;
+
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
+        //si tant que le mois n'a pas été remonté par le sql, alors on possitionne les montants et nombre à 0
+        while ($last_months[$index_month] != $r['dates']) {
+          $dates[] = '"' . $last_months[$index_month] . '"';
+          $montants[] = 0;
+          $nombre[] = 0;
+          $index_month--; // on passe au mois suivant
+        }
+
         $dates[] = '"' . $r['dates'] . '"';
         $montants[] = $r['montants'];
         $nombre[] = $r['nombre'];
+        $index_month--; // on passe au mois suivant
       }
+
+      //si il nous reste des mois à parcourir, on ajouter les mois à 0
+      while ($index_month >= 0) {
+        $dates[] = '"' . $last_months[$index_month] . '"';
+        $montants[] = 0;
+        $nombre[] = 0;
+        $index_month--;
+
+      }
+
       mysqli_free_result($result);
     }
-  }
-  catch (Exception $e)
-  {
+  } catch (Exception $e) {
     return array(
       "sql" => $sql,
       "erreur" => $e
@@ -1261,7 +1188,6 @@ function getListByTypeArrZerosTitulaires ($connect, $type=null, $months=12, $id=
     "nombre" => $nombre,
     "sql" => $sql
   );
-  return $out;
 }
 
 
@@ -1271,7 +1197,7 @@ getListByTypeTitulaire
 ----------------------------------
 deprecated
 */
-function getListByTypeTitulaire ($connect, $categorie=null, $months=12, $id=0)
+function getListByTypeTitulaire($connect, $categorie = null, $months = 12, $id = 0)
 {
   $sql = "SELECT SUBSTR(date_notification, 1, 7) dates, sum(montant) montant, count(id) nombre
           FROM marche m
@@ -1280,37 +1206,32 @@ function getListByTypeTitulaire ($connect, $categorie=null, $months=12, $id=0)
           WHERE m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)
           ";
 
-  if ( $categorie)
-  {
+  if ($categorie) {
     $sql .= " AND categorie = '" . $categorie . "'";
   }
 
-  if ($id > 0)
-  {
+  if ($id > 0) {
     $sql .= " AND t.id_titulaire = '" . $id . "'";
   }
 
   $sql .= " GROUP BY dates ORDER BY dates ASC";
-// return $sql;die;
-  try
-  {
+  // return $sql;die;
+  try {
     $result = $connect->query($sql);
     $dates = [];
     $montants = [];
     $nombre = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
         $dates[] = '"' . $r['dates'] . '"';
         $montants[] = $r['montant'];
         $nombre[] = $r['nombre'];
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
   // return $type . " " . $months . " " . $id . " " . $sql;
   return array(
     "dates" => implode(',', $dates),
@@ -1326,7 +1247,7 @@ function getListByTypeTitulaire ($connect, $categorie=null, $months=12, $id=0)
 getMoyenneCategoriesPrincipales
 ----------------------------------
 */
-function getMoyenneCategoriesPrincipales ($connect, $months=12)
+function getMoyenneCategoriesPrincipales($connect, $months = 12)
 {
   $sql = "SELECT SUBSTR(date_notification, 1, 7) dates,
           avg(montant) montant, count(id) nombre
@@ -1356,25 +1277,22 @@ function getMoyenneCategoriesPrincipales ($connect, $months=12)
 
   $sql .= " GROUP BY dates ORDER BY dates ASC";
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
     $dates = [];
     $montants = [];
     $nombre = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
         $dates[] = '"' . $r['dates'] . '"';
         $montants[] = $r['montant'];
         $nombre[] = $r['nombre'];
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
   // return $type . " " . $months . " " . $id . " " . $sql;
   return array(
     "dates" => implode(',', $dates),
@@ -1390,7 +1308,7 @@ function getMoyenneCategoriesPrincipales ($connect, $months=12)
 getProcedures
 ----------------------------------
 */
-function getProcedures ($connect, $id=0, $months=12)
+function getProcedures($connect, $id = 0, $months = 12)
 {
   $sql = "SELECT COUNT(nom_procedure) nb_procedure, SUM(montant) total, nom_procedure
           FROM marche m
@@ -1398,46 +1316,44 @@ function getProcedures ($connect, $id=0, $months=12)
           WHERE m.date_notification > '0000-00-00'
           AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
 
-  if ($id > 0) $sql.= " AND m.id_acheteur = $id ";
+  if ($id > 0)
+    $sql .= " AND m.id_acheteur = $id ";
 
   $sql .= "GROUP BY nom_procedure ORDER BY nom_procedure DESC";
 
   // d($sql);
 
-  try
-  {
-    $result           = $connect->query($sql);
-    $nb_procedure     = [];
-    $total_procedure  = [];
-    $nom_procedure    = [];
+  try {
+    $result = $connect->query($sql);
+    $nb_procedure = [];
+    $total_procedure = [];
+    $nom_procedure = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
-        switch ($r['nom_procedure'])
-        {
-          case "Marché négocié sans publicité ni mise en concurrence préalable" :
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
+        switch ($r['nom_procedure']) {
+          case "Marché négocié sans publicité ni mise en concurrence préalable":
             $r['nom_procedure'] = "Marché négocié";
             break;
 
-          case "Procédure concurrentielle avec négociation" :
+          case "Procédure concurrentielle avec négociation":
             $r['nom_procedure'] = "Procédure concurrentielle";
             break;
 
-          case "Procédure négociée avec mise en concurrence préalable" :
+          case "Procédure négociée avec mise en concurrence préalable":
             $r['nom_procedure'] = "Procédure négociée";
             break;
         }
 
-        $nb_procedure[]     = $r['nb_procedure'] ;
-        $total_procedure[]  = $r['total'] ;
-        $nom_procedure[]    = '"' . $r['nom_procedure'] . '"';
+        $nb_procedure[] = $r['nb_procedure'];
+        $total_procedure[] = $r['total'];
+        $nom_procedure[] = '"' . $r['nom_procedure'] . '"';
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
+    d($e);
   }
-  catch (Exception $e) { d($e); }
 
   // d( "nb procédures : " . $nb_procedure . ", total_procedure : " . $total_procedure . ", nom_procedure : " . $nom_procedure . ", sql : " . $sql );
 
@@ -1455,7 +1371,7 @@ function getProcedures ($connect, $id=0, $months=12)
 getProceduresTitulaires
 ----------------------------------
 */
-function getProceduresTitulaires ($connect, $id=0, $months=12)
+function getProceduresTitulaires($connect, $id = 0, $months = 12)
 {
   $sql = "SELECT COUNT(nom_procedure) nb_procedure, SUM(montant) total, nom_procedure
           FROM marche m
@@ -1470,40 +1386,36 @@ function getProceduresTitulaires ($connect, $id=0, $months=12)
   $sql .= "GROUP BY nom_procedure ORDER BY nom_procedure DESC";
 
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
     $nb_procedure = [];
     $total_procedure = [];
     $nom_procedure = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
-        switch ($r['nom_procedure'])
-        {
-          case "Marché négocié sans publicité ni mise en concurrence préalable" :
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
+        switch ($r['nom_procedure']) {
+          case "Marché négocié sans publicité ni mise en concurrence préalable":
             $r['nom_procedure'] = "Marché négocié";
             break;
 
-          case "Procédure concurrentielle avec négociation" :
+          case "Procédure concurrentielle avec négociation":
             $r['nom_procedure'] = "Procédure concurrentielle";
             break;
 
-          case "Procédure négociée avec mise en concurrence préalable" :
+          case "Procédure négociée avec mise en concurrence préalable":
             $r['nom_procedure'] = "Procédure négociée";
             break;
         }
 
-        $nb_procedure[] = $r['nb_procedure'] ;
-        $total_procedure[] = $r['total'] ;
+        $nb_procedure[] = $r['nb_procedure'];
+        $total_procedure[] = $r['total'];
         $nom_procedure[] = '"' . $r['nom_procedure'] . '"';
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
   // return $type . " " . $months . " " . $id . " " . $sql;
   return array(
     "nb_procedure" => implode(',', $nb_procedure),
@@ -1526,7 +1438,7 @@ INNER JOIN nature n on n.id_nature = m.id_nature
 WHERE m.id_acheteur = 2458044065646
 GROUP BY nom_nature ORDER BY id_nature ASC
 */
-function getNatures2 ($connect, $id=0, $months=12)
+function getNatures2($connect, $id = 0, $months = 12)
 {
   // $sql = "SELECT n.id_nature, COUNT(nom_nature) nb_nature, SUM(montant) total, nom_nature
   //         FROM marche m
@@ -1543,29 +1455,27 @@ function getNatures2 ($connect, $id=0, $months=12)
             AND date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)
           ) m ON n.id_nature = m.id_nature ";
 
-  if ($id > 0) $sql.= " AND m.id_acheteur = $id ";
+  if ($id > 0)
+    $sql .= " AND m.id_acheteur = $id ";
 
   $sql .= "GROUP BY nom_nature ORDER BY id_nature ASC";
 
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
     $nb_nature = [];
     $nom_nature = [];
-    $out=[];
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
-        $nb_nature[] = $r['nb_nature'] ;
+    $out = [];
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
+        $nb_nature[] = $r['nb_nature'];
         $nom_nature[] = '"' . $r['nom_nature'] . '"';
-        $out[]=$r;
+        $out[] = $r;
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
   // return $type . " " . $months . " " . $id . " " . $sql;
   // return array(
   //   "nb_nature" => implode(',', $nb_nature),
@@ -1584,9 +1494,9 @@ getNaturesAcheteurs
 2 Left join d'une surrequête qui filtre par l'id et la date
 Si on utilise un join sans sub requete, on aura tous les résultats de la base
 */
-function getNaturesAcheteurs ($connect, $id=0, $months=12)
+function getNaturesAcheteurs($connect, $id = 0, $months = 12)
 {
-    $sql = "SELECT  n.id_nature,
+  $sql = "SELECT  n.id_nature,
                     COALESCE(COUNT(ma.id_marche),0) nb_nature,
                     COALESCE(SUM(ma.montant),0)  total,
                     nom_nature
@@ -1601,28 +1511,24 @@ function getNaturesAcheteurs ($connect, $id=0, $months=12)
           ma ON n.id_nature = ma.id_nature
           GROUP BY nom_nature ORDER BY id_nature ASC ";
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
     $nb_nature = [];
     $nom_nature = [];
     $out = [];
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
-        $nb_nature[] = $r['nb_nature'] ;
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
+        $nb_nature[] = $r['nb_nature'];
         $nom_nature[] = '"' . $r['nom_nature'] . '"';
-        $out[]=$r;
+        $out[] = $r;
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
 
   // il faut retourner 1 ligne pour chaque nature même si elle est vide
-  for ($i=1 ; $i < 5; $i++)
-  {
+  for ($i = 1; $i < 5; $i++) {
 
   }
   return $out;
@@ -1639,9 +1545,9 @@ getNaturesTitulaires
 2 Left join d'une surrequête qui filtre par l'id et la date
 Si on utilise un join sans sub requete, on aura tous les résultats de la base
 */
-function getNaturesTitulaires ($connect, $id=0, $months=12)
+function getNaturesTitulaires($connect, $id = 0, $months = 12)
 {
-    $sql = "SELECT  n.id_nature,
+  $sql = "SELECT  n.id_nature,
                     COALESCE(COUNT(ma.id_marche),0) nb_nature,
                     COALESCE(SUM(ma.montant),0)  total,
                     nom_nature
@@ -1656,28 +1562,24 @@ function getNaturesTitulaires ($connect, $id=0, $months=12)
           ma ON n.id_nature = ma.id_nature
           GROUP BY nom_nature ORDER BY id_nature ASC ";
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
     $nb_nature = [];
     $nom_nature = [];
     $out = [];
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
-        $nb_nature[] = $r['nb_nature'] ;
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
+        $nb_nature[] = $r['nb_nature'];
         $nom_nature[] = '"' . $r['nom_nature'] . '"';
-        $out[]=$r;
+        $out[] = $r;
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
 
   // il faut retourner 1 ligne pour chaque nature même si elle est vide
-  for ($i=1 ; $i < 5; $i++)
-  {
+  for ($i = 1; $i < 5; $i++) {
 
   }
   return $out;
@@ -1689,9 +1591,10 @@ function getNaturesTitulaires ($connect, $id=0, $months=12)
 getNatureByDate
 ----------------------------------
 */
-function getNatureByDate ($connect, $id=0, $id_nature=0, $months=12)
+function getNatureByDate($connect, $id = 0, $id_nature = 0, $months = 12)
 {
-  if ($id_nature === 0) return "type de nature non valide";
+  if ($id_nature === 0)
+    return "type de nature non valide";
 
   // $sql = "SELECT SUM(montant)total, date_notification date
   $sql = "SELECT SUM(montant)total,  SUBSTR(date_notification, 1, 7) date
@@ -1702,28 +1605,26 @@ function getNatureByDate ($connect, $id=0, $id_nature=0, $months=12)
         AND n.id_nature = $id_nature
         AND date_notification > '0000-00-00' ";
 
-  if ($id > 0) $sql.= " AND m.id_acheteur = $id ";
+  if ($id > 0)
+    $sql .= " AND m.id_acheteur = $id ";
 
   $sql .= "GROUP BY date ORDER BY date ASC";
-// return $sql;
+  // return $sql;
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
     $total = [];
     $date = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
-        $total[] = $r['total'] ;
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
+        $total[] = $r['total'];
         $date[] = '"' . $r['date'] . '"';
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
 
   return array(
     "total" => implode(',', $total),
@@ -1737,9 +1638,10 @@ function getNatureByDate ($connect, $id=0, $id_nature=0, $months=12)
 getNatureByDateTitulaire
 ----------------------------------
 */
-function getNatureByDateTitulaire ($connect, $id=0, $id_nature=0, $months=12)
+function getNatureByDateTitulaire($connect, $id = 0, $id_nature = 0, $months = 12)
 {
-  if ($id_nature === 0) return "type de nature non valide";
+  if ($id_nature === 0)
+    return "type de nature non valide";
 
   // $sql = "SELECT SUM(montant)total, date_notification date
   $sql = "SELECT SUM(montant)total,  SUBSTR(date_notification, 1, 7) date
@@ -1755,25 +1657,22 @@ function getNatureByDateTitulaire ($connect, $id=0, $id_nature=0, $months=12)
   // if ($id > 0) $sql.= " AND m.id_acheteur = $id ";
 
   $sql .= "GROUP BY date ORDER BY date ASC";
-// return $sql;
+  // return $sql;
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
     $total = [];
     $date = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
-        $total[] = $r['total'] ;
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
+        $total[] = $r['total'];
         $date[] = '"' . $r['date'] . '"';
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
 
   return array(
     "total" => implode(',', $total),
@@ -1793,9 +1692,10 @@ getNature
 3 	Accord-cadre
 4 	Marché subséquent
 */
-function getNatures ($connect, $id=0, $nature=null, $months=12)
+function getNatures($connect, $id = 0, $nature = null, $months = 12)
 {
-  if (is_null($nature)) return;
+  if (is_null($nature))
+    return;
 
   $sql = "SELECT COUNT(nom_nature) nb_nature , nom_nature
           FROM marche m
@@ -1803,28 +1703,26 @@ function getNatures ($connect, $id=0, $nature=null, $months=12)
           WHERE m.date_notification > '0000-00-00'
           AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
 
-  if ($id > 0) $sql.= " AND m.id_acheteur = $id ";
+  if ($id > 0)
+    $sql .= " AND m.id_acheteur = $id ";
 
   $sql .= "GROUP BY nom_nature ORDER BY nom_nature DESC";
 
 
-  try
-  {
+  try {
     $result = $connect->query($sql);
     $nb_nature = [];
     $nom_nature = [];
 
-    if ($result)
-    {
-      while ( $r = mysqli_fetch_assoc( $result ) )
-      {
-        $nb_nature[] = $r['nb_nature'] ;
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
+        $nb_nature[] = $r['nb_nature'];
         $nom_nature[] = '"' . $r['nom_nature'] . '"';
       }
       mysqli_free_result($result);
     }
+  } catch (Exception $e) {
   }
-  catch (Exception $e) {  }
   // return $type . " " . $months . " " . $id . " " . $sql;
   return array(
     "nb_nature" => implode(',', $nb_nature),
@@ -1840,111 +1738,101 @@ getBarColumns
 ----------------------------------
 Réalise un count de valeurs groupés selon le type de table
 et renvoie un array serialisé pour stockage en BDD
-
 */
-function getBarColumns ($connect, $table)
+function getBarColumns($connect, $table)
 {
-  switch ($table)
-  {
-    case 'formePrix' :
+  switch ($table) {
+    case 'formePrix':
       $sql = "SELECT o.nom_forme_prix cle, count(m.id) valeur
       FROM `marche` m
       INNER JOIN forme_prix o ON o.id_forme_prix = m.id_forme_prix
       GROUP BY o.nom_forme_prix";
       break;
 
-      case 'nature' :
+    case 'nature':
       $sql = "SELECT o.nom_nature cle, count(m.id) valeur
       FROM `marche` m
       INNER JOIN nature o ON o.id_nature = m.id_nature
       GROUP BY o.nom_nature";
       break;
 
-      case 'lieux' :
+    case 'lieux':
       $sql = "SELECT o.nom_lieu cle, sum(montant) as valeur
       FROM marche m
       INNER JOIN lieu o ON o.id_lieu = m.id_lieu_execution
       GROUP BY o.nom_lieu";
       break;
 
-      case 'procedure' :
+    case 'procedure':
       $sql = "SELECT o.nom_procedure cle, count(m.id) as valeur
       FROM marche m
       INNER JOIN procedure_marche o ON o.id_procedure = m.id_procedure
       GROUP BY o.nom_procedure";
       break;
-    }
+  }
 
-    $out = [];
+  $out = [];
 
-    try
-    {
-      $result = $connect->query($sql);
+  try {
+    $result = $connect->query($sql);
 
-      if ($result)
-      {
-        while ( $r = mysqli_fetch_assoc( $result ) )
-        {
-          $out [ $r['cle'] ] = $r['valeur'] ;
-        }
-        mysqli_free_result($result);
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
+        $out[$r['cle']] = $r['valeur'];
       }
+      mysqli_free_result($result);
     }
-    catch (Exception $e)
-    {
-      $out [0] = "Pas de données";
-    }
-    return serialize ($out);
+  } catch (Exception $e) {
+    $out[0] = "Pas de données";
+  }
+  return serialize($out);
+}
+
+
+
+
+/* -------------------------------
+arraySerialized2Columns
+----------------------------------
+Les principales stats sont calculées lors de l'import des marchés,
+afin de faire gagner du temps aux utilisateurs.
+Ces stats sont stockées en BDD en tant que array sérialisé.
+Cette fonction, transforme le string en array puis le formatte
+à nouveau en string pour billboard en mode colonnes
+*/
+function arraySerialized2Columns($arrayString)
+{
+  $i = 0;
+  $data = unserialize($arrayString);
+  $out = "";
+
+  foreach ($data as $k => $v) {
+    $i++;
+    echo '["' . $k . '",' . $v . ']';
+    if ($i < sizeof($data))
+      echo ",";
+  }
+  return $out;
+}
+
+
+
+
+/* -------------------------------
+getDataSiret
+----------------------------------
+Retourne des donées INSEE à partir d'un siret
+Version titulaire
+*/
+function getDataSiret($connect, $siret)
+{
+  if (!isset($siret)) {
+    return 0;
   }
 
+  $out = [];
 
-
-
-  /* -------------------------------
-  arraySerialized2Columns
-  ----------------------------------
-  Les principales stats sont calculées lors de l'import des marchés,
-  afin de faire gagner du temps aux utilisateurs.
-  Ces stats sont stockées en BDD en tant que array sérialisé.
-  Cette fonction, transforme le string en array puis le formatte
-  à nouveau en string pour billboard en mode colonnes
-
-
-  */
-  function arraySerialized2Columns ($arrayString)
-  {
-    $i = 0;
-    $data = unserialize( $arrayString );
-    $out = "";
-
-    foreach ($data as $k=>$v)
-    {
-      $i++;
-      echo '["' . $k . '",' . $v . ']';
-      if ($i < sizeof($data)) echo ",";
-    }
-    return $out;
-  }
-
-
-
-
-  /* -------------------------------
-    getDataSiret
-  ----------------------------------
-  Retourne des donées INSEE à partir d'un siret
-  Version titulaire
-  */
-  function getDataSiret ($connect, $siret)
-  {
-    if (!isset($siret))
-    {
-      return 0;
-    }
-
-    $out = [];
-
-    $sql = "SELECT id_titulaire, type_identifiant, denomination_sociale, s.id_sirene, s.statut,
+  $sql = "SELECT id_titulaire, type_identifiant, denomination_sociale, s.id_sirene, s.statut,
      s.siren, s.nic, s.siret, s.dateCreationEtablissement, trancheEffectifsEtablissement, anneeEffectifsEtablissement,activitePrincipaleRegistreMetiersEtablissement,etatAdministratifUniteLegale,
     statutDiffusionUniteLegale,dateCreationUniteLegale,categorieJuridiqueUniteLegale,denominationUniteLegale,
     sigleUniteLegale,activitePrincipaleUniteLegale,nomenclatureActivitePrincipaleUniteLegale,caractereEmployeurUniteLegale,
@@ -1967,52 +1855,44 @@ function getBarColumns ($connect, $table)
             LEFT JOIN  categories_juridiques ct ON ct.code_categories_juridiques = s.categorieJuridiqueUniteLegale
             LEFT JOIN organismes o ON o.codeInsee = s.codeCommuneEtablissement
             WHERE       id_sirene = '" . $siret . "'";
-    // echo $sql;
-    try
-    {
-      $result = $connect->query($sql);
+  // echo $sql;
+  try {
+    $result = $connect->query($sql);
 
-      if ($result)
-      {
-        while ( $r = mysqli_fetch_assoc( $result ) )
-        {
-          foreach ($r as $k=>$v) :
-            $out [ $k ] = $v ;
-          endforeach;
-        }
-        mysqli_free_result($result);
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
+        foreach ($r as $k => $v):
+          $out[$k] = $v;
+        endforeach;
       }
+      mysqli_free_result($result);
     }
-    catch (Exception $e)
-    {
-      $out = 0;
-    }
-
-    return $out;
+  } catch (Exception $e) {
+    $out = 0;
   }
 
+  return $out;
+}
 
 
 
-  /* -------------------------------
-    getDataSiretAcheteur
-  ----------------------------------
-  Retourne des donées INSEE à partir d'un siret
-  Version acheteur
 
+/* -------------------------------
+getDataSiretAcheteur
+----------------------------------
+Retourne des donées INSEE à partir d'un siret
+Version acheteur
+acheteur dans indicateur clés afficher pobulation et revenus moyens (avec les revenus moyens nationaux)
+*/
+function getDataSiretAcheteur($connect, $siret)
+{
+  if (!isset($siret)) {
+    return 0;
+  }
 
-  acheteur dans indicateur clés afficher pobulation et revenus moyens (avec les revenus moyens nationaux)
-  */
-  function getDataSiretAcheteur ($connect, $siret)
-  {
-    if (!isset($siret))
-    {
-      return 0;
-    }
+  $out = [];
 
-    $out = [];
-
-    $sql = "SELECT id_acheteur, nom_acheteur as denomination_sociale,
+  $sql = "SELECT id_acheteur, nom_acheteur as denomination_sociale,
     o.reg, o.dep, o.ncc, o.nom_commune, o.slug,
     o.pop_2015, o.hommes_2015, o.femmes_2015, o.pop_15_plus,
     o.agriculteurs, o.artisans_chefs, o.cadres, o.intermediaires, o.employes,
@@ -2034,58 +1914,48 @@ function getBarColumns ($connect, $table)
             LEFT JOIN  categories_juridiques ct ON ct.code_categories_juridiques = s.categorieJuridiqueUniteLegale
             LEFT JOIN organismes o ON o.codeInsee = s.codeCommuneEtablissement
             WHERE       id_sirene = '" . $siret . "'";
-    // echo $sql;
-    try
-    {
-      $result = $connect->query($sql);
+  // echo $sql;
+  try {
+    $result = $connect->query($sql);
 
-      if ($result)
-      {
-        while ( $r = mysqli_fetch_assoc( $result ) )
-        {
-          foreach ($r as $k=>$v) :
-            $out [ $k ] = $v ;
-          endforeach;
-        }
-        mysqli_free_result($result);
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
+        foreach ($r as $k => $v):
+          $out[$k] = $v;
+        endforeach;
       }
+      mysqli_free_result($result);
     }
-    catch (Exception $e)
-    {
-      $out = 0;
-    }
-
-    return $out;
+  } catch (Exception $e) {
+    $out = 0;
   }
 
+  return $out;
+}
 
 
-  /* -------------------------------
-  getMedianeNiveauVie
-  ----------------------------------
-  Pour afficher dans les indicateurs clés acheteur dans population et revenus moyens,
-  en tant que revenus moyens nationaux
-  */
 
-  function getMedianeNiveauVie($connect)
-  {
-    try
-    {
-      $sql = "SELECT AVG(`mediane_niveau_vie`) as moyenne FROM `organismes`" ;
-      $result = $connect->query($sql);
-      $moyenne = 0;
+/* -------------------------------
+getMedianeNiveauVie
+----------------------------------
+Pour afficher dans les indicateurs clés acheteur dans population et revenus moyens,
+en tant que revenus moyens nationaux
+*/
 
-      if ($result)
-      {
-        while ($obj = mysqli_fetch_object($result))
-        {
-          $moyenne = $obj->moyenne;
-        }
+function getMedianeNiveauVie($connect)
+{
+  try {
+    $sql = "SELECT AVG(`mediane_niveau_vie`) as moyenne FROM `organismes`";
+    $result = $connect->query($sql);
+    $moyenne = 0;
+
+    if ($result) {
+      while ($obj = mysqli_fetch_object($result)) {
+        $moyenne = $obj->moyenne;
       }
-      return $moyenne;
     }
-    catch (Exception $e)
-    {
-      return 0;
-    }
+    return $moyenne;
+  } catch (Exception $e) {
+    return 0;
   }
+}

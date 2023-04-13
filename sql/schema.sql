@@ -122,17 +122,6 @@ CREATE TABLE `marche_titulaires` (
   `id_titulaires` varchar(14) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Structure de la table `mois`
---
-
-CREATE TABLE `mois` (
-  `id_mois` int(10) UNSIGNED NOT NULL,
-  `date_mois` date NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
 
 -- --------------------------------------------------------
 

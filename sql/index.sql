@@ -41,11 +41,6 @@ ALTER TABLE `marche_titulaires`
     ADD PRIMARY KEY (`id_marche_titulaires`),
   ADD KEY `id_marche` (`id_marche`);
 
---
--- Index pour la table `mois`
---
-ALTER TABLE `mois`
-    ADD PRIMARY KEY (`id_mois`);
 
 --
 -- Index pour la table `naf`
