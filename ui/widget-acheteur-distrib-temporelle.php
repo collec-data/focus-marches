@@ -181,33 +181,6 @@ if (isset($sirene['siren'])) {
         }
 
 
-        // console.log(text_serv);
-        //
-        // // stats : moyenne
-        // moyenne = (montant_total / nb_marches).toFixed(0);
-        // if (isNaN(moyenne))
-        // {
-        //   moyenne = 0;
-        // }
-
-        // stats medianne
-        // function median(values)
-        // {
-        //   values.sort(function(a,b) {return a-b;});
-        //
-        //   if(values.length ===0) return 0
-        //
-        //   var half = Math.floor(values.length / 2);
-        //
-        //   if (values.length % 2) return values[half];
-        //   else return (values[half - 1] + values[half]) / 2.0;
-        // }
-
-        // stats UI
-        // $('#kpi-nb-marches').html(new Intl.NumberFormat('fr-FR').format(nb_marches));
-        // $('#kpi-montant-total').html(new Intl.NumberFormat('fr-FR').format(montant_total) + " €");
-        // $('#kpi-moyenne').html(new Intl.NumberFormat('fr-FR').format(moyenne) + " €");
-
         if (marches_sans_date === 0) {
             $('#marches-sans-date').html(""); // vider des vieux messages si tout va bien !
         }
@@ -219,40 +192,6 @@ if (isset($sirene['siren'])) {
         if (marches_sans_date > 1) {
             $('#marches-sans-date').html("<p class='is-size-9'><i class='fas fa-exclamation-circle has-text-danger'></i> Il y a " + marches_sans_date + " marchés dont la date n'a pas été saisie et qui ne sont pas affichés dans le graphique.</p>");
         }
-
-
-        // stats : array dimmension y
-        // for (i in moyenne_x)
-        // {
-        //   moyenne_y.push(moyenne);
-        // }
-
-        // stats : période. Supprimer les dates non remplies
-        // var periode_arr = moyenne_x.filter( function (v, i, a)
-        // {
-        //   return v != '0000-00-00';
-        // });
-        // periode_arr = periode_arr.sort();
-        // var date_min = new Date(periode_arr.shift());
-        // var date_max = new Date(periode_arr.pop());
-        // var diff = (date_max.getTime() - date_min.getTime()) / 1000; // secondes
-        // diff /= (60 * 60 * 24 * 7 * 4); // mois
-        // diff = Math.abs(Math.round(diff));
-        // var periode = "";
-        //
-        //
-        // if (isNaN(diff))
-        // {
-        //   periode = "< 1 mois";
-        // }
-        // else
-        // {
-        //   periode = diff + " mois";
-        // }
-        // $('#kpi-periode').html(periode);
-        //
-        // // montant max
-        // $('#kpi-max').html(new Intl.NumberFormat('fr-FR').format(montant_max) + " €");
 
 
         // taille des cercles
@@ -375,7 +314,6 @@ if (isset($sirene['siren'])) {
 
             // Error handling
             error: function (error) {
-                console.log(`Error ${error}`);
             }
         });
     }

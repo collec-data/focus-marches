@@ -102,9 +102,6 @@ $connect->set_charset("utf8");
 
     let url = "data/getListAcheteursEtendue.php";
     tableUI.ajax.url(url).load(function () {
-      if (tableUI.data().length === 0) {
-        console.log('pas de données');
-      }
 
       $('#enChargeFlask').toggle();
     });

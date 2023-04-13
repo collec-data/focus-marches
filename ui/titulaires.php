@@ -77,7 +77,6 @@ $connect->set_charset("utf8");
     francais.sInfo = "Affichage des organismes _START_ &agrave; _END_ sur _TOTAL_ organismes";
     francais.sZeroRecords = "Aucun marché &agrave; afficher";
 
-    console.log(francais);
     //// Configuration de la table
     var tableUI = $('#tableUI').DataTable({
       "responsive": true,
@@ -111,9 +110,6 @@ $connect->set_charset("utf8");
 
     let url = "data/getListTitulairesEtendue.php";
     tableUI.ajax.url(url).load(function () {
-      if (tableUI.data().length === 0) {
-        console.log('pas de données');
-      }
       $('#enChargeFlask').toggle();
     });
   }); // document ready

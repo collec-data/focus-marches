@@ -132,7 +132,6 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
     var clipboard = new ClipboardJS('.btnCopy');
 
     clipboard.on('success', function (e) {
-      console.log('Copié!');
       toastr.options = {
         "positionClass": "toast-bottom-center",
         "preventDuplicates": false,
@@ -147,7 +146,6 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
     });
 
     clipboard.on('error', function (e) {
-      console.log('Failed!');
       toastr["error"]("<b>Failed!</b")
     });
   </script>

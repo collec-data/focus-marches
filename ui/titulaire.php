@@ -691,13 +691,11 @@ tableUI.ajax.url( url ).load( function()
   // A-t-on des données ?
   if (tableUI.data().length === 0)
   {
-    console.log('pas de données');
     $('#rechercheSansResultats').css('display', 'block');
     $('#rechercheResultats').css('display', 'none');
   }
   else
   {
-    console.log("On a " + tableUI.data().length + " lignes de données");
     $('#rechercheSansResultats').css('display', 'none');
     $('#rechercheResultats').css('display', 'block');
 
@@ -886,32 +884,6 @@ var createTimeline = function (t)
     }
   }); // each
 
-  // console.log(text_serv);
-  //
-  // // stats : moyenne
-  // moyenne = (montant_total / nb_marches).toFixed(0);
-  // if (isNaN(moyenne))
-  // {
-  //   moyenne = 0;
-  // }
-  //
-  // // stats medianne
-  // function median(values)
-  // {
-  //   values.sort(function(a,b) {return a-b;});
-  //
-  //   if(values.length ===0) return 0
-  //
-  //   var half = Math.floor(values.length / 2);
-  //
-  //   if (values.length % 2) return values[half];
-  //   else return (values[half - 1] + values[half]) / 2.0;
-  // }
-  //
-  // // stats UI
-  // $('#kpi-nb-marches').html(new Intl.NumberFormat('fr-FR').format(nb_marches));
-  // $('#kpi-montant-total').html(new Intl.NumberFormat('fr-FR').format(montant_total) + " €");
-  // $('#kpi-moyenne').html(new Intl.NumberFormat('fr-FR').format(moyenne) + " €");
 
   if (marches_sans_date === 0)
   {
@@ -929,38 +901,6 @@ var createTimeline = function (t)
   }
 
 
-  // stats : array dimmension y
-  // for (i in moyenne_x)
-  // {
-  //   moyenne_y.push(moyenne);
-  // }
-  //
-  // // stats : période. Supprimer les dates non remplies
-  // var periode_arr = moyenne_x.filter( function (v, i, a)
-  // {
-  //   return v != '0000-00-00';
-  // });
-  // periode_arr = periode_arr.sort();
-  // var date_min = new Date(periode_arr.shift());
-  // var date_max = new Date(periode_arr.pop());
-  // var diff = (date_max.getTime() - date_min.getTime()) / 1000; // secondes
-  // diff /= (60 * 60 * 24 * 7 * 4); // mois
-  // diff = Math.abs(Math.round(diff));
-  // var periode = "";
-  //
-  //
-  // if (isNaN(diff))
-  // {
-  //   periode = "< 1 mois";
-  // }
-  // else
-  // {
-  //   periode = diff + " mois";
-  // }
-  // $('#kpi-periode').html(periode);
-  //
-  // // montant max
-  // $('#kpi-max').html(new Intl.NumberFormat('fr-FR').format(montant_max) + " €");
 
 
   // taille des cercles
@@ -1099,19 +1039,10 @@ $('#getListeAcheteurs').on('click', function()
 
   tableList.ajax.url( 'data/getListAcheteurs.php?m=<?php echo $nb_mois;?>&i=<?php echo $id;?>' ).load( function()
   {
-    if (tableList.data().length === 0)
-    {
-      console.log('pas de données');
-      // $('#rechercheSansResultats').css('display', 'block');
-      // $('#rechercheResultats').css('display', 'none');
-    }
-    else
+    if (tableList.data().length > 0)
     {
       $('#modalMessageList').css('display', 'block');
       $('#modalListe #enCharge').css('display', 'none');
-      console.log("On a " + tableList.data().length + " lignes de données");
-      // $('#rechercheSansResultats').css('display', 'none');
-      // $('#rechercheResultats').css('display', 'block');
     }
   });
 }); // END Ouvrir modal

@@ -809,19 +809,10 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
             {
                 // $('#rechercheBouton').removeClass('is-loading');
                 // A-t-on des données ?
-                if (tableList.data().length === 0)
-                {
-                    console.log('pas de données');
-                    // $('#rechercheSansResultats').css('display', 'block');
-                    // $('#rechercheResultats').css('display', 'none');
-                }
-                else
+                if (tableList.data().length > 0)
                 {
                     $('#modalMessageList').css('display', 'block');
                     $('#enCharge').css('display', 'none');
-                    console.log("On a " + tableList.data().length + " lignes de données");
-                    // $('#rechercheSansResultats').css('display', 'none');
-                    // $('#rechercheResultats').css('display', 'block');
                 }
             });
         }); // END Ouvrir modal
@@ -836,19 +827,10 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
 
             tableList.ajax.url( 'data/getListTitulaires.php?m=<?php echo $nb_mois;?>' ).load( function()
             {
-                if (tableList.data().length === 0)
-                {
-                    console.log('pas de données');
-                    // $('#rechercheSansResultats').css('display', 'block');
-                    // $('#rechercheResultats').css('display', 'none');
-                }
-                else
+                if (tableList.data().length > 0)
                 {
                     $('#modalMessageList').css('display', 'block');
                     $('#enCharge').css('display', 'none');
-                    console.log("On a " + tableList.data().length + " lignes de données");
-                    // $('#rechercheSansResultats').css('display', 'none');
-                    // $('#rechercheResultats').css('display', 'block');
                 }
             });
         }); // END Ouvrir modal
@@ -908,15 +890,10 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
 
             tableMarche.ajax.url( 'data/getTypeMarche.php?type=' + type ).load( function()
             {
-                if (tableMarche.data().length === 0)
-                {
-                    console.log('pas de données');
-                }
-                else
+                if (tableMarche.data().length > 0)
                 {
                     $('#modalMessageMarche').css('display', 'block');
                     $('#enChargeMarche').css('display', 'none');
-                    console.log("On a " + tableMarche.data().length + " lignes de données");
                 }
             });
         }); // END Ouvrir modal
