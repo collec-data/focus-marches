@@ -92,9 +92,10 @@ if ($iframe == true){
             <?php
             if ($iframe == false){
 
-                $url=strtok("$protocol$_SERVER[HTTP_HOST]",'?');
+                $url=strtok("$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]",'?');
+
                 $iframe_code_gen="<iframe ";
-                $iframe_code_gen.= "src=\"$url/widget-acheteur-procedure-suivi.php?i=";
+                $iframe_code_gen.= "src=\"$url/../widget-acheteur-procedure-suivi.php?i=";
                 $iframe_code_gen.=$id;
                 $iframe_code_gen.="&widget=1\" ";
                 $iframe_code_gen.= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
@@ -150,7 +151,7 @@ if ($iframe == true){
             y: [<?php echo $procedure['nom_procedure'];?>],
             marker:{
                 color: okabe_ito_reverse,
-                line: { color: okabe_ito_reverse_border, width: 1 }
+                line: { color: okabe_ito_reverse, width: 1 }
             },
             orientation: 'h'
         }
@@ -165,7 +166,7 @@ if ($iframe == true){
             y: [<?php echo $procedure['nom_procedure'];?>],
             marker:{
                 color: okabe_ito_reverse,
-                line: { color: okabe_ito_reverse_border, width: 1 }
+                line: { color: okabe_ito_reverse, width: 1 }
             },
             orientation: 'h'
         }

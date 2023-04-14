@@ -54,7 +54,8 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
 
 
 
-        <h2 id="dates" class="has-text-centered subtitle">Cet outil exploite les données essentielles des marchés publics passés en <?php echo gettext("NOM_REGION"); ?> sous réserves que l'organisme qui passe le marché public soit adhérent au service proposé par <?php echo gettext("NOM_OPSN")?>
+        <h2 id="dates" class="has-text-centered subtitle">Cet outil exploite les données essentielles des marchés publics passés en <?php echo gettext("NOM_REGION"); ?> sous réserves que l'organisme qui passe le marché public soit adhérent au service proposé par 
+            <?php echo gettext("NOM_OPSN_LINK")?>
             et qu'il  ait bien complété toutes les informations nécessaires dans la salle des marchés publics (bien renseigné l'étape décision).
             On ne trouvera pas, par exemple, les marchés des services de l'Etat qui utilisent <a target="_blank" href="https://www.marches-publics.gouv.fr/">leur propre plateforme.</a>
         </h2>
@@ -406,12 +407,15 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
         <?php
         //// 8. Distribution - sankey
 
-
-
-        $s_services = getMontantCPVLieu($connect, 'services', $nb_mois);
-        $s_travaux = getMontantCPVLieu($connect, 'travaux', $nb_mois);
-        $s_fournitures = getMontantCPVLieu($connect, 'fournitures', $nb_mois);
+        $lieux = getBestLieux($connect,$nb_mois, 5);
+        $nom_lieux =  array_map( function($val) { return $val['nom_lieu'];}, $lieux); // contient les lieux avec en index l'ordre d'apparition
+        $s_services = getMontantCPVLieu($connect, 'services',$lieux, $nb_mois);
+       
+        $s_travaux = getMontantCPVLieu($connect, 'travaux',$lieux, $nb_mois);
+        $s_fournitures = getMontantCPVLieu($connect, 'fournitures',$lieux, $nb_mois);
         $sankey = array_merge_recursive($s_services, $s_travaux, $s_fournitures);
+        
+        $label_cpv_lieux = array_merge(["Services", "Travaux", "Fournitures"],$nom_lieux);
         ?>
         <h3>Distribution des achats par département</h3>
         <div id="distribCPVLieux"></div>
@@ -566,7 +570,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
         */
         var setQui = function (id, x, y)
         {
-            var chartData = [{ type: 'bar', y: y, x: x, marker:{ color: okabe_ito_reverse, line: { color: okabe_ito_reverse_border, width: 1 } }, orientation: 'v'}];
+            var chartData = [{ type: 'bar', y: y, x: x, marker:{ color: okabe_ito_reverse, line: { color: okabe_ito_reverse, width: 1 } }, orientation: 'v'}];
             Plotly.newPlot( id, chartData, layoutMini, optionsPlotly);
         };
 
@@ -687,7 +691,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
                 y: [<?php echo $procedure['nom_procedure'];?>],
                 marker:{
                     color: okabe_ito_reverse,
-                    line: { color: okabe_ito_reverse_border, width: 1 }
+                    line: { color: okabe_ito_reverse, width: 1 }
                 },
                 orientation: 'h'
             }
@@ -702,7 +706,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
                 y: [<?php echo $procedure['nom_procedure'];?>],
                 marker:{
                     color: okabe_ito_reverse,
-                    line: { color: okabe_ito_reverse_border, width: 1 }
+                    line: { color: okabe_ito_reverse, width: 1 }
                 },
                 orientation: 'h'
             }
@@ -721,7 +725,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
             y: [<?php echo $depts['lieu']; ?>],
             marker:{
                 color: okabe_ito,
-                line: { color: okabe_ito_border, width: 1 }
+                line: { color: okabe_ito, width: 1 }
             },
             orientation: 'h'
         }];
@@ -735,12 +739,11 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
             y: [<?php echo $depts['lieu']; ?>],
             marker:{
                 color: okabe_ito,
-                line: { color: okabe_ito_border, width: 1 }
+                line: { color: okabe_ito, width: 1 }
             },
             orientation: 'h'
         }];
         Plotly.newPlot('deptsNB', deptsNBData, layout, optionsPlotly);
-
 
 ///// Distribution des achats par département
         var data =
@@ -750,8 +753,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
                 node:
                     {
                         pad: 20, thickness: 30, line: { color: "#fff", width: 1 },
-                        // TODO A variabiliser
-                        label: ["Services", "Travaux", "Fournitures", "Cher", "Eure-et-Loir", "Indre", "Indre-et-Loire", "Loir-et-Cher", "Loiret", "Paris"],
+                        label: ["<?php echo implode( '","', $label_cpv_lieux); ?>"],
                         color: okabe_ito_sankey
                     },
                 link: {
@@ -807,19 +809,10 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
             {
                 // $('#rechercheBouton').removeClass('is-loading');
                 // A-t-on des données ?
-                if (tableList.data().length === 0)
-                {
-                    console.log('pas de données');
-                    // $('#rechercheSansResultats').css('display', 'block');
-                    // $('#rechercheResultats').css('display', 'none');
-                }
-                else
+                if (tableList.data().length > 0)
                 {
                     $('#modalMessageList').css('display', 'block');
                     $('#enCharge').css('display', 'none');
-                    console.log("On a " + tableList.data().length + " lignes de données");
-                    // $('#rechercheSansResultats').css('display', 'none');
-                    // $('#rechercheResultats').css('display', 'block');
                 }
             });
         }); // END Ouvrir modal
@@ -834,19 +827,10 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
 
             tableList.ajax.url( 'data/getListTitulaires.php?m=<?php echo $nb_mois;?>' ).load( function()
             {
-                if (tableList.data().length === 0)
-                {
-                    console.log('pas de données');
-                    // $('#rechercheSansResultats').css('display', 'block');
-                    // $('#rechercheResultats').css('display', 'none');
-                }
-                else
+                if (tableList.data().length > 0)
                 {
                     $('#modalMessageList').css('display', 'block');
                     $('#enCharge').css('display', 'none');
-                    console.log("On a " + tableList.data().length + " lignes de données");
-                    // $('#rechercheSansResultats').css('display', 'none');
-                    // $('#rechercheResultats').css('display', 'block');
                 }
             });
         }); // END Ouvrir modal
@@ -906,15 +890,10 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
 
             tableMarche.ajax.url( 'data/getTypeMarche.php?type=' + type ).load( function()
             {
-                if (tableMarche.data().length === 0)
-                {
-                    console.log('pas de données');
-                }
-                else
+                if (tableMarche.data().length > 0)
                 {
                     $('#modalMessageMarche').css('display', 'block');
                     $('#enChargeMarche').css('display', 'none');
-                    console.log("On a " + tableMarche.data().length + " lignes de données");
                 }
             });
         }); // END Ouvrir modal

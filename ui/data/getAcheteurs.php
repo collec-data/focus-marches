@@ -1,48 +1,40 @@
 <?php
-// header('Content-Type: text/plain; charset=utf-8');
-// header('Content-Type: application/json; charset=u/tf-8');
 header('Content-Type: text/html; charset=utf-8');
+error_reporting(0);
 
-$out = "<ul>";
 
-if (!isset($_POST)) return $out;
+if (!isset($_POST['entite']))
+  return;
+$entite = $_POST['entite'];
 
-// TODO: protexer
-
-if (!isset($_POST['entite'])) return $out;
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 select
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 require_once('connect.php');
+require_once('model.php');
 $connect->set_charset("utf8"); // nexesario pra real_escape_string
 
-// BUG: id_acheteur contiens des faux ids ou repetés ou créés repetés
-$sql = 'SELECT DISTINCT id_acheteur, nom_acheteur
-        FROM `acheteur` m
-        WHERE nom_acheteur LIKE "%' . $_POST['entite'] . '%"';
+$entite = '%' . $entite . '%';
+$stmt = $connect->prepare('
+  SELECT DISTINCT id_acheteur, nom_acheteur
+  FROM `acheteur` m
+  WHERE nom_acheteur LIKE ?
+');
+$stmt->bind_param("s", $entite);
+$stmt->execute();
+$result = $stmt->get_result();
 
-// echo $sql;die;
-
-try
-{
-  $result = $connect->query( $sql );
-  while ( $r = mysqli_fetch_assoc( $result ) )
-  {
-    // $out .= '{"id":"' . $r['id_acheteur'] . '",' .
-    //         '"libelle":"' . htmlspecialchars($r['nom_acheteur'], ENT_QUOTES) . '"},';
-    $out .= '<li class="' . $r['id_acheteur'] . '">' .
-            htmlspecialchars($r['nom_acheteur'], ENT_QUOTES) . '</li>';
+try {
+  $out = "<ul>";
+  while ($r = mysqli_fetch_assoc($result)) {
+    $out .= '<li class="' . hsc($r['id_acheteur']) . '">' . hsc($r['nom_acheteur']) . '</li>';
   }
-  $out .="</ul>";
+  $out .= "</ul>";
   echo $out;
-}
-catch ( Exception $e )
-{
-  echo 'Erreur : ' . $e->getMessage();
-}
-finally
-{
+} catch (Exception $e) {
+} finally {
   $connect->close();
 }
-  ?>
+
+?>

@@ -1,0 +1,18 @@
+<?php
+
+  // serveur easyphp sous windows
+  if ($_SERVER['SERVER_NAME'] == 'localhost' or $_SERVER['SERVER_NAME'] == '127.0.0.1' )
+  {
+      $host = '<HOST>';
+      $user = '<USER>';
+      $pass = '<PWD>';
+      $name = '<BDD>';
+	  $port = 1111;
+  }
+
+  $connect  = new mysqli($host, $user, $pass, $name, $port);
+  $connect->query("SET NAMES 'utf8'");
+
+
+
+?>

@@ -24,6 +24,9 @@ msgstr ""
 msgid "NOM_OPSN"
 msgstr "ARNiA"
 
+msgid "NOM_OPSN_LINK"
+msgstr "ARNiA"
+
 #: acheteurs-liste.php:4 acheteurs-liste.php:5 categories.php:3
 #: categories.php:4 index.php:57 recherche-plus.php:3 recherche-plus.php:4
 #: recherche.php:3 recherche.php:4 titulaires.php:4 titulaires.php:5

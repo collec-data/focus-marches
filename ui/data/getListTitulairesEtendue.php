@@ -1,13 +1,13 @@
 <?php
-// header('Content-Type: text/plain; charset=utf-8');
 header('Content-Type: application/json; charset=u/tf-8');
-// header('Content-Type: text/html; charset=utf-8');
+error_reporting(0);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 select
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 require_once('connect.php');
-$connect->set_charset("utf8"); // nexesario pra real_escape_string
+require_once('model.php');
+$connect->set_charset("utf8"); // pour real_escape_string
 
 $sql = "SELECT t.id_titulaire, denomination_sociale, libelle_naf as naf,
         codePostalEtablissement as cp, trancheEffectifsEtablissement,
@@ -23,39 +23,35 @@ $sql = "SELECT t.id_titulaire, denomination_sociale, libelle_naf as naf,
         WHERE       m.date_notification > '2018-12-31'
         GROUP BY    t.id_titulaire
         ORDER BY    denomination_sociale  ASC";
-// echo $sql;
-try
-{
+
+try {
   $result = $connect->query($sql);
 
-  if ($result)
-  {
+  if ($result) {
     $out = '{ "data" :[';
 
-    while ( $r = mysqli_fetch_assoc( $result ) )
-    {
-      if ($r['trancheEffectifsEtablissement']==="00" || $r['trancheEffectifsEtablissement']==="NN") $r['libelle_tranche_etablissement'] = "-";
-      $r['denomination_sociale'] = str_replace('"', '\"',$r['denomination_sociale']);
-      $out .= '{"cp":"' . $r['cp'] . '",'
-          . '"denomination_sociale":"<a href=\"titulaire.php?i=' . $r['id_titulaire'] . '\">' . $r['denomination_sociale'] . '</a>",'
-          . '"naf":"' . $r['naf'] . '",'
-          . '"nb":"' . $r['nb'] . '",'
-          . '"total":"' . $r['total'] . '",'
-          . '"libelle_tranche_etablissement":"' . $r['libelle_tranche_etablissement'] . '",'
-          . '"ca_1":"' . $r['ca_1'] . '",'
-          . '"resultat_1":"' . $r['resultat_1'] . '" },';
+    while ($r = mysqli_fetch_assoc($result)) {
+      if ($r['trancheEffectifsEtablissement'] === "00" || $r['trancheEffectifsEtablissement'] === "NN")
+        $r['libelle_tranche_etablissement'] = "-";
+      $r['denomination_sociale'] = str_replace('"', '', $r['denomination_sociale']);
+      $out .= '{"cp":"' . hsc($r['cp']) . '",'
+        . '"denomination_sociale":"<a href=\"titulaire.php?i=' . hsc($r['id_titulaire']) . '\">' . hsc($r['denomination_sociale']) . '</a>",'
+        . '"naf":"' . hsc($r['naf']) . '",'
+        . '"nb":"' . hsc($r['nb']) . '",'
+        . '"total":"' . hsc($r['total']) . '",'
+        . '"libelle_tranche_etablissement":"' . hsc($r['libelle_tranche_etablissement']) . '",'
+        . '"ca_1":"' . hsc($r['ca_1']) . '",'
+        . '"resultat_1":"' . hsc($r['resultat_1']) . '" },';
     }
     $out = substr($out, 0, -1);
-    $out .="]}";
+    $out .= "]}";
     mysqli_free_result($result);
   }
-}
-catch (Exception $e)
-{
+} catch (Exception $e) {
   $out = 0;
 }
 
 $connect->close();
-echo( $out);
+echo ($out);
 
 ?>
