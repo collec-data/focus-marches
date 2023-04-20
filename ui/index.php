@@ -571,7 +571,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
         */
         var setQui = function (id, x, y)
         {
-            var chartData = [{ type: 'bar', y: y, x: x, marker:{ color: okabe_ito_reverse, line: { color: okabe_ito_reverse, width: 1 } }, orientation: 'v'}];
+            var chartData = [{ type: 'bar', y: y, x: x, marker:{ color: okabe_ito, line: { color: okabe_ito, width: 1 } }, orientation: 'v'}];
             Plotly.newPlot( id, chartData, layoutMini, optionsPlotly);
         };
 
