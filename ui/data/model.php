@@ -1,4 +1,4 @@
-a pa<?php
+<?php
 
 //// Afficher ou pas les infos de debug :
 $debug = true;
