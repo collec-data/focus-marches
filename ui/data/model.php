@@ -1,4 +1,4 @@
-<?php
+a pa<?php
 
 //// Afficher ou pas les infos de debug :
 $debug = true;
@@ -871,7 +871,7 @@ function getListByTypeArrZeros($connect, $type = null, $months = 12, $id = 0)
 
   $sql = "SELECT SUBSTR(date_notification, 1, 7) AS dates, COALESCE(SUM(montant), 0) montants, COALESCE(COUNT(id), 0) nombre, categorie 
           FROM marche 
-          WHERE date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL 36 MONTH) AND date_notification < CURRENT_DATE() ";
+          WHERE date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL 35 MONTH) AND date_notification < CURRENT_DATE() ";
   if (isset($type))
     $sql .= " AND categorie = '" . $type . "'";
 
@@ -896,17 +896,19 @@ function getListByTypeArrZeros($connect, $type = null, $months = 12, $id = 0)
       // parcours des résultats de la requêtes
       while ($r = mysqli_fetch_assoc($result)) {
         //si tant que le mois n'a pas été remonté par le sql, alors on possitionne les montants et nombre à 0
-        while ($last_months[$index_month] != $r['dates']) {
+        while ( $index_month != -1 && $last_months[$index_month] != $r['dates']) {
           $dates[] = '"' . $last_months[$index_month] . '"';
           $montants[] = 0;
           $nombre[] = 0;
           $index_month--; // on passe au mois suivant
         }
 
-        $dates[] = '"' . $r['dates'] . '"';
-        $montants[] = $r['montants'];
-        $nombre[] = $r['nombre'];
-        $index_month--; // on passe au mois suivant
+        if($index_month != -1) { 
+          $dates[] = '"' . $r['dates'] . '"';
+          $montants[] = $r['montants'];
+          $nombre[] = $r['nombre'];
+          $index_month--; // on passe au mois suivant
+        }
       }
 
       //si il nous reste des mois à parcourir, on ajouter les mois à 0
@@ -946,7 +948,7 @@ function getListByTypeArrZerosTitulaires($connect, $type = null, $months = 12, $
   $sql = "SELECT SUBSTR(date_notification, 1, 7) AS dates, COALESCE(SUM(montant), 0) montants, COALESCE(COUNT(id), 0) nombre, categorie 
           FROM marche m
           INNER JOIN marche_titulaires mt ON mt.id_marche = m.id_marche 
-          WHERE date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL 36 MONTH) AND date_notification < CURRENT_DATE()";
+          WHERE date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL 35 MONTH) AND date_notification < CURRENT_DATE()";
 
   if (isset($type))
     $sql .= " AND categorie = '" . $type . "'";
