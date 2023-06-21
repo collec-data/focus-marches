@@ -1,4 +1,4 @@
-# Focus-marche
+# Focus Marchés
 Le projet Focus Marchés a été conçu par le service Données Ouvertes de Ternum BFC pour faciliter l'exploitation des informations contenues dans les données essentielles de la commande publique.
 Il est accessible via plusieurs URLs :
 - http://focus-marches.ternum-bfc.fr/
@@ -8,6 +8,19 @@ Il est accessible via plusieurs URLs :
 Le projet se découpe en 2 sous-projets :
 - Une interface web (dossier ui)
 - Des scripts d'import (dossier batch)
+
+## Financeurs
+
+Le projet a profité d'une évolution financée par :
+
+![Financeurs évolution Focus Marchés](./financeurs.png)
+
+## Licence
+
+[CECILL-2.1](http://www.cecill.info/licences/Licence_CeCILL_V2.1-fr.html)
+
+## Statut du projet
+Projet déployé chez l'ARNiA, Mégalis Bretagne et le GIP RECIA. 
 
 ## Installation et configuration
 
