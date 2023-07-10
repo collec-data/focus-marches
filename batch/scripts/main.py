@@ -15,7 +15,7 @@ maj_table_sirene()
 
 print("DEBUT : ETAPE 3")
 #ETAPE 3 : mise à jour des infos greffe dans la table sirene
-maj_info_greffe()
+#maj_info_greffe()
 
 print("DEBUT : ETAPE 4")
 # ETAPE 4 : mise à jour table organisme

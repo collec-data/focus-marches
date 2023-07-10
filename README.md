@@ -76,19 +76,20 @@ Un exemple de fichier de configuration est présent dans le répertoire `batch/s
 
 Mettre en place votre propre fichier de configuration à partir de cet exemple. Ci-dessous une description des différents paramètres:
 
-| Paramètre| Valeur possible | Description |
-| :-------------|:------------:| :-----|
-| DIRECTORY_DECP_IN | ``/decp ``|  Répertoire des fichiers decps à importer  |
-| IMPORT_FROM_DIRECTORY |0 ou 1| Active ou non l'import des fichiers decp présent dans  le repertoire DIRECTORY_DECP_IN|
-| ATEXO_IMPORT_FROM_API | 0 ou 1 |   Active ou non l'import des marchés depuis l'api Atexo |
-| ATEXO_API_URL | https://marches-url.bzh/app.php/api/v1/donnees-essentielles/contrat/format-pivot  |Url de l'API atexo à utliser lors des imports,  ,obligatoire si ATEXO_IMPORT_FROM_API=1 |
-| ATEXO_API_TOKEN |https://marches-url.bzhh/auth/aaa_xxxx/xxxxxxxxx|    Url d'obtention d'un token pour l'API atexo ,,obligatoire si ATEXO_IMPORT_FROM_API=1 |
-| ATEXO_START_YEAR |2022|  Première année à importer, utilisé en cas d'import avec l'api Atexo, ,obligatoire si ATEXO_IMPORT_FROM_API=1 |
-| URL_API_SIREN |2022|  Première année à importer, ,obligatoire si ATEXO_IMPORT_FROM_API=1 |
-| URL_FICHIER_INFOS_GREFFE |https://www.data.gouv.fr/fr/datasets/r/8d5774e7-8106-427b-bb6b-790a59d272bd| URL de téléchargement du dataset info greffe |
-| DOWNLOAD_INFOS_GREFFE | 0 ou 1| Active ou non le téléchargement du fichier info greffe, si 0 alors le fichier info greffe doit déja étre pésent|
-| enable_http_proxy | True ou False         | Active ou non l'utilisation d'un proxy http  |
-| proxyDict | ```proxyDict```|   Parémétrage du proxy http |
+| Paramètre                | Valeur possible | Description                                                                                                                                                                          |
+|:-------------------------|:------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| DIRECTORY_DECP_IN        | ``/decp ``| Répertoire des fichiers decps à importer                                                                                                                                             |
+| IMPORT_FROM_DIRECTORY    |0 ou 1| Active ou non l'import des fichiers decp présent dans  le repertoire DIRECTORY_DECP_IN                                                                                               |
+| ATEXO_IMPORT_FROM_API    | 0 ou 1 | Active ou non l'import des marchés depuis l'api Atexo                                                                                                                                |
+| ATEXO_API_URL            | https://marches-url.bzh/app.php/api/v1/donnees-essentielles/contrat/format-pivot  | Url de l'API atexo à utliser lors des imports,  ,obligatoire si ATEXO_IMPORT_FROM_API=1                                                                                              |
+| ATEXO_API_TOKEN          |https://marches-url.bzhh/auth/aaa_xxxx/xxxxxxxxx| Url d'obtention d'un token pour l'API atexo ,,obligatoire si ATEXO_IMPORT_FROM_API=1                                                                                                 |
+| ATEXO_START_YEAR         |2022| Première année à importer, utilisé en cas d'import avec l'api Atexo, ,obligatoire si ATEXO_IMPORT_FROM_API=1                                                                         |
+| URL_API_SIREN            |2022| Première année à importer, ,obligatoire si ATEXO_IMPORT_FROM_API=1                                                                                                                   |
+| URL_FICHIER_INFOS_GREFFE |https://www.data.gouv.fr/fr/datasets/r/8d5774e7-8106-427b-bb6b-790a59d272bd| URL de téléchargement du dataset info greffe                                                                                                                                         |
+| DOWNLOAD_INFOS_GREFFE    | 0 ou 1| Active ou non le téléchargement du fichier info greffe, si 0 alors le fichier info greffe doit déja étre pésent                                                                      |
+| enable_http_proxy        | True ou False         | Active ou non l'utilisation d'un proxy http                                                                                                                                          |
+| proxyDict                | ```proxyDict```| Parémétrage du proxy http                                                                                                                                                            |
+| PURGE_MARCHE             | 0 ou 1| Active ou non la purge de la table marche avant de lancer l'import. Cela permet de prendre en compte les marches qui ont été supprimés. Sinon ils restent visible dans focus marchés |
 
 ### Import des données
 Lancez l'import avec la commande suivante:

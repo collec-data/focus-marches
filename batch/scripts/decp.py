@@ -10,8 +10,8 @@ from os.path import isfile, join
 import requests
 import xmltodict
 from model.object import Lieu, db_session, Titulaire, Acheteur, Marche_titulaires, Marche, engine
-from settings.settings import WORKDIR, API_TOKEN, IMPORT_FROM_DIRECTORY, IMPORT_FROM_API, DIRECTORY_DECP_IN, API_URL, \
-    START_YEAR
+from settings.settings import WORKDIR, ATEXO_API_TOKEN, IMPORT_FROM_DIRECTORY, ATEXO_IMPORT_FROM_API, DIRECTORY_DECP_IN, ATEXO_API_URL, \
+    ATEXO_START_YEAR,PURGE_MARCHE
 
 
 @lru_cache(maxsize=10)
@@ -43,13 +43,13 @@ def recuperer_decp_in_workdir(annee):
     ANNEE = str(annee)
     print("DEBUT recuperer_decp_in_workdir pour " + ANNEE)
     # clear_wordir()
-    url_jeton_sdm = API_TOKEN
+    url_jeton_sdm = ATEXO_API_TOKEN
     try:
         response = requests.get(url_jeton_sdm)
         doc = minidom.parseString(response.text)
         jeton = doc.getElementsByTagName("ticket")[0].firstChild.data
 
-        url_format_pivot = API_URL
+        url_format_pivot = ATEXO_API_URL
 
         # generation annee
         t = time.localtime()
@@ -98,7 +98,7 @@ def recuperer_decp_in_workdir(annee):
 
 def recuperer_all_decp_from_api():
     print("DEBUT recuperer_all_decp_from_api")
-    annee_debut = START_YEAR
+    annee_debut = ATEXO_START_YEAR
     # generation annee
     t = time.localtime()
     annee_courante = int(time.strftime('%Y', t))
@@ -359,6 +359,10 @@ def importer_decp():
     dict_titu = []
     dict_acheteur = []
 
+    # PURGE DE LA TABLE MARCHE EN DEBUT D'IMPORT
+    if PURGE_MARCHE == 1:
+        engine.execute("truncate table marche")
+
     with engine.connect() as con:
         result = con.execute("select id_titulaire from titulaire")
         for row in result:
@@ -372,7 +376,7 @@ def importer_decp():
         for file in files:
             import_one_file(DIRECTORY_DECP_IN + "/" + file, dict_titu, dict_acheteur)
 
-    if IMPORT_FROM_API == 1:
+    if ATEXO_IMPORT_FROM_API == 1:
         recuperer_all_decp_from_api()
         files = [f for f in listdir(WORKDIR) if isfile(join(WORKDIR, f))]
         for file in files:
