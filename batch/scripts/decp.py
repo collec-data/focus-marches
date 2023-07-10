@@ -271,7 +271,10 @@ def import_one_file(file, dict_titu, dict_acheteur):
                         titulaire = Titulaire()
                         titulaire.id_titulaire = str(titulaireXml['id'])[0:14]
                         titulaire.type_identifiant = titulaireXml['typeIdentifiant'] if 'typeIdentifiant' in titulaireXml else ''
-                        titulaire.denomination_sociale = titulaireXml['denominationSociale'][0:249]  if 'denominationSociale' in titulaireXml else ''
+                        if 'denominationSociale' in titulaireXml:
+                            titulaire.denomination_sociale = titulaireXml['denominationSociale'][0:249]
+                        else:
+                            titulaire.denomination_sociale = ''
                         dict_titu.append(str(titulaireXml['id'])[0:14])
                         titu_mappings.append(titulaire.serialize)
 
