@@ -271,13 +271,12 @@ def import_one_file(file, dict_titu, dict_acheteur):
                         titulaire = Titulaire()
                         titulaire.id_titulaire = str(titulaireXml['id'])[0:14]
                         titulaire.type_identifiant = titulaireXml['typeIdentifiant'] if 'typeIdentifiant' in titulaireXml else ''
-
                         try:
                             if 'denominationSociale' in titulaireXml:
                                 titulaire.denomination_sociale = titulaireXml['denominationSociale'][0:249]
                             else:
                                 titulaire.denomination_sociale = ''
-                        except:
+                        except Exception as e:
                             logging.error(marche.id_marche + " : mauvais format denomination_sociale du titulaire")
                             titulaire.denomination_sociale = ''
 
@@ -302,7 +301,11 @@ def import_one_file(file, dict_titu, dict_acheteur):
                             titulaire = Titulaire()
                             titulaire.id_titulaire = str(titulaireXml['id'])[0:14]
                             titulaire.type_identifiant = titulaireXml['typeIdentifiant'] if 'typeIdentifiant' in titulaireXml else ''
-                            titulaire.denomination_sociale = titulaireXml['denominationSociale'][0:249]  if 'denominationSociale' in titulaireXml else ''
+                            try:
+                                titulaire.denomination_sociale = titulaireXml['denominationSociale'][0:249]  if 'denominationSociale' in titulaireXml else ''
+                            except Exception as e:
+                                logging.error(marche.id_marche + " : mauvais format denomination_sociale du titulaire")
+                                titulaire.denomination_sociale = ''
                             dict_titu.append(str(titulaireXml['id'])[0:14])
                             titu_mappings.append(titulaire.serialize)
 
@@ -371,6 +374,7 @@ def importer_decp():
     # PURGE DE LA TABLE MARCHE EN DEBUT D'IMPORT
     if PURGE_MARCHE == 1:
         engine.execute("truncate table marche")
+        engine.execute("truncate table marche_titulaires")
 
     with engine.connect() as con:
         result = con.execute("select id_titulaire from titulaire")
