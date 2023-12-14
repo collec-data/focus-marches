@@ -5,7 +5,6 @@ $page = "acheteur";
 require_once('data/connect.php');
 require_once('data/model.php');
 
-
 ///// Sécurisation
 $secured = false;
 if (is_numeric($_GET['i']))
@@ -65,6 +64,14 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
           </b></h1>
       </div>
       <div id="dates" class="column has-text-right">
+        <div>
+          <span>
+            <button class="btnCopy button has-text-link is-link-bg is-small" style="bottom: 10px"
+              data-clipboard-text='<?php echo $iframe_code; ?>'><i class="fa fa-code"></i>&nbsp;intégrer l'ensemble de
+              la page
+            </button>
+          </span>
+        </div>
         <div class='tags has-addons'>
           <span class='tag is-light'>Contrats conclus à partir du </span>
           <span class='tag is-warning'>
@@ -115,16 +122,6 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
     <?php
     include('widget-acheteur-procedure-suivi.php');
     ?>
-
-    <div id="integration-iframe" class="container">
-      <h3>Intégrer à son site</h3>
-      <p>Copier le code ci-dessous pour intégrer cette page à votre site internet.</p>
-      <textarea class="textarea"><?php echo $iframe_code; ?></textarea>
-    </div>
-
-
-
-
 
   </div> <!-- ./ main -->
 
