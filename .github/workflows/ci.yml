@@ -1,0 +1,52 @@
+name: Build app
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+on:
+  push:
+    branches: ["main","develop"]
+    # Publish semver tags as releases.
+    tags: [ 'v*.*.*' ]
+  pull_request:
+      # The branches below must be a subset of the branches above
+      branches: [ "main", "develop" ]
+
+permissions:
+  contents: read
+  id-token: write
+  packages: write
+
+
+jobs:
+  Analyse-code:
+    name: Analyse Code
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@main
+
+      - name: Run Codacy Analysis CLI
+        uses: codacy/codacy-analysis-cli-action@v4.3.0
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          upload: true
+          max-allowed-issues: 50
+
+
+  build-focus :
+    uses: ./.github/workflows/build-push-docker.yml
+    with:
+      context: .
+      dockerfile: ./Dockerfile
+      image-name: ${{ github.repository_owner }}/focus-marches
+
+  build-python :
+    uses: ./.github/workflows/build-push-docker.yml
+    with:
+      context: batch
+      dockerfile: ./batch/Dockerfile
+      image-name: ${{ github.repository_owner }}/focus-script
