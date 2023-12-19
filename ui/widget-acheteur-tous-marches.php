@@ -82,7 +82,7 @@ if (isset($sirene['siren'])) {
     $titulairesFournitures = getTitulairesList($connect, 12, 'fournitures', $id, $nb_mois);
     ?>
 
-    <div class="container">
+    <div class="container wide">
         <h3 id="titreTableUI">Tous les marchés de
             <?php echo $nom; ?>
         </h3>
@@ -93,10 +93,11 @@ if (isset($sirene['siren'])) {
             <thead>
                 <tr>
                     <th width="7%">Détails</th>
-                    <th width="38%">CPV <i class="fas fa-question-circle has-text-grey-light"
+                    <th width="18%">CPV <i class="fas fa-question-circle has-text-grey-light"
                             title="Le vocabulaire commun des marchés publics ou CPV (Common Procurement Vocabulary) est composé de codes normalisés, utilisés pour décrire l’objet des contrats à l’aide d’un système unique de classification pour les marchés publics."></i>
                     </th>
-                    <th width="20%">Acheteur</th>
+                    <th width="28%">Objet</th>
+                    <th width="15%">Acheteur</th>
                     <th width="25%">Fournisseur</th>
                     <th width="5%">Date</th>
                     <th width="10%">Montant</th>
@@ -200,8 +201,10 @@ if (isset($sirene['siren'])) {
                                 <h4>Code CPV : </h4>
                                 <p><span id="m_cpv_code"></span> - <span id="m_cpv_libelle"></span></p>
                             </div>
-                            <h4>Objet</h4>
-                            <p id="m_objet"></p>
+                            <div id="m_wrap_objet">
+                                <h4>Objet</h4>
+                                <p><span id="m_objet"> </span></p>
+                            </div>
                         </div>
                     </div>
                 </div><!-- ./ modalMessage -->
@@ -241,6 +244,7 @@ if (isset($sirene['siren'])) {
         "columns": [
             { "data": "id" },
             { "data": "code_cpv" },
+            { "data" : "objet" },
             { "data": "acheteur" },
             { "data": "titulaire" },
             { "data": "date", "orderable": false, "width": "10%" },
@@ -312,7 +316,7 @@ if (isset($sirene['siren'])) {
                 $('#m_duree').html(data.m_duree);
                 $('#m_montant').html(data.m_montant);
                 $('#m_lieu').html(data.m_lieu);
-                $('#m_objet').html(data.m_objet);
+                $('#m_objet').html(data.objet);
 
                 $('#modalMarche #enCharge').css('display', 'none');
                 $('#modalMessage').css('display', 'block');

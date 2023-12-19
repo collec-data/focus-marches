@@ -180,6 +180,7 @@ try {
     $out .= '{"id":"<button class=\"button voirMarche is-info small\" data-id=\"' . $r['id_marche'] . '\">Voir</button>",' .
       '"idN":"' . hsc(clean($r['id_marche'])) . '",' .
       '"acheteur":"' . hsc(clean($r['nom_acheteur'])) . '",' .
+      '"objet":"' . hsc(clean($r['objet'])) . '",' .
       '"titulaire":"' . hsc(clean($r['denomination_sociale'])) . '",' .
       '"code_cpv":"<span>' . hsc($r['code_cpv']) . '</span> ' . hsc($r['libelle_cpv']) . '",' .
       '"libelle_cpv":"' . hsc($r['libelle_cpv']) . '",' .
