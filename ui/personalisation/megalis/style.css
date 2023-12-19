@@ -57,6 +57,7 @@ body    { min-height: 100% ;/* ! */ ;  /*padding: 20px 4%;*/  font-family: Arial
  ------------------*/
 #main    { background: #fff; margin: 15px 0 0;}
 #main .container { max-width: 1024px; margin: 0 auto 20px; padding: 0;  }
+#main .container.wide { max-width: 1344px; margin: 0 auto 20px; padding: 0;  }
 #main .container.fulld3 { padding: 0 0 40px; }
 #main .container.testeurs { background: hsla(48, 100%, 67%, 0.2); border-left: 8px solid hsla(48, 100%, 67%, 0.8); padding: 1rem 2rem; box-shadow: 0px 1px 2px hsla(0, 0%, 0%, 0.2); }
 #main .container h1.title { padding: 2rem 0 1rem; }
@@ -188,7 +189,6 @@ Mise à jour -dates
 #accueil #dates { margin-top: 0; line-height: 1.6}
 /* #accueil #dates .tag:not(body) { font-size: 1.2rem; } */
 #dates .tags { display:block; }
-
 
 /*
 box
