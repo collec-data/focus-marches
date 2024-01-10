@@ -47,7 +47,7 @@ if ($secured == true)
       $tag_annuaire_entreprise = '<div style=\"display:none\"></div>",';
       if($sirene['type_identifiant'] === "SIRET"){
       $has_annuaire_btn = true;
-      $tag_annuaire_entreprise = '<a class="button voirAnnuaire small" data-id="' . $sirene['id_titulaire'] . '" href="https://annuaire-entreprises.data.gouv.fr/entreprise/' . hsc($sirene['id_titulaire']) . '" target="_blank" title="Ouvrir la fiche sur l\'annuaire entreprise" style="text-decoration:none">&#128270</a>';
+      $tag_annuaire_entreprise = '<a class="button voir-annuaire small" data-id="' . $sirene['id_titulaire'] . '" href="https://annuaire-entreprises.data.gouv.fr/entreprise/' . hsc($sirene['id_titulaire']) . '" target="_blank" title="Ouvrir la fiche sur l\'annuaire entreprise" style="text-decoration:none">&#128270</a>';
       }
     ?>
 
