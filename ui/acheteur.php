@@ -67,7 +67,7 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
         <div>
           <span>
             <button class="btnCopy button has-text-link is-link-bg is-small" style="bottom: 10px"
-              data-clipboard-text='<?php echo $iframe_code; ?>'><i class="fa fa-code"></i>&nbsp;intégrer l'ensemble de
+              data-clipboard-text='<?=htmlspecialchars($iframe_code); ?>'><i class="fa fa-code"></i>&nbsp;intégrer l'ensemble de
               la page
             </button>
           </span>
