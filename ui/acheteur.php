@@ -61,27 +61,27 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
     <div class="columns">
       <div class="column ">
         <h1 class='title is-clearfix' id='h1Fixe'> <span>Tableau de bord de l'acheteur :</span><br><b>
-            <?php echo $nom; ?>
+            <?=gettext($nom); ?>
           </b></h1>
       </div>
       <div id="dates" class="column has-text-right">
         <div class='tags has-addons'>
           <span class='tag is-light'>Contrats conclus à partir du </span>
           <span class='tag is-warning'>
-            <?php echo $donnees_a_partir_du; ?>
+            <?=gettext($donnees_a_partir_du); ?>
           </span>
         </div>
         <div class='tags has-addons'>
           <span class='tag is-light'>Données mises à jour le </span>
           <span class='tag is-warning'>
-            <?php echo $donnees_mises_a_jour; ?>
+            <?=gettext($donnees_mises_a_jour); ?>
           </span>
         </div>
       </div>
     </div>
 
     <p>Cette page vous présente les données essentielles du profil d'acheteur de <b>
-        <?php echo $nom; ?>
+      <?=gettext($nom); ?>
       </b>, enrichies avec des données complémentaires.</p>
 
     <?php

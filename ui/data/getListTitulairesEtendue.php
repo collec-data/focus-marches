@@ -36,7 +36,7 @@ try {
       $r['denomination_sociale'] = str_replace('"', '', $r['denomination_sociale']);
 
       $tag_annuaire_entreprise = '"annuaire_lien":"<div style=\"display:none\"></div></div>",';
-      if($r['type_identifiant'] === "SIRET"){
+      if ($r['type_identifiant'] === "SIRET") {
         $tag_annuaire_entreprise = '"annuaire_lien":"<a class=\"button voir-annuaire small\" data-id=\"' . $r['id_titulaire'] . '\" href=\"https://annuaire-entreprises.data.gouv.fr/entreprise/' . hsc($r['id_titulaire']) . '\" target=\"_blank\"  title=\"Ouvrir l\'annuaire entreprise\" style=\"text-decoration:none\">&#128270</a> ",';
       }
 

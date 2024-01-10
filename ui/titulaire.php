@@ -54,11 +54,11 @@ if ($secured == true)
     <div id="dates" class="column has-text-right">
       <div class='tags has-addons'>
         <span class='tag is-light'>Contrats conclus à partir du </span>
-        <span class='tag is-warning'><?php echo $donnees_a_partir_du;?></span>
+        <span class='tag is-warning'><?=gettext($donnees_a_partir_du);?></span>
       </div>
       <div class='tags has-addons'>
         <span class='tag is-light'>Données mises à jour le </span>
-        <span class='tag is-warning'><?php echo $donnees_mises_a_jour;?></span>
+        <span class='tag is-warning'><?=gettext($donnees_mises_a_jour);?></span>
       </div>
     </div>
   </div>
@@ -74,7 +74,7 @@ if ($secured == true)
     <h3 class="column">Localisation et contexte</h3>
     <div class="column has-text-right">
       <span class='tag' style="height:2.3rem">Voir la fiche annuaire entreprise</span>
-      <?php echo $tag_annuaire_entreprise?>
+      <?=gettext($tag_annuaire_entreprise);?>
     </div>
   </div>
   <div id="sirene" class="columns">
