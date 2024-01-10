@@ -381,7 +381,9 @@ table.dataTable thead .sorting_asc_disabled { background-image:url("../assets/da
 table.dataTable thead .sorting_desc_disabled { background-image:url("../assets/datatables/images/sort_desc_disabled.png")}
 .table td, .table th { border-top: 1px solid #e8e8e8; }
 
-
+.voirAnnuaire { text-decoration: none; }
+.button.voirAnnuaire { background-color: #ffdd57;}
+.button.voirAnnuaire:hover { background-color: #444b54; border-color: transparent; color: #fff; }
 
 /* groupe de boutons */
 .dt-buttons {margin: 0 auto 20px;}

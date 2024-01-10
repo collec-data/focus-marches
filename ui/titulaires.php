@@ -42,6 +42,7 @@ $connect->set_charset("utf8");
       style="width:100%">
       <thead>
         <tr>
+          <th width="7%">Annuaire</th>
           <th width="7%">CP</th>
           <th width="36%">Titulaire</th>
           <th width="20%">NAF</th>
@@ -83,6 +84,7 @@ $connect->set_charset("utf8");
       "dom": '<"wrapper"Bfltip>',
       "language": francais,
       "columns": [
+        { "data": "annuaire_lien", "orderable": false, "width": "7%"},
         { "data": "cp", "width": "7%" },
         { "data": "denomination_sociale", "width": "30%" },
         { "data": "naf", "width": "20%" },

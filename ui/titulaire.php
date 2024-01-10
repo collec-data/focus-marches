@@ -38,9 +38,18 @@ if ($secured == true)
 
   <div class="container">
     <div class="columns">
-    <div class="column ">
+    <div class="column">
       <h1 class='title' id='h1Fixe'> <span>Tableau de bord du fournisseur : </span><br><?php echo $nom;?></h1>
     </div>
+
+    <?php
+      $has_annuaire_btn = false;
+      $tag_annuaire_entreprise = '<div style=\"display:none\"></div>",';
+      if($sirene['type_identifiant'] === "SIRET"){
+      $has_annuaire_btn = true;
+      $tag_annuaire_entreprise = '<a class="button voirAnnuaire small" data-id="' . $sirene['id_titulaire'] . '" href="https://annuaire-entreprises.data.gouv.fr/entreprise/' . hsc($sirene['id_titulaire']) . '" target="_blank" title="Ouvrir la fiche sur l\'annuaire entreprise" style="text-decoration:none">&#128270</a>';
+      }
+    ?>
 
     <div id="dates" class="column has-text-right">
       <div class='tags has-addons'>
@@ -61,7 +70,13 @@ if ($secured == true)
     if (isset($sirene['siren']))
     {
   ?>
-  <h3>Localisation et contexte</h3>
+  <div class="columns" style="align-items: center">
+    <h3 class="column">Localisation et contexte</h3>
+    <div class="column has-text-right">
+      <span class='tag' style="height:2.3rem">Voir la fiche annuaire entreprise</span>
+      <?php echo $tag_annuaire_entreprise?>
+    </div>
+  </div>
   <div id="sirene" class="columns">
       <div class="column has-map">
         <div id="mapVertical"></div>
