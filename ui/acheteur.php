@@ -35,6 +35,9 @@ if ($secured == true) {
   $sirene = getDataSiretAcheteur($connect, $id);
   $revenuMoyenNational = getMedianeNiveauVie($connect);
 
+  # variables pour integrerPage.php
+  $message_info_integration_page="Copier le code ci-dessous pour intégrer cette page à votre site internet, ainsi les données du tableau de bord seront visibles sur votre site et mises à jour automatiquement.";
+
   $url = strtok("$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", '?');
   $iframe_code = "<iframe ";
   $iframe_code .= "src=\"$url?i=";
@@ -76,13 +79,7 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
             <?=gettext($donnees_mises_a_jour); ?>
           </span>
         </div>
-        <p class=" has-text-right">
-          <button id="integration-iframe" class="button has-text-link is-link-bg is-small"><i class="fa fa-file-code"></i>&nbsp;intégrer à son site</button>
-        </p>
-        <div id="integration-iframe-contenu">
-            <p class="message-body">Copier le code ci-dessous pour intégrer cette page à votre site internet, ainsi les données du tableau de bord seront visibles sur votre site et mises à jour automatiquement.</p>
-            <textarea class="textarea"><?php echo $iframe_code; ?></textarea>
-        </div>
+        <?php include('inc/integrerPage.php'); ?>
     </div>
       </div>
 
