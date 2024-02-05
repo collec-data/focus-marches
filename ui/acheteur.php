@@ -58,20 +58,12 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
 
   <div class="container">
     <div class="columns">
-      <div class="column ">
+      <div class="column">
         <h1 class='title is-clearfix' id='h1Fixe'> <span>Tableau de bord de l'acheteur :</span><br><b>
             <?=gettext($nom); ?>
           </b></h1>
       </div>
       <div id="dates" class="column has-text-right">
-        <div>
-          <span>
-            <button class="btnCopy button has-text-link is-link-bg is-small" style="bottom: 10px"
-              data-clipboard-text='<?=htmlspecialchars($iframe_code); ?>'><i class="fa fa-code"></i>&nbsp;intégrer l'ensemble de
-              la page
-            </button>
-          </span>
-        </div>
         <div class='tags has-addons'>
           <span class='tag is-light'>Contrats conclus à partir du </span>
           <span class='tag is-warning'>
@@ -84,8 +76,16 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
             <?=gettext($donnees_mises_a_jour); ?>
           </span>
         </div>
-      </div>
+        <p class=" has-text-right">
+          <button id="integration-iframe" class="button has-text-link is-link-bg is-small"><i class="fa fa-file-code"></i>&nbsp;intégrer à son site</button>
+        </p>
+        <div id="integration-iframe-contenu">
+            <p class="message-body">Copier le code ci-dessous pour intégrer cette page à votre site internet, ainsi les données du tableau de bord seront visibles sur votre site et mises à jour automatiquement.</p>
+            <textarea class="textarea"><?php echo $iframe_code; ?></textarea>
+        </div>
     </div>
+      </div>
+
 
     <p>Cette page vous présente les données essentielles du profil d'acheteur de <b>
       <?=gettext($nom); ?>
@@ -189,6 +189,12 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
           $('#' + t + 'C').fadeIn('slow');
         }
       });
+
+          //// toggle intregration iframe
+      $('#integration-iframe').on('click', function () {
+          $('#integration-iframe-contenu').toggle();
+      });
+
 
 
     }); // document ready
