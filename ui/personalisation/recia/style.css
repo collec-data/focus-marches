@@ -242,6 +242,12 @@ Acheteurs
 #enChargeFlask { display: none; text-align: center; padding-bottom: 2rem; font-size: 1.6rem; }
 
 
+/*
+Acheteur
+------------- */
+#integration-iframe-contenu { display: none;}
+
+
 #mapa { margin: 20px auto 40px; box-shadow: 1px 1px 10px #aaa; width: 100%; height: 350px; }
 
 
