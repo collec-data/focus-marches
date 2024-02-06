@@ -26,7 +26,7 @@ if ($secured == true) {
   <link rel="stylesheet" href="assets/leaflet/leaflet.css" />
   <link href="assets/toastr/toastr.min.css" rel="stylesheet" />
   <?php
-  include('inc/nav.php');
+  require('inc/nav.php');
 
 
 
@@ -35,8 +35,8 @@ if ($secured == true) {
   $sirene = getDataSiretAcheteur($connect, $id);
   $revenuMoyenNational = getMedianeNiveauVie($connect);
 
-  # variables pour integrerPage.php
-  $message_info_integration_page="Copier le code ci-dessous pour intégrer cette page à votre site internet, ainsi les données du tableau de bord seront visibles sur votre site et mises à jour automatiquement.";
+  // variables pour integrerPage.php
+  $message_info_integration_page = "Copier le code ci-dessous pour intégrer cette page à votre site internet, ainsi les données du tableau de bord seront visibles sur votre site et mises à jour automatiquement.";
 
   $url = strtok("$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", '?');
   $iframe_code = "<iframe ";
