@@ -8,8 +8,23 @@ $id_iframe = $_GET['widget'];
 }
 ///// Sécurisation
 $secured = false;
-if (is_numeric($_GET['i'])) $secured = true;
+if (is_numeric($_GET['i'])) {
+     $secured = true;
 }
+
+if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+    $date_min = $_GET['date_min'];
+    $secured = true;
+}
+  
+if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+    $date_min = $_GET['date_min'];
+    $secured = true;
+}
+
+
+}
+
 
 if ($iframe == true){
 
@@ -25,6 +40,7 @@ if ($iframe == true){
 //    include('inc/nav.php');
     require_once('data/connect.php');
     require_once('data/model.php');
+    require_once('data/validateurs.php');
 
     $connect->set_charset("utf8");
 
@@ -32,15 +48,20 @@ if ($iframe == true){
     $secured = false;
     if (is_numeric($_GET['i'])) $secured = true;
 
+    if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+        $date_min = $_GET['date_min'];
+        $secured = true;
+      }
+      
+      if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+        $date_max = $_GET['date_max'];
+        $secured = true;
+      }
+
     if ($secured == true)
     {
         $id = $_GET['i'];
-        $nom = getNom($connect, $id);
-        $kpi = getKPI($connect, $id, $nb_mois, 0);
-        $marches = getDatesMontantsLieu($connect, $id, $nb_mois);
         $sirene = getDataSiretAcheteur($connect, $id);
-        $revenuMoyenNational = getMedianeNiveauVie($connect);
-
     }
     // L"affichage de certains éléments dépend de si on est face à une collectivité ou pas
     $colter = false;
@@ -75,7 +96,9 @@ if ($iframe == true){
         <div class="container">
             <?php
             //// 2. Distribution par catégorie principale d'achat
-            $cats = getCategoriesPrincipales ($connect, $nb_mois, $id, "acheteur");
+            $date_min = isset($date_min) ? $date_min : null;
+            $date_max = isset($date_max) ? $date_max : null;
+            $cats = getCategoriesPrincipales ($connect, $nb_mois, $id, "acheteur", $date_min, $date_max);
             include('inc/categories-principales-html.php');
             ?>
             <?php

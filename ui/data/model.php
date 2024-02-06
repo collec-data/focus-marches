@@ -218,7 +218,7 @@ getKPI (pour les acheteurs )
 SELECT CURRENT_DATE(), DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR)
 */
 
-function getKPI($connect, $id = 0, $months = 0, $dept = 0)
+function getKPI($connect, $id = 0, $months = 0, $dept = 0, $date_min = null, $date_max = null)
 {
   $sql = "SELECT SUM(montant) as montant_total,
   COUNT(m.id) as nombre,
@@ -232,9 +232,17 @@ function getKPI($connect, $id = 0, $months = 0, $dept = 0)
   INNER JOIN marche_titulaires mt ON m.id_marche = mt.id_marche
   INNER JOIN titulaire t ON mt.id_titulaires = t.id_titulaire
   INNER JOIN lieu l ON l.id_lieu = m.id_lieu_execution
-  WHERE m.date_notification > '0000-00-00' ";
+  WHERE m.date_notification > '0000-00-00'";
 
-  if ($months > 0) {
+  if (isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)) {
+    $sql .= " AND date_notification BETWEEN '$date_min' AND '$date_max' ";
+  } else if (isset($date_min)) {
+    $sql .= "AND m.date_notification > '$date_min' ";
+  } else if (isset($date_max)) {
+    $sql .= "AND m.date_notification < '$date_max' ";
+  }
+
+  if ($months > 0){
     $sql .= " AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
   }
   if ($dept > 0) {
@@ -413,14 +421,20 @@ function getMontantCPVLieu($connect, $categorie, $lieux, $months = 12)
 getDatesMontantsLieu par lieu
 ----------------------------------
 */
-function getDatesMontantsLieu($connect, $nom = null, $months = 0)
+function getDatesMontantsLieu($connect, $nom = null, $months = 0, $date_min = null, $date_max = null)
 {
   $sql = "SELECT montant, date_notification
   FROM marche m
   INNER JOIN acheteur a ON m.id_acheteur = a.id_acheteur
   WHERE a.nom_acheteur = '" . $nom . "' ";
-
-  if ($months > 0) {
+   //TODO : voir si intérêt ?
+  if (isset($date_min) && isset($date_max)) {
+    $sql .= " AND m.date_notification > '$date_min' AND m.date_notification < '$date_max' ";
+  } else if (isset($date_min)) {
+    $sql .= " AND m.date_notification > '$date_min' ";
+  } else if (isset($date_max)) {
+    $sql .= " AND m.date_notification < '$date_max' ";
+  } else {
     $sql .= " AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
   }
 
@@ -592,7 +606,7 @@ $categorie : services, travaux, fournitures
 $id_acheteur : id de l'acheteur
 getTitulairesList($connect, 12, 'services', $id, $nb_mois);
 */
-function getTitulairesList($connect, $nb = 5, $categorie = null, $id_acheteur = 0, $months = 12)
+function getTitulairesList($connect, $nb = 5, $categorie = null, $id_acheteur = 0, $months = 12, $date_min = null, $date_max = null)
 {
   $sql = "SELECT t.denomination_sociale nom, categorie, sum(m.`montant`) montant
   FROM `marche` m
@@ -600,6 +614,14 @@ function getTitulairesList($connect, $nb = 5, $categorie = null, $id_acheteur = 
   INNER JOIN titulaire t ON t.id_titulaire = mt.id_titulaires
   WHERE m.date_notification > '0000-00-00'
   AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
+
+  if(isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)){
+    $sql .= " AND m.date_notification BETWEEN '$date_min' AND '$date_max' ";
+  } else if (isset($date_min)){
+    $sql .= " AND m.date_notification > '$date_min' ";
+  } else if (isset($date_max)){
+    $sql .= " AND m.date_notification < '$date_max' ";
+  }
 
   if ($categorie) {
     $sql .= " AND categorie = '" . $categorie . "' ";
@@ -700,22 +722,22 @@ class Cats
 getCategoriesPrincipales
 ----------------------------------
 */
-function getCategoriesPrincipales($connect, $months = 12, $id = 0, $version = "acheteur")
+function getCategoriesPrincipales($connect, $months = 12, $id = 0, $version = "acheteur", $date_min = null, $date_max = null)
 {
   $cats = new Cats();
 
   switch ($version) {
     case "acheteur":
-      $cats->services = getListByTypeArrZeros($connect, 'services', $months, $id);
-      $cats->travaux = getListByTypeArrZeros($connect, 'travaux', $months, $id);
-      $cats->fournitures = getListByTypeArrZeros($connect, 'fournitures', $months, $id);
-      $cats->tousMarches = getListByTypeArrZeros($connect, null, $months, $id);
+      $cats->services = getListByTypeArrZeros($connect, 'services', $months, $id, $date_min, $date_max);
+      $cats->travaux = getListByTypeArrZeros($connect, 'travaux', $months, $id, $date_min, $date_max);
+      $cats->fournitures = getListByTypeArrZeros($connect, 'fournitures', $months, $id, $date_min, $date_max);
+      $cats->tousMarches = getListByTypeArrZeros($connect, null, $months, $id, $date_min, $date_max);
       break;
     case "titulaire":
-      $cats->services = getListByTypeArrZerosTitulaires($connect, 'services', $months, $id);
-      $cats->travaux = getListByTypeArrZerosTitulaires($connect, 'travaux', $months, $id);
-      $cats->fournitures = getListByTypeArrZerosTitulaires($connect, 'fournitures', $months, $id);
-      $cats->tousMarches = getListByTypeArrZerosTitulaires($connect, null, $months, $id);
+      $cats->services = getListByTypeArrZerosTitulaires($connect, 'services', $months, $id, $date_min, $date_max);
+      $cats->travaux = getListByTypeArrZerosTitulaires($connect, 'travaux', $months, $id, $date_min, $date_max);
+      $cats->fournitures = getListByTypeArrZerosTitulaires($connect, 'fournitures', $months, $id, $date_min, $date_max);
+      $cats->tousMarches = getListByTypeArrZerosTitulaires($connect, null, $months, $id, $date_min, $date_max);
       break;
   }
 
@@ -866,12 +888,21 @@ ajoute le nombre de jours écoulés dans le mois à un mois qui démarre à 01
 DATE_ADD(mo.date_mois, INTERVAL DAYOFMONTH(CURRENT_DATE()) DAY)
 > DATE_SUB(CURRENT_DATE(), INTERVAL (12) MONTH)
 */
-function getListByTypeArrZeros($connect, $type = null, $months = 12, $id = 0)
+function getListByTypeArrZeros($connect, $type = null, $months = 12, $id = 0, $date_min = null, $date_max = null)
 {
 
   $sql = "SELECT SUBSTR(date_notification, 1, 7) AS dates, COALESCE(SUM(montant), 0) montants, COALESCE(COUNT(id), 0) nombre, categorie 
           FROM marche 
           WHERE date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL 35 MONTH) AND date_notification < CURRENT_DATE() ";
+
+  if (isset($date_min) && is_date($date_min) && isset($date_max)  && is_date($date_max)) {
+    $sql .= " AND date_notification > '$date_min' AND date_notification < '$date_max' ";
+  } else if (isset($date_min)) {
+    $sql .= " AND date_notification > '$date_min' ";
+  } else if (isset($date_max)) {
+    $sql .= " AND date_notification < '$date_max' ";
+  }
+
   if (isset($type))
     $sql .= " AND categorie = '" . $type . "'";
 
@@ -943,12 +974,20 @@ getListByTypeArrZerosTitulaires
 ----------------------------------
 version titulaires
 */
-function getListByTypeArrZerosTitulaires($connect, $type = null, $months = 12, $id = 0)
+function getListByTypeArrZerosTitulaires($connect, $type = null, $months = 12, $id = 0, $date_min = null, $date_max = null)
 {
   $sql = "SELECT SUBSTR(date_notification, 1, 7) AS dates, COALESCE(SUM(montant), 0) montants, COALESCE(COUNT(id), 0) nombre, categorie 
           FROM marche m
           INNER JOIN marche_titulaires mt ON mt.id_marche = m.id_marche 
           WHERE date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL 35 MONTH) AND date_notification < CURRENT_DATE()";
+
+  if (isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_min)) {
+    $sql .= " AND date_notification > '$date_min' AND date_notification < '$date_max' ";
+  } else if (isset($date_min)) {
+    $sql .= " AND date_notification > '$date_min' ";
+  } else if (isset($date_max)) {
+    $sql .= " AND date_notification < '$date_max' ";
+  }
 
   if (isset($type))
     $sql .= " AND categorie = '" . $type . "'";

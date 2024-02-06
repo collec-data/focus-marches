@@ -4,20 +4,35 @@ include('inc/localization.php');
 $page = "acheteur";
 require_once('data/connect.php');
 require_once('data/model.php');
+require_once('data/validateurs.php');
 
 
 ///// Sécurisation
 $secured = false;
+
+//TODO Date min et max
+
 if (is_numeric($_GET['i']))
   $secured = true;
 
-if ($secured == true) {
+if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+  $date_min = $_GET['date_min'];
+  $secured = true;
+}
 
+if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+  $date_min = $_GET['date_min'];
+  $secured = true;
+}
+
+if ($secured == true) {
 
   $id = $_GET['i'];
   $nom = getNom($connect, $id);
   $title = "Acheteur | Données essentielles du profil d'acheteur " . $nom;
   $desc = "Acheteur | Données essentielles du profil d'acheteur " . $nom;
+  $date_min = isset($_GET['date_min']) ?  $_GET['date_min'] : null;
+  $date_max = isset($_GET['date_max']) ? $_GET['date_max'] : null;
 
   include('inc/head.php');
   include('inc/config.php');
@@ -29,12 +44,13 @@ if ($secured == true) {
   <?php
   include('inc/nav.php');
 
-
-
-  $kpi = getKPI($connect, $id, $nb_mois, 0);
-  $marches = getDatesMontantsLieu($connect, $id, $nb_mois);
+  $kpi = getKPI($connect, $id, $nb_mois, 0, $date_min, $date_max);
+  $marches = getDatesMontantsLieu($connect, $id, $nb_mois, $date_min, $date_max);
   $sirene = getDataSiretAcheteur($connect, $id);
   $revenuMoyenNational = getMedianeNiveauVie($connect);
+
+  $default_value_date_min = isset($date_min) ? $date_min : "";
+  $default_value_date_max = isset($date_max) ? $date_max : "";
 
   $url = strtok("$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", '?');
   $iframe_code = "<iframe ";
@@ -79,10 +95,24 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
         </div>
       </div>
     </div>
-
     <p>Cette page vous présente les données essentielles du profil d'acheteur de <b>
         <?php echo $nom; ?>
       </b>, enrichies avec des données complémentaires.</p>
+
+      <div class="filtreDates">
+        <div class="columns">
+            <div class="column">
+              <label>Date min</label>
+              <input id="in_date_min" type="date" value=<?=$default_value_date_min?> pattern="\d{4}-\d{2}-\d{2}">
+            </div>
+            <div class="column">
+              <label>Date max</label>
+              <input id="in_date_max" type="date" value=<?=$default_value_date_max?> pattern="\d{4}-\d{2}-\d{2}">
+            </div>
+            <button id="filtrerBoutonAcheteur" class="button is-info" type="button" role="button"
+              aria-label="search">Filtrer</button>
+        </div>
+      </div>
 
     <?php
     include('widget-acheteur-localisation.php');
@@ -192,6 +222,11 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
           $('#' + t + 'C').fadeIn('slow');
         }
       });
+
+      $('#filtresDate').on('click', function () {
+        $kpi = getKPI($connect, $id, $nb_mois, 0, $date_min, $date_max);
+        $marches = getDatesMontantsLieu($connect, $id, $nb_mois, $date_min, $date_max);
+  });
 
 
     }); // document ready

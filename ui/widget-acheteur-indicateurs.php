@@ -8,8 +8,23 @@ $id_iframe = $_GET['widget'];
 }
 ///// Sécurisation
 $secured = false;
-if (is_numeric($_GET['i'])) $secured = true;
+if (is_numeric($_GET['i'])) {
+    $secured = true;
 }
+
+if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+    $date_min = $_GET['date_min'];
+    $secured = true;
+}
+  
+if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+    $date_min = $_GET['date_min'];
+    $secured = true;
+}
+
+}
+
+
 
 if ($iframe == true){
 
@@ -25,19 +40,34 @@ if ($iframe == true){
 //    include('inc/nav.php');
     require_once('data/connect.php');
     require_once('data/model.php');
+    require_once('data/validateurs.php');
 
     $connect->set_charset("utf8");
 
 ///// Sécurisation
     $secured = false;
-    if (is_numeric($_GET['i'])) $secured = true;
+    if (is_numeric($_GET['i'])) { 
+        $secured = true;
+    }
+
+    if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+        $date_min = $_GET['date_min'];
+        $secured = true;
+      }
+      
+      if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+        $date_max = $_GET['date_max'];
+        $secured = true;
+      }
 
     if ($secured == true)
     {
         $id = $_GET['i'];
+        $date_min = isset($date_min) ? $_GET['date_min'] : null;
+        $date_max = isset($date_max) ? $_GET['date_max'] : null;
         $nom = getNom($connect, $id);
-        $kpi = getKPI($connect, $id, $nb_mois, 0);
-        $marches = getDatesMontantsLieu($connect, $id, $nb_mois);
+        $kpi = getKPI($connect, $id, $nb_mois, 0, $date_min, $date_max);
+        $marches = getDatesMontantsLieu($connect, $id, $nb_mois, $date_min, $date_max);
         $sirene = getDataSiretAcheteur($connect, $id);
         $revenuMoyenNational = getMedianeNiveauVie($connect);
 
