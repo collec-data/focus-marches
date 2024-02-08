@@ -5,7 +5,7 @@ import logging
 # *****************************
 
 #BASE DE DONNEE
-SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://user:password@hbmegsocleq01:33062/marches_publics?charset=utf8'
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://user:password@152.228.212.208:60001/marches_publics?charset=utf8'
 
 #URL
 URL_FICHIER_INFOS_GREFFE='https://www.data.gouv.fr/fr/datasets/r/8d5774e7-8106-427b-bb6b-790a59d272bd'
@@ -13,6 +13,8 @@ DOWNLOAD_INFOS_GREFFE=0
 URL_INFO_GREFFE='https://opendata.datainfogreffe.fr/api/records/1.0/search/?dataset=chiffres-cles-2020&q='
 TEMPO_CALL_INFO_GREFFE=5
 URL_API_SIREN_PERSO='http://152.228.212.208:443/v3'
+
+URL_API_OPENDATASOFT='https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/economicref-france-sirene-v3'
 
 #LOG
 logging.basicConfig(

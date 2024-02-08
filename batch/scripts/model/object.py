@@ -152,7 +152,9 @@ class Marche_titulaires(Model):
 
 
 class InfoEtablissement:
-    def __init__(self, resultApi):
+    def __init__(self, resultApi=None):
+        if (resultApi is None):
+            return
         self.latitude = resultApi['latitude']
         self.longitude = resultApi['longitude']
         self.nic = resultApi['nic']
@@ -190,53 +192,6 @@ class InfoEtablissement:
         self.categorieEntreprise = resultApi['unite_legale']['activite_principale']
         self.anneeCategorieEntreprise = resultApi['unite_legale']['annee_categorie_entreprise']
 
-        # self.nic = ''
-        # self.siret = ''
-        # self.dateCreationEtablissement=''
-        # self.trancheEffectifsEtablissement=''
-        # self.anneeEffectifsEtablissement=''
-        # self.activitePrincipaleRegistreMetiersEtablissement=''
-        # self.etatAdministratifUniteLegale=''
-        # self.statutDiffusionUniteLegale=''
-        # self.dateCreationUniteLegale=''
-        # self.categorieJuridiqueUniteLegale=''
-        # self.denominationUniteLegale=''
-        # self.sigleUniteLegale=''
-        # self.activitePrincipaleUniteLegale=''
-        # self.nomenclatureActivitePrincipaleUniteLegale=''
-        # self.caractereEmployeurUniteLegale=''
-        # self.trancheEffectifsUniteLegale=''
-        # self.anneeEffectifsUniteLegale=''
-        # self.nicSiegeUniteLegale=''
-        # self.categorieEntreprise=''
-        # self.anneeCategorieEntreprise=''
-        # self.complementAdresseEtablissement=''
-        # self.numeroVoieEtablissement=''
-        # self.indiceRepetitionEtablissement=''
-        # self.typeVoieEtablissement=''
-        # self.libelleVoieEtablissement=''
-        # self.codePostalEtablissement=''
-        # self.libelleCommuneEtablissement=''
-        # self.codeCommuneEtablissement=''
-        # self.codeCedexEtablissement=''
-        # self.libelleCedexEtablissement=''
-        # self.codePaysEtrangerEtablissement=''
-        # self.libellePaysEtrangerEtablissement=''
-        # self.latitude=''
-        # self.longitude=''
-        # self.millesime_1=''
-        # self.millesime_2=''
-        # self.millesime_3=''
-        # self.ca_1=''
-        # self.ca_2=''
-        # self.ca_3=''
-        # self.resultat_1=''
-        # self.resultat_2=''
-        # self.resultat_3=''
-        # self.effectif_1=''
-        # self.effectif_2=''
-        # self.effectif_3=''
-        # self.fiche_identite=''
 class InfoEtablissementPrincipal:
     def __init__(self, resultApi):
         self.latitude = resultApi['etablissement_siege']['latitude']
