@@ -42,12 +42,13 @@ def insert_info_api_siren(con, request):
 
         # Recherche via siret dans l'api SIRENE V3 consolidée - France
         if enable_http_proxy:
-            r = requests.get(f"{URL_API_OPENDATASOFT}/records?where=siret%3D{siret}&limit=20", proxies=proxyDict)
+            r = requests.get(f"{URL_API_OPENDATASOFT}/records?where=siret%3D{siret}&limit=20", proxies=proxyDict,
+                             timeout=5)
         else:
-            r = requests.get(f"{URL_API_OPENDATASOFT}/records?where=siret%3D{siret}&limit=20")
+            r = requests.get(f"{URL_API_OPENDATASOFT}/records?where=siret%3D{siret}&limit=20",timeout=5)
 
         try:
-            #on parse la reponse
+            # on parse la reponse
             reponse = r.json()
 
             if (r.status_code == 200):
@@ -63,10 +64,10 @@ def insert_info_api_siren(con, request):
                         if enable_http_proxy:
                             r = requests.get(
                                 f"{URL_API_OPENDATASOFT}/records?where=siren%3D{siren}%20and%20etablissementsiege%3D\"oui\"&limit=20",
-                                proxies=proxyDict)
+                                proxies=proxyDict,timeout=5)
                         else:
                             r = requests.get(
-                                f"{URL_API_OPENDATASOFT}/records?where=siren%3D{siren}%20and%20etablissementsiege%3D\"oui\"&limit=20")
+                                f"{URL_API_OPENDATASOFT}/records?where=siren%3D{siren}%20and%20etablissementsiege%3D\"oui\"&limit=20",timeout=5)
 
                         reponse = r.json()
                         # si la reponse est ok
@@ -97,38 +98,38 @@ def update_table_sirene(con, id_siret, infoEtablissement, r, todayStr):
             infoEtablissement.siret,
             infoEtablissement.dateCreationEtablissement,
             infoEtablissement.trancheEffectifsEtablissement[
-            0:9] if infoEtablissement.trancheEffectifsEtablissement != None else '',
+            0:9] if infoEtablissement.trancheEffectifsEtablissement is not None else '',
             infoEtablissement.anneeEffectifsEtablissement,
-            infoEtablissement.activitePrincipaleRegistreMetiersEtablissement if infoEtablissement.activitePrincipaleRegistreMetiersEtablissement != None else '',
+            infoEtablissement.activitePrincipaleRegMet if infoEtablissement.activitePrincipaleRegMet is not None else '',
             infoEtablissement.etatAdministratifUniteLegale,
             infoEtablissement.statutDiffusionUniteLegale,
             infoEtablissement.dateCreationUniteLegale,
             infoEtablissement.categorieJuridiqueUniteLegale,
             infoEtablissement.denominationUniteLegale,
-            infoEtablissement.sigleUniteLegale if infoEtablissement.sigleUniteLegale != None else '',
+            infoEtablissement.sigleUniteLegale if infoEtablissement.sigleUniteLegale is not None else '',
             infoEtablissement.activitePrincipaleUniteLegale,
             infoEtablissement.nomenclatureActivitePrincipaleUniteLegale,
             infoEtablissement.caractereEmployeurUniteLegale,
             infoEtablissement.trancheEffectifsUniteLegale[
-            0:9] if infoEtablissement.trancheEffectifsUniteLegale != None else '',
+            0:9] if infoEtablissement.trancheEffectifsUniteLegale is not None else '',
             infoEtablissement.anneeEffectifsUniteLegale,
             infoEtablissement.nicSiegeUniteLegale,
             infoEtablissement.categorieEntreprise,
             infoEtablissement.anneeCategorieEntreprise,
-            infoEtablissement.complementAdresseEtablissement if infoEtablissement.complementAdresseEtablissement != None else '',
+            infoEtablissement.complementAdresseEtablissement if infoEtablissement.complementAdresseEtablissement is not None else '',
             infoEtablissement.numeroVoieEtablissement,
-            infoEtablissement.indiceRepetitionEtablissement if infoEtablissement.indiceRepetitionEtablissement != None else '',
+            infoEtablissement.indiceRepetitionEtablissement if infoEtablissement.indiceRepetitionEtablissement is not None else '',
             infoEtablissement.typeVoieEtablissement,
             infoEtablissement.libelleVoieEtablissement,
             infoEtablissement.codePostalEtablissement,
             infoEtablissement.libelleCommuneEtablissement,
             infoEtablissement.codeCommuneEtablissement,
-            infoEtablissement.codeCedexEtablissement if infoEtablissement.codeCedexEtablissement != None else '',
-            infoEtablissement.libelleCedexEtablissement if infoEtablissement.libelleCedexEtablissement != None else '',
-            infoEtablissement.codePaysEtrangerEtablissement if infoEtablissement.codePaysEtrangerEtablissement != None else '',
-            infoEtablissement.libellePaysEtrangerEtablissement if infoEtablissement.libellePaysEtrangerEtablissement != None else '',
-            infoEtablissement.latitude if infoEtablissement.latitude != None else '',
-            infoEtablissement.longitude if infoEtablissement.longitude != None else '')
+            infoEtablissement.codeCedexEtablissement if infoEtablissement.codeCedexEtablissement is not None else '',
+            infoEtablissement.libelleCedexEtablissement if infoEtablissement.libelleCedexEtablissement is not None else '',
+            infoEtablissement.codePaysEtrangerEtablissement if infoEtablissement.codePaysEtrangerEtablissement is not None else '',
+            infoEtablissement.libellePaysEtrangerEtablissement if infoEtablissement.libellePaysEtrangerEtablissement is not None else '',
+            infoEtablissement.latitude if infoEtablissement.latitude is not None else '',
+            infoEtablissement.longitude if infoEtablissement.longitude is not None else '')
         con.execute(sql_insert_sirene, record)
 
     except sqlalchemy.exc.IntegrityError:
@@ -144,7 +145,7 @@ def valorisation_infoEtablissement(reponse):
     infoEtablissement.dateCreationEtablissement = result.get('datecreationetablissement')
     infoEtablissement.trancheEffectifsEtablissement = result.get('trancheeffectifsetablissement')
     infoEtablissement.anneeEffectifsEtablissement = result.get('anneeeffectifsetablissement')
-    infoEtablissement.activitePrincipaleRegistreMetiersEtablissement = result.get(
+    infoEtablissement.activitePrincipaleRegMet = result.get(
         'activiteprincipaleregistremetiersetablissement')
     infoEtablissement.etatAdministratifUniteLegale = result.get('etatadministratifunitelegale')
     infoEtablissement.statutDiffusionUniteLegale = result.get('statutdiffusionunitelegale')
