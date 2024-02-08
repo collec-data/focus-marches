@@ -152,7 +152,9 @@ class Marche_titulaires(Model):
 
 
 class InfoEtablissement:
-    def __init__(self, resultApi):
+    def __init__(self, resultApi=None):
+        if (resultApi is None):
+            return
         self.latitude = resultApi['latitude']
         self.longitude = resultApi['longitude']
         self.nic = resultApi['nic']
@@ -161,7 +163,7 @@ class InfoEtablissement:
         self.dateCreationEtablissement = resultApi['date_creation']
         self.trancheEffectifsEtablissement = resultApi['tranche_effectifs']
         self.anneeEffectifsEtablissement = resultApi['annee_effectifs']
-        self.activitePrincipaleRegistreMetiersEtablissement = resultApi['activite_principale_registre_metiers']
+        self.activitePrincipaleRegMet= resultApi['activite_principale_registre_metiers']
         self.complementAdresseEtablissement = resultApi['complement_adresse']
         self.numeroVoieEtablissement = resultApi['numero_voie']
         self.indiceRepetitionEtablissement = resultApi['indice_repetition']
@@ -190,94 +192,6 @@ class InfoEtablissement:
         self.categorieEntreprise = resultApi['unite_legale']['activite_principale']
         self.anneeCategorieEntreprise = resultApi['unite_legale']['annee_categorie_entreprise']
 
-        # self.nic = ''
-        # self.siret = ''
-        # self.dateCreationEtablissement=''
-        # self.trancheEffectifsEtablissement=''
-        # self.anneeEffectifsEtablissement=''
-        # self.activitePrincipaleRegistreMetiersEtablissement=''
-        # self.etatAdministratifUniteLegale=''
-        # self.statutDiffusionUniteLegale=''
-        # self.dateCreationUniteLegale=''
-        # self.categorieJuridiqueUniteLegale=''
-        # self.denominationUniteLegale=''
-        # self.sigleUniteLegale=''
-        # self.activitePrincipaleUniteLegale=''
-        # self.nomenclatureActivitePrincipaleUniteLegale=''
-        # self.caractereEmployeurUniteLegale=''
-        # self.trancheEffectifsUniteLegale=''
-        # self.anneeEffectifsUniteLegale=''
-        # self.nicSiegeUniteLegale=''
-        # self.categorieEntreprise=''
-        # self.anneeCategorieEntreprise=''
-        # self.complementAdresseEtablissement=''
-        # self.numeroVoieEtablissement=''
-        # self.indiceRepetitionEtablissement=''
-        # self.typeVoieEtablissement=''
-        # self.libelleVoieEtablissement=''
-        # self.codePostalEtablissement=''
-        # self.libelleCommuneEtablissement=''
-        # self.codeCommuneEtablissement=''
-        # self.codeCedexEtablissement=''
-        # self.libelleCedexEtablissement=''
-        # self.codePaysEtrangerEtablissement=''
-        # self.libellePaysEtrangerEtablissement=''
-        # self.latitude=''
-        # self.longitude=''
-        # self.millesime_1=''
-        # self.millesime_2=''
-        # self.millesime_3=''
-        # self.ca_1=''
-        # self.ca_2=''
-        # self.ca_3=''
-        # self.resultat_1=''
-        # self.resultat_2=''
-        # self.resultat_3=''
-        # self.effectif_1=''
-        # self.effectif_2=''
-        # self.effectif_3=''
-        # self.fiche_identite=''
-class InfoEtablissementPrincipal:
-    def __init__(self, resultApi):
-        self.latitude = resultApi['etablissement_siege']['latitude']
-        self.longitude = resultApi['etablissement_siege']['longitude']
-        self.nic = resultApi['etablissement_siege']['nic']
-        self.siret = resultApi['etablissement_siege']['siret']
-        self.siren = resultApi['siren']
-        self.dateCreationEtablissement = resultApi['etablissement_siege']['date_creation']
-        self.trancheEffectifsEtablissement = resultApi['etablissement_siege']['tranche_effectifs']
-        self.anneeEffectifsEtablissement = resultApi['etablissement_siege']['annee_effectifs']
-        self.activitePrincipaleRegistreMetiersEtablissement = resultApi['etablissement_siege'][
-            'activite_principale_registre_metiers']
-        self.complementAdresseEtablissement = resultApi['etablissement_siege']['complement_adresse']
-        self.numeroVoieEtablissement = resultApi['etablissement_siege']['numero_voie']
-        self.indiceRepetitionEtablissement = resultApi['etablissement_siege']['indice_repetition']
-        self.typeVoieEtablissement = resultApi['etablissement_siege']['type_voie']
-        self.libelleVoieEtablissement = resultApi['etablissement_siege']['libelle_voie']
-        self.codePostalEtablissement = resultApi['etablissement_siege']['code_postal']
-        self.libelleCommuneEtablissement = resultApi['etablissement_siege']['libelle_commune']
-        self.codeCommuneEtablissement = resultApi['etablissement_siege']['code_commune']
-        self.codeCedexEtablissement = resultApi['etablissement_siege']['code_cedex']
-        self.libelleCedexEtablissement = resultApi['etablissement_siege']['libelle_cedex']
-        self.codePaysEtrangerEtablissement = resultApi['etablissement_siege']['code_pays_etranger']
-        self.libellePaysEtrangerEtablissement = resultApi['etablissement_siege']['libelle_pays_etranger']
-        self.etatAdministratifUniteLegale = resultApi['etat_administratif']
-        self.statutDiffusionUniteLegale = resultApi['etablissement_siege']['statut_diffusion']
-        self.dateCreationUniteLegale = resultApi['etablissement_siege']['date_creation']
-        self.categorieJuridiqueUniteLegale = resultApi['categorie_juridique']
-        self.denominationUniteLegale = resultApi['denomination']
-        self.sigleUniteLegale = resultApi['sigle']
-        self.activitePrincipaleUniteLegale = resultApi['etablissement_siege'][
-            'activite_principale']
-        self.nomenclatureActivitePrincipaleUniteLegale = resultApi['etablissement_siege'][
-            'nomenclature_activite_principale']
-        self.caractereEmployeurUniteLegale = resultApi['etablissement_siege'][
-            'caractere_employeur']
-        self.trancheEffectifsUniteLegale = resultApi['etablissement_siege']['tranche_effectifs']
-        self.anneeEffectifsUniteLegale = resultApi['etablissement_siege']['annee_effectifs']
-        self.nicSiegeUniteLegale = resultApi['etablissement_siege']['nic']
-        self.categorieEntreprise = resultApi['activite_principale']
-        self.anneeCategorieEntreprise = resultApi['annee_categorie_entreprise']
 class InfoGreffe:
     def __init__(self, resultApi):
         self.millesime_1 = resultApi['millesime_1'] if 'millesime_1' in resultApi else None
