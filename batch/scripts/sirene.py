@@ -29,7 +29,7 @@ sql_update_siren_with_infogreffe = """UPDATE sirene
 
 
 def insert_info_api_siren(con, request):
-    print("DEBUT insert_info_api_siren")
+    logging.info("DEBUT insert_info_api_siren")
 
     result = con.execute(request);
     today = datetime.date.today()
@@ -78,13 +78,14 @@ def insert_info_api_siren(con, request):
 
             # mise à jour de la table sirene si on a réussi à récupérer des données
             if infoEtablissement is not None:
-                print("Mise à jour de la table sirene pour le siret : " + infoEtablissement.siret)
+                logging.info(f"AMise à jour de la table sirene pour le siret :  {id_siret[0]}")
                 update_table_sirene(con, id_siret, infoEtablissement, r, todayStr)
             else:
-                print("Aucune information trouvée pour le siret : " + id_siret[0])
+                logging.info(f"Aucune information trouvée pour le siret : {id_siret[0]}")
 
         except sqlalchemy.exc.IntegrityError as e:
-            logging.info(id_siret[0] + ' deja présent')
+            logging.warning(f"{id_siret[0]}  deja présent")
+
 
 
 def update_table_sirene(con, id_siret, infoEtablissement, r, todayStr):

@@ -5,7 +5,7 @@ import logging
 # *****************************
 
 #BASE DE DONNEE
-SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://user:password@152.228.212.208:60001/marches_publics?charset=utf8'
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://user:password@x.x.x.x:3306/marches_publics?charset=utf8'
 
 #URL
 URL_FICHIER_INFOS_GREFFE='https://www.data.gouv.fr/fr/datasets/r/8d5774e7-8106-427b-bb6b-790a59d272bd'
