@@ -8,7 +8,17 @@ $id_iframe = $_GET['widget'];
 }
 ///// Sécurisation
 $secured = false;
-if (is_numeric($_GET['i'])) $secured = true;
+if (is_numeric($_GET['i'])) { $secured = true;}
+
+if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+    $date_min = $_GET['date_min'];
+    $secured = true;
+}
+  
+if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+    $date_max = $_GET['date_max'];
+    $secured = true;
+}
 }
 
 if ($iframe == true){
@@ -25,12 +35,23 @@ if ($iframe == true){
 //    include('inc/nav.php');
     require_once('data/connect.php');
     require_once('data/model.php');
+    require_once('data/validateurs.php');
 
     $connect->set_charset("utf8");
 
 ///// Sécurisation
     $secured = false;
-    if (is_numeric($_GET['i'])) $secured = true;
+    if (is_numeric($_GET['i'])) { $secured = true; }
+
+    if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+        $date_min = $_GET['date_min'];
+        $secured = true;
+    }
+      
+    if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+        $date_min = $_GET['date_min'];
+        $secured = true;
+    }
 
     if ($secured == true)
     {
@@ -74,10 +95,8 @@ if ($iframe == true){
             <p>Répartition des contrats par nature du marché public, en montant et en nombre. La période observée est de <b><?php echo $nb_mois;?> mois</b> et les marchés sont groupés par mois. </p>
             <div class="columns sequence">
                 <?php
-                // $natures = getNatures2($connect, $id, $nb_mois);
-
-                $cats = getCategoriesPrincipales ($connect, $nb_mois, $id, "acheteur");
-                $natures = getNaturesAcheteurs($connect, $id, $nb_mois);
+                $cats = getCategoriesPrincipales ($connect, $nb_mois, $id, "acheteur", $date_min, $date_max);
+                $natures = getNaturesAcheteurs($connect, $id, $nb_mois, $date_min, $date_max);
                 foreach ($natures as $nature):
                     ?>
                     <div class="column">
@@ -147,7 +166,7 @@ if ($iframe == true){
     <?php
     for ($i=1; $i<5; $i++)
     {
-        $data = getNatureByDate($connect, $id, $i, $nb_mois);
+        $data = getNatureByDate($connect, $id, $i, $nb_mois, $date_min, $date_max);
         echo "barPlot('nature_$i', ["
             . $data['date'] . "], ["
             . $data['total'] . "], "

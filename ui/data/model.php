@@ -1326,20 +1326,31 @@ getNaturesAcheteurs
 2 Left join d'une surrequête qui filtre par l'id et la date
 Si on utilise un join sans sub requete, on aura tous les résultats de la base
 */
-function getNaturesAcheteurs($connect, $id = 0, $months = 12)
+function getNaturesAcheteurs($connect, $id = 0, $months = 12, $date_min = null, $date_max = null)
 {
+
+  $sub_request = "SELECT m.*
+             FROM marche m
+             INNER JOIN acheteur a
+              ON a.id_acheteur = m.id_acheteur
+             WHERE m.id_acheteur = $id
+             AND date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
+
+  if (isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)) {
+    $sub_request .= " AND date_notification BETWEEN '$date_min' AND '$date_max' ";
+  } else if (isset($date_min)) {
+    $sub_request .= " AND date_notification > '$date_min' ";
+  } else if (isset($date_max)) {
+    $sub_request .= " AND date_notification < '$date_max' ";
+  }
+
   $sql = "SELECT  n.id_nature,
                     COALESCE(COUNT(ma.id_marche),0) nb_nature,
                     COALESCE(SUM(ma.montant),0)  total,
                     nom_nature
           FROM nature n
           LEFT JOIN
-            (SELECT m.*
-             FROM marche m
-             INNER JOIN acheteur a
-              ON a.id_acheteur = m.id_acheteur
-             WHERE m.id_acheteur = $id
-             AND date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) )
+            ( $sub_request )
           ma ON n.id_nature = ma.id_nature
           GROUP BY nom_nature ORDER BY id_nature ASC ";
 
@@ -1423,7 +1434,7 @@ function getNaturesTitulaires($connect, $id = 0, $months = 12)
 getNatureByDate
 ----------------------------------
 */
-function getNatureByDate($connect, $id = 0, $id_nature = 0, $months = 12)
+function getNatureByDate($connect, $id = 0, $id_nature = 0, $months = 12, $date_min = null, $date_max = null)
 {
   if ($id_nature === 0)
     return "type de nature non valide";
@@ -1439,6 +1450,14 @@ function getNatureByDate($connect, $id = 0, $id_nature = 0, $months = 12)
 
   if ($id > 0)
     $sql .= " AND m.id_acheteur = $id ";
+
+    if (isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)) {
+      $sql .= " AND date_notification BETWEEN '$date_min' AND '$date_max' ";
+    } else if (isset($date_min)) {
+      $sql .= " AND date_notification > '$date_min' ";
+    } else if (isset($date_max)) {
+      $sql .= " AND date_notification < '$date_max' ";
+    }
 
   $sql .= "GROUP BY date ORDER BY date ASC";
 
