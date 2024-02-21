@@ -8,8 +8,19 @@ if (isset($_GET['widget'])) {
     }
     ///// Sécurisation
     $secured = false;
-    if (is_numeric($_GET['i']))
+    if (is_numeric($_GET['i'])){
         $secured = true;
+    }
+
+    if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+        $date_min = $_GET['date_min'];
+        $secured = true;
+    }
+
+    if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+        $date_max = $_GET['date_max'];
+        $secured = true;
+    }
 }
 
 if ($iframe == true) {
@@ -27,13 +38,25 @@ if ($iframe == true) {
     //    include('inc/nav.php');
     require_once('data/connect.php');
     require_once('data/model.php');
+    require_once('data/validateurs.php');
 
     $connect->set_charset("utf8");
 
     ///// Sécurisation
     $secured = false;
-    if (is_numeric($_GET['i']))
+    if (is_numeric($_GET['i'])){
         $secured = true;
+    }
+
+    if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+        $date_min = $_GET['date_min'];
+        $secured = true;
+    }
+
+    if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+        $date_max = $_GET['date_max'];
+        $secured = true;
+    }
 
     if ($secured == true) {
         $id = $_GET['i'];
@@ -77,10 +100,10 @@ if (isset($sirene['siren'])) {
 
     <?php
     //// Qui achète ?
-    $titulairesTotal = getTitulairesList($connect, 12, null, $id, $nb_mois);
-    $titulairesServices = getTitulairesList($connect, 12, 'services', $id, $nb_mois);
-    $titulairesTravaux = getTitulairesList($connect, 12, 'travaux', $id, $nb_mois);
-    $titulairesFournitures = getTitulairesList($connect, 12, 'fournitures', $id, $nb_mois);
+    $titulairesTotal = getTitulairesList($connect, 12, null, $id, $nb_mois,$date_min,$date_max);
+    $titulairesServices = getTitulairesList($connect, 12, 'services', $id, $nb_mois,$date_min,$date_max);
+    $titulairesTravaux = getTitulairesList($connect, 12, 'travaux', $id, $nb_mois,$date_min,$date_max);
+    $titulairesFournitures = getTitulairesList($connect, 12, 'fournitures', $id, $nb_mois,$date_min,$date_max);
     ?>
 
     <div class="container">
@@ -177,6 +200,8 @@ if (isset($sirene['siren'])) {
             $iframe_code_gen = "<iframe ";
             $iframe_code_gen .= "src=\"$url/../widget-acheteur-qui-realise.php?i=";
             $iframe_code_gen .= $id;
+            $iframe_code_gen .= isset($date_min) ? "&date_min=" . $date_min : "";
+            $iframe_code_gen .= isset($date_max) ? "&date_max=" . $date_max : "";
             $iframe_code_gen .= "&widget=1\" ";
             $iframe_code_gen .= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
             $iframe_code_gen .= "style=\"border: 0;\" ";
@@ -317,7 +342,21 @@ if (isset($sirene['siren'])) {
         $('#modalListe #enCharge').css('display', 'block');
         $('#modalListe').addClass('is-active');
 
-        tableList.ajax.url('data/getListTitulaires.php?m=<?php echo $nb_mois; ?>&i=<?php echo $id; ?>').load(function () {
+        let dateSelection = "";
+        const date_min = "<?php echo $date_min; ?>";
+        const date_max = "<?php echo $date_max; ?>";
+
+        if (date_min !== '') {
+            dateSelection += "&date_min=" + date_min
+        }
+        if (date_max !== '') {
+            dateSelection += "&date_max=" + date_max
+        }
+
+        console.log("id",<?php echo $id; ?>)
+        console.log("dateSelection",dateSelection)
+
+        tableList.ajax.url(`data/getListTitulaires.php?m=<?php echo $nb_mois; ?>&i=<?php echo $id; ?>${dateSelection}`).load(function () {
             if (tableList.data().length > 0) {
                 $('#modalMessageList').css('display', 'block');
                 $('#modalListe #enCharge').css('display', 'none');

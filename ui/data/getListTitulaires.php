@@ -12,6 +12,19 @@ $months = $_GET['m'];
 if ($months < 1)
   $months = 1;
 
+  # date (0 par défaut)
+  if (isset($_GET['date_min'])) {
+    $date_min = $_GET['date_min'];
+  } else {
+    $date_min = "0000-00-00";
+  }
+
+  if (isset($_GET['date_max'])) {
+    $date_max = $_GET['date_max'];
+  } else {
+    $date_max = "2119-01-01";
+  }
+
 // id acheteur (optionnel)
 $id = "%";
 if (isset($_GET['i'])) {
@@ -29,21 +42,20 @@ $connect->set_charset("utf8"); // nexesario pra real_escape_string
 
 
 try {
-
-  $stmt = $connect->prepare(
-    "SELECT t.id_titulaire id, t.denomination_sociale nom, sum(m.`montant`) montant
+  $sql = "SELECT t.id_titulaire id, t.denomination_sociale nom, sum(m.`montant`) montant
           FROM `marche` m
           INNER JOIN marche_titulaires mt ON m.id_marche = mt.id_marche
           INNER JOIN titulaire t ON mt.id_titulaires = t.id_titulaire
-          WHERE m.date_notification > '0000-00-00'
-          AND m.id_acheteur LIKE ?
+          WHERE m.id_acheteur LIKE ?
           AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL ? MONTH)
-          GROUP BY t.denomination_sociale
+          AND m.date_notification BETWEEN ? AND ?
+          GROUP BY t.denomination_sociale 
           ORDER BY nom ASC
-  "
-  );
+          ";
 
-  $stmt->bind_param("ss", $id, $months);
+  $stmt = $connect->prepare($sql);
+
+  $stmt->bind_param("ssss", $id, $months, $date_min, $date_max);
   $stmt->execute();
   $result = $stmt->get_result();
 
