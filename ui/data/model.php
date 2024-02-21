@@ -1147,13 +1147,21 @@ function getMoyenneCategoriesPrincipales($connect, $months = 12)
 getProcedures
 ----------------------------------
 */
-function getProcedures($connect, $id = 0, $months = 12)
+function getProcedures($connect, $id = 0, $months = 12, $date_min = null, $date_max = null)
 {
   $sql = "SELECT COUNT(nom_procedure) nb_procedure, SUM(montant) total, nom_procedure
           FROM marche m
           INNER JOIN procedure_marche pm on pm.id_procedure = m.id_procedure
           WHERE m.date_notification > '0000-00-00'
           AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
+
+  if(isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)){
+    $sql .= " AND m.date_notification BETWEEN '$date_min' AND '$date_max' ";
+  } else if (isset($date_min)){
+    $sql .= " AND m.date_notification > '$date_min' ";
+  } else if (isset($date_max)){
+    $sql .= " AND m.date_notification < '$date_max' ";
+  }
 
   if ($id > 0)
     $sql .= " AND m.id_acheteur = $id ";
