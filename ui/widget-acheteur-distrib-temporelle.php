@@ -10,8 +10,19 @@ if (isset($_GET['widget'])) {
     }
     ///// Sécurisation
     $secured = false;
-    if (is_numeric($_GET['i']))
+    if (is_numeric($_GET['i'])) {
         $secured = true;
+    }
+
+    if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+        $date_min = $_GET['date_min'];
+        $secured = true;
+    }
+      
+    if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+        $date_min = $_GET['date_min'];
+        $secured = true;
+    }
 }
 
 if ($iframe == true) {
@@ -28,19 +39,28 @@ if ($iframe == true) {
     //    include('inc/nav.php');
     require_once('data/connect.php');
     require_once('data/model.php');
+    require_once('data/validateurs.php');
 
     $connect->set_charset("utf8");
 
     ///// Sécurisation
     $secured = false;
-    if (is_numeric($_GET['i']))
+    if (is_numeric($_GET['i'])) {
         $secured = true;
+    }
+
+    if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+        $date_min = $_GET['date_min'];
+        $secured = true;
+    }
+      
+    if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+        $date_max = $_GET['date_max'];
+        $secured = true;
+    }
 
     if ($secured == true) {
         $id = $_GET['i'];
-        $nom = getNom($connect, $id);
-        $kpi = getKPI($connect, $id, $nb_mois, 0);
-        $marches = getDatesMontantsLieu($connect, $id, $nb_mois);
         $sirene = getDataSiretAcheteur($connect, $id);
         $revenuMoyenNational = getMedianeNiveauVie($connect);
 
@@ -300,8 +320,11 @@ if (isset($sirene['siren'])) {
 
     function ajaxCall() {
         $.ajax({
+            <?php
+            $date_max = isset($date_max) ? $date_max : "0";
+            ?>
             // Our sample url to make request
-            url: "data/getRecherche.php?libelle_cpv=&titulaire=0&acheteur=" + <?php echo $id; ?> + "&lieu=0&objet=&montant_min=0&montant_max=0&duree_min=0&duree_max=0&date_min=" + <?php echo '"' . $date_min . '"'; ?> + "&date_max=0&forme_prix=0&nature=0&procedure=0&code_cpv=",
+            url: "data/getRecherche.php?libelle_cpv=&titulaire=0&acheteur=" + <?php echo $id; ?> + "&lieu=0&objet=&montant_min=0&montant_max=0&duree_min=0&duree_max=0&date_min=" + <?php echo '"' . $date_min . '"'; ?> + "&date_max=" + <?php echo '"' . $date_max . '"'; ?> + "&forme_prix=0&nature=0&procedure=0&code_cpv=",
 
             // Type of Request
             type: "GET",
