@@ -250,6 +250,14 @@ Acheteurs
 .filtreDates select { width: 100%;  }
 .filtreDates p { padding: 0; }
 
+/* recherche bouton filtrer */
+.button-filtre-date { margin-top: 3rem;}
+@media screen and (max-width: 768px) {.button-filtre-date {
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+    margin-top: 1rem;
+    width: 255px;}
+}
 
 #mapa { margin: 20px auto 40px; box-shadow: 1px 1px 10px #aaa; width: 100%; height: 350px; }
 
@@ -672,6 +680,7 @@ mt-15 { margin-top: 15px; }
 .has-text-info {color: #515D6D; }
 
 .button.is-info { background-color: #515D6D;}
+
 /* button "voir" */
 td .button.is-info { background-color: #ffdd57; color: #444b54; }
 

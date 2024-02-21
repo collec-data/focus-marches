@@ -44,12 +44,31 @@ if ($secured == true) {
   <?php
   include('inc/nav.php');
 
+  //mise à jour périodicité si sélection de date min et max, surcharge la périodicité par défaut présente dans config.php
+  if(isset($date_min)) {
+  $debut = new DateTime($date_min);
+  }
+  if(!isset($date_max)) {
+    $fin = new DateTime(date('Y-m-d'));
+  } else {
+    $fin = new DateTime($date_max);
+  }
+  $fin = new DateTime($date_max);
+  $interval = $debut->diff($fin);
+  $yearsInMonths = $interval->format('%r%y') * 12;
+  $months = $interval->format('%r%m');
+  $nb_mois = $yearsInMonths + $months;
+
+  $donnees_a_partir_du = $formatter->format(new DateTime($date_min));
+
+ 
+
   $kpi = getKPI($connect, $id, $nb_mois, 0, $date_min, $date_max);
   $marches = getDatesMontantsLieu($connect, $id, $nb_mois, $date_min, $date_max);
   $sirene = getDataSiretAcheteur($connect, $id);
   $revenuMoyenNational = getMedianeNiveauVie($connect);
 
-  $default_value_date_min = isset($date_min) ? $date_min : "";
+  $default_value_date_min = isset($date_min) ? $date_min : null;
   $default_value_date_max = isset($date_max) ? $date_max : "";
 
   $url = strtok("$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", '?');
@@ -109,7 +128,7 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
               <label>Date max</label>
               <input id="in_date_max" type="date" value=<?=$default_value_date_max?> pattern="\d{4}-\d{2}-\d{2}">
             </div>
-            <button id="filtrerBoutonAcheteur" class="button is-info" type="button" role="button"
+            <button id="filtrerBoutonAcheteur" class="button is-info button-filtre-date" type="button" role="button"
               aria-label="search">Filtrer</button>
         </div>
       </div>
@@ -160,6 +179,24 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
 
   <?php include('js/common-js.php'); ?>
   <script type="text/javascript">
+
+    // Filtre date
+    $('#filtrerBoutonAcheteur').on('click', function () {
+      $('filtrerBoutonAcheteur').addClass('is-loading');
+
+      const date_min = $('#in_date_min').val();
+      const date_max = $('#in_date_max').val();
+
+      let dates_selection = '';
+      if (date_min) {
+        dates_selection += `&date_min=${date_min}`;
+      }
+      if (date_max) {
+        dates_selection += `&date_max=${date_max}`;
+      }
+
+      window.location.href = `acheteur.php?i=<?php echo $id; ?>${dates_selection}`;
+  });
 
 
     // Clipboard
