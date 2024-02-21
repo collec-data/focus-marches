@@ -111,6 +111,8 @@ if (isset($sirene['siren'])) {
             $iframe_code_gen = "<iframe ";
             $iframe_code_gen .= "src=\"$url/../widget-acheteur-distrib-temporelle.php?i=";
             $iframe_code_gen .= $id;
+            $iframe_code_gen .= isset($date_min) ? "&date_min=" . $date_min : "";
+            $iframe_code_gen .= isset($date_max) ? "&date_max=" . $date_max : "";
             $iframe_code_gen .= "&widget=1\" ";
             $iframe_code_gen .= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
             $iframe_code_gen .= "style=\"border: 0;\" ";
