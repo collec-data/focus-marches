@@ -63,13 +63,13 @@ $(document).ready(function () {
   var recherche = function (type, valeur) {
     /* Contrôle des montants min et max */
     if (parseInt($('#in_montant_min').val()) >= parseInt($('#in_montant_max').val())) {
-      alert("Le montant minimum est égal ou supérieure au montant maximum.\nVeuillez choissir un montant inférieur.");
+      alert("Le montant minimum est égal ou supérieure au montant maximum.\nVeuillez choisir un montant inférieur.");
       return;
     }
 
     /* Contrôle des durées min et max */
     if (parseInt($('#in_duree_min').val()) >= parseInt($('#in_duree_max').val())) {
-      alert("La durée minimum est égal ou supérieure à la durée maximum.\nVeuillez choissir une durée inférieure.");
+      alert("La durée minimum est égal ou supérieure à la durée maximum.\nVeuillez choisir une durée inférieure.");
       return;
     }
 
@@ -78,7 +78,7 @@ $(document).ready(function () {
     date_max = new Date($('#in_date_max').val());
 
     if (date_min >= date_max) {
-      alert("La date de début est égal ou supérieure à la date de fin. \nVeuillez choissir une date antérieure.");
+      alert("La date de début est égal ou supérieure à la date de fin. \nVeuillez choisir une date antérieure.");
       return;
     }
 
