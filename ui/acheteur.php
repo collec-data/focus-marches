@@ -188,7 +188,7 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
       const date_min = $('#in_date_min').val();
       const date_max = $('#in_date_max').val();
 
-      if (date_min >= date_max) {
+      if (date_min >= date_max && date_max !== '') {
         alert("La date de début est égal ou supérieure à la date de fin. \nVeuillez choisir une date antérieure.");
         return;
       }
