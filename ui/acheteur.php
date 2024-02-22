@@ -9,11 +9,12 @@ require_once('data/validateurs.php');
 
 ///// Sécurisation
 $secured = false;
-
-//TODO Date min et max
-
 if (is_numeric($_GET['i']))
   $secured = true;
+
+if(isset($_GET['hide_filter']) && is_bool($_GET['hide_filter']) && $_GET['hide_filter'] == true){
+  $secured = true;
+}
 
 if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
   $date_min = $_GET['date_min'];
@@ -26,7 +27,10 @@ if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) 
 }
 
 if ($secured == true) {
-
+  $hide_filter = false;
+  if($_GET['hide_filter'] == true){
+    $hide_filter = true;
+  }
   $id = $_GET['i'];
   $nom = getNom($connect, $id);
   $title = "Acheteur | Données essentielles du profil d'acheteur " . $nom;
@@ -61,8 +65,6 @@ if ($secured == true) {
 
   $donnees_a_partir_du = $formatter->format(new DateTime($date_min));
 
- 
-
   $kpi = getKPI($connect, $id, $nb_mois, 0, $date_min, $date_max);
   $marches = getDatesMontantsLieu($connect, $id, $nb_mois, $date_min, $date_max);
   $sirene = getDataSiretAcheteur($connect, $id);
@@ -88,6 +90,8 @@ $colter = false;
 if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
   $colter = true;
 }
+
+$hidden_filter = $hide_filter == true ? "hidden"  : ""
 
 ?>
 <div id="main">
@@ -118,7 +122,7 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
         <?php echo $nom; ?>
       </b>, enrichies avec des données complémentaires.</p>
 
-      <div class="filtreDates">
+      <div class="filtreDates" <?php echo $hidden_filter ?>>
         <div class="columns">
             <div class="column">
               <label>Date min</label>
@@ -265,12 +269,6 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
           $('#' + t + 'C').fadeIn('slow');
         }
       });
-
-      $('#filtresDate').on('click', function () {
-        $kpi = getKPI($connect, $id, $nb_mois, 0, $date_min, $date_max);
-        $marches = getDatesMontantsLieu($connect, $id, $nb_mois, $date_min, $date_max);
-  });
-
 
     }); // document ready
   </script>
