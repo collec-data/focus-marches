@@ -61,6 +61,8 @@ if ($iframe == true) {
 
     if ($secured == true) {
         $id = $_GET['i'];
+        $date_min = isset($date_min) ? $_GET['date_min'] : null;
+        $date_max = isset($date_max) ? $_GET['date_max'] : null;
         $sirene = getDataSiretAcheteur($connect, $id);
         $revenuMoyenNational = getMedianeNiveauVie($connect);
 
@@ -154,12 +156,6 @@ if (isset($sirene['siren'])) {
     -----------------------------------------------
     Récupérer les données de la table et les convertir pour le graphique
     */
-    <?php
-    $date_min = date("Y-m", strtotime("-$nb_mois months"));
-    ?>
-
-
-
     var createTimeline = function (t) {
         var x_serv = [], y_serv = [], text_serv = [];
         var x_trav = [], y_trav = [], text_trav = [];
@@ -318,15 +314,18 @@ if (isset($sirene['siren'])) {
         Plotly.newPlot('rechercheTempChart', data, layout, optionsPlotly);
     };
 
+    <?php
+    $date_min_tab = isset($date_min) ? $date_min : date("Y-m", strtotime("-$nb_mois months"));
+    $date_max_tab = isset($date_max) ? $date_max : 0;
+    ?>
 
+    function ajaxCallTemporel() {
 
-    function ajaxCall() {
+        const url_s = "data/getRecherche.php?libelle_cpv=&titulaire=0&acheteur=" + <?php echo $id; ?> + "&lieu=0&objet=&montant_min=0&montant_max=0&duree_min=0&duree_max=0&date_min=" + <?php echo '"' . $date_min_tab . '"'; ?> + "&date_max=" + <?php echo '"' . $date_max_tab . '"'; ?> + "&forme_prix=0&nature=0&procedure=0&code_cpv="
+        console.log(url_s);
         $.ajax({
-            <?php
-            $date_max = isset($date_max) ? $date_max : "0";
-            ?>
             // Our sample url to make request
-            url: "data/getRecherche.php?libelle_cpv=&titulaire=0&acheteur=" + <?php echo $id; ?> + "&lieu=0&objet=&montant_min=0&montant_max=0&duree_min=0&duree_max=0&date_min=" + <?php echo '"' . $date_min . '"'; ?> + "&date_max=" + <?php echo '"' . $date_max . '"'; ?> + "&forme_prix=0&nature=0&procedure=0&code_cpv=",
+            url: url_s,
 
             // Type of Request
             type: "GET",
@@ -341,8 +340,9 @@ if (isset($sirene['siren'])) {
             error: function (error) {
             }
         });
+        
     }
-    ajaxCall();
+    ajaxCallTemporel();
 
     /* --------------------------------------
       Table de marchés
