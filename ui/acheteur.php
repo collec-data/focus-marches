@@ -73,10 +73,15 @@ if ($secured == true) {
   $default_value_date_min = isset($date_min) ? $date_min : null;
   $default_value_date_max = isset($date_max) ? $date_max : "";
 
+  $hidden_filter = $hide_filter == true ? "hidden"  : "";
+
   $url = strtok("$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", '?');
   $iframe_code = "<iframe ";
   $iframe_code .= "src=\"$url?i=";
   $iframe_code .= $id;
+  $iframe_code .= isset($date_min) ? "&date_min=" . $date_min : "";
+  $iframe_code .= isset($date_max) ? "&date_max=" . $date_max : "";
+  $iframe_code .= "&hide_filter=" . ($hide_filter == true ? "true" : "false" );
   $iframe_code .= "\" ";
   $iframe_code .= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
   $iframe_code .= "style=\"border: 0;\" ";
@@ -90,8 +95,6 @@ $colter = false;
 if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
   $colter = true;
 }
-
-$hidden_filter = $hide_filter == true ? "hidden"  : ""
 
 ?>
 <div id="main">
