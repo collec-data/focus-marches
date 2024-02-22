@@ -8,7 +8,7 @@ if (isset($_GET['widget'])) {
     }
     ///// Sécurisation
     $secured = false;
-    if (is_numeric($_GET['i'])){
+    if (is_numeric($_GET['i'])) {
         $secured = true;
     }
 
@@ -44,7 +44,7 @@ if ($iframe == true) {
 
     ///// Sécurisation
     $secured = false;
-    if (is_numeric($_GET['i'])){
+    if (is_numeric($_GET['i'])) {
         $secured = true;
     }
 
@@ -60,6 +60,8 @@ if ($iframe == true) {
 
     if ($secured == true) {
         $id = $_GET['i'];
+        $date_min = isset($date_min) ? $_GET['date_min'] : null;
+        $date_max = isset($date_max) ? $_GET['date_max'] : null;
         $nom = getNom($connect, $id);
         $kpi = getKPI($connect, $id, $nb_mois, 0);
         $marches = getDatesMontantsLieu($connect, $id, $nb_mois);
@@ -100,10 +102,10 @@ if (isset($sirene['siren'])) {
 
     <?php
     //// Qui achète ?
-    $titulairesTotal = getTitulairesList($connect, 12, null, $id, $nb_mois,$date_min,$date_max);
-    $titulairesServices = getTitulairesList($connect, 12, 'services', $id, $nb_mois,$date_min,$date_max);
-    $titulairesTravaux = getTitulairesList($connect, 12, 'travaux', $id, $nb_mois,$date_min,$date_max);
-    $titulairesFournitures = getTitulairesList($connect, 12, 'fournitures', $id, $nb_mois,$date_min,$date_max);
+    $titulairesTotal = getTitulairesList($connect, 12, null, $id, $nb_mois, $date_min, $date_max);
+    $titulairesServices = getTitulairesList($connect, 12, 'services', $id, $nb_mois, $date_min, $date_max);
+    $titulairesTravaux = getTitulairesList($connect, 12, 'travaux', $id, $nb_mois, $date_min, $date_max);
+    $titulairesFournitures = getTitulairesList($connect, 12, 'fournitures', $id, $nb_mois, $date_min, $date_max);
     ?>
 
     <div class="container">
@@ -284,7 +286,8 @@ if (isset($sirene['siren'])) {
         [<?php echo implode(',', array_column($titulairesTotal, 2)); ?>]);
 
     <?php
-    $noms = ""; foreach ($titulairesServices as $a)
+    $noms = "";
+    foreach ($titulairesServices as $a)
         $noms .= '"' . coupe($a[0], 24) . '",';
     ?>
     setQui('topTitulairesServices',
@@ -292,7 +295,8 @@ if (isset($sirene['siren'])) {
         [<?php echo implode(',', array_column($titulairesServices, 2)); ?>]);
 
     <?php
-    $noms = ""; foreach ($titulairesTravaux as $a)
+    $noms = "";
+    foreach ($titulairesTravaux as $a)
         $noms .= '"' . coupe($a[0], 24) . '",';
     ?>
     setQui('topTitulairesTravaux',
@@ -300,7 +304,8 @@ if (isset($sirene['siren'])) {
         [<?php echo implode(',', array_column($titulairesTravaux, 2)); ?>]);
 
     <?php
-    $noms = ""; foreach ($titulairesFournitures as $a)
+    $noms = "";
+    foreach ($titulairesFournitures as $a)
         $noms .= '"' . coupe($a[0], 24) . '",';
     ?>
     setQui('topTitulairesFournitures',
@@ -342,21 +347,19 @@ if (isset($sirene['siren'])) {
         $('#modalListe #enCharge').css('display', 'block');
         $('#modalListe').addClass('is-active');
 
+        <?php $date_min = isset($date_min) ? $date_min :  null;?>
+        <?php $date_max = isset($date_max) ? $date_max :  null;?>
+
         let dateSelection = "";
         const date_min = "<?php echo $date_min; ?>";
         const date_max = "<?php echo $date_max; ?>";
 
-        if (date_min !== '') {
-            dateSelection += "&date_min=" + date_min
-        }
-        if (date_max !== '') {
-            dateSelection += "&date_max=" + date_max
-        }
+        dateSelection += (date_min !=='' ? "&date_min=" + date_min : '');
+        dateSelection += (date_max !== '' ? "&date_max=" + date_max : '');
+        
+        const url = "data/getListTitulaires.php?m=<?php echo $nb_mois; ?>&i=<?php echo $id; ?>"+dateSelection
 
-        console.log("id",<?php echo $id; ?>)
-        console.log("dateSelection",dateSelection)
-
-        tableList.ajax.url(`data/getListTitulaires.php?m=<?php echo $nb_mois; ?>&i=<?php echo $id; ?>${dateSelection}`).load(function () {
+        tableList.ajax.url(url).load(function () {
             if (tableList.data().length > 0) {
                 $('#modalMessageList').css('display', 'block');
                 $('#modalListe #enCharge').css('display', 'none');
