@@ -28,6 +28,7 @@ select
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 require_once('connect.php');
 require_once('model.php');
+require_once('validateurs.php');
 $connect->set_charset("utf8");
 
 # Préparer paramètres
@@ -76,11 +77,16 @@ if (!$duree_max || $duree_max < 1 || $duree_max < $duree_min)
   $duree_max = 10000000000000;
 
 # date (0 par défaut)
-$date_min = $_GET['date_min'];
-if (!$date_min || $date_min == 0 || $date_min < "2019-01-01")
+if(isset($_GET['date_min']) && is_date($_GET['date_min'])){
+  $date_min = $_GET['date_min'];
+}
+else if (!$date_min || $date_min == 0 || $date_min < "2019-01-01")
   $date_min = "2019-01-01";
-$date_max = $_GET['date_max'];
-if (!$date_max || $date_max < 1 || $date_max < $date_min)
+
+if(isset($_GET['date_max']) && is_date($_GET['date_max'])){
+  $date_max = $_GET['date_max'];
+}
+else if (!$date_max || $date_max < 1 || $date_max < $date_min)
   $date_max = "2119-01-01";
 
 # forme de prix (0 == tous)

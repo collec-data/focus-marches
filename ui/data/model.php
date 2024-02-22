@@ -1,7 +1,7 @@
 <?php
 
 //// Afficher ou pas les infos de debug :
-$debug = true;
+$debug = false;
 
 
 /* -------------------------------
@@ -237,12 +237,12 @@ function getKPI($connect, $id = 0, $months = 0, $dept = 0, $date_min = null, $da
   if (isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)) {
     $sql .= " AND date_notification BETWEEN '$date_min' AND '$date_max' ";
   } else if (isset($date_min)) {
-    $sql .= "AND m.date_notification > '$date_min' ";
+    $sql .= " AND m.date_notification > '$date_min' ";
   } else if (isset($date_max)) {
-    $sql .= "AND m.date_notification < '$date_max' ";
+    $sql .= " AND m.date_notification < '$date_max' ";
   }
 
-  if ($months > 0){
+  if ($months > 0) {
     $sql .= " AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
   }
   if ($dept > 0) {
@@ -427,7 +427,7 @@ function getDatesMontantsLieu($connect, $nom = null, $months = 0, $date_min = nu
   FROM marche m
   INNER JOIN acheteur a ON m.id_acheteur = a.id_acheteur
   WHERE a.nom_acheteur = '" . $nom . "' ";
-   //TODO : voir si intérêt ?
+  //TODO : voir si intérêt ?
   if (isset($date_min) && isset($date_max)) {
     $sql .= " AND m.date_notification > '$date_min' AND m.date_notification < '$date_max' ";
   } else if (isset($date_min)) {
@@ -615,11 +615,11 @@ function getTitulairesList($connect, $nb = 5, $categorie = null, $id_acheteur = 
   WHERE m.date_notification > '0000-00-00'
   AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
 
-  if(isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)){
+  if (isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)) {
     $sql .= " AND m.date_notification BETWEEN '$date_min' AND '$date_max' ";
-  } else if (isset($date_min)){
+  } else if (isset($date_min)) {
     $sql .= " AND m.date_notification > '$date_min' ";
-  } else if (isset($date_max)){
+  } else if (isset($date_max)) {
     $sql .= " AND m.date_notification < '$date_max' ";
   }
 
@@ -895,7 +895,7 @@ function getListByTypeArrZeros($connect, $type = null, $months = 12, $id = 0, $d
           FROM marche 
           WHERE date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL 35 MONTH) AND date_notification < CURRENT_DATE() ";
 
-  if (isset($date_min) && is_date($date_min) && isset($date_max)  && is_date($date_max)) {
+  if (isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)) {
     $sql .= " AND date_notification > '$date_min' AND date_notification < '$date_max' ";
   } else if (isset($date_min)) {
     $sql .= " AND date_notification > '$date_min' ";
@@ -927,14 +927,14 @@ function getListByTypeArrZeros($connect, $type = null, $months = 12, $id = 0, $d
       // parcours des résultats de la requêtes
       while ($r = mysqli_fetch_assoc($result)) {
         //si tant que le mois n'a pas été remonté par le sql, alors on possitionne les montants et nombre à 0
-        while ( $index_month != -1 && $last_months[$index_month] != $r['dates']) {
+        while ($index_month != -1 && $last_months[$index_month] != $r['dates']) {
           $dates[] = '"' . $last_months[$index_month] . '"';
           $montants[] = 0;
           $nombre[] = 0;
           $index_month--; // on passe au mois suivant
         }
 
-        if($index_month != -1) { 
+        if ($index_month != -1) {
           $dates[] = '"' . $r['dates'] . '"';
           $montants[] = $r['montants'];
           $nombre[] = $r['nombre'];
@@ -1155,11 +1155,11 @@ function getProcedures($connect, $id = 0, $months = 12, $date_min = null, $date_
           WHERE m.date_notification > '0000-00-00'
           AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
 
-  if(isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)){
+  if (isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)) {
     $sql .= " AND m.date_notification BETWEEN '$date_min' AND '$date_max' ";
-  } else if (isset($date_min)){
+  } else if (isset($date_min)) {
     $sql .= " AND m.date_notification > '$date_min' ";
-  } else if (isset($date_max)){
+  } else if (isset($date_max)) {
     $sql .= " AND m.date_notification < '$date_max' ";
   }
 
@@ -1459,13 +1459,13 @@ function getNatureByDate($connect, $id = 0, $id_nature = 0, $months = 12, $date_
   if ($id > 0)
     $sql .= " AND m.id_acheteur = $id ";
 
-    if (isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)) {
-      $sql .= " AND date_notification BETWEEN '$date_min' AND '$date_max' ";
-    } else if (isset($date_min)) {
-      $sql .= " AND date_notification > '$date_min' ";
-    } else if (isset($date_max)) {
-      $sql .= " AND date_notification < '$date_max' ";
-    }
+  if (isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)) {
+    $sql .= " AND date_notification BETWEEN '$date_min' AND '$date_max' ";
+  } else if (isset($date_min)) {
+    $sql .= " AND date_notification > '$date_min' ";
+  } else if (isset($date_max)) {
+    $sql .= " AND date_notification < '$date_max' ";
+  }
 
   $sql .= "GROUP BY date ORDER BY date ASC";
 
