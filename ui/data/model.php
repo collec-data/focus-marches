@@ -1351,9 +1351,11 @@ function getNaturesAcheteurs($connect, $id = 0, $months = 12, $date_min = null, 
              FROM marche m
              INNER JOIN acheteur a
               ON a.id_acheteur = m.id_acheteur
-             WHERE m.id_acheteur = $id
-             AND date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
+             WHERE m.id_acheteur = $id";
 
+  if($months > 0){
+    $sub_request .= " AND date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
+  }
   if (isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)) {
     $sub_request .= " AND date_notification BETWEEN '$date_min' AND '$date_max' ";
   } else if (isset($date_min)) {
@@ -1462,9 +1464,11 @@ function getNatureByDate($connect, $id = 0, $id_nature = 0, $months = 12, $date_
         FROM `marche` m
         LEFT JOIN nature n ON n.id_nature = m.id_nature
         WHERE m.date_notification > '0000-00-00'
-        AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)
-        AND n.id_nature = $id_nature
-        AND date_notification > '0000-00-00' ";
+        AND n.id_nature = $id_nature";
+
+  if($months > 0){
+    $sql .= " AND date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)";
+  }
 
   if ($id > 0)
     $sql .= " AND m.id_acheteur = $id ";
