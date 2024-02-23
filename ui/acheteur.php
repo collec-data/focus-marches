@@ -28,7 +28,7 @@ if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) 
 
 if ($secured == true) {
   $hide_filter = false;
-  if($_GET['hide_filter'] == true){
+  if(isset($_GET['hide_filter']) && $_GET['hide_filter'] == true){
     $hide_filter = true;
   }
   $id = $_GET['i'];
@@ -196,7 +196,7 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
       const date_max = $('#in_date_max').val();
 
       if (date_min >= date_max && date_max !== '') {
-        alert("La date de début est égal ou supérieure à la date de fin. \nVeuillez choisir une date antérieure.");
+        alert("La date de début est égale ou supérieure à la date de fin. \nVeuillez choisir une date antérieure.");
         return;
       }
 

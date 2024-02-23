@@ -353,14 +353,23 @@ if (isset($sirene['siren'])) {
         let dateSelection = "";
         const date_min = "<?php echo $date_min; ?>";
         const date_max = "<?php echo $date_max; ?>";
+        const nb_mois = "<?php echo $nb_mois; ?>";
+        const id_acheteur = "<?php echo $id; ?>";
 
         dateSelection += (date_min !=='' ? "&date_min=" + date_min : '');
         dateSelection += (date_max !== '' ? "&date_max=" + date_max : '');
-        
-        const url = "data/getListTitulaires.php?m=<?php echo $nb_mois; ?>&i=<?php echo $id; ?>"+dateSelection
 
+        mois = nb_mois > 0 ? "&m=" + nb_mois : '';
+        let parameters = "?i=" + id_acheteur + mois + dateSelection;
+
+        const url = "data/getListTitulaires.php"+parameters
         tableList.ajax.url(url).load(function () {
             if (tableList.data().length > 0) {
+                $('#modalMessageList').css('display', 'block');
+                $('#modalListe #enCharge').css('display', 'none');
+            }
+            if (tableList.data().length === 0) {
+                $('#modalMessageList').html("<p class='text-center' >Aucun fournisseur trouvé.</p>");
                 $('#modalMessageList').css('display', 'block');
                 $('#modalListe #enCharge').css('display', 'none');
             }

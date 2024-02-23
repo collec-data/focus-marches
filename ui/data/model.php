@@ -1,5 +1,5 @@
 <?php
-
+require_once('modelUtils.php');
 //// Afficher ou pas les infos de debug :
 $debug = false;
 
@@ -611,24 +611,26 @@ function getTitulairesList($connect, $nb = 5, $categorie = null, $id_acheteur = 
   $sql = "SELECT t.denomination_sociale nom, categorie, sum(m.`montant`) montant
   FROM `marche` m
   INNER JOIN marche_titulaires mt ON mt.id_marche = m.id_marche
-  INNER JOIN titulaire t ON t.id_titulaire = mt.id_titulaires
-  WHERE m.date_notification > '0000-00-00'
-  AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
+  INNER JOIN titulaire t ON t.id_titulaire = mt.id_titulaires";
+
+  if($months >0){
+    $sql = appendCondition($sql,"m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)");
+  }
 
   if (isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)) {
-    $sql .= " AND m.date_notification BETWEEN '$date_min' AND '$date_max' ";
+    $sql = appendCondition($sql,"m.date_notification BETWEEN '$date_min' AND '$date_max' ");
   } else if (isset($date_min)) {
-    $sql .= " AND m.date_notification > '$date_min' ";
+    $sql = appendCondition($sql," m.date_notification > '$date_min' ");
   } else if (isset($date_max)) {
-    $sql .= " AND m.date_notification < '$date_max' ";
+    $sql = appendCondition($sql,"m.date_notification < '$date_max' ");
   }
 
   if ($categorie) {
-    $sql .= " AND categorie = '" . $categorie . "' ";
+    appendCondition($sql,"categorie = '" . $categorie . "' ");
   }
 
   if ($id_acheteur > 0) {
-    $sql .= " AND m.id_acheteur = '" . $id_acheteur . "' ";
+    appendCondition($sql,"m.id_acheteur = '" . $id_acheteur . "' ");
   }
 
   $sql .= " GROUP BY nom ";
@@ -753,8 +755,6 @@ function getCategoriesPrincipales($connect, $months = 12, $id = 0, $version = "a
   $cats->totalMontant = array_sum($cats->tousMarches['montants']);
   $cats->totalNombre = array_sum($cats->tousMarches['nombre']);
 
-  // d($cats);
-
   return $cats;
 }
 
@@ -824,7 +824,7 @@ function getListByTypeArr($connect, $type = null, $months = 12, $id = 0)
 {
   $sql = "SELECT SUBSTR(date_notification, 1, 7) dates, sum(montant) montant, count(id) nombre
           FROM marche m
-          WHERE m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
+          WHERE m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL 35 MONTH) ";
   if (isset($type))
     $sql .= " AND m.categorie = '" . $type . "' ";
 
@@ -879,6 +879,8 @@ function genLastMonths($month = 36)
 }
 
 
+
+
 /* -------------------------------
 getListByTypeArrZeros
 ----------------------------------
@@ -892,22 +894,27 @@ function getListByTypeArrZeros($connect, $type = null, $months = 12, $id = 0, $d
 {
 
   $sql = "SELECT SUBSTR(date_notification, 1, 7) AS dates, COALESCE(SUM(montant), 0) montants, COALESCE(COUNT(id), 0) nombre, categorie 
-          FROM marche 
-          WHERE date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL 35 MONTH) AND date_notification < CURRENT_DATE() ";
+          FROM marche";
 
-  if (isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)) {
-    $sql .= " AND date_notification > '$date_min' AND date_notification < '$date_max' ";
-  } else if (isset($date_min)) {
-    $sql .= " AND date_notification > '$date_min' ";
-  } else if (isset($date_max)) {
-    $sql .= " AND date_notification < '$date_max' ";
+  if($months > 0){
+  $sql = appendCondition($sql,"date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)");
   }
 
-  if (isset($type))
-    $sql .= " AND categorie = '" . $type . "'";
+if (isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)) {
+  $sql = appendCondition($sql,"date_notification BETWEEN '$date_min' AND '$date_max'");
+} else if (isset($date_min)) {
+  $sql = appendCondition($sql,"date_notification > '$date_min'  ");
+} else if (isset($date_max)) {
+  $sql = appendCondition($sql,"date_notification < '$date_max' ");
+} else {
+  $sql =appendCondition($sql,"date_notification < CURRENT_DATE()");
+}
 
-  if ($id > 0)
-    $sql .= " AND id_acheteur = '" . $id . "' ";
+if (isset($type))
+  $sql =appendCondition($sql,"categorie = '" . $type . "'");
+
+if ($id > 0)
+  $sql =appendCondition($sql,"id_acheteur = '" . $id . "' ");
 
   $sql .= " GROUP BY SUBSTR(date_notification, 1, 7) ORDER BY dates ASC";
 
@@ -967,8 +974,6 @@ function getListByTypeArrZeros($connect, $type = null, $months = 12, $id = 0, $d
   );
 }
 
-
-
 /* -------------------------------
 getListByTypeArrZerosTitulaires
 ----------------------------------
@@ -978,22 +983,27 @@ function getListByTypeArrZerosTitulaires($connect, $type = null, $months = 12, $
 {
   $sql = "SELECT SUBSTR(date_notification, 1, 7) AS dates, COALESCE(SUM(montant), 0) montants, COALESCE(COUNT(id), 0) nombre, categorie 
           FROM marche m
-          INNER JOIN marche_titulaires mt ON mt.id_marche = m.id_marche 
-          WHERE date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL 35 MONTH) AND date_notification < CURRENT_DATE()";
+          INNER JOIN marche_titulaires mt ON mt.id_marche = m.id_marche";
 
-  if (isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_min)) {
-    $sql .= " AND date_notification > '$date_min' AND date_notification < '$date_max' ";
+  if($months > 0){
+    $sql =appendCondition($sql,"m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)");
+  }
+
+  if (isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)) {
+    $sql =appendCondition($sql,"m.date_notification BETWEEN '$date_min' AND '$date_max'");
   } else if (isset($date_min)) {
-    $sql .= " AND date_notification > '$date_min' ";
+    $sql =appendCondition($sql,"m.date_notification > '$date_min'  ");
   } else if (isset($date_max)) {
-    $sql .= " AND date_notification < '$date_max' ";
+    $sql =appendCondition($sql,"m.date_notification < '$date_max' ");
+  } else {
+    $sql =appendCondition($sql,"m.date_notification < CURRENT_DATE()");
   }
 
   if (isset($type))
-    $sql .= " AND categorie = '" . $type . "'";
+  $sql =appendCondition($sql,"categorie = '" . $type . "'");
 
   if ($id > 0)
-    $sql .= " AND mt.id_titulaires = '" . $id . "' ";
+  $sql =appendCondition($sql,"mt.id_titulaires = '" . $id . "' ");
 
   $sql .= " GROUP BY SUBSTR(date_notification, 1, 7) ORDER BY dates ASC";
 
