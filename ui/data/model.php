@@ -242,7 +242,7 @@ function getKPI($connect, $id = 0, $months = 0, $dept = 0, $date_min = null, $da
     $sql .= " AND m.date_notification < '$date_max' ";
   }
 
-  if ($months > 0) {
+  if($months > 0 && ((!isset($date_min) && !is_date($date_min)) || (!isset($date_max) && !is_date($date_max)))){
     $sql .= " AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
   }
   if ($dept > 0) {
@@ -427,14 +427,15 @@ function getDatesMontantsLieu($connect, $nom = null, $months = 0, $date_min = nu
   FROM marche m
   INNER JOIN acheteur a ON m.id_acheteur = a.id_acheteur
   WHERE a.nom_acheteur = '" . $nom . "' ";
-  //TODO : voir si intérêt ?
   if (isset($date_min) && isset($date_max)) {
     $sql .= " AND m.date_notification > '$date_min' AND m.date_notification < '$date_max' ";
   } else if (isset($date_min)) {
     $sql .= " AND m.date_notification > '$date_min' ";
   } else if (isset($date_max)) {
     $sql .= " AND m.date_notification < '$date_max' ";
-  } else {
+  }
+  
+  if($months > 0 && ((!isset($date_min) && !is_date($date_min)) || (!isset($date_max) && !is_date($date_max)))){
     $sql .= " AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
   }
 
@@ -613,7 +614,7 @@ function getTitulairesList($connect, $nb = 5, $categorie = null, $id_acheteur = 
   INNER JOIN marche_titulaires mt ON mt.id_marche = m.id_marche
   INNER JOIN titulaire t ON t.id_titulaire = mt.id_titulaires";
 
-  if($months >0){
+  if($months > 0 && ((!isset($date_min) && !is_date($date_min)) || (!isset($date_max) && !is_date($date_max)))){
     $sql = appendCondition($sql,"m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)");
   }
 
@@ -896,7 +897,7 @@ function getListByTypeArrZeros($connect, $type = null, $months = 12, $id = 0, $d
   $sql = "SELECT SUBSTR(date_notification, 1, 7) AS dates, COALESCE(SUM(montant), 0) montants, COALESCE(COUNT(id), 0) nombre, categorie 
           FROM marche";
 
-  if($months > 0){
+if($months > 0 && ((!isset($date_min) && !is_date($date_min)) || (!isset($date_max) && !is_date($date_max)))){
   $sql = appendCondition($sql,"date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)");
   }
 
@@ -985,7 +986,7 @@ function getListByTypeArrZerosTitulaires($connect, $type = null, $months = 12, $
           FROM marche m
           INNER JOIN marche_titulaires mt ON mt.id_marche = m.id_marche";
 
-  if($months > 0){
+  if($months > 0 && ((!isset($date_min) && !is_date($date_min)) || (!isset($date_max) && !is_date($date_max)))){
     $sql =appendCondition($sql,"m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)");
   }
 
@@ -1164,7 +1165,7 @@ function getProcedures($connect, $id = 0, $months = 12, $date_min = null, $date_
           INNER JOIN procedure_marche pm on pm.id_procedure = m.id_procedure
           WHERE m.date_notification > '0000-00-00'";
 
-  if ($months > 0){
+  if($months > 0 && ((!isset($date_min) && !is_date($date_min)) || (!isset($date_max) && !is_date($date_max)))){
     $sql .= " AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
   }
   if (isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)) {
@@ -1355,7 +1356,7 @@ function getNaturesAcheteurs($connect, $id = 0, $months = 12, $date_min = null, 
               ON a.id_acheteur = m.id_acheteur
              WHERE m.id_acheteur = $id";
 
-  if($months > 0){
+  if($months > 0 && ((!isset($date_min) && !is_date($date_min)) || (!isset($date_max) && !is_date($date_max)))){
     $sub_request .= " AND date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
   }
   if (isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)) {
@@ -1468,7 +1469,7 @@ function getNatureByDate($connect, $id = 0, $id_nature = 0, $months = 12, $date_
         WHERE m.date_notification > '0000-00-00'
         AND n.id_nature = $id_nature";
 
-  if($months > 0){
+  if($months > 0 && ((!isset($date_min) && !is_date($date_min)) || (!isset($date_max) && !is_date($date_max)))){
     $sql .= " AND date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)";
   }
 

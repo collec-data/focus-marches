@@ -51,7 +51,7 @@ try {
   $params[] = $id;
   $types .= "s";
 
-  if($months > 0){
+  if($months > 0 && ((!isset($date_min) && !is_date($date_min)) || (!isset($date_max) && !is_date($date_max)))){
     $sql .= " AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL ? MONTH)";
     $params[] = $months;
     $types .= "d";
