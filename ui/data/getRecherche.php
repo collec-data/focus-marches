@@ -80,14 +80,16 @@ if (!$duree_max || $duree_max < 1 || $duree_max < $duree_min)
 if(isset($_GET['date_min']) && is_date($_GET['date_min'])){
   $date_min = $_GET['date_min'];
 }
-else if (!$date_min || $date_min == 0 || $date_min < "2019-01-01")
+else if (!isset($date_min) || !$date_min || $date_min == 0 || $date_min < "2019-01-01"){
   $date_min = "2019-01-01";
+}
 
 if(isset($_GET['date_max']) && is_date($_GET['date_max'])){
   $date_max = $_GET['date_max'];
 }
-else if (!$date_max || $date_max < 1 || $date_max < $date_min)
+else if (!isset($date_max) || $date_max < 1 || $date_max < $date_min) {
   $date_max = "2119-01-01";
+}
 
 # forme de prix (0 == tous)
 $id_forme_prix = $_GET['forme_prix'];
