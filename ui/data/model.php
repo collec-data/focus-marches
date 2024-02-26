@@ -1,5 +1,6 @@
 <?php
 require_once('modelUtils.php');
+require_once('validateurs.php');
 //// Afficher ou pas les infos de debug :
 $debug = false;
 
