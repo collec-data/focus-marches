@@ -78,7 +78,7 @@ $(document).ready(function () {
     date_max = new Date($('#in_date_max').val());
 
     if (date_min >= date_max) {
-      alert("La date de début est égal ou supérieure à la date de fin. \nVeuillez choisir une date antérieure.");
+      alert("La date de début est égale ou supérieure à la date de fin. \nVeuillez choisir une date antérieure.");
       return;
     }
 
