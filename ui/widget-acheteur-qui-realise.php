@@ -110,9 +110,9 @@ if (isset($sirene['siren'])) {
 
     <div class="container">
         <h3>Qui a réalisé les marchés ?</h3>
-        <p>Top 12 des fournisseurs classés par montant total des contrats remportés au cours des <b>
-                <?php echo $nb_mois; ?> derniers mois
-            </b>. Survolez les noms des fournisseurs pour les afficher en entier.</p>
+        <p>Top 12 des fournisseurs classés par montant total des contrats remportés au cours
+            <?php echo $nb_mois > 0 ? "des <b>" . $nb_mois . " derniers mois</b>." : "de la période du <b>". date("d-m-Y",strtotime($date_min)) . "</b> au <b>" . date("d-m-Y",strtotime($date_max)) ."</b>.";?>
+            Survolez les noms des fournisseurs pour les afficher en entier.</p>
         <div id="titulaires">
             <ul class="tab-container">
                 <li class="tab-link current" data-tab="tab-t1">Tous les marchés</li>

@@ -92,7 +92,7 @@ if ($iframe == true){
 
         <div class="container">
             <h3>Nature des marchés</h3>
-            <p>Répartition des contrats par nature du marché public, en montant et en nombre. La période observée est de <b><?php echo $nb_mois;?> mois</b> et les marchés sont groupés par mois. </p>
+            <p>Répartition des contrats par nature du marché public, en montant et en nombre. La période observée <?php echo $nb_mois > 0 ? "est de <b>" . $nb_mois . " mois</b> et les marchés sont groupés par mois." : "est du <b>". date("d-m-Y",strtotime($date_min)) . "</b> au <b>" . date("d-m-Y",strtotime($date_max)) ."</b>.";?></p>
             <div class="columns sequence">
                 <?php
                 $cats = getCategoriesPrincipales ($connect, $nb_mois, $id, "acheteur", $date_min, $date_max);

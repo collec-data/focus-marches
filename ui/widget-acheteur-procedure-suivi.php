@@ -96,7 +96,7 @@ if ($iframe == true){
         <div class="container">
 
             <h3>Procédure suivie</h3>
-            <p>Classement des contrats selon la procédure suivie lors de la consultation. La période observée est de <b><?php echo $nb_mois;?> mois</b> </p>
+            <p>Classement des contrats selon la procédure suivie lors de la consultation. La période observée <?php echo $nb_mois > 0 ? "est de <b>" . $nb_mois . " mois</b>." : "est du <b>". date("d-m-Y",strtotime($date_min)) . "</b> au <b>" . date("d-m-Y",strtotime($date_max)) ."</b>.";?></p>
             <div class="columns sequence">
                 <div class="column">
                     <h4>Montant des contrats par procédure</h4>

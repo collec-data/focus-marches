@@ -104,13 +104,12 @@ if ($iframe == true){
 
         <div class="container">
             <h3>Indicateurs clés</h3>
-            <p>Principaux indicateurs des <b><?php echo $nb_mois;?> derniers mois</b>.</p>
-
+            <p>Principaux indicateurs <?php echo $nb_mois > 0 ? "des <b>" . $nb_mois . " derniers mois</b>." : "de la période du <b>". date("d-m-Y",strtotime($date_min)) . "</b> au <b>" . date("d-m-Y",strtotime($date_max)) ."</b>.";?> </p>
             <div class="kpis columns">
                 <div class="column kpi">
                     <i class="far fa-calendar-alt fa-3x has-text-blue-light pb-1"></i>
                     <span>Période</span>
-                    <b id="kpi-periode"><?php echo ceil( $kpi['periode'] ); ?> mois</b>
+                    <b id="kpi-periode"><?php echo ceil( $kpi['periode'] ) > 0 ? ceil( $kpi['periode'] ) : "<1" ?> mois</b>
                 </div>
                 <div class="column kpi">
                     <i class="far fa-handshake fa-3x has-text-blue-light pb5"></i>
