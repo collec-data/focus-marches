@@ -125,7 +125,7 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
         <?php echo $nom; ?>
       </b>, enrichies avec des données complémentaires.</p>
 
-      <div class="filtreDates" <?php echo $hidden_filter ?>>
+      <div class="filtre-dates" <?php echo $hidden_filter ?>>
         <div class="columns">
             <div class="column">
               <label>Date min</label>

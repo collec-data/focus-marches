@@ -241,13 +241,13 @@ Acheteurs
 
 
 /* recherche dates */
-.filtreDates {max-width: fit-content;}
-.filtreDates { padding: 20px; background: #f1f1f1; /*border: 1px solid #cfcfcf;   */  box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2); }
-.filtreDates label { color: #444; padding: .3rem 0 .3rem 2px; display: inline-block;}
-.filtreDates input, .filtreDates select { border: 1px solid #d8d8d878;  box-shadow: inset 0 2px 4px 0 hsla(0, 0%, 0%, 0.08);   }
-.filtreDates input,
-.filtreDates select { width: 100%;  }
-.filtreDates p { padding: 0; }
+.filtre-dates {max-width: fit-content;}
+.filtre-dates { padding: 20px; background: #f1f1f1; /*border: 1px solid #cfcfcf;   */  box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2); }
+.filtre-dates label { color: #444; padding: .3rem 0 .3rem 2px; display: inline-block;}
+.filtre-dates input, .filtre-dates select { border: 1px solid #d8d8d878;  box-shadow: inset 0 2px 4px 0 hsla(0, 0%, 0%, 8%);   }
+.filtre-dates input,
+.filtre-dates select { width: 100%;  }
+.filtre-dates p { padding: 0; }
 
 /* recherche bouton filtrer */
 .button-filtre-date { margin-top: 3rem;}
