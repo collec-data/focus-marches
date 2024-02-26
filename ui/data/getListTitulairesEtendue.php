@@ -10,7 +10,7 @@ require_once('model.php');
 $connect->set_charset("utf8"); // pour real_escape_string
 
 $sql = "SELECT t.id_titulaire, denomination_sociale, libelle_naf as naf,
-        codePostalEtablissement as cp, trancheEffectifsEtablissement,
+        codePostalEtablissement as cp, trancheEffectifsEtablissement, t.type_identifiant,
         tr.libelle_tranche as libelle_tranche_etablissement, libelle_categories_juridiques, COUNT(m.id) nb, SUM(m.montant) total, s.ca_1, s.resultat_1
         FROM        titulaire t
         INNER JOIN  marche_titulaires mt ON mt.id_titulaires = t.id_titulaire
@@ -34,7 +34,15 @@ try {
       if ($r['trancheEffectifsEtablissement'] === "00" || $r['trancheEffectifsEtablissement'] === "NN")
         $r['libelle_tranche_etablissement'] = "-";
       $r['denomination_sociale'] = str_replace('"', '', $r['denomination_sociale']);
-      $out .= '{"cp":"' . hsc($r['cp']) . '",'
+
+      $tag_annuaire_entreprise = '"annuaire_lien":"<div style=\"display:none\"></div></div>",';
+      if ($r['type_identifiant'] === "SIRET") {
+        $tag_annuaire_entreprise = '"annuaire_lien":"<a class=\"button voir-annuaire small\" data-id=\"' . $r['id_titulaire'] . '\" href=\"https://annuaire-entreprises.data.gouv.fr/entreprise/' . hsc($r['id_titulaire']) . '\" target=\"_blank\"  title=\"Ouvrir l\'annuaire entreprise\" style=\"text-decoration:none\">&#128270</a> ",';
+      }
+
+      $out .= '{'
+        . $tag_annuaire_entreprise
+        . '"cp":"' . hsc($r['cp']) . '",'
         . '"denomination_sociale":"<a href=\"titulaire.php?i=' . hsc($r['id_titulaire']) . '\">' . hsc($r['denomination_sociale']) . '</a>",'
         . '"naf":"' . hsc($r['naf']) . '",'
         . '"nb":"' . hsc($r['nb']) . '",'
