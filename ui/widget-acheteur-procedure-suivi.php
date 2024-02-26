@@ -8,7 +8,17 @@ $id_iframe = $_GET['widget'];
 }
 ///// Sécurisation
 $secured = false;
-if (is_numeric($_GET['i'])) $secured = true;
+if (is_numeric($_GET['i'])) { $secured = true;}
+
+if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+    $date_min = $_GET['date_min'];
+    $secured = true;
+}
+  
+if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+    $date_max = $_GET['date_max'];
+    $secured = true;
+}
 }
 
 if ($iframe == true){
@@ -25,12 +35,23 @@ if ($iframe == true){
 //    include('inc/nav.php');
     require_once('data/connect.php');
     require_once('data/model.php');
+    require_once('data/validateurs.php');
 
     $connect->set_charset("utf8");
 
 ///// Sécurisation
     $secured = false;
-    if (is_numeric($_GET['i'])) $secured = true;
+    if (is_numeric($_GET['i'])) { $secured = true;}
+
+    if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+        $date_min = $_GET['date_min'];
+        $secured = true;
+    }
+    
+    if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+        $date_max = $_GET['date_max'];
+        $secured = true;
+    }
 
     if ($secured == true)
     {
@@ -75,7 +96,7 @@ if ($iframe == true){
         <div class="container">
 
             <h3>Procédure suivie</h3>
-            <p>Classement des contrats selon la procédure suivie lors de la consultation. La période observée est de <b><?php echo $nb_mois;?> mois</b> </p>
+            <p>Classement des contrats selon la procédure suivie lors de la consultation. La période observée <?php echo $nb_mois > 0 ? "est de <b>" . $nb_mois . " mois</b>." : "est du <b>". date("d-m-Y",strtotime($date_min)) . "</b> au <b>" . date("d-m-Y",strtotime($date_max)) ."</b>.";?></p>
             <div class="columns sequence">
                 <div class="column">
                     <h4>Montant des contrats par procédure</h4>
@@ -97,6 +118,8 @@ if ($iframe == true){
                 $iframe_code_gen="<iframe ";
                 $iframe_code_gen.= "src=\"$url/../widget-acheteur-procedure-suivi.php?i=";
                 $iframe_code_gen.=$id;
+                $iframe_code_gen.=isset($date_min) ? "&date_min=" . $date_min : "";
+                $iframe_code_gen.=isset($date_max) ? "&date_max=" . $date_max : "";
                 $iframe_code_gen.="&widget=1\" ";
                 $iframe_code_gen.= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
                 $iframe_code_gen.= "style=\"border: 0;\" ";
@@ -133,15 +156,15 @@ if ($iframe == true){
     });
 
     /* --------------------------------------
-  Nature des marchés
-  --------------------------------------*/
+    Nature des marchés
+    --------------------------------------*/
 
     /* --------------------------------------
-      Procédures utilisées
-      --------------------------------------*/
+        Procédures utilisées
+        --------------------------------------*/
 
     <?php
-    $procedure = getProcedures($connect, $id, $nb_mois);
+    $procedure = getProcedures($connect, $id, $nb_mois, $date_min, $date_max);
     ?>
 
     var procedureNBData = [

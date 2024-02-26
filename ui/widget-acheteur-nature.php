@@ -8,7 +8,17 @@ $id_iframe = $_GET['widget'];
 }
 ///// Sécurisation
 $secured = false;
-if (is_numeric($_GET['i'])) $secured = true;
+if (is_numeric($_GET['i'])) { $secured = true;}
+
+if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+    $date_min = $_GET['date_min'];
+    $secured = true;
+}
+  
+if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+    $date_max = $_GET['date_max'];
+    $secured = true;
+}
 }
 
 if ($iframe == true){
@@ -25,19 +35,27 @@ if ($iframe == true){
 //    include('inc/nav.php');
     require_once('data/connect.php');
     require_once('data/model.php');
+    require_once('data/validateurs.php');
 
     $connect->set_charset("utf8");
 
 ///// Sécurisation
     $secured = false;
-    if (is_numeric($_GET['i'])) $secured = true;
+    if (is_numeric($_GET['i'])) { $secured = true; }
+
+    if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+        $date_min = $_GET['date_min'];
+        $secured = true;
+    }
+      
+    if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+        $date_min = $_GET['date_min'];
+        $secured = true;
+    }
 
     if ($secured == true)
     {
         $id = $_GET['i'];
-        $nom = getNom($connect, $id);
-        $kpi = getKPI($connect, $id, $nb_mois, 0);
-        $marches = getDatesMontantsLieu($connect, $id, $nb_mois);
         $sirene = getDataSiretAcheteur($connect, $id);
         $revenuMoyenNational = getMedianeNiveauVie($connect);
 
@@ -74,13 +92,11 @@ if ($iframe == true){
 
         <div class="container">
             <h3>Nature des marchés</h3>
-            <p>Répartition des contrats par nature du marché public, en montant et en nombre. La période observée est de <b><?php echo $nb_mois;?> mois</b> et les marchés sont groupés par mois. </p>
+            <p>Répartition des contrats par nature du marché public, en montant et en nombre. La période observée <?php echo $nb_mois > 0 ? "est de <b>" . $nb_mois . " mois</b> et les marchés sont groupés par mois." : "est du <b>". date("d-m-Y",strtotime($date_min)) . "</b> au <b>" . date("d-m-Y",strtotime($date_max)) ."</b>.";?></p>
             <div class="columns sequence">
                 <?php
-                // $natures = getNatures2($connect, $id, $nb_mois);
-
-                $cats = getCategoriesPrincipales ($connect, $nb_mois, $id, "acheteur");
-                $natures = getNaturesAcheteurs($connect, $id, $nb_mois);
+                $cats = getCategoriesPrincipales ($connect, $nb_mois, $id, "acheteur", $date_min, $date_max);
+                $natures = getNaturesAcheteurs($connect, $id, $nb_mois, $date_min, $date_max);
                 foreach ($natures as $nature):
                     ?>
                     <div class="column">
@@ -107,6 +123,8 @@ if ($iframe == true){
                 $iframe_code_gen="<iframe ";
                 $iframe_code_gen.= "src=\"$url/../widget-acheteur-nature.php?i=";
                 $iframe_code_gen.=$id;
+                $iframe_code_gen .= isset($date_min) ? "&date_min=" . $date_min : "";
+                $iframe_code_gen .= isset($date_max) ? "&date_max=" . $date_max : "";
                 $iframe_code_gen.="&widget=1\" ";
                 $iframe_code_gen.= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
                 $iframe_code_gen.= "style=\"border: 0;\" ";
@@ -150,7 +168,7 @@ if ($iframe == true){
     <?php
     for ($i=1; $i<5; $i++)
     {
-        $data = getNatureByDate($connect, $id, $i, $nb_mois);
+        $data = getNatureByDate($connect, $id, $i, $nb_mois, $date_min, $date_max);
         echo "barPlot('nature_$i', ["
             . $data['date'] . "], ["
             . $data['total'] . "], "

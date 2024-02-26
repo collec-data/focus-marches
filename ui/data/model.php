@@ -1,7 +1,8 @@
 <?php
-
+require_once('modelUtils.php');
+require_once('validateurs.php');
 //// Afficher ou pas les infos de debug :
-$debug = true;
+$debug = false;
 
 
 /* -------------------------------
@@ -218,7 +219,7 @@ getKPI (pour les acheteurs )
 SELECT CURRENT_DATE(), DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR)
 */
 
-function getKPI($connect, $id = 0, $months = 0, $dept = 0)
+function getKPI($connect, $id = 0, $months = 0, $dept = 0, $date_min = null, $date_max = null)
 {
   $sql = "SELECT SUM(montant) as montant_total,
   COUNT(m.id) as nombre,
@@ -232,11 +233,11 @@ function getKPI($connect, $id = 0, $months = 0, $dept = 0)
   INNER JOIN marche_titulaires mt ON m.id_marche = mt.id_marche
   INNER JOIN titulaire t ON mt.id_titulaires = t.id_titulaire
   INNER JOIN lieu l ON l.id_lieu = m.id_lieu_execution
-  WHERE m.date_notification > '0000-00-00' ";
+  WHERE m.date_notification > '0000-00-00'";
 
-  if ($months > 0) {
-    $sql .= " AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
-  }
+  //rajoute un filtrage par date ou par nombre de mois
+  $sql = filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, $months);
+
   if ($dept > 0) {
     $sql .= " AND l.code = " . $dept;
   }
@@ -413,16 +414,15 @@ function getMontantCPVLieu($connect, $categorie, $lieux, $months = 12)
 getDatesMontantsLieu par lieu
 ----------------------------------
 */
-function getDatesMontantsLieu($connect, $nom = null, $months = 0)
+function getDatesMontantsLieu($connect, $nom = null, $months = 0, $date_min = null, $date_max = null)
 {
   $sql = "SELECT montant, date_notification
   FROM marche m
   INNER JOIN acheteur a ON m.id_acheteur = a.id_acheteur
   WHERE a.nom_acheteur = '" . $nom . "' ";
-
-  if ($months > 0) {
-    $sql .= " AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
-  }
+ 
+   //rajoute un filtrage par date ou par nombre de mois
+   $sql = filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, $months);
 
   try {
     $result = $connect->query($sql);
@@ -592,21 +592,22 @@ $categorie : services, travaux, fournitures
 $id_acheteur : id de l'acheteur
 getTitulairesList($connect, 12, 'services', $id, $nb_mois);
 */
-function getTitulairesList($connect, $nb = 5, $categorie = null, $id_acheteur = 0, $months = 12)
+function getTitulairesList($connect, $nb = 5, $categorie = null, $id_acheteur = 0, $months = 12, $date_min = null, $date_max = null)
 {
   $sql = "SELECT t.denomination_sociale nom, categorie, sum(m.`montant`) montant
   FROM `marche` m
   INNER JOIN marche_titulaires mt ON mt.id_marche = m.id_marche
-  INNER JOIN titulaire t ON t.id_titulaire = mt.id_titulaires
-  WHERE m.date_notification > '0000-00-00'
-  AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
+  INNER JOIN titulaire t ON t.id_titulaire = mt.id_titulaires";
+
+  //rajoute un filtrage par date ou par nombre de mois, ajoute un WHERE et des AND au besoin
+  $sql = filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, $months);
 
   if ($categorie) {
-    $sql .= " AND categorie = '" . $categorie . "' ";
+    $sql = appendCondition($sql,"categorie = '" . $categorie . "' ");
   }
 
   if ($id_acheteur > 0) {
-    $sql .= " AND m.id_acheteur = '" . $id_acheteur . "' ";
+    $sql = appendCondition($sql,"m.id_acheteur = '" . $id_acheteur . "' ");
   }
 
   $sql .= " GROUP BY nom ";
@@ -700,22 +701,22 @@ class Cats
 getCategoriesPrincipales
 ----------------------------------
 */
-function getCategoriesPrincipales($connect, $months = 12, $id = 0, $version = "acheteur")
+function getCategoriesPrincipales($connect, $months = 12, $id = 0, $version = "acheteur", $date_min = null, $date_max = null)
 {
   $cats = new Cats();
 
   switch ($version) {
     case "acheteur":
-      $cats->services = getListByTypeArrZeros($connect, 'services', $months, $id);
-      $cats->travaux = getListByTypeArrZeros($connect, 'travaux', $months, $id);
-      $cats->fournitures = getListByTypeArrZeros($connect, 'fournitures', $months, $id);
-      $cats->tousMarches = getListByTypeArrZeros($connect, null, $months, $id);
+      $cats->services = getListByTypeArrZeros($connect, 'services', $months, $id, $date_min, $date_max);
+      $cats->travaux = getListByTypeArrZeros($connect, 'travaux', $months, $id, $date_min, $date_max);
+      $cats->fournitures = getListByTypeArrZeros($connect, 'fournitures', $months, $id, $date_min, $date_max);
+      $cats->tousMarches = getListByTypeArrZeros($connect, null, $months, $id, $date_min, $date_max);
       break;
     case "titulaire":
-      $cats->services = getListByTypeArrZerosTitulaires($connect, 'services', $months, $id);
-      $cats->travaux = getListByTypeArrZerosTitulaires($connect, 'travaux', $months, $id);
-      $cats->fournitures = getListByTypeArrZerosTitulaires($connect, 'fournitures', $months, $id);
-      $cats->tousMarches = getListByTypeArrZerosTitulaires($connect, null, $months, $id);
+      $cats->services = getListByTypeArrZerosTitulaires($connect, 'services', $months, $id, $date_min, $date_max);
+      $cats->travaux = getListByTypeArrZerosTitulaires($connect, 'travaux', $months, $id, $date_min, $date_max);
+      $cats->fournitures = getListByTypeArrZerosTitulaires($connect, 'fournitures', $months, $id, $date_min, $date_max);
+      $cats->tousMarches = getListByTypeArrZerosTitulaires($connect, null, $months, $id, $date_min, $date_max);
       break;
   }
 
@@ -730,8 +731,6 @@ function getCategoriesPrincipales($connect, $months = 12, $id = 0, $version = "a
 
   $cats->totalMontant = array_sum($cats->tousMarches['montants']);
   $cats->totalNombre = array_sum($cats->tousMarches['nombre']);
-
-  // d($cats);
 
   return $cats;
 }
@@ -802,7 +801,7 @@ function getListByTypeArr($connect, $type = null, $months = 12, $id = 0)
 {
   $sql = "SELECT SUBSTR(date_notification, 1, 7) dates, sum(montant) montant, count(id) nombre
           FROM marche m
-          WHERE m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
+          WHERE m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL 35 MONTH) ";
   if (isset($type))
     $sql .= " AND m.categorie = '" . $type . "' ";
 
@@ -857,6 +856,8 @@ function genLastMonths($month = 36)
 }
 
 
+
+
 /* -------------------------------
 getListByTypeArrZeros
 ----------------------------------
@@ -866,17 +867,20 @@ ajoute le nombre de jours écoulés dans le mois à un mois qui démarre à 01
 DATE_ADD(mo.date_mois, INTERVAL DAYOFMONTH(CURRENT_DATE()) DAY)
 > DATE_SUB(CURRENT_DATE(), INTERVAL (12) MONTH)
 */
-function getListByTypeArrZeros($connect, $type = null, $months = 12, $id = 0)
+function getListByTypeArrZeros($connect, $type = null, $months = 12, $id = 0, $date_min = null, $date_max = null)
 {
 
   $sql = "SELECT SUBSTR(date_notification, 1, 7) AS dates, COALESCE(SUM(montant), 0) montants, COALESCE(COUNT(id), 0) nombre, categorie 
-          FROM marche 
-          WHERE date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL 35 MONTH) AND date_notification < CURRENT_DATE() ";
-  if (isset($type))
-    $sql .= " AND categorie = '" . $type . "'";
+          FROM marche";
 
-  if ($id > 0)
-    $sql .= " AND id_acheteur = '" . $id . "' ";
+  //rajoute un filtrage par date ou par nombre de mois, ajoute un WHERE et des AND au besoin
+  $sql = filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, $months);
+
+if (isset($type))
+  $sql =appendCondition($sql,"categorie = '" . $type . "'");
+
+if ($id > 0)
+  $sql =appendCondition($sql,"id_acheteur = '" . $id . "' ");
 
   $sql .= " GROUP BY SUBSTR(date_notification, 1, 7) ORDER BY dates ASC";
 
@@ -896,14 +900,14 @@ function getListByTypeArrZeros($connect, $type = null, $months = 12, $id = 0)
       // parcours des résultats de la requêtes
       while ($r = mysqli_fetch_assoc($result)) {
         //si tant que le mois n'a pas été remonté par le sql, alors on possitionne les montants et nombre à 0
-        while ( $index_month != -1 && $last_months[$index_month] != $r['dates']) {
+        while ($index_month != -1 && $last_months[$index_month] != $r['dates']) {
           $dates[] = '"' . $last_months[$index_month] . '"';
           $montants[] = 0;
           $nombre[] = 0;
           $index_month--; // on passe au mois suivant
         }
 
-        if($index_month != -1) { 
+        if ($index_month != -1) {
           $dates[] = '"' . $r['dates'] . '"';
           $montants[] = $r['montants'];
           $nombre[] = $r['nombre'];
@@ -936,25 +940,25 @@ function getListByTypeArrZeros($connect, $type = null, $months = 12, $id = 0)
   );
 }
 
-
-
 /* -------------------------------
 getListByTypeArrZerosTitulaires
 ----------------------------------
 version titulaires
 */
-function getListByTypeArrZerosTitulaires($connect, $type = null, $months = 12, $id = 0)
+function getListByTypeArrZerosTitulaires($connect, $type = null, $months = 12, $id = 0, $date_min = null, $date_max = null)
 {
   $sql = "SELECT SUBSTR(date_notification, 1, 7) AS dates, COALESCE(SUM(montant), 0) montants, COALESCE(COUNT(id), 0) nombre, categorie 
           FROM marche m
-          INNER JOIN marche_titulaires mt ON mt.id_marche = m.id_marche 
-          WHERE date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL 35 MONTH) AND date_notification < CURRENT_DATE()";
+          INNER JOIN marche_titulaires mt ON mt.id_marche = m.id_marche";
+
+  //rajoute un filtrage par date ou par nombre de mois, ajoute un WHERE et des AND au besoin
+  $sql = filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, $months);
 
   if (isset($type))
-    $sql .= " AND categorie = '" . $type . "'";
+  $sql =appendCondition($sql,"categorie = '" . $type . "'");
 
   if ($id > 0)
-    $sql .= " AND mt.id_titulaires = '" . $id . "' ";
+  $sql =appendCondition($sql,"mt.id_titulaires = '" . $id . "' ");
 
   $sql .= " GROUP BY SUBSTR(date_notification, 1, 7) ORDER BY dates ASC";
 
@@ -1108,13 +1112,15 @@ function getMoyenneCategoriesPrincipales($connect, $months = 12)
 getProcedures
 ----------------------------------
 */
-function getProcedures($connect, $id = 0, $months = 12)
+function getProcedures($connect, $id = 0, $months = 12, $date_min = null, $date_max = null)
 {
   $sql = "SELECT COUNT(nom_procedure) nb_procedure, SUM(montant) total, nom_procedure
           FROM marche m
           INNER JOIN procedure_marche pm on pm.id_procedure = m.id_procedure
-          WHERE m.date_notification > '0000-00-00'
-          AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) ";
+          WHERE m.date_notification > '0000-00-00'";
+
+  //rajoute un filtrage par date ou par nombre de mois
+  $sql = filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, $months);
 
   if ($id > 0)
     $sql .= " AND m.id_acheteur = $id ";
@@ -1287,20 +1293,25 @@ getNaturesAcheteurs
 2 Left join d'une surrequête qui filtre par l'id et la date
 Si on utilise un join sans sub requete, on aura tous les résultats de la base
 */
-function getNaturesAcheteurs($connect, $id = 0, $months = 12)
+function getNaturesAcheteurs($connect, $id = 0, $months = 12, $date_min = null, $date_max = null)
 {
+
+  $sub_request = "SELECT m.*
+             FROM marche m
+             INNER JOIN acheteur a
+              ON a.id_acheteur = m.id_acheteur
+             WHERE m.id_acheteur = $id";
+
+  //rajoute un filtrage par date ou par nombre de mois
+  $sub_request = filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sub_request, $date_min, $date_max, $months);
+
   $sql = "SELECT  n.id_nature,
                     COALESCE(COUNT(ma.id_marche),0) nb_nature,
                     COALESCE(SUM(ma.montant),0)  total,
                     nom_nature
           FROM nature n
           LEFT JOIN
-            (SELECT m.*
-             FROM marche m
-             INNER JOIN acheteur a
-              ON a.id_acheteur = m.id_acheteur
-             WHERE m.id_acheteur = $id
-             AND date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH) )
+            ( $sub_request )
           ma ON n.id_nature = ma.id_nature
           GROUP BY nom_nature ORDER BY id_nature ASC ";
 
@@ -1384,7 +1395,7 @@ function getNaturesTitulaires($connect, $id = 0, $months = 12)
 getNatureByDate
 ----------------------------------
 */
-function getNatureByDate($connect, $id = 0, $id_nature = 0, $months = 12)
+function getNatureByDate($connect, $id = 0, $id_nature = 0, $months = 12, $date_min = null, $date_max = null)
 {
   if ($id_nature === 0)
     return "type de nature non valide";
@@ -1394,9 +1405,11 @@ function getNatureByDate($connect, $id = 0, $id_nature = 0, $months = 12)
         FROM `marche` m
         LEFT JOIN nature n ON n.id_nature = m.id_nature
         WHERE m.date_notification > '0000-00-00'
-        AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)
-        AND n.id_nature = $id_nature
-        AND date_notification > '0000-00-00' ";
+        AND n.id_nature = $id_nature";
+
+
+  //rajoute un filtrage par date ou par nombre de mois
+  $sql = filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, $months);
 
   if ($id > 0)
     $sql .= " AND m.id_acheteur = $id ";
@@ -1748,4 +1761,34 @@ function getMedianeNiveauVie($connect)
   } catch (Exception $e) {
     return 0;
   }
+}
+
+
+/* -------------------------------
+filterMarchesDateNotificationParDateMinDateMaxOuNbMois
+----------------------------------
+Filtrage des marchés par date
+$sql : requête sql sur laquelle on rajoute le filtre
+$date_min : date minimale
+$date_max : date maximale
+$months : nombre de mois
+
+Si $months est supérieur à 0 et que $date_min et $date_max ne sont pas définis ou ne sont pas des dates, alors on filtre par $months, soit une période
+Si $date_min et $date_max sont définis et sont des dates, alors on filtre par $date_min et $date_max
+*/
+function filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, $months){
+  if($months > 0 && (!isset($date_min) && !is_date($date_min)) || (!isset($date_max) && !is_date($date_max))){
+    $sql =appendCondition($sql,"date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)");
+  }
+  if (isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)) {
+    $sql =appendCondition($sql,"date_notification BETWEEN '$date_min' AND '$date_max'");
+  } else if (isset($date_min)) {
+    $sql =appendCondition($sql,"date_notification > '$date_min'  ");
+  } else if (isset($date_max)) {
+    $sql =appendCondition($sql,"date_notification < '$date_max' ");
+  } else {
+    $sql =appendCondition($sql,"date_notification < CURRENT_DATE()");
+  }
+
+  return $sql;
 }

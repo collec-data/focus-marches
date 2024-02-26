@@ -8,8 +8,23 @@ $id_iframe = $_GET['widget'];
 }
 ///// Sécurisation
 $secured = false;
-if (is_numeric($_GET['i'])) $secured = true;
+if (is_numeric($_GET['i'])) {
+    $secured = true;
 }
+
+if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+    $date_min = $_GET['date_min'];
+    $secured = true;
+}
+  
+if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+    $date_min = $_GET['date_min'];
+    $secured = true;
+}
+
+}
+
+
 
 if ($iframe == true){
 
@@ -25,19 +40,34 @@ if ($iframe == true){
 //    include('inc/nav.php');
     require_once('data/connect.php');
     require_once('data/model.php');
+    require_once('data/validateurs.php');
 
     $connect->set_charset("utf8");
 
 ///// Sécurisation
     $secured = false;
-    if (is_numeric($_GET['i'])) $secured = true;
+    if (is_numeric($_GET['i'])) { 
+        $secured = true;
+    }
+
+    if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+        $date_min = $_GET['date_min'];
+        $secured = true;
+      }
+      
+      if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+        $date_max = $_GET['date_max'];
+        $secured = true;
+      }
 
     if ($secured == true)
     {
         $id = $_GET['i'];
+        $date_min = isset($date_min) ? $_GET['date_min'] : null;
+        $date_max = isset($date_max) ? $_GET['date_max'] : null;
         $nom = getNom($connect, $id);
-        $kpi = getKPI($connect, $id, $nb_mois, 0);
-        $marches = getDatesMontantsLieu($connect, $id, $nb_mois);
+        $kpi = getKPI($connect, $id, $nb_mois, 0, $date_min, $date_max);
+        $marches = getDatesMontantsLieu($connect, $id, $nb_mois, $date_min, $date_max);
         $sirene = getDataSiretAcheteur($connect, $id);
         $revenuMoyenNational = getMedianeNiveauVie($connect);
 
@@ -74,13 +104,12 @@ if ($iframe == true){
 
         <div class="container">
             <h3>Indicateurs clés</h3>
-            <p>Principaux indicateurs des <b><?php echo $nb_mois;?> derniers mois</b>.</p>
-
+            <p>Principaux indicateurs <?php echo $nb_mois > 0 ? "des <b>" . $nb_mois . " derniers mois</b>." : "de la période du <b>". date("d-m-Y",strtotime($date_min)) . "</b> au <b>" . date("d-m-Y",strtotime($date_max)) ."</b>.";?> </p>
             <div class="kpis columns">
                 <div class="column kpi">
                     <i class="far fa-calendar-alt fa-3x has-text-blue-light pb-1"></i>
                     <span>Période</span>
-                    <b id="kpi-periode"><?php echo ceil( $kpi['periode'] ); ?> mois</b>
+                    <b id="kpi-periode"><?php echo ceil( $kpi['periode'] ) > 0 ? ceil( $kpi['periode'] ) : "<1" ?> mois</b>
                 </div>
                 <div class="column kpi">
                     <i class="far fa-handshake fa-3x has-text-blue-light pb5"></i>
@@ -160,6 +189,8 @@ if ($iframe == true){
                 $iframe_code_gen="<iframe ";
                 $iframe_code_gen.= "src=\"$url/../widget-acheteur-indicateurs.php?i=";
                 $iframe_code_gen.=$id;
+                $iframe_code_gen .= isset($date_min) ? "&date_min=" . $date_min : "";
+                $iframe_code_gen .= isset($date_max) ? "&date_max=" . $date_max : "";
                 $iframe_code_gen.="&widget=1\" ";
                 $iframe_code_gen.= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
                 $iframe_code_gen.= "style=\"border: 0;\" ";

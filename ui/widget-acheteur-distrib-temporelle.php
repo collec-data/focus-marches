@@ -10,8 +10,19 @@ if (isset($_GET['widget'])) {
     }
     ///// Sécurisation
     $secured = false;
-    if (is_numeric($_GET['i']))
+    if (is_numeric($_GET['i'])) {
         $secured = true;
+    }
+
+    if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+        $date_min = $_GET['date_min'];
+        $secured = true;
+    }
+      
+    if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+        $date_min = $_GET['date_min'];
+        $secured = true;
+    }
 }
 
 if ($iframe == true) {
@@ -28,19 +39,30 @@ if ($iframe == true) {
     //    include('inc/nav.php');
     require_once('data/connect.php');
     require_once('data/model.php');
+    require_once('data/validateurs.php');
 
     $connect->set_charset("utf8");
 
     ///// Sécurisation
     $secured = false;
-    if (is_numeric($_GET['i']))
+    if (is_numeric($_GET['i'])) {
         $secured = true;
+    }
+
+    if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+        $date_min = $_GET['date_min'];
+        $secured = true;
+    }
+      
+    if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+        $date_max = $_GET['date_max'];
+        $secured = true;
+    }
 
     if ($secured == true) {
         $id = $_GET['i'];
-        $nom = getNom($connect, $id);
-        $kpi = getKPI($connect, $id, $nb_mois, 0);
-        $marches = getDatesMontantsLieu($connect, $id, $nb_mois);
+        $date_min = isset($date_min) ? $_GET['date_min'] : null;
+        $date_max = isset($date_max) ? $_GET['date_max'] : null;
         $sirene = getDataSiretAcheteur($connect, $id);
         $revenuMoyenNational = getMedianeNiveauVie($connect);
 
@@ -91,6 +113,8 @@ if (isset($sirene['siren'])) {
             $iframe_code_gen = "<iframe ";
             $iframe_code_gen .= "src=\"$url/../widget-acheteur-distrib-temporelle.php?i=";
             $iframe_code_gen .= $id;
+            $iframe_code_gen .= isset($date_min) ? "&date_min=" . $date_min : "";
+            $iframe_code_gen .= isset($date_max) ? "&date_max=" . $date_max : "";
             $iframe_code_gen .= "&widget=1\" ";
             $iframe_code_gen .= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
             $iframe_code_gen .= "style=\"border: 0;\" ";
@@ -132,12 +156,6 @@ if (isset($sirene['siren'])) {
     -----------------------------------------------
     Récupérer les données de la table et les convertir pour le graphique
     */
-    <?php
-    $date_min = date("Y-m", strtotime("-$nb_mois months"));
-    ?>
-
-
-
     var createTimeline = function (t) {
         var x_serv = [], y_serv = [], text_serv = [];
         var x_trav = [], y_trav = [], text_trav = [];
@@ -296,12 +314,18 @@ if (isset($sirene['siren'])) {
         Plotly.newPlot('rechercheTempChart', data, layout, optionsPlotly);
     };
 
+    <?php
+    $date_min_tab = isset($date_min) ? $date_min : date("Y-m", strtotime("-$nb_mois months"));
+    $date_max_tab = isset($date_max) ? $date_max : 0;
+    ?>
 
+    function ajaxCallTemporel() {
 
-    function ajaxCall() {
+        const url_s = "data/getRecherche.php?libelle_cpv=&titulaire=0&acheteur=" + <?php echo $id; ?> + "&lieu=0&objet=&montant_min=0&montant_max=0&duree_min=0&duree_max=0&date_min=" + <?php echo '"' . $date_min_tab . '"'; ?> + "&date_max=" + <?php echo '"' . $date_max_tab . '"'; ?> + "&forme_prix=0&nature=0&procedure=0&code_cpv="
+        console.log(url_s);
         $.ajax({
             // Our sample url to make request
-            url: "data/getRecherche.php?libelle_cpv=&titulaire=0&acheteur=" + <?php echo $id; ?> + "&lieu=0&objet=&montant_min=0&montant_max=0&duree_min=0&duree_max=0&date_min=" + <?php echo '"' . $date_min . '"'; ?> + "&date_max=0&forme_prix=0&nature=0&procedure=0&code_cpv=",
+            url: url_s,
 
             // Type of Request
             type: "GET",
@@ -316,8 +340,9 @@ if (isset($sirene['siren'])) {
             error: function (error) {
             }
         });
+        
     }
-    ajaxCall();
+    ajaxCallTemporel();
 
     /* --------------------------------------
       Table de marchés

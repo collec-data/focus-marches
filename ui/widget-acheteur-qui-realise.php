@@ -8,8 +8,19 @@ if (isset($_GET['widget'])) {
     }
     ///// Sécurisation
     $secured = false;
-    if (is_numeric($_GET['i']))
+    if (is_numeric($_GET['i'])) {
         $secured = true;
+    }
+
+    if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+        $date_min = $_GET['date_min'];
+        $secured = true;
+    }
+
+    if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+        $date_max = $_GET['date_max'];
+        $secured = true;
+    }
 }
 
 if ($iframe == true) {
@@ -27,16 +38,30 @@ if ($iframe == true) {
     //    include('inc/nav.php');
     require_once('data/connect.php');
     require_once('data/model.php');
+    require_once('data/validateurs.php');
 
     $connect->set_charset("utf8");
 
     ///// Sécurisation
     $secured = false;
-    if (is_numeric($_GET['i']))
+    if (is_numeric($_GET['i'])) {
         $secured = true;
+    }
+
+    if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
+        $date_min = $_GET['date_min'];
+        $secured = true;
+    }
+
+    if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
+        $date_max = $_GET['date_max'];
+        $secured = true;
+    }
 
     if ($secured == true) {
         $id = $_GET['i'];
+        $date_min = isset($date_min) ? $_GET['date_min'] : null;
+        $date_max = isset($date_max) ? $_GET['date_max'] : null;
         $nom = getNom($connect, $id);
         $kpi = getKPI($connect, $id, $nb_mois, 0);
         $marches = getDatesMontantsLieu($connect, $id, $nb_mois);
@@ -77,17 +102,17 @@ if (isset($sirene['siren'])) {
 
     <?php
     //// Qui achète ?
-    $titulairesTotal = getTitulairesList($connect, 12, null, $id, $nb_mois);
-    $titulairesServices = getTitulairesList($connect, 12, 'services', $id, $nb_mois);
-    $titulairesTravaux = getTitulairesList($connect, 12, 'travaux', $id, $nb_mois);
-    $titulairesFournitures = getTitulairesList($connect, 12, 'fournitures', $id, $nb_mois);
+    $titulairesTotal = getTitulairesList($connect, 12, null, $id, $nb_mois, $date_min, $date_max);
+    $titulairesServices = getTitulairesList($connect, 12, 'services', $id, $nb_mois, $date_min, $date_max);
+    $titulairesTravaux = getTitulairesList($connect, 12, 'travaux', $id, $nb_mois, $date_min, $date_max);
+    $titulairesFournitures = getTitulairesList($connect, 12, 'fournitures', $id, $nb_mois, $date_min, $date_max);
     ?>
 
     <div class="container">
         <h3>Qui a réalisé les marchés ?</h3>
-        <p>Top 12 des fournisseurs classés par montant total des contrats remportés au cours des <b>
-                <?php echo $nb_mois; ?> derniers mois
-            </b>. Survolez les noms des fournisseurs pour les afficher en entier.</p>
+        <p>Top 12 des fournisseurs classés par montant total des contrats remportés au cours
+            <?php echo $nb_mois > 0 ? "des <b>" . $nb_mois . " derniers mois</b>." : "de la période du <b>". date("d-m-Y",strtotime($date_min)) . "</b> au <b>" . date("d-m-Y",strtotime($date_max)) ."</b>.";?>
+            Survolez les noms des fournisseurs pour les afficher en entier.</p>
         <div id="titulaires">
             <ul class="tab-container">
                 <li class="tab-link current" data-tab="tab-t1">Tous les marchés</li>
@@ -177,6 +202,8 @@ if (isset($sirene['siren'])) {
             $iframe_code_gen = "<iframe ";
             $iframe_code_gen .= "src=\"$url/../widget-acheteur-qui-realise.php?i=";
             $iframe_code_gen .= $id;
+            $iframe_code_gen .= isset($date_min) ? "&date_min=" . $date_min : "";
+            $iframe_code_gen .= isset($date_max) ? "&date_max=" . $date_max : "";
             $iframe_code_gen .= "&widget=1\" ";
             $iframe_code_gen .= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
             $iframe_code_gen .= "style=\"border: 0;\" ";
@@ -259,7 +286,8 @@ if (isset($sirene['siren'])) {
         [<?php echo implode(',', array_column($titulairesTotal, 2)); ?>]);
 
     <?php
-    $noms = ""; foreach ($titulairesServices as $a)
+    $noms = "";
+    foreach ($titulairesServices as $a)
         $noms .= '"' . coupe($a[0], 24) . '",';
     ?>
     setQui('topTitulairesServices',
@@ -267,7 +295,8 @@ if (isset($sirene['siren'])) {
         [<?php echo implode(',', array_column($titulairesServices, 2)); ?>]);
 
     <?php
-    $noms = ""; foreach ($titulairesTravaux as $a)
+    $noms = "";
+    foreach ($titulairesTravaux as $a)
         $noms .= '"' . coupe($a[0], 24) . '",';
     ?>
     setQui('topTitulairesTravaux',
@@ -275,7 +304,8 @@ if (isset($sirene['siren'])) {
         [<?php echo implode(',', array_column($titulairesTravaux, 2)); ?>]);
 
     <?php
-    $noms = ""; foreach ($titulairesFournitures as $a)
+    $noms = "";
+    foreach ($titulairesFournitures as $a)
         $noms .= '"' . coupe($a[0], 24) . '",';
     ?>
     setQui('topTitulairesFournitures',
@@ -317,8 +347,29 @@ if (isset($sirene['siren'])) {
         $('#modalListe #enCharge').css('display', 'block');
         $('#modalListe').addClass('is-active');
 
-        tableList.ajax.url('data/getListTitulaires.php?m=<?php echo $nb_mois; ?>&i=<?php echo $id; ?>').load(function () {
+        <?php $date_min = isset($date_min) ? $date_min :  null;?>
+        <?php $date_max = isset($date_max) ? $date_max :  null;?>
+
+        let dateSelection = "";
+        const date_min = "<?php echo $date_min; ?>";
+        const date_max = "<?php echo $date_max; ?>";
+        const nb_mois = "<?php echo $nb_mois; ?>";
+        const id_acheteur = "<?php echo $id; ?>";
+
+        dateSelection += (date_min !=='' ? "&date_min=" + date_min : '');
+        dateSelection += (date_max !== '' ? "&date_max=" + date_max : '');
+
+        mois = nb_mois > 0 ? "&m=" + nb_mois : '';
+        let parameters = "?i=" + id_acheteur + mois + dateSelection;
+
+        const url = "data/getListTitulaires.php"+parameters
+        tableList.ajax.url(url).load(function () {
             if (tableList.data().length > 0) {
+                $('#modalMessageList').css('display', 'block');
+                $('#modalListe #enCharge').css('display', 'none');
+            }
+            if (tableList.data().length === 0) {
+                $('#modalMessageList').html("<p class='text-center' >Aucun fournisseur trouvé.</p>");
                 $('#modalMessageList').css('display', 'block');
                 $('#modalListe #enCharge').css('display', 'none');
             }
