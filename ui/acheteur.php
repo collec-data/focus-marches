@@ -46,7 +46,7 @@ if ($secured == true) {
   <link rel="stylesheet" href="assets/leaflet/leaflet.css" />
   <link href="assets/toastr/toastr.min.css" rel="stylesheet" />
   <?php
-  include('inc/nav.php');
+  require('inc/nav.php');
 
   //mise à jour périodicité si sélection de date min et max, surcharge la périodicité par défaut présente dans config.php
   if(isset($date_min)) {
@@ -69,6 +69,9 @@ if ($secured == true) {
   $marches = getDatesMontantsLieu($connect, $id, $nb_mois, $date_min, $date_max);
   $sirene = getDataSiretAcheteur($connect, $id);
   $revenuMoyenNational = getMedianeNiveauVie($connect);
+  
+  // variables pour integrerPage.php
+  $message_info_integration_page = "Copier le code ci-dessous pour intégrer cette page à votre site internet, ainsi les données du tableau de bord seront visibles sur votre site et mises à jour automatiquement.";
 
   $default_value_date_min = isset($date_min) ? $date_min : null;
   $default_value_date_max = isset($date_max) ? $date_max : "";
@@ -101,7 +104,7 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
 
   <div class="container">
     <div class="columns">
-      <div class="column ">
+      <div class="column">
         <h1 class='title is-clearfix' id='h1Fixe'> <span>Tableau de bord de l'acheteur :</span><br><b>
             <?=gettext($nom); ?>
           </b></h1>
@@ -119,6 +122,7 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
             <?=gettext($donnees_mises_a_jour); ?>
           </span>
         </div>
+        <?php include('inc/integrerPage.php'); ?>
       </div>
     </div>
     <p>Cette page vous présente les données essentielles du profil d'acheteur de <b>
@@ -171,16 +175,6 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
     <?php
     include('widget-acheteur-procedure-suivi.php');
     ?>
-
-    <div id="integration-iframe" class="container">
-      <h3>Intégrer à son site</h3>
-      <p>Copier le code ci-dessous pour intégrer cette page à votre site internet.</p>
-      <textarea class="textarea"><?php echo $iframe_code; ?></textarea>
-    </div>
-
-
-
-
 
   </div> <!-- ./ main -->
 
@@ -271,6 +265,11 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
           $('.tabContainer').hide();
           $('#' + t + 'C').fadeIn('slow');
         }
+      });
+      
+          //// toggle intregration iframe
+          $('#integration-iframe').on('click', function () {
+          $('#integration-iframe-contenu').toggle();
       });
 
     }); // document ready
