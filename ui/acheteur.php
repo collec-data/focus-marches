@@ -268,7 +268,7 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
       });
       
           //// toggle intregration iframe
-          $('#integration-iframe').on('click', function () {
+      $('#integration-iframe').on('click', function () {
           $('#integration-iframe-contenu').toggle();
       });
 
