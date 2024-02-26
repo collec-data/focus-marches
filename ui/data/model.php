@@ -626,11 +626,11 @@ function getTitulairesList($connect, $nb = 5, $categorie = null, $id_acheteur = 
   }
 
   if ($categorie) {
-    appendCondition($sql,"categorie = '" . $categorie . "' ");
+    $sql = appendCondition($sql,"categorie = '" . $categorie . "' ");
   }
 
   if ($id_acheteur > 0) {
-    appendCondition($sql,"m.id_acheteur = '" . $id_acheteur . "' ");
+    $sql = appendCondition($sql,"m.id_acheteur = '" . $id_acheteur . "' ");
   }
 
   $sql .= " GROUP BY nom ";
