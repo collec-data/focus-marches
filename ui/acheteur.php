@@ -50,8 +50,8 @@ if ($secured == true) {
 
   //mise à jour périodicité si sélection de date min et max, surcharge la périodicité par défaut présente dans config.php
   if(isset($date_min)) {
-  $debut = new DateTime($date_min);
-  $donnees_a_partir_du = $formatter->format($debut);
+    $debut = new DateTime($date_min);
+    $donnees_a_partir_du = $formatter->format($debut);
   }
   if(!isset($date_max)) {
     $fin = new DateTime(date('Y-m-d'));
