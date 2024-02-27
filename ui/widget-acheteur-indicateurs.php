@@ -1,27 +1,12 @@
 <?php
 
+
 $iframe = false;
 if(isset($_GET['widget'])) {
 $iframe = true;
 if (is_numeric($_GET['widget'])) {
 $id_iframe = $_GET['widget'];
 }
-///// Sécurisation
-$secured = false;
-if (is_numeric($_GET['i'])) {
-    $secured = true;
-}
-
-if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
-    $date_min = $_GET['date_min'];
-    $secured = true;
-}
-  
-if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
-    $date_min = $_GET['date_min'];
-    $secured = true;
-}
-
 }
 
 
