@@ -28,7 +28,7 @@ if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) 
 
 if ($secured == true) {
   $hide_filter = false;
-  if(isset($_GET['hide_filter']) && $_GET['hide_filter'] == true){
+  if(isset($_GET['hide_filter']) && $_GET['hide_filter'] == "true" && $_GET['hide_filter'] == true){
     $hide_filter = true;
   }
   $id = $_GET['i'];
