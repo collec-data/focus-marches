@@ -59,6 +59,7 @@ $kpi = getKPI($connect, null, $nb_mois, 0);
             <?php echo gettext("NOM_OPSN_LINK")?>
             et qu'il  ait bien complété toutes les informations nécessaires dans la salle des marchés publics (bien renseigné l'étape décision).
             On ne trouvera pas, par exemple, les marchés des services de l'Etat qui utilisent <a target="_blank" href="https://www.marches-publics.gouv.fr/">leur propre plateforme.</a>
+            <?php echo gettext("INFO_REGLEMENT_22_12_2023") !== "INFO_REGLEMENT_22_12_2023" ? gettext("INFO_REGLEMENT_22_12_2023") : ""?>
         </h2>
 
 
