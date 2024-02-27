@@ -1,5 +1,3 @@
-<title>Localisation et contexte</title>
-
 <?php
 
 $iframe = false;
@@ -7,21 +5,6 @@ if (isset($_GET['widget'])) {
     $iframe = true;
     if (is_numeric($_GET['widget'])) {
         $id_iframe = $_GET['widget'];
-    }
-    ///// Sécurisation
-    $secured = false;
-    if (is_numeric($_GET['i'])) {
-        $secured = true;
-    }
-
-    if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
-        $date_min = $_GET['date_min'];
-        $secured = true;
-    }
-      
-    if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
-        $date_min = $_GET['date_min'];
-        $secured = true;
     }
 }
 
@@ -214,11 +197,11 @@ if (isset($sirene['siren'])) {
 
         // taille des cercles
         var size_bubble = 20;
-        if (t.data.length > 20) size_bubble = 14;
-        if (t.data.length > 40) size_bubble = 13;
-        if (t.data.length > 60) size_bubble = 12;
-        if (t.data.length > 80) size_bubble = 11;
-        if (t.data.length > 100) size_bubble = 10;
+        if (t.data.length > 20) {size_bubble = 14;}
+        if (t.data.length > 40) {size_bubble = 13;}
+        if (t.data.length > 60) {size_bubble = 12;}
+        if (t.data.length > 80)  {size_bubble = 11; }
+        if (t.data.length > 100) { size_bubble = 10; }
 
         // opacité des cercles
         var opacity = 0.7;
