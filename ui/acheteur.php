@@ -51,6 +51,7 @@ if ($secured == true) {
   //mise à jour périodicité si sélection de date min et max, surcharge la périodicité par défaut présente dans config.php
   if(isset($date_min)) {
   $debut = new DateTime($date_min);
+  $donnees_a_partir_du = $formatter->format($debut);
   }
   if(!isset($date_max)) {
     $fin = new DateTime(date('Y-m-d'));
@@ -63,7 +64,6 @@ if ($secured == true) {
   $months = $interval->format('%r%m');
   $nb_mois = $yearsInMonths + $months;
 
-  $donnees_a_partir_du = $formatter->format(new DateTime($date_min));
 
   $kpi = getKPI($connect, $id, $nb_mois, 0, $date_min, $date_max);
   $marches = getDatesMontantsLieu($connect, $id, $nb_mois, $date_min, $date_max);
