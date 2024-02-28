@@ -14,6 +14,8 @@ if ($iframe == true) {
     include('inc/localization.php');
     include('inc/head.php');
     include('inc/config.php');
+    require_once('common/widget/view-utils.php');
+    require_once('common/widget/common-functions.php');
     ?>
     <!-- entre heads : ajouter extra css , ... -->
     <link rel="stylesheet" href="assets/leaflet/leaflet.css" />
@@ -59,6 +61,8 @@ if ($iframe == true) {
 }
 
 if (isset($sirene['siren'])) {
+    //override nb_mois
+    $nb_mois = nb_mois_calcul($date_min, $date_max, $config);
     ?>
 
     <?php include('js/common-js.php'); ?>

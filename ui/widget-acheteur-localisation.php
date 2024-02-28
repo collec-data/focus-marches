@@ -15,8 +15,8 @@ if ($iframe == true){
 
     $title ="Localisation et contexte";
     $desc =" Widget Localisation et contexte";
+    
     include('inc/head.php');
-
     include('inc/config.php');
     include('inc/localization.php');
     ?>

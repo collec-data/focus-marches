@@ -23,6 +23,8 @@ if ($iframe == true){
     require_once('data/connect.php');
     require_once('data/model.php');
     require_once('data/validateurs.php');
+    require_once('common/widget/view-utils.php');
+    require_once('common/widget/common-functions.php');
 
     $connect->set_charset("utf8");
 
@@ -43,6 +45,8 @@ if ($iframe == true){
     if ($secured == true)
     {
         $id = $_GET['i'];
+        $date_min = isset($date_min) ? $_GET['date_min'] : null;
+        $date_max = isset($date_max) ? $_GET['date_max'] : null;
         $sirene = getDataSiretAcheteur($connect, $id);
         $revenuMoyenNational = getMedianeNiveauVie($connect);
 
@@ -58,6 +62,8 @@ if ($iframe == true){
 
     if (isset($sirene['siren']))
     {
+        //override nb_mois
+        $nb_mois = nb_mois_calcul($date_min, $date_max, $config);
     ?>
 
         <?php include('js/common-js.php');?>
@@ -79,7 +85,7 @@ if ($iframe == true){
 
         <div class="container">
             <h3>Nature des marchés</h3>
-            <p>Répartition des contrats par nature du marché public, en montant et en nombre. La période observée <?php echo $nb_mois > 0 ? "est de <b>" . $nb_mois . " mois</b> et les marchés sont groupés par mois." : "est du <b>". date("d-m-Y",strtotime($date_min)) . "</b> au <b>" . date("d-m-Y",strtotime($date_max)) ."</b>.";?></p>
+            <p>Répartition des contrats par nature du marché public, en montant et en nombre. Ci-dessous les marchés sont groupés par mois et <?php echo texte_html_selon_periode($nb_mois,$date_min,$date_max)?></p>
             <div class="columns sequence">
                 <?php
                 $cats = getCategoriesPrincipales ($connect, $nb_mois, $id, "acheteur", $date_min, $date_max);

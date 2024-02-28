@@ -26,6 +26,8 @@ if ($iframe == true){
     require_once('data/connect.php');
     require_once('data/model.php');
     require_once('data/validateurs.php');
+    require_once('common/widget/view-utils.php');
+    require_once('common/widget/common-functions.php');
 
     $connect->set_charset("utf8");
 
@@ -68,6 +70,8 @@ if ($iframe == true){
 
     if (isset($sirene['siren']))
     {
+        //override nb_mois
+        $nb_mois = nb_mois_calcul($date_min, $date_max, $config);
     ?>
 
         <?php include('js/common-js.php');?>
@@ -89,7 +93,7 @@ if ($iframe == true){
 
         <div class="container">
             <h3>Indicateurs clés</h3>
-            <p>Principaux indicateurs <?php echo $nb_mois > 0 ? "des <b>" . $nb_mois . " derniers mois</b>." : "de la période du <b>". date("d-m-Y",strtotime($date_min)) . "</b> au <b>" . date("d-m-Y",strtotime($date_max)) ."</b>.";?> </p>
+            <p>Principaux indicateurs <?php echo texte_html_selon_periode($nb_mois,$date_min,$date_max)?> </p>
             <div class="kpis columns">
                 <div class="column kpi">
                     <i class="far fa-calendar-alt fa-3x has-text-blue-light pb-1"></i>

@@ -24,6 +24,8 @@ if ($iframe == true){
     require_once('data/connect.php');
     require_once('data/model.php');
     require_once('data/validateurs.php');
+    require_once('common/widget/view-utils.php');
+    require_once('common/widget/common-functions.php');
 
     $connect->set_charset("utf8");
 
@@ -44,6 +46,10 @@ if ($iframe == true){
     if ($secured == true)
     {
         $id = $_GET['i'];
+        $date_min = isset($date_min) ? $_GET['date_min'] : null;
+        $date_max = isset($date_max) ? $_GET['date_max'] : null;
+        //override nb_mois
+        $nb_mois = nb_mois_calcul($date_min, $date_max, $config);
         $nom = getNom($connect, $id);
         $kpi = getKPI($connect, $id, $nb_mois, 0);
         $marches = getDatesMontantsLieu($connect, $id, $nb_mois);
@@ -62,6 +68,8 @@ if ($iframe == true){
 
     if (isset($sirene['siren']))
     {
+        //override nb_mois
+        $nb_mois = nb_mois_calcul($date_min, $date_max, $config);
     ?>
 
         <?php include('js/common-js.php');?>
@@ -84,7 +92,7 @@ if ($iframe == true){
         <div class="container">
 
             <h3>Procédure suivie</h3>
-            <p>Classement des contrats selon la procédure suivie lors de la consultation. La période observée <?php echo $nb_mois > 0 ? "est de <b>" . $nb_mois . " mois</b>." : "est du <b>". date("d-m-Y",strtotime($date_min)) . "</b> au <b>" . date("d-m-Y",strtotime($date_max)) ."</b>.";?></p>
+            <p>Classement des contrats selon la procédure suivie lors de la consultation <?php echo texte_html_selon_periode($nb_mois,$date_min,$date_max)?></p>
             <div class="columns sequence">
                 <div class="column">
                     <h4>Montant des contrats par procédure</h4>

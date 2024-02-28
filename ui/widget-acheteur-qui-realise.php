@@ -6,7 +6,6 @@ if (isset($_GET['widget'])) {
     if (is_numeric($_GET['widget'])) {
         $id_iframe = $_GET['widget'];
     }
-    
 }
 
 if ($iframe == true) {
@@ -25,6 +24,8 @@ if ($iframe == true) {
     require_once('data/connect.php');
     require_once('data/model.php');
     require_once('data/validateurs.php');
+    require_once('common/widget/view-utils.php');
+    require_once('common/widget/common-functions.php');
 
     $connect->set_charset("utf8");
 
@@ -48,6 +49,8 @@ if ($iframe == true) {
         $id = $_GET['i'];
         $date_min = isset($date_min) ? $_GET['date_min'] : null;
         $date_max = isset($date_max) ? $_GET['date_max'] : null;
+        //override nb_mois
+        $nb_mois = nb_mois_calcul($date_min, $date_max,$config);
         $nom = getNom($connect, $id);
         $kpi = getKPI($connect, $id, $nb_mois, 0);
         $marches = getDatesMontantsLieu($connect, $id, $nb_mois);
@@ -82,11 +85,8 @@ if (isset($sirene['siren'])) {
     <script src="assets/datatables/buttons.html5.min.js"></script>
     <script src="assets/datatables/buttons.print.min.js "></script>
 
-
-
-
-
     <?php
+
     //// Qui achète ?
     $titulairesTotal = getTitulairesList($connect, 12, null, $id, $nb_mois, $date_min, $date_max);
     $titulairesServices = getTitulairesList($connect, 12, 'services', $id, $nb_mois, $date_min, $date_max);
@@ -96,8 +96,8 @@ if (isset($sirene['siren'])) {
 
     <div class="container">
         <h3>Qui a réalisé les marchés ?</h3>
-        <p>Top 12 des fournisseurs classés par montant total des contrats remportés au cours
-            <?php echo $nb_mois > 0 ? "des <b>" . $nb_mois . " derniers mois</b>." : "de la période du <b>". date("d-m-Y",strtotime($date_min)) . "</b> au <b>" . date("d-m-Y",strtotime($date_max)) ."</b>.";?>
+        <p>Top 12 des fournisseurs classés par montant total des contrats remportés
+            <?php echo texte_html_selon_periode($nb_mois, $date_min, $date_max);?>
             Survolez les noms des fournisseurs pour les afficher en entier.</p>
         <div id="titulaires">
             <ul class="tab-container">

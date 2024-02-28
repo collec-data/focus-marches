@@ -5,7 +5,8 @@ $page = "acheteur";
 require_once('data/connect.php');
 require_once('data/model.php');
 require_once('data/validateurs.php');
-
+require_once('common/widget/view-utils.php');
+require_once('common/widget/common-functions.php');
 
 ///// Sécurisation
 $secured = false;
@@ -53,17 +54,9 @@ if ($secured == true) {
     $debut = new DateTime($date_min);
     $donnees_a_partir_du = $formatter->format($debut);
   }
-  if(!isset($date_max)) {
-    $fin = new DateTime(date('Y-m-d'));
-  } else {
-    $fin = new DateTime($date_max);
-  }
-  $fin = new DateTime($date_max);
-  $interval = $debut->diff($fin);
-  $yearsInMonths = $interval->format('%r%y') * 12;
-  $months = $interval->format('%r%m');
-  $nb_mois = $yearsInMonths + $months;
 
+  //override nb_mois
+  $nb_mois = nb_mois_calcul($date_min, $date_max, $config);
 
   $kpi = getKPI($connect, $id, $nb_mois, 0, $date_min, $date_max);
   $marches = getDatesMontantsLieu($connect, $id, $nb_mois, $date_min, $date_max);
