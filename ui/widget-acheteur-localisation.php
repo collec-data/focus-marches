@@ -1,4 +1,3 @@
-
 <?php
 $iframe = false;
 if(isset($_GET['widget'])) {
