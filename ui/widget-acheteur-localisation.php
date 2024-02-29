@@ -50,6 +50,14 @@ if ($iframe == true){
 
 }
 
+$id_annuaire = isset($sirene['siret']) ? $sirene['siret'] : $sirene['siren'];
+if (isset($id_annuaire)){
+$has_annuaire_btn = false;
+$tag_annuaire_entreprise = '<div style=\"display:none\"></div>",';
+$has_annuaire_btn = true;
+$tag_annuaire_entreprise = '<a class="button voir-annuaire small" data-id="' . $id_annuaire . '" href="https://annuaire-entreprises.data.gouv.fr/entreprise/' . hsc( $id_annuaire) . '" target="_blank" title="Ouvrir la fiche sur l\'annuaire entreprise" style="text-decoration:none">&#128270</a>';
+}
+
     if (isset($sirene['siren']))
     {
     ?>
@@ -70,9 +78,15 @@ if ($iframe == true){
         <script src="assets/datatables/buttons.html5.min.js"></script>
         <script src="assets/datatables/buttons.print.min.js "></script>
 
-
-
-        <h3>Localisation et contexte</h3>
+    <div class="container-voir-annaire columns">
+        <h3 class="column" style="max-width : fit-content">Localisation et contexte</h3>
+        <?=
+        "<div class='column has-text-right'>" .
+        "<span class='tag' style='height:2.3rem'>Voir la fiche annuaire entreprise</span>" .
+        gettext($tag_annuaire_entreprise) .
+        "</div>";
+        ?>
+    </div>
     <div id="sirene" class="columns">
         <div class="column has-map">
             <div id="mapVertical"></div>
