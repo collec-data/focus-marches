@@ -8,9 +8,13 @@ require_once('connect.php');
 require_once('model.php');
 
 $out = 0;
-if (!isset($_GET['type']))
+
+$options=array("options"=>array("regexp"=>"/^services|travaux|fournitures/"));
+$type_param = filter_var($string, FILTER_VALIDATE_REGEXP,$options);
+
+if (!$type_param || !isset($type_param))
   echo $out;
-$type = $_GET['type'];
+$type = $type_param;
 
 $types_marches = ['services', 'travaux', 'fournitures'];
 if (!in_array($type, $types_marches))
