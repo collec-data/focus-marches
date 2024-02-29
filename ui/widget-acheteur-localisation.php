@@ -1,16 +1,16 @@
 <?php
 $iframe = false;
-if(isset($_GET['widget'])) {
-$iframe = true;
-if (is_numeric($_GET['widget'])) {
-$id_iframe = $_GET['widget'];
-}
-///// Sécurisation
-$secured = false;
-if (is_numeric($_GET['i'])) $secured = true;
+$wiget_param = filter_input(INPUT_GET, 'widget',FILTER_VALIDATE_INT);
+if (isset($wiget_param)) {
+    $iframe = true;
+    if (is_numeric($wiget_param)) {
+        $id_iframe = $wiget_param;
+    }
 }
 
-if ($iframe == true){
+$id_acheteur_param = filter_input(INPUT_GET, 'i',FILTER_VALIDATE_INT);
+
+if ($iframe == true && $id_acheteur_param){
 
     $title ="Localisation et contexte";
     $desc =" Widget Localisation et contexte";
@@ -29,15 +29,10 @@ if ($iframe == true){
 
     $connect->set_charset("utf8");
 
-///// Sécurisation
-    $secured = false;
-    if (is_numeric($_GET['i'])) $secured = true;
-
-    if ($secured == true)
+    if ($id_acheteur_param)
     {
-        $id = $_GET['i'];
-        $nom = getNom($connect, $id);
-        $sirene = getDataSiretAcheteur($connect, $id);
+        $nom = getNom($connect, $id_acheteur_param);
+        $sirene = getDataSiretAcheteur($connect, $id_acheteur_param);
         $revenuMoyenNational = getMedianeNiveauVie($connect);
 
     }
@@ -186,7 +181,7 @@ if ($iframe == true){
             $url=strtok("$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]",'?');
             $iframe_code_gen="<iframe ";
             $iframe_code_gen.= "src=\"$url/../widget-acheteur-localisation.php?i=";
-            $iframe_code_gen.=$id;
+            $iframe_code_gen.=$id_acheteur_param;
             $iframe_code_gen.="&widget=1\" ";
             $iframe_code_gen.= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
             $iframe_code_gen.= "style=\"border: 0;\" ";
