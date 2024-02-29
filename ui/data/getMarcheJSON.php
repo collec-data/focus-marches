@@ -2,7 +2,7 @@
 header('Content-Type: application/json; charset=utf-8');
 error_reporting(0);
 
-$id_marche_param= filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+$id_marche_param= filter_input(INPUT_POST, 'id');
 if (!$id_marche_param || !isset($id_marche_param))
   return "[{}]";
 $id = $id_marche_param;
