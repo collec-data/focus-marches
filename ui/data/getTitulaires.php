@@ -6,7 +6,7 @@ error_reporting(0);
 
 $out = "<ul>";
 
-$entite = $_POST['entite'];
+$entite = filter_input(INPUT_POST, 'entite');
 if (!$entite)
   return $out;
 

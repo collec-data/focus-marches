@@ -8,19 +8,27 @@ $out = 0;
 if (!isset($_GET))
   return $out;
 
-if (!is_numeric($_GET['lieu']))
+$lieu_param = filter_input(INPUT_GET, 'lieu',FILTER_VALIDATE_INT);
+$forme_prix_param = filter_input(INPUT_GET, 'forme_prix',FILTER_VALIDATE_INT);
+$montant_min_param = filter_input(INPUT_GET, 'montant_min',FILTER_VALIDATE_INT);
+$montant_max_param = filter_input(INPUT_GET, 'montant_max',FILTER_VALIDATE_INT);
+$nature_param = filter_input(INPUT_GET, 'nature',FILTER_VALIDATE_INT);
+$acheteur_param = filter_input(INPUT_GET, 'acheteur',FILTER_VALIDATE_INT);
+$titulaire_param = filter_input(INPUT_GET, 'titulaire',FILTER_VALIDATE_INT);
+
+if (!$lieu_param && !is_numeric($lieu_param))
   return $out;
-if (!is_numeric($_GET['forme_prix']))
+if (!$forme_prix_param && !is_numeric($forme_prix_param))
   return $out;
-if (!is_numeric($_GET['montant_min']))
+if (!$montant_min_param && !is_numeric($montant_min_param))
   return $out;
-if (!is_numeric($_GET['montant_max']))
+if (!$montant_max_param && !is_numeric($montant_max_param))
   return $out;
-if (!is_numeric($_GET['nature']))
+if (!$nature_param && !is_numeric($nature_param))
   return $out;
-if (!is_numeric($_GET['acheteur']))
+if (!$acheteur_param && !is_numeric($acheteur_param))
   return $out;
-if (!is_numeric($_GET['titulaire']))
+if (!$titulaire_param && !is_numeric($titulaire_param))
   return $out;
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -35,84 +43,86 @@ $connect->set_charset("utf8");
 # --------------------
 
 #code_cpv
-$code_cpv = $_GET['code_cpv'];
+$code_cpv = filter_input(INPUT_GET, 'code_cpv');
 if (!$code_cpv)
   $code_cpv = '%';
 else
   $code_cpv = '%' . trim($code_cpv) . '%';
 
 #lieu (select avec 0 par défaut)
-$code = $_GET['lieu'];
+$code = $lieu_param;
 if ($code < 1)
   $code = "%";
 
 #objet
-$objet_marche = $_GET['objet'];
+$objet_marche = filter_input(INPUT_GET, 'objet');
 if (!$objet_marche)
   $objet_marche = "%";
 else
   $objet_marche = '%' . trim($objet_marche) . '%';
 
 #libelle cpv
-$libelle_cpv = $_GET['libelle_cpv'];
+$libelle_cpv = filter_input(INPUT_GET, 'libelle_cpv');
 if (!$libelle_cpv)
   $libelle_cpv = "%";
 else
   $libelle_cpv = '%' . trim($libelle_cpv) . '%';
 
 # montant (0 par défaut)
-$montant_min = $_GET['montant_min'];
+$montant_min = $montant_min_param;
 if (!$montant_min || $montant_min < 1)
   $montant_min = 0;
-$montant_max = $_GET['montant_max'];
+$montant_max = $montant_max_param;
 if (!$montant_max || $montant_max < 1 || $montant_max < $montant_min)
   $montant_max = 10000000000000;
 
 # durée (0 par défaut)
-$duree_min = $_GET['duree_min'];
+$duree_min = filter_input(INPUT_GET, 'duree_min', FILTER_VALIDATE_INT);
 if (!$duree_min || $duree_min < 1)
   $duree_min = 0;
-$duree_max = $_GET['duree_max'];
+$duree_max = filter_input(INPUT_GET, 'duree_max', FILTER_VALIDATE_INT);
 if (!$duree_max || $duree_max < 1 || $duree_max < $duree_min)
   $duree_max = 10000000000000;
 
 # date (0 par défaut)
-if(isset($_GET['date_min']) && is_date($_GET['date_min'])){
-  $date_min = $_GET['date_min'];
+$date_min_param = filter_input(INPUT_GET, 'date_min');
+if(isset($date_min_param) && is_date($date_min_param)){
+  $date_min = $date_min_param;
 }
 else if (!isset($date_min) || !$date_min || $date_min == 0 || $date_min < "2019-01-01"){
   $date_min = "2019-01-01";
 }
 
-if(isset($_GET['date_max']) && is_date($_GET['date_max'])){
-  $date_max = $_GET['date_max'];
+$date_max_param = filter_input(INPUT_GET, 'date_max');
+if(isset($date_max_param) && is_date($date_max_param)){
+  $date_max = $date_max_param;
 }
 else if (!isset($date_max) || $date_max < 1 || $date_max < $date_min) {
   $date_max = "2119-01-01";
 }
 
 # forme de prix (0 == tous)
-$id_forme_prix = $_GET['forme_prix'];
+$id_forme_prix = $forme_prix_param;
 if (!$id_forme_prix || $id_forme_prix < 1)
   $id_forme_prix = "%";
 
 # nature (0 == tous)
-$id_nature = $_GET['nature'];
+$id_nature = $nature_param;
 if (!$id_nature || $id_nature < 1)
   $id_nature = "%";
 
 # procédure (0 == tous)
-$id_procedure = $_GET['procedure'];
+$id_procedure = filter_input(INPUT_GET, 'procedure',FILTER_VALIDATE_INT);
 if (!$id_procedure || $id_procedure < 1)
   $id_procedure = "%";
 
 # acheteur
-$id_acheteur = $_GET['acheteur'];
+$id_acheteur = $acheteur_param;
 if (!$id_acheteur || $id_acheteur < 1)
   $id_acheteur = "%";
 
 # titulaire
-$id_titulaire = $_GET['titulaire'];
+$id_titulaire = $titulaire_param;
 if (!$id_titulaire || $id_titulaire < 1)
   $id_titulaire = "%";
 
