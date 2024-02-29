@@ -5,9 +5,6 @@ error_reporting(0);
 
 $out = 0;
 
-if (!isset($_GET))
-  return $out;
-
 $lieu_param = filter_input(INPUT_GET, 'lieu',FILTER_VALIDATE_INT);
 $forme_prix_param = filter_input(INPUT_GET, 'forme_prix',FILTER_VALIDATE_INT);
 $montant_min_param = filter_input(INPUT_GET, 'montant_min',FILTER_VALIDATE_INT);

@@ -3,15 +3,15 @@ header('Content-Type: application/json; charset=utf-8');
 error_reporting(0);
 
 
-if (!isset($_GET['m']))
-  return 0;
-if (!is_numeric($_GET['m']))
-  return 0;
-$months = $_GET['m'];
+$months = filter_input(INPUT_GET, 'm', FILTER_VALIDATE_INT);
 
+if (!$months && !isset($months))
+  return 0;
+if (!$months)
+  return 0;
 
-if (isset($_GET['i'])) {
-  if (!is_numeric($_GET['i']))
+$id_acheteur = filter_input(INPUT_GET, 'i', FILTER_VALIDATE_INT);
+if (!$id_acheteur){
     return 0;
 }
 
@@ -28,7 +28,7 @@ try {
   FROM marche m
   INNER JOIN acheteur a ON m.id_acheteur = a.id_acheteur ";
 
-  if (isset($_GET['i'])) {
+  if (isset($id_acheteur)) {
     $sql .= " INNER JOIN marche_titulaires mt ON m.id_marche = mt.id_marche
     INNER JOIN titulaire t ON mt.id_titulaires = t.id_titulaire ";
   }
@@ -39,8 +39,8 @@ try {
     $sql .= " AND m.date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)";
   }
 
-  if (isset($_GET['i'])) {
-    $sql .= " AND t.id_titulaire = " . $_GET['i'] . " ";
+  if (isset($id_acheteur)) {
+    $sql .= " AND t.id_titulaire = " . $id_acheteur . " ";
   }
 
   $sql .= " GROUP BY a.nom_acheteur

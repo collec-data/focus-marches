@@ -7,7 +7,7 @@ error_reporting(0);
 $out = "<ul>";
 
 $entite = filter_input(INPUT_POST, 'entite');
-if (!$entite)
+if (!$entite || !isset($entite))
   return $out;
 
 

@@ -6,34 +6,31 @@ error_reporting(0);
 
 $out = 0;
 
-if (!isset($_GET))
+$lieu_param = filter_input(INPUT_GET, 'lieu', FILTER_VALIDATE_INT);
+$forme_prix_param = filter_input(INPUT_GET, 'forme_prix', FILTER_VALIDATE_INT);
+$montant_min_param = filter_input(INPUT_GET, 'montant_min', FILTER_VALIDATE_INT);
+$montant_max_param = filter_input(INPUT_GET, 'montant_max', FILTER_VALIDATE_INT);
+$nature_param = filter_input(INPUT_GET, 'nature', FILTER_VALIDATE_INT);
+$procedure_param = filter_input(INPUT_GET, 'procedure', FILTER_VALIDATE_INT);
+$acheteur_param = filter_input(INPUT_GET, 'acheteur', FILTER_VALIDATE_INT);
+$titulaire_param = filter_input(INPUT_GET, 'titulaire', FILTER_VALIDATE_INT);
+
+if (!$lieu_param && !is_numeric($lieu_param))
   return $out;
-
-  $lieu_param = filter_input(INPUT_GET, 'lieu',FILTER_VALIDATE_INT);
-  $forme_prix_param = filter_input(INPUT_GET, 'forme_prix',FILTER_VALIDATE_INT);
-  $montant_min_param = filter_input(INPUT_GET, 'montant_min',FILTER_VALIDATE_INT);
-  $montant_max_param = filter_input(INPUT_GET, 'montant_max',FILTER_VALIDATE_INT);
-  $nature_param = filter_input(INPUT_GET, 'nature',FILTER_VALIDATE_INT);
-  $procedure_param = filter_input(INPUT_GET, 'procedure',FILTER_VALIDATE_INT);
-  $acheteur_param = filter_input(INPUT_GET, 'acheteur',FILTER_VALIDATE_INT);
-  $titulaire_param = filter_input(INPUT_GET, 'titulaire',FILTER_VALIDATE_INT);
-
-  if (!$lieu_param && !is_numeric($lieu_param))
-    return $out;
-  if (!$forme_prix_param && !is_numeric($forme_prix_param))
-    return $out;
-  if (!$montant_min_param && !is_numeric($montant_min_param))
-    return $out;
-  if (!$montant_max_param && !is_numeric($montant_max_param))
-    return $out;
-  if (!$nature_param && !is_numeric($nature_param))
-    return $out;
-  if (!$procedure_param && !is_numeric($procedure_param))
-    return $out;
-  if (!$acheteur_param && !is_numeric($acheteur_param))
-    return $out;
-  if (!$titulaire_param && !is_numeric($titulaire_param))
-    return $out;
+if (!$forme_prix_param && !is_numeric($forme_prix_param))
+  return $out;
+if (!$montant_min_param && !is_numeric($montant_min_param))
+  return $out;
+if (!$montant_max_param && !is_numeric($montant_max_param))
+  return $out;
+if (!$nature_param && !is_numeric($nature_param))
+  return $out;
+if (!$procedure_param && !is_numeric($procedure_param))
+  return $out;
+if (!$acheteur_param && !is_numeric($acheteur_param))
+  return $out;
+if (!$titulaire_param && !is_numeric($titulaire_param))
+  return $out;
 
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -76,7 +73,7 @@ else
 $montant_min = $montant_min_param;
 if (!$montant_min || $montant_min < 1)
   $montant_min = 0;
-  $montant_max = $montant_max_param;
+$montant_max = $montant_max_param;
 if (!$montant_max || $montant_max < 1 || $montant_max < $montant_min)
   $montant_max = 10000000000000;
 
