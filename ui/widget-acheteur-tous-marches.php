@@ -23,6 +23,8 @@ if ($iframe == true) {
     require_once('data/connect.php');
     require_once('data/model.php');
     require_once('data/validateurs.php');
+    require_once('common/widget/view-utils.php');
+    require_once('common/widget/common-functions.php');
 
     $connect->set_charset("utf8");
 
@@ -45,6 +47,10 @@ if ($iframe == true) {
 
     if ($secured == true) {
         $id = $_GET['i'];
+        $date_min = isset($date_min) ? $_GET['date_min'] : null;
+        $date_max = isset($date_max) ? $_GET['date_max'] : null;
+        //override nb_mois
+        $nb_mois = nb_mois_calcul($date_min, $date_max, $config);
         $nom = getNom($connect, $id);
         $kpi = getKPI($connect, $id, $nb_mois, 0);
         $marches = getDatesMontantsLieu($connect, $id, $nb_mois);
@@ -61,6 +67,7 @@ if ($iframe == true) {
 }
 
 if (isset($sirene['siren'])) {
+
     ?>
 
     <?php include('js/common-js.php'); ?>
@@ -273,13 +280,14 @@ if (isset($sirene['siren'])) {
     function ajax.url().load( callback, resetPaging ) */
     //// calculer la date min : aujoud'hui - $nb_mois
     <?php
-    $date_min = isset($date_min) ? $date_min : date("Y-m", strtotime("-$nb_mois months"));
-    $date_max = isset($date_max) ? $date_max : "0";
+    //variables spécifique pour ne pas overrider les autres variables des autres widgets
+    $date_min_widget = isset($date_min) ? $date_min : date("Y-m", strtotime("-$nb_mois months"));
+    $date_max_widget = isset($date_max) ? $date_max : "0";
     ?>
-    const date_min = '<?php echo $date_min; ?>';
-    const date_max = '<?php echo $date_max; ?>';
+    const date_min_widget = '<?php echo $date_min_widget; ?>';
+    const date_max_widget = '<?php echo $date_max_widget; ?>';
 
-    var url = "data/getRecherche.php?libelle_cpv=&titulaire=0&acheteur=" + <?php echo $id; ?> + "&lieu=0&objet=&montant_min=0&montant_max=0&duree_min=0&duree_max=0&date_min=" + date_min + "&date_max=" + date_max+"&forme_prix=0&nature=0&procedure=0&code_cpv=";
+    var url = "data/getRecherche.php?libelle_cpv=&titulaire=0&acheteur=" + <?php echo $id; ?> + "&lieu=0&objet=&montant_min=0&montant_max=0&duree_min=0&duree_max=0&date_min=" + date_min_widget + "&date_max=" + date_max_widget+"&forme_prix=0&nature=0&procedure=0&code_cpv=";
 
     tableUI.ajax.url(url).load(function () {
         $('#rechercheBouton').removeClass('is-loading');
