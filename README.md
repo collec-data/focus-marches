@@ -48,6 +48,12 @@ C'est prêt ! vous pouvez accéder au service sur http://HOSTNAME:80
 
 
 ### Personnaliser son instance focus marchés
+Par défaut, il y a un style par défaut, mais il est possible de surcharger l'existant notamment au niveau des styles en utilisant le fichier style-override.css, et dans le `docker-compose.yml` il est possible d'ajouter une variable d'environnement : 
+- ENVP : "organisation"
+```
+    environment:
+      - ENVP=recia
+```
 Dupliquer un dossier de personnalisation pour creer le votre, par exemple nous allons dupliquer` cp ui/personalisation/arnia  ui/personalisation/monorga`
 
 Dans notre exemple, 
