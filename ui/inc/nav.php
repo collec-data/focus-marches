@@ -2,7 +2,7 @@
 </head>
 <body id="<?php echo $page; ?>" class="site ">
 
-  <div id="navWrap">
+  <div id="navWrap" style="display: flex;">
   <nav class="navbar is-light" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="index.php">
@@ -15,6 +15,7 @@
       </a>
     </div>
 
+
     <div id="navbarMenu" class="navbar-menu">
       <div class="navbar-start">
         <a class="navbar-item" href="index.php"><i class="fas fa-home"></i>&nbsp;Accueil</a>
@@ -24,5 +25,12 @@
         <a class="navbar-item" href="recherche.php"><i class="fas fa-search"></i>&nbsp;Recherche</a>
       </div>
     </div>
-</nav>
+    
+    <div class="navbar-brand">
+      <a class="navbar-item" style="visibility: hidden;">
+        <img src="./img/focus-marches_logo_brand.png" onload="this.parentElement.style.visibility='visible'" height="42">
+      </a>
+    </div>
+
+  </nav>
 </div><!-- ./navWrap -->
