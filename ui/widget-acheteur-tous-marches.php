@@ -98,7 +98,7 @@ if (isset($sirene['siren'])) {
     $titulairesFournitures = getTitulairesList($connect, 12, 'fournitures', $id, $nb_mois, $date_min, $date_max);
     ?>
 
-    <div class="container wide">
+    <div class="container">
         <h3 id="titreTableUI">Tous les marchés de
             <?php echo $nom; ?>
         </h3>

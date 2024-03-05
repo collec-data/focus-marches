@@ -21,7 +21,7 @@ $connect->set_charset("utf8");
 ?>
 
 <div id="main">
-  <div class="container wide">
+  <div class="container">
     <h1 class='title'>Les fournisseurs répertoriés dans les profils d'acheteur de
       <?php echo gettext("NOM_OPSN") ?>
     </h1>
