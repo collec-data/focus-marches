@@ -132,25 +132,27 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
     <p>Cette page vous présente les données essentielles du profil d'acheteur de <b>
       <?=gettext($nom); ?>
       </b>, enrichies avec des données complémentaires.</p>
+    <?php
+    include('widget-acheteur-localisation.php');
+    ?>
 
+    <div class="container">
       <div class="filtre-dates" <?php echo $hidden_filter ?>>
+        <label style="font-family: 'RobotoCondensedBold'">Filtrer les contrats</label>
         <div class="columns">
             <div class="column">
-              <label>Date min</label>
+              <label>Date de début</label>
               <input id="in_date_min" type="date" value=<?=$default_value_date_min?> pattern="\d{4}-\d{2}-\d{2}">
             </div>
             <div class="column">
-              <label>Date max</label>
+              <label>Date de fin</label>
               <input id="in_date_max" type="date" value=<?=$default_value_date_max?> pattern="\d{4}-\d{2}-\d{2}">
             </div>
             <button id="filtrerBoutonAcheteur" class="button is-info button-filtre-date" type="button" role="button"
               aria-label="search">Filtrer</button>
         </div>
       </div>
-
-    <?php
-    include('widget-acheteur-localisation.php');
-    ?>
+    </div>
 
     <?php
     include('widget-acheteur-indicateurs.php');
