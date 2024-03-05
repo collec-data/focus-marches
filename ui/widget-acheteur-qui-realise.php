@@ -1,10 +1,11 @@
 <?php
 
 $iframe = false;
-if (isset($_GET['widget'])) {
+$wiget_param = filter_input(INPUT_GET, 'widget',FILTER_VALIDATE_INT);
+if (isset($wiget_param)) {
     $iframe = true;
-    if (is_numeric($_GET['widget'])) {
-        $id_iframe = $_GET['widget'];
+    if (is_numeric($wiget_param)) {
+        $id_iframe = $wiget_param;
     }
 }
 
@@ -31,30 +32,32 @@ if ($iframe == true) {
 
     ///// Sécurisation
     $secured = false;
-    if (is_numeric($_GET['i'])) {
+    $id_acheteur_param = filter_input(INPUT_GET, 'i',FILTER_VALIDATE_INT);
+    $date_min_param = filter_input(INPUT_GET,'date_min');
+    $date_max_param = filter_input(INPUT_GET,'date_max');
+
+    if ($id_acheteur_param && isset($id_acheteur_param) && is_numeric($id_acheteur_param))
+        $secured = true;
+
+    if (isset($date_min_param) && is_date($date_min_param) && $secured == true) {
+        $date_min = $date_min_param;
         $secured = true;
     }
-
-    if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
-        $date_min = $_GET['date_min'];
-        $secured = true;
-    }
-
-    if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
-        $date_max = $_GET['date_max'];
+        
+        if (isset($date_max_param) && is_date($date_max_param) && $secured == true) {
+        $date_max = $date_max_param;
         $secured = true;
     }
 
     if ($secured == true) {
-        $id = $_GET['i'];
         $date_min = isset($date_min) ? $_GET['date_min'] : null;
         $date_max = isset($date_max) ? $_GET['date_max'] : null;
         //override nb_mois
         $nb_mois = nb_mois_calcul($date_min, $date_max,$config);
-        $nom = getNom($connect, $id);
-        $kpi = getKPI($connect, $id, $nb_mois, 0);
-        $marches = getDatesMontantsLieu($connect, $id, $nb_mois);
-        $sirene = getDataSiretAcheteur($connect, $id);
+        $nom = getNom($connect, $id_acheteur_param);
+        $kpi = getKPI($connect, $id_acheteur_param, $nb_mois, 0);
+        $marches = getDatesMontantsLieu($connect, $id_acheteur_param, $nb_mois);
+        $sirene = getDataSiretAcheteur($connect, $id_acheteur_param);
         $revenuMoyenNational = getMedianeNiveauVie($connect);
 
     }
@@ -88,10 +91,10 @@ if (isset($sirene['siren'])) {
     <?php
 
     //// Qui achète ?
-    $titulairesTotal = getTitulairesList($connect, 12, null, $id, $nb_mois, $date_min, $date_max);
-    $titulairesServices = getTitulairesList($connect, 12, 'services', $id, $nb_mois, $date_min, $date_max);
-    $titulairesTravaux = getTitulairesList($connect, 12, 'travaux', $id, $nb_mois, $date_min, $date_max);
-    $titulairesFournitures = getTitulairesList($connect, 12, 'fournitures', $id, $nb_mois, $date_min, $date_max);
+    $titulairesTotal = getTitulairesList($connect, 12, null, $id_acheteur_param, $nb_mois, $date_min, $date_max);
+    $titulairesServices = getTitulairesList($connect, 12, 'services', $id_acheteur_param, $nb_mois, $date_min, $date_max);
+    $titulairesTravaux = getTitulairesList($connect, 12, 'travaux', $id_acheteur_param, $nb_mois, $date_min, $date_max);
+    $titulairesFournitures = getTitulairesList($connect, 12, 'fournitures', $id_acheteur_param, $nb_mois, $date_min, $date_max);
     ?>
 
     <div class="container">
@@ -187,7 +190,7 @@ if (isset($sirene['siren'])) {
 
             $iframe_code_gen = "<iframe ";
             $iframe_code_gen .= "src=\"$url/../widget-acheteur-qui-realise.php?i=";
-            $iframe_code_gen .= $id;
+            $iframe_code_gen .= $id_acheteur_param;
             $iframe_code_gen .= isset($date_min) ? "&date_min=" . $date_min : "";
             $iframe_code_gen .= isset($date_max) ? "&date_max=" . $date_max : "";
             $iframe_code_gen .= "&widget=1\" ";
@@ -340,7 +343,7 @@ if (isset($sirene['siren'])) {
         const date_min = "<?php echo $date_min; ?>";
         const date_max = "<?php echo $date_max; ?>";
         const nb_mois = "<?php echo $nb_mois; ?>";
-        const id_acheteur = "<?php echo $id; ?>";
+        const id_acheteur = "<?php echo $id_acheteur_param; ?>";
 
         dateSelection += (date_min !=='' ? "&date_min=" + date_min : '');
         dateSelection += (date_max !== '' ? "&date_max=" + date_max : '');

@@ -3,9 +3,9 @@ header('Content-Type: text/html; charset=utf-8');
 error_reporting(0);
 
 
-if (!isset($_POST['entite']))
+$entite = filter_input(INPUT_POST, 'entite');
+if (!$entite || !isset($entite))
   return;
-$entite = $_POST['entite'];
 
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -20,11 +20,20 @@ $connect->set_charset("utf8");
 
 ///// Sécurisation
 $secured = false;
-if (is_numeric($_GET['i'])) $secured = true;
+$id_titulaire_param = filter_input(INPUT_GET, 'i',FILTER_VALIDATE_INT);
+
+if ($id_titulaire_param && isset($id_titulaire_param) && is_numeric($id_titulaire_param))
+  $secured = true;
+
+if($secured == false){
+  header('Location: 404');
+  die();
+}
+if (is_numeric($id_titulaire_param)) $secured = true;
 
 if ($secured == true)
 {
-  $id = $_GET['i'];
+  $id = $id_titulaire_param;
   $nom = getNomTitulaire($connect, $id);
   $kpi = getKPITitulaire($connect, $id, $nb_mois);
   $marches = getDatesMontantsLieu($connect, $id, 12);

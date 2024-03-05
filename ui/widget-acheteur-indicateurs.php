@@ -2,14 +2,13 @@
 
 
 $iframe = false;
-if(isset($_GET['widget'])) {
-$iframe = true;
-if (is_numeric($_GET['widget'])) {
-$id_iframe = $_GET['widget'];
+$wiget_param = filter_input(INPUT_GET, 'widget',FILTER_VALIDATE_INT);
+if (isset($wiget_param)) {
+    $iframe = true;
+    if (is_numeric($wiget_param)) {
+        $id_iframe = $wiget_param;
+    }
 }
-}
-
-
 
 if ($iframe == true){
 
@@ -33,29 +32,31 @@ if ($iframe == true){
 
 ///// Sécurisation
     $secured = false;
-    if (is_numeric($_GET['i'])) { 
+    $id_acheteur_param = filter_input(INPUT_GET, 'i',FILTER_VALIDATE_INT);
+    $date_min_param = filter_input(INPUT_GET,'date_min');
+    $date_max_param = filter_input(INPUT_GET,'date_max');
+
+    if ($id_acheteur_param && isset($id_acheteur_param) && is_numeric($id_acheteur_param))
+        $secured = true;
+
+    if (isset($date_min_param) && is_date($date_min_param) && $secured == true) {
+        $date_min = $date_min_param;
+        $secured = true;
+    }
+        
+        if (isset($date_max_param) && is_date($date_max_param) && $secured == true) {
+        $date_max = $date_max_param;
         $secured = true;
     }
 
-    if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
-        $date_min = $_GET['date_min'];
-        $secured = true;
-      }
-      
-      if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
-        $date_max = $_GET['date_max'];
-        $secured = true;
-      }
-
     if ($secured == true)
     {
-        $id = $_GET['i'];
-        $date_min = isset($date_min) ? $_GET['date_min'] : null;
-        $date_max = isset($date_max) ? $_GET['date_max'] : null;
-        $nom = getNom($connect, $id);
-        $kpi = getKPI($connect, $id, $nb_mois, 0, $date_min, $date_max);
-        $marches = getDatesMontantsLieu($connect, $id, $nb_mois, $date_min, $date_max);
-        $sirene = getDataSiretAcheteur($connect, $id);
+        $date_min = isset($date_min) ? $date_min_param : null;
+        $date_max = isset($date_max) ? $date_max_param : null;
+        $nom = getNom($connect, $id_acheteur_param);
+        $kpi = getKPI($connect, $id_acheteur_param, $nb_mois, 0, $date_min, $date_max);
+        $marches = getDatesMontantsLieu($connect, $id_acheteur_param, $nb_mois, $date_min, $date_max);
+        $sirene = getDataSiretAcheteur($connect, $id_acheteur_param);
         $revenuMoyenNational = getMedianeNiveauVie($connect);
 
     }
@@ -177,7 +178,7 @@ if ($iframe == true){
                 $url=strtok("$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]",'?');
                 $iframe_code_gen="<iframe ";
                 $iframe_code_gen.= "src=\"$url/../widget-acheteur-indicateurs.php?i=";
-                $iframe_code_gen.=$id;
+                $iframe_code_gen.=$id_acheteur_param;
                 $iframe_code_gen .= isset($date_min) ? "&date_min=" . $date_min : "";
                 $iframe_code_gen .= isset($date_max) ? "&date_max=" . $date_max : "";
                 $iframe_code_gen.="&widget=1\" ";

@@ -10,34 +10,45 @@ require_once('common/widget/common-functions.php');
 
 ///// Sécurisation
 $secured = false;
-if (is_numeric($_GET['i']))
+$id_acheteur_param = filter_input(INPUT_GET, 'i',FILTER_VALIDATE_INT);
+$date_min_param = filter_input(INPUT_GET,'date_min');
+$date_max_param = filter_input(INPUT_GET,'date_max');
+$hide_filter_param = filter_input(INPUT_GET,'hide_filter');
+
+if ($id_acheteur_param && isset($id_acheteur_param) && is_numeric($id_acheteur_param))
   $secured = true;
 
-if(isset($_GET['hide_filter']) && is_bool($_GET['hide_filter']) && $_GET['hide_filter'] == true){
+if(filter_input(INPUT_GET,'hide_filter',FILTER_VALIDATE_BOOLEAN)){
+  $hide_filter = $hide_filter_param ;
   $secured = true;
 }
 
-if (isset($_GET['date_min']) && is_date($_GET['date_min']) && $secured == true) {
-  $date_min = $_GET['date_min'];
+if (isset($date_min_param) && is_date($date_min_param) && $secured == true) {
+  $date_min = $date_min_param;
   $secured = true;
 }
 
-if (isset($_GET['date_max']) && is_date($_GET['date_max']) && $secured == true) {
-  $date_min = $_GET['date_min'];
+if (isset($date_max_param) && is_date($date_max_param) && $secured == true) {
+  $date_max = $date_max_param;
   $secured = true;
+}
+
+if($secured == false){
+  header('Location: 404');
+  die();
 }
 
 if ($secured == true) {
   $hide_filter = false;
-  if(isset($_GET['hide_filter']) && $_GET['hide_filter'] == "true" && $_GET['hide_filter'] == true){
+  if(isset($hide_filter_param) && $hide_filter_param == "true" && $hide_filter_param === true){
     $hide_filter = true;
   }
-  $id = $_GET['i'];
+  $id = $id_acheteur_param;
   $nom = getNom($connect, $id);
   $title = "Acheteur | Données essentielles du profil d'acheteur " . $nom;
   $desc = "Acheteur | Données essentielles du profil d'acheteur " . $nom;
-  $date_min = isset($_GET['date_min']) ?  $_GET['date_min'] : null;
-  $date_max = isset($_GET['date_max']) ? $_GET['date_max'] : null;
+  $date_min = isset($date_min) ?  $date_min : null;
+  $date_max = isset($date_max) ? $date_max : null;
 
   include('inc/head.php');
   include('inc/config.php');
