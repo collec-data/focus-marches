@@ -26,7 +26,7 @@
                         <p>Notre page <a href="mentions-legales.php">Mentions légales</a> contient des informations concernant la protection de la vie privée et vous permet de configurer le suivi ou pas par notre outil d'analyse de visites.  </p>
                     </div>
                 </div>
-                <p><a href="https://www.recia.fr/"><img id="footerLogo" src="img/footer_logo.png" alt=<?php echo gettext('NOM_OPSN')?> /></a></p>
+                <p><a href=<?php echo gettext('URL_OPSN')?>><img id="footerLogo" src="img/footer_logo.png" alt=<?php echo gettext('NOM_OPSN')?> /></a></p>
             </div>
         </div>
     </footer>

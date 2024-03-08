@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: focus-marches\n"
-"POT-Creation-Date: 2024-02-27 18:10+0100\n"
-"PO-Revision-Date: 2024-02-27 18:10+0100\n"
+"POT-Creation-Date: 2024-03-08 18:35+0100\n"
+"PO-Revision-Date: 2024-03-08 18:35+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -33,6 +33,10 @@ msgstr "GIP RECIA"
 #: ui/inc/footer.php:25
 msgid "TELECHARGEMENT_DATA"
 msgstr "<p></p>"
+
+#: ui/inc/footer.php:29
+msgid "URL_OPSN"
+msgstr "https://www.ternum-bfc.fr/"
 
 #: ui/index.php:43
 msgid "à partir du "
