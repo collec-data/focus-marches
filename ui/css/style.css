@@ -274,7 +274,7 @@ Nav
 #navWrap { background-color:  #f9f4f4; box-shadow: 0 2px 2px 0 hsla(0, 0%, 0%, 0.1);}
 .navbar { max-width: 980px; margin: 0 auto;}
 .navbar:empty { display: none; }
-#navbarMenu { max-width: 980px; margin: 0 auto;margin-left: 25px; font-family: 'RobotoLight', Arial, sans-serif;}
+#navbarMenu { max-width: 980px; margin: 0 auto; font-family: 'RobotoLight', Arial, sans-serif;}
 #navbarMenu i {color: #fff; background: #09375b; border-radius: 20px; padding: 7px;}
 #navbarMenu a { color: #363636; }
 #navbarMenu a:empty { display: none; }

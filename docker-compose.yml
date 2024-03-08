@@ -18,8 +18,6 @@ services:
       - ${HOST_APP_FOLDER}/sql/index.sql:/docker-entrypoint-initdb.d/3.sql
   focus-marches:
     build: ${HOST_APP_FOLDER}
-    environment:
-      - ENVP=recia
     image: ${FOCUS_MARCHE_IMAGE_NAME}
     ports:
       - "${HOST_FOCUS_PORT}:80"

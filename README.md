@@ -48,7 +48,7 @@ C'est prêt ! vous pouvez accéder au service sur http://HOSTNAME:80
 
 
 ### Personnaliser son instance focus marchés
-Par défaut, il y a un style par défaut, mais il est possible de surcharger l'existant notamment au niveau des styles en utilisant le fichier style-override.css, et dans le `docker-compose.yml` il est possible d'ajouter une variable d'environnement : 
+Par défaut, il y a un style par défaut, mais il est possible de surcharger l'existant notamment au niveau des styles en utilisant le fichier style-override.css, et dans le `docker-compose.yml` il est possible d'ajouter une variable d'environnement qui va correspondre au dossier présent dans ui/personnalistation/organisation: 
 - ENVP : "organisation"
 ```
     environment:
