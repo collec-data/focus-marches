@@ -21,3 +21,6 @@ services:
     image: ${FOCUS_MARCHE_IMAGE_NAME}
     ports:
       - "${HOST_FOCUS_PORT}:80"
+    entrypoint: ["/docker-entrypoint.sh", "apache2-foreground"]
+    volumes:
+      - ${HOST_APP_FOLDER}/ui:/app
