@@ -4,7 +4,6 @@ set -e
 echo "démarrage de focus version : $ENVP"
 if [[ -z "$ENVP" ]]; then
     echo "La variable de personnalisation ENVP n'est pas définie"
-    rm /app/css/style-override.css
 else
     cp /app/personalisation/${ENVP}/style-override.css /app/css/
     cp /app/personalisation/${ENVP}/*.png /app/img
