@@ -5,29 +5,31 @@ error_reporting(0);
 
 
 # date (0 par défaut)
-if (isset($_GET['date_min'])) {
-  $date_min = $_GET['date_min'];
+$date_min_param = filter_input(INPUT_GET, 'date_min');
+if (isset($date_min_param)) {
+  $date_min = $date_min_param;
 }
 
-if (isset($_GET['date_max'])) {
-  $date_max = $_GET['date_max'];
+$date_max_param = filter_input(INPUT_GET, 'date_max');
+if (isset($date_max_param)) {
+  $date_max = $date_max_param;
 }
 
 // nb mois si date_min et date_max non définis
-if (!isset($_GET['m']) && ((!isset($_GET['date_min'])) || (!isset($_GET['date_max'])))) {
+$nb_mois_param = filter_input(INPUT_GET, 'm', FILTER_VALIDATE_INT);
+if (!isset($nb_mois_param) && ((!isset($date_max_param)) || (!isset($date_max_param)))) {
   echo 0;
-if (!is_numeric($_GET['m']))
+if (!is_numeric($nb_mois_param))
   echo 0;
-  $months = $_GET['m'];
+  $months = $nb_mois_param;
 }
 
 // id acheteur (optionnel)
 $id = "%";
-if (isset($_GET['i'])) {
-  if (is_numeric($_GET['i']))
-    $id = $_GET['i'];
+$id_acheteur_param = filter_input(INPUT_GET, 'i', FILTER_VALIDATE_INT);
+if (isset($id_acheteur_param) && is_numeric($id_acheteur_param)){
+    $id = $id_acheteur_param;
 }
-
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 select
