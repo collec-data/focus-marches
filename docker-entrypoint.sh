@@ -4,8 +4,9 @@ set -e
 echo "démarrage de focus version : $ENVP"
 if [[ -z "$ENVP" ]]; then
     echo "La variable de personnalisation ENVP n'est pas définie"
-    #remove the style-override.css file if exists
-    rm -f style-override.css
+    #enlèvement de ficher non nécessaires lorsque l'environnement n'est pas défini
+    rm -f css/style-override.css
+    rm -f img/focus-marches_logo_brand.png
 else
     cp /app/personalisation/${ENVP}/style-override.css /app/css/
     cp /app/personalisation/${ENVP}/*.png /app/img
