@@ -153,6 +153,8 @@ Bandeau home
   #bandeauHome h1 { margin: -90px auto 50px; }
 }
 
+
+
 /*
 h1Fixe
 ----------------*/
@@ -271,8 +273,41 @@ Acheteur
 Nav
 ------------- */
 /* .navbar { box-shadow: 0 3px 3px #ececec; } */
-#navWrap { background-color:  #f9f4f4; box-shadow: 0 2px 2px 0 hsla(0, 0%, 0%, 0.1);}
-.navbar { max-width: 980px; margin: 0 auto;}
+#navWrap { 
+  display:flex;  flex-direction: row; background-color:  #f9f4f4; box-shadow: 0 2px 2px 0 hsla(0, 0%, 0%, 0.1);}
+
+  #brand-opsn{
+    order:3;
+  }
+  #navbarMenu{
+    order:1;
+  }
+  #accordeon-menu{
+    order:2;
+  }
+  
+@media screen and (max-width: 1087px){
+  #navWrap {
+    display:flex;
+    flex-direction: row; justify-content: space-between; align-items: center; padding: 0 20px;
+    background-color:#f9f4f4; box-shadow: 0 2px 2px 0 hsla(0, 0%, 0%, 0.1);
+  }
+  
+      /*manager order logos when menu little size*/
+    #brand-opsn{
+      order:2;
+    }
+    #navbarMenu{
+      order:1;
+    }
+    #accordeon-menu{
+      order:3;
+    }
+  }
+
+
+
+.navbar { max-width: 980px; margin: 0 auto; max-height: 4.5rem;}
 .navbar:empty { display: none; }
 #navbarMenu { max-width: 980px; margin: 0 auto; font-family: 'RobotoLight', Arial, sans-serif;}
 #navbarMenu i {color: #fff; background: #09375b; border-radius: 20px; padding: 7px;}
