@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: focus-marches\n"
-"POT-Creation-Date: 2024-02-27 18:41+0100\n"
-"PO-Revision-Date: 2024-02-27 18:44+0100\n"
+"POT-Creation-Date: 2024-03-08 18:34+0100\n"
+"PO-Revision-Date: 2024-03-08 18:34+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -16,23 +16,32 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *js\n"
 
-#: ui/acheteurs-liste.php:5 ui/acheteurs-liste.php:6 ui/categories.php:4 ui/categories.php:5 ui/index.php:58
-#: ui/recherche.php:5 ui/recherche.php:6 ui/titulaires.php:5 ui/titulaires.php:6
+#: ui/acheteurs-liste.php:5 ui/acheteurs-liste.php:6 ui/categories.php:4
+#: ui/categories.php:5 ui/index.php:58 ui/recherche.php:5 ui/recherche.php:6
+#: ui/titulaires.php:5 ui/titulaires.php:6
 msgid "NOM_REGION"
 msgstr "Bretagne"
 
-#: ui/acheteurs-liste.php:26 ui/acheteurs.php:5 ui/acheteurs.php:6 ui/acheteurs.php:26 ui/inc/footer.php:21
-#: ui/inc/footer.php:29 ui/index.php:5 ui/index.php:6 ui/index.php:49 ui/mentions-legales.php:5
-#: ui/mentions-legales.php:6 ui/titulaire.php:5 ui/titulaire.php:6 ui/titulaires.php:26
+#: ui/acheteurs-liste.php:26 ui/acheteurs.php:5 ui/acheteurs.php:6
+#: ui/acheteurs.php:26 ui/inc/footer.php:21 ui/inc/footer.php:29 ui/index.php:5
+#: ui/index.php:6 ui/index.php:49 ui/mentions-legales.php:5
+#: ui/mentions-legales.php:6 ui/titulaire.php:5 ui/titulaire.php:6
+#: ui/titulaires.php:26
 msgid "NOM_OPSN"
 msgstr "Mégalis Bretagne"
 
 #: ui/inc/footer.php:25
 msgid "TELECHARGEMENT_DATA"
 msgstr ""
-"<p>Données publiées sous la <a href=\"pdf/ETALAB-Licence-Ouverte-v2.0.pdf\">Licence Ouverte Version 2.0 - "
-"Etalab</a>. Le <a href=\"https://www.data.gouv.fr/fr/datasets/donnees-essentielles-du-profil-acheteur-megalis-"
-"bretagne/\">téléchargement des données</a> se fait librement sur le portail opendata national.</p>"
+"<p>Données publiées sous la <a href=\"pdf/ETALAB-Licence-Ouverte-v2.0.pdf"
+"\">Licence Ouverte Version 2.0 - Etalab</a>. Le <a href=\"https://www.data."
+"gouv.fr/fr/datasets/donnees-essentielles-du-profil-acheteur-megalis-bretagne/"
+"\">téléchargement des données</a> se fait librement sur le portail opendata "
+"national.</p>"
+
+#: ui/inc/footer.php:29
+msgid "URL_OPSN"
+msgstr "https://www.megalis.bretagne.bzh/"
 
 #: ui/index.php:43
 msgid "à partir du "
@@ -41,18 +50,22 @@ msgstr "Depuis le "
 #: ui/index.php:59
 msgid "NOM_OPSN_LINK"
 msgstr ""
-"<a href='https://geobretagne.fr/mviewer/?config=/apps/megalis-services/config.xml#' target='_blank'>adhérent au "
-"service proposé par  Mégalis Bretagne</a>"
+"<a href='https://geobretagne.fr/mviewer/?config=/apps/megalis-services/"
+"config.xml#' target='_blank'>adhérent au service proposé par  Mégalis "
+"Bretagne</a>"
 
 #: ui/index.php:62
 msgid "INFO_REGLEMENT_22_12_2023"
 msgstr ""
-"<br>Attention, suite à l'évolution réglementaire sur les données essentielles de la commande publique (<a href="
-"\"https://www.legifrance.gouv.fr/loda/id/JORFTEXT000048678644/2023-12-29/\" target=\"_blank\">arrêté du 22 "
-"décembre 2023</a>) les <b>données essentielles ne sont plus mises à jour à partir du 26 février 2024</b> en "
-"attendant de revoir toute la chaine de publication dans les prochaines semaines.<br>Pour information, les "
-"données essentielles complétées pour les années 2023 et antérieures,  sont disponibles sur Focus Marchés <b>à "
-"partir du 1er du mois suivant la date de complétude de l’étape décision</b> sur la salle des marchés publics. "
+"<br>Attention, suite à l'évolution réglementaire sur les données "
+"essentielles de la commande publique (<a href=\"https://www.legifrance.gouv."
+"fr/loda/id/JORFTEXT000048678644/2023-12-29/\" target=\"_blank\">arrêté du 22 "
+"décembre 2023</a>) les <b>données essentielles ne sont plus mises à jour à "
+"partir du 26 février 2024</b> en attendant de revoir toute la chaine de "
+"publication dans les prochaines semaines.<br>Pour information, les données "
+"essentielles complétées pour les années 2023 et antérieures,  sont "
+"disponibles sur Focus Marchés <b>à partir du 1er du mois suivant la date de "
+"complétude de l’étape décision</b> sur la salle des marchés publics. "
 
 #: ui/index.php:68
 msgid "Contrats conclus à partir du "
@@ -75,91 +88,111 @@ msgid "  derniers mois"
 msgstr ""
 
 #: ui/mentions-legales.php:28
-msgid "Le site Focus Marchés est édité par le GIP Territoires Numériques Bourgogne-Franche-Comté."
+msgid ""
+"Le site Focus Marchés est édité par le GIP Territoires Numériques Bourgogne-"
+"Franche-Comté."
 msgstr "Le site Focus Marchés est édité par Mégalis Bretagne"
 
 #: ui/mentions-legales.php:32
 msgid "Directeur de la publication&nbsp;: Gilles Delamarche"
-msgstr "<b>Directeur de la publication&nbsp;:</b> Patrick Malfait, directeur général, Mégalis Bretagne"
+msgstr ""
+"<b>Directeur de la publication&nbsp;:</b> Patrick Malfait, directeur "
+"général, Mégalis Bretagne"
 
 #: ui/mentions-legales.php:35
 msgid "Hébergement&nbsp;: OVH"
-msgstr "<b>Hébergement&nbsp;:</b> <a target=\"_blank\" href=\" https://www.sib.fr/\">SIB </a>"
+msgstr ""
+"<b>Hébergement&nbsp;:</b> <a target=\"_blank\" href=\" https://www.sib.fr/"
+"\">SIB </a>"
 
 #: ui/mentions-legales.php:45
 msgid ""
-"Le responsable du traitement des données à caractère personnel est : M Gilles DELAMARCHE. Il peut être contacté "
-"de la manière suivante :<br>Téléphone : 03 80 20 04 20<br>E-mail : <a href=\"mailto:contact@ternum-bfc.fr"
-"\">contact@ternum-bfc.fr</a>"
+"Le responsable du traitement des données à caractère personnel est : M "
+"Gilles DELAMARCHE. Il peut être contacté de la manière suivante :"
+"<br>Téléphone : 03 80 20 04 20<br>E-mail : <a href=\"mailto:contact@ternum-"
+"bfc.fr\">contact@ternum-bfc.fr</a>"
 msgstr ""
-"Le responsable du traitement des données à caractère personnel est : M Loïg Chesnais-Girard, Président de "
-"Mégalis Bretagne"
+"Le responsable du traitement des données à caractère personnel est : M Loïg "
+"Chesnais-Girard, Président de Mégalis Bretagne"
 
 #: ui/mentions-legales.php:49
 msgid ""
-"La personne suivante a été nommée Délégué à la Protection des Données : M Victor VILA. Il peut être joint de la "
-"manière suivante :<br>Téléphone : 03 80 20 04 20<br>E-mail : <a href=\"mailto:dpo@ternum-bfc.fr\">dpo@ternum-bfc."
+"La personne suivante a été nommée Délégué à la Protection des Données : M "
+"Victor VILA. Il peut être joint de la manière suivante :<br>Téléphone : 03 "
+"80 20 04 20<br>E-mail : <a href=\"mailto:dpo@ternum-bfc.fr\">dpo@ternum-bfc."
 "fr</a>"
 msgstr ""
-"La personne suivante a été nommée Délégué à la Protection des Données : M. Sébastien Dekeyser. Il peut être "
-"joint de la manière suivante :<br>E-mail : <a href=\"mailto:dpo@megalis.bretagne.bzh\">dpo@megalis.bretagne.bzh</"
-"a>"
+"La personne suivante a été nommée Délégué à la Protection des Données : M. "
+"Sébastien Dekeyser. Il peut être joint de la manière suivante :<br>E-mail : "
+"<a href=\"mailto:dpo@megalis.bretagne.bzh\">dpo@megalis.bretagne.bzh</a>"
 
 #: ui/mentions-legales.php:89
 msgid ""
-"Pour faire valoir vos droits, vous pouvez contacter le Délégué à la Protection de Données du GIP Territoires "
-"Numériques M Victor VILA qui peut être joint par téléphone au 03 80 20 04 20 ou par e-mail à l'adresse <a href="
+"Pour faire valoir vos droits, vous pouvez contacter le Délégué à la "
+"Protection de Données du GIP Territoires Numériques M Victor VILA qui peut "
+"être joint par téléphone au 03 80 20 04 20 ou par e-mail à l'adresse <a href="
 "\"mailto:dpo@ternum-bfc.fr\">dpo@ternum-bfc.fr</a> ."
 msgstr ""
-"Pour faire valoir vos droits, vous pouvez contacter le Délégué à la Protection de Données de Mégalis Bretagne M. "
-"Sébastien Dekeyser qui peut être joint par téléphone au 03 80 20 04 20 ou par e-mail à l'adresse <a href="
+"Pour faire valoir vos droits, vous pouvez contacter le Délégué à la "
+"Protection de Données de Mégalis Bretagne M. Sébastien Dekeyser qui peut "
+"être joint par téléphone au 03 80 20 04 20 ou par e-mail à l'adresse <a href="
 "\"mailto:dpo@megalis.bretagne.bzh\">dpo@megalis.bretagne.bzh</a> ."
 
 #: ui/mentions-legales.php:110
-msgid "<p>La présente décharge de responsabilité concerne le site Focus Marchés.</p>"
+msgid ""
+"<p>La présente décharge de responsabilité concerne le site Focus Marchés.</p>"
 msgstr ""
 
 #: ui/mentions-legales.php:111
 msgid ""
-"<p>Territoires Numériques n’est tenu que d’une simple obligation de moyens concernant les informations qu’elle "
-"met à disposition des personnes qui accèdent à son site Internet. Territoires Numériques ne peut encourir aucune "
-"responsabilité du fait d’erreurs, d’omissions, ou pour les résultats qui pourraient être obtenus par l’usage de "
-"ces informations. Notamment, l’usage de liens hypertextes peut conduire votre consultation de notre site vers "
-"d’autres serveurs pour prendre connaissance de l’information recherchée, serveurs sur lesquels Territoires "
-"Numériques n’a aucun contrôle.</p><p><strong>Ce site Internet a été créé afin de montrer le potentiel des "
-"données ouvertes, cépendant nous ne pouvons pas garantir ni l'exactitude ni la complétude des données ouvertes "
-"sur lesquelles s`'appuie le site</strong>.</p>"
+"<p>Territoires Numériques n’est tenu que d’une simple obligation de moyens "
+"concernant les informations qu’elle met à disposition des personnes qui "
+"accèdent à son site Internet. Territoires Numériques ne peut encourir aucune "
+"responsabilité du fait d’erreurs, d’omissions, ou pour les résultats qui "
+"pourraient être obtenus par l’usage de ces informations. Notamment, l’usage "
+"de liens hypertextes peut conduire votre consultation de notre site vers "
+"d’autres serveurs pour prendre connaissance de l’information recherchée, "
+"serveurs sur lesquels Territoires Numériques n’a aucun contrôle.</"
+"p><p><strong>Ce site Internet a été créé afin de montrer le potentiel des "
+"données ouvertes, cépendant nous ne pouvons pas garantir ni l'exactitude ni "
+"la complétude des données ouvertes sur lesquelles s`'appuie le site</strong>."
+"</p>"
 msgstr ""
-"<p>Mégalis Bretagne n’est tenu que d’une simple obligation de moyens concernant les informations qu’elle met à "
-"disposition des personnes qui accèdent à son site Internet. Mégalis Bretagne ne peut encourir aucune "
-"responsabilité du fait d’erreurs, d’omissions, ou pour les résultats qui pourraient être obtenus par l’usage de "
-"ces informations. Notamment, l’usage de liens hypertextes peut conduire votre consultation de notre site vers "
-"d’autres serveurs pour prendre connaissance de l’information recherchée, serveurs sur lesquels  Mégalis Bretagne "
-"n’a aucun contrôle.</p><p><strong>Ce site Internet a été créé afin de montrer le potentiel des données ouvertes, "
-"cependant nous ne pouvons pas garantir ni l'exactitude ni la complétude des données ouvertes sur lesquelles "
-"s'appuie le site.</strong></p>"
+"<p>Mégalis Bretagne n’est tenu que d’une simple obligation de moyens "
+"concernant les informations qu’elle met à disposition des personnes qui "
+"accèdent à son site Internet. Mégalis Bretagne ne peut encourir aucune "
+"responsabilité du fait d’erreurs, d’omissions, ou pour les résultats qui "
+"pourraient être obtenus par l’usage de ces informations. Notamment, l’usage "
+"de liens hypertextes peut conduire votre consultation de notre site vers "
+"d’autres serveurs pour prendre connaissance de l’information recherchée, "
+"serveurs sur lesquels  Mégalis Bretagne n’a aucun contrôle.</p><p><strong>Ce "
+"site Internet a été créé afin de montrer le potentiel des données ouvertes, "
+"cependant nous ne pouvons pas garantir ni l'exactitude ni la complétude des "
+"données ouvertes sur lesquelles s'appuie le site.</strong></p>"
 
 #: ui/mentions-legales.php:114
 msgid ""
-"<p>Ces données publiées sont publiées sous la <a href=\"pdf/ETALAB-Licence-Ouverte-v2.0.pdf\">Licence Ouverte "
-"Version 2.0 - Etalab</a></p>"
+"<p>Ces données publiées sont publiées sous la <a href=\"pdf/ETALAB-Licence-"
+"Ouverte-v2.0.pdf\">Licence Ouverte Version 2.0 - Etalab</a></p>"
 msgstr ""
 
 #: ui/mentions-legales.php:115
 msgid ""
-"<p>Le <a href=\"https://marches.ternum-bfc.fr/?page=entreprise.EntrepriseRechercherListeMarches&search"
-"\">téléchargement des données</a> se fait librement sur notre salle de marchés.</p>"
+"<p>Le <a href=\"https://marches.ternum-bfc.fr/?page=entreprise."
+"EntrepriseRechercherListeMarches&search\">téléchargement des données</a> se "
+"fait librement sur notre salle de marchés.</p>"
 msgstr ""
-"<p>Le téléchargement des données se fait librement sur  <a target=\"_blank\" href=\" https://www.data.gouv.fr/fr/"
-"datasets/donnees-essentielles-du-profil-acheteur-megalis-bretagne/\">le portail opendata national</a> </p>"
+"<p>Le téléchargement des données se fait librement sur  <a target=\"_blank\" "
+"href=\" https://www.data.gouv.fr/fr/datasets/donnees-essentielles-du-profil-"
+"acheteur-megalis-bretagne/\">le portail opendata national</a> </p>"
 
 #: ui/mentions-legales.php:122
 msgid ""
-"Données essentielles de la commande publique du profil d'acheteur de Territoires Numériques.  Licence Ouverte / "
-"Open Licence version 2.0 ."
+"Données essentielles de la commande publique du profil d'acheteur de "
+"Territoires Numériques.  Licence Ouverte / Open Licence version 2.0 ."
 msgstr ""
-"Données essentielles de la commande publique du profil d'acheteur de Mégalis Bretagne.  Licence Ouverte / Open "
-"Licence version 2.0 ."
+"Données essentielles de la commande publique du profil d'acheteur de Mégalis "
+"Bretagne.  Licence Ouverte / Open Licence version 2.0 ."
 
 #: ui/mentions-legales.php:125
 msgid "Codes CPV : simap.ted.europa.eu"
@@ -197,8 +230,8 @@ msgstr "Entité ayant obtenu le marché"
 #~ msgstr "GIP RECIA"
 
 #~ msgid ""
-#~ "Crédit de la photo du Pavillon nord des Halles Martenot, Rennes : <a href=\"https://commons.wikimedia.org/"
-#~ "wiki/User:EdouardHue\"> EdouardHue<a/>"
+#~ "Crédit de la photo du Pavillon nord des Halles Martenot, Rennes : <a href="
+#~ "\"https://commons.wikimedia.org/wiki/User:EdouardHue\"> EdouardHue<a/>"
 #~ msgstr "<br>"
 
 #~ msgid "Territoires Numériques"
@@ -218,15 +251,18 @@ msgstr "Entité ayant obtenu le marché"
 #~ msgid "Mégalis Bretagne"
 #~ msgstr "GIP RECIA"
 
-#~ msgid "Données essentielles des marchés publics de la plateforme Mégalis Bretagne"
+#~ msgid ""
+#~ "Données essentielles des marchés publics de la plateforme Mégalis Bretagne"
 #~ msgstr ""
-#~ "Cet outil exploite les données essentielles des marchés publics passés en région Centre-Val de Loire sous "
-#~ "réserves"
+#~ "Cet outil exploite les données essentielles des marchés publics passés en "
+#~ "région Centre-Val de Loire sous réserves"
 
-#~ msgid "Cet outil exploite les données essentielles des marchés publics passés en Bretagne sous réserves "
+#~ msgid ""
+#~ "Cet outil exploite les données essentielles des marchés publics passés en "
+#~ "Bretagne sous réserves "
 #~ msgstr ""
-#~ "Cet outil exploite les données essentielles des marchés publics passés en région Centre-Val de Loire sous "
-#~ "réserves "
+#~ "Cet outil exploite les données essentielles des marchés publics passés en "
+#~ "région Centre-Val de Loire sous réserves "
 
 #~ msgid "Bienvenue dans mon application PHP"
 #~ msgstr "Welcome  in my php app"

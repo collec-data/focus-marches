@@ -20,6 +20,7 @@ error_reporting(0);
   <link rel="stylesheet" href="assets/bulma/bulma.min.css">
   <link rel="stylesheet" href="assets/font-awesome/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style-override.css">
   <title>
     <?php echo $title; ?>
   </title>

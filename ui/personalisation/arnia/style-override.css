@@ -1,0 +1,10 @@
+:root {
+    --menu-background-color: #f16675;
+}
+/*
+Nav
+------------- */
+.navbar { max-width: 980px; margin: 0 auto;}
+#navbarMenu { max-width: 980px; margin: 0 auto; font-family: 'RobotoLight', Arial, sans-serif;}
+#navbarMenu i {color: #fff; background: var(--menu-background-color,#09375b); border-radius: 20px; padding: 7px;}
+#navbarMenu a { color: #363636; }

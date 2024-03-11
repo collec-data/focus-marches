@@ -48,15 +48,19 @@ C'est prêt ! vous pouvez accéder au service sur http://HOSTNAME:80
 
 
 ### Personnaliser son instance focus marchés
+Par défaut, il y a un style par défaut, mais il est possible de surcharger l'existant notamment au niveau des styles en utilisant le fichier style-override.css, et dans le `docker-compose.yml` il est possible d'ajouter une variable d'environnement qui va correspondre au dossier présent dans ui/personnalistation/organisation: 
+- ENVP : "organisation"
+```
+    environment:
+      - ENVP=recia
+```
 Dupliquer un dossier de personnalisation pour creer le votre, par exemple nous allons dupliquer` cp ui/personalisation/arnia  ui/personalisation/monorga`
 
 Dans notre exemple, 
 - pour modifier les textes je dois renommer le fichier arnia.po en monorga.po et éditer le fichier avec l'utilitaire poedit (Poedit Translation Editor — https://poedit.net) afin de creer mon catalogue de texte.
 - remplacer les différents logos par ceux de mon organisation
-- adapter le css si besoin (modification est couleur et police par exemple)
+- adapter le css si besoin, notamment en modifiant le fichier `style-override.css` (modification de couleur et police par exemple)
 - Enfin, déployer mon instance de focus marche avec la variable **ENVP=monorga**
-
-
 
 
 ### Base de données
