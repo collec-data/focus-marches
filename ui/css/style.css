@@ -272,6 +272,13 @@ Acheteur
 /*
 Nav
 ------------- */
+.navbar { max-width: 980px; margin: 0 auto; max-height: 4.5rem;}
+.navbar:empty { display: none; }
+#navbarMenu { max-width: 980px; margin: 0 auto; font-family: 'RobotoLight', Arial, sans-serif;}
+#navbarMenu i {color: #fff; background: #09375b; border-radius: 20px; padding: 7px;}
+#navbarMenu a { color: #363636; }
+#navbarMenu a:empty { display: none; }
+
 /* .navbar { box-shadow: 0 3px 3px #ececec; } */
 #navWrap { 
   display:flex;  flex-direction: row; background-color:  #f9f4f4; box-shadow: 0 2px 2px 0 hsla(0, 0%, 0%, 0.1);}
@@ -281,9 +288,6 @@ Nav
   }
   #navbarMenu{
     order:1;
-  }
-  #accordeon-menu{
-    order:2;
   }
   
 @media screen and (max-width: 1087px){
@@ -297,22 +301,26 @@ Nav
     #brand-opsn{
       order:2;
     }
-    #navbarMenu{
-      order:1;
-    }
-    #accordeon-menu{
+
+    #menu-burger{
       order:3;
+    }
+
+    #navbarMenu{
+      order:4;
+      width: 100%;
+      margin: 18rem 0 0 0;
+    }
+
+    .navbar{
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      display: flex;
+      flex-wrap: nowrap;
     }
   }
 
-
-
-.navbar { max-width: 980px; margin: 0 auto; max-height: 4.5rem;}
-.navbar:empty { display: none; }
-#navbarMenu { max-width: 980px; margin: 0 auto; font-family: 'RobotoLight', Arial, sans-serif;}
-#navbarMenu i {color: #fff; background: #09375b; border-radius: 20px; padding: 7px;}
-#navbarMenu a { color: #363636; }
-#navbarMenu a:empty { display: none; }
 
 /*
   recherche
