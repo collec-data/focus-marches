@@ -53,6 +53,9 @@ if ($iframe == true){
     {
         $date_min = isset($date_min) ? $date_min_param : null;
         $date_max = isset($date_max) ? $date_max_param : null;
+
+        //override nb_mois
+        $nb_mois = nb_mois_calcul($date_min, $date_max, $config);
         $nom = getNom($connect, $id_acheteur_param);
         $kpi = getKPI($connect, $id_acheteur_param, $nb_mois, 0, $date_min, $date_max);
         $marches = getDatesMontantsLieu($connect, $id_acheteur_param, $nb_mois, $date_min, $date_max);
