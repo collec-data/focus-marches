@@ -83,16 +83,20 @@ if ($secured == true) {
   $hidden_filter = $hide_filter == true ? "hidden"  : "";
 
   $url = strtok("$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", '?');
-  $iframe_code = "<iframe ";
-  $iframe_code .= "src=\"$url?i=";
-  $iframe_code .= $id;
-  $iframe_code .= isset($date_min) ? "&date_min=" . $date_min : "";
-  $iframe_code .= isset($date_max) ? "&date_max=" . $date_max : "";
+
+  $iframe_code = "<script>";
+  $iframe_code .= "window.addEventListener(\"message\",function(e){var t=document.getElementById(\"dynamic-iframe\");if(e.data.height){console.log(\"Setting iframe height to:\",Math.max(600,Math.min(1200,e.data.height))+\"px\");t.style.height=Math.max(600,Math.min(1200,e.data.height))+\"px\"}},!1);function sendHeight(){var h=document.body.scrollHeight;window.parent.postMessage({height:h},\"*\")}window.onload=sendHeight;window.onresize=sendHeight;";
+  $iframe_code .= "</script>";
+  $iframe_code .= "<iframe ";
+  $iframe_code .= "id=\"dynamic-iframe\" ";
+  $iframe_code .= "src=\"{$url}?i={$id}";
+  $iframe_code .= isset($date_min) ? "&date_min={$date_min}" : "";
+  $iframe_code .= isset($date_max) ? "&date_max={$date_max}" : "";
   $iframe_code .= "&hide_filter=" . ($hide_filter == true ? "true" : "false" );
   $iframe_code .= "\" ";
   $iframe_code .= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
   $iframe_code .= "style=\"border: 0;\" ";
-  $iframe_code .= "title=\"Marque blanche focus-marches\" width=\"100%\" height=\"600px\">";
+  $iframe_code .= "title=\"Marque blanche focus-marches\" width=\"100%\">";
   $iframe_code .= "</iframe>";
 
 }
