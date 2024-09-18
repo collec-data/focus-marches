@@ -254,7 +254,6 @@ Acheteur
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  gap: rem;
 }
 .filtre-dates #filtre-titre{
   display: flex;
