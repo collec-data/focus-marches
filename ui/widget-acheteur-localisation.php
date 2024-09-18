@@ -179,9 +179,7 @@ if ($iframe == true && $id_acheteur_param){
         if ($iframe == false){
 
             $url=strtok("$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]",'?');
-            $iframe_code_gen = "<script>";
-            $iframe_code_gen .= "window.addEventListener(\"message\",function(e){var t=document.getElementById(\"dynamic-iframe-acheteur-localisation\");if(e.data.height){console.log(\"Setting iframe height to:\",Math.max(600,Math.min(1200,e.data.height))+\"px\");t.style.height=Math.max(600,Math.min(1200,e.data.height))+\"px\"}},!1);function sendHeight(){var h=document.body.scrollHeight;window.parent.postMessage({height:h},\"*\")}window.onload=sendHeight;window.onresize=sendHeight;";
-            $iframe_code_gen .= "</script>";
+            $iframe_code_gen = script_iframe_detect_screen_size("dynamic-iframe-acheteur-localisation");
             $iframe_code_gen .= "<iframe ";
             $iframe_code_gen .= "id=\"dynamic-iframe-acheteur-localisation\" ";
             $iframe_code_gen.= "src=\"$url/../widget-acheteur-localisation.php?i=";
