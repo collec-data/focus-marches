@@ -84,10 +84,8 @@ if ($secured == true) {
 
   $url = strtok("$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", '?');
 
-  $iframe_code = "<script>";
-  $iframe_code .= "window.addEventListener(\"message\",function(e){var t=document.getElementById(\"dynamic-iframe\");if(e.data.height){console.log(\"Setting iframe height to:\",Math.max(600,Math.min(1200,e.data.height))+\"px\");t.style.height=Math.max(600,Math.min(1200,e.data.height))+\"px\"}},!1);function sendHeight(){var h=document.body.scrollHeight;window.parent.postMessage({height:h},\"*\")}window.onload=sendHeight;window.onresize=sendHeight;";
-  $iframe_code .= "</script>";
-  $iframe_code .= "<iframe ";
+  $iframe_code_gen = script_iframe_detect_screen_size("dynamic-iframe");
+  $iframe_code_gen .= "<iframe ";
   $iframe_code .= "id=\"dynamic-iframe\" ";
   $iframe_code .= "src=\"{$url}?i={$id}";
   $iframe_code .= isset($date_min) ? "&date_min={$date_min}" : "";
