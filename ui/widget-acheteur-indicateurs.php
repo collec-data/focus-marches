@@ -30,11 +30,11 @@ if ($iframe == true){
 
     $connect->set_charset("utf8");
 
-///// Sécurisation
+    ///// Sécurisation
     $secured = false;
-    $id_acheteur_param = filter_input(INPUT_GET, 'i',FILTER_VALIDATE_INT);
-    $date_min_param = filter_input(INPUT_GET,'date_min');
-    $date_max_param = filter_input(INPUT_GET,'date_max');
+    $id_acheteur_param = filter_input(INPUT_GET, 'i', FILTER_VALIDATE_INT);
+    $date_min_param = filter_input(INPUT_GET, 'date_min');
+    $date_max_param = filter_input(INPUT_GET, 'date_max');
 
     if ($id_acheteur_param && isset($id_acheteur_param) && is_numeric($id_acheteur_param))
         $secured = true;
@@ -43,14 +43,13 @@ if ($iframe == true){
         $date_min = $date_min_param;
         $secured = true;
     }
-        
-        if (isset($date_max_param) && is_date($date_max_param) && $secured == true) {
+
+    if (isset($date_max_param) && is_date($date_max_param) && $secured == true) {
         $date_max = $date_max_param;
         $secured = true;
     }
 
-    if ($secured == true)
-    {
+    if ($secured == true) {
         $date_min = isset($date_min) ? $date_min_param : null;
         $date_max = isset($date_max) ? $date_max_param : null;
 
