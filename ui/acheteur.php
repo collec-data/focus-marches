@@ -83,16 +83,18 @@ if ($secured == true) {
   $hidden_filter = $hide_filter == true ? "hidden"  : "";
 
   $url = strtok("$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", '?');
-  $iframe_code = "<iframe ";
-  $iframe_code .= "src=\"$url?i=";
-  $iframe_code .= $id;
-  $iframe_code .= isset($date_min) ? "&date_min=" . $date_min : "";
-  $iframe_code .= isset($date_max) ? "&date_max=" . $date_max : "";
+
+  $iframe_code_gen = script_iframe_detect_screen_size("dynamic-iframe");
+  $iframe_code_gen .= "<iframe ";
+  $iframe_code .= "id=\"dynamic-iframe\" ";
+  $iframe_code .= "src=\"{$url}?i={$id}";
+  $iframe_code .= isset($date_min) ? "&date_min={$date_min}" : "";
+  $iframe_code .= isset($date_max) ? "&date_max={$date_max}" : "";
   $iframe_code .= "&hide_filter=" . ($hide_filter == true ? "true" : "false" );
   $iframe_code .= "\" ";
   $iframe_code .= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
   $iframe_code .= "style=\"border: 0;\" ";
-  $iframe_code .= "title=\"Marque blanche focus-marches\" width=\"100%\" height=\"600px\">";
+  $iframe_code .= "title=\"Marque blanche focus-marches\" width=\"100%\">";
   $iframe_code .= "</iframe>";
 
 }

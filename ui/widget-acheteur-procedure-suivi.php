@@ -116,7 +116,9 @@ if ($iframe == true){
 
                 $url=strtok("$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]",'?');
 
-                $iframe_code_gen="<iframe ";
+                $iframe_code_gen = script_iframe_detect_screen_size("dynamic-iframe-procedure-suivi");
+                $iframe_code_gen .= "<iframe ";
+                $iframe_code_gen .= "id=\"dynamic-iframe-procedure-suivi\" ";
                 $iframe_code_gen.= "src=\"$url/../widget-acheteur-procedure-suivi.php?i=";
                 $iframe_code_gen.=$id_acheteur_param;
                 $iframe_code_gen.=isset($date_min) ? "&date_min=" . $date_min : "";
@@ -124,7 +126,7 @@ if ($iframe == true){
                 $iframe_code_gen.="&widget=1\" ";
                 $iframe_code_gen.= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
                 $iframe_code_gen.= "style=\"border: 0;\" ";
-                $iframe_code_gen.= "width=\"100%\" height=\"600px\">";
+                $iframe_code_gen.= "width=\"100%\">";
                 $iframe_code_gen.= "</iframe>";
                 $iframe_code_1 = $iframe_code_gen
 
