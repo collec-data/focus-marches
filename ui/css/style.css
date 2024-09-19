@@ -248,13 +248,75 @@ Acheteur
 ------------- */
 
 /* recherche dates */
-.filtre-dates {max-width: fit-content;}
-.filtre-dates { padding: 20px; background: #f1f1f1; /*border: 1px solid #cfcfcf;   */  box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2); }
-.filtre-dates label { color: #444; padding: .3rem 0 .3rem 2px; display: inline-block;}
-.filtre-dates input, .filtre-dates select { border: 1px solid #d8d8d878;  box-shadow: inset 0 2px 4px 0 hsla(0, 0%, 0%, 8%);   }
+.filtre-dates {
+  min-width: 100%;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.filtre-dates #filtre-titre{
+  display: flex;
+  align-items: baseline;
+  min-width: fit-content;
+}
+.filtre-dates { padding: 20px; background: #f1f1f1; box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2); }
+.filtre-dates label { color: #444; padding: .3rem 0 .3rem 2px; }
+.filtre-dates .columns {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.filtre-dates .column{
+  flex: 1 1 200px; /* Flex-grow, flex-shrink, and flex-basis */
+  margin: 10px;
+  align-items: center;
+  align-self: baseline;
+}
+
+.filtre-dates .column label {
+  color: #4189E4 !important;
+  border: 0.5px solid #79D3F8;
+  background-color: #C6DCFE;
+  min-width: fit-content;
+  display: flex;
+  align-items: baseline;
+  align-self: baseline;
+  padding: 0.45rem;
+}
+
+.filtre-dates input, .filtre-dates select { border: 1px solid #D9D9D9; align-self: baseline;  align-items: baseline; transition: border-color 0.3s ease; /* Smooth transition for the border color */  }
+.filtre-dates input:hover, .filtre-dates select:hover {
+  border-color: #87CEEB; /* Light blue color on hover */
+}
 .filtre-dates input,
 .filtre-dates select { width: 100%;  }
 .filtre-dates p { padding: 0; }
+#filtrerBoutonAcheteur {
+  align-self: baseline;
+  background-color: #3F88E4;
+  transition: background-color 0.3s ease; /* Smooth transition for the background color */
+}
+
+#filtrerBoutonAcheteur:hover {
+  background-color: #2C6FB2; /* Darker blue color on hover */
+}
+
+/*adapt content */
+@media screen and (min-width: 768px) {
+  .filtre-dates {
+    display: inline-flex;
+  }
+  .filtre-dates .column {
+    display: flex;
+    align-items: baseline;
+}
+.filtre-dates button {
+  margin: 10px;
+  align-self: flex-start; /* Align the button to the start of the flex container */
+}
+}
 
 /* recherche bouton filtrer */
 .button-filtre-date { margin-top: 3rem;}
@@ -264,6 +326,9 @@ Acheteur
     margin-top: 1rem;
     width: 265px;}
 }
+
+
+  
 
 #integration-iframe-contenu { display: none;}
 

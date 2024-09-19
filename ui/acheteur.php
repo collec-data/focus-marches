@@ -138,7 +138,9 @@ if ($sirene['categorieJuridiqueUniteLegale'] === '7210') {
 
     <div class="container">
       <div class="filtre-dates" <?php echo $hidden_filter ?>>
-        <label style="font-family: 'RobotoCondensedBold'">Filtrer les contrats</label>
+        <div id="filtre-titre">
+          <label style="font-family: 'RobotoCondensedBold'">Filtrer les contrats</label><label>(optionnel)</label>
+        </div>
         <div class="columns">
             <div class="column">
               <label>Date de début</label>
