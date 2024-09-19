@@ -874,7 +874,7 @@ function getListByTypeArrZeros($connect, $type = null, $months = 12, $id = 0, $d
           FROM marche";
 
   //rajoute un filtrage par date ou par nombre de mois, ajoute un WHERE et des AND au besoin
-  $sql = filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, $months);
+  $sql = filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, 35);
 
 if (isset($type))
   $sql =appendCondition($sql,"categorie = '" . $type . "'");
@@ -952,7 +952,7 @@ function getListByTypeArrZerosTitulaires($connect, $type = null, $months = 12, $
           INNER JOIN marche_titulaires mt ON mt.id_marche = m.id_marche";
 
   //rajoute un filtrage par date ou par nombre de mois, ajoute un WHERE et des AND au besoin
-  $sql = filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, $months);
+  $sql = filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, 35);
 
   if (isset($type))
   $sql =appendCondition($sql,"categorie = '" . $type . "'");
