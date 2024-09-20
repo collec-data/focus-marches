@@ -420,9 +420,9 @@ function getDatesMontantsLieu($connect, $nom = null, $months = 0, $date_min = nu
   FROM marche m
   INNER JOIN acheteur a ON m.id_acheteur = a.id_acheteur
   WHERE a.nom_acheteur = '" . $nom . "' ";
- 
-   //rajoute un filtrage par date ou par nombre de mois
-   $sql = filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, $months);
+
+  //rajoute un filtrage par date ou par nombre de mois
+  $sql = filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, $months);
 
   try {
     $result = $connect->query($sql);
@@ -603,11 +603,11 @@ function getTitulairesList($connect, $nb = 5, $categorie = null, $id_acheteur = 
   $sql = filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, $months);
 
   if ($categorie) {
-    $sql = appendCondition($sql,"categorie = '" . $categorie . "' ");
+    $sql = appendCondition($sql, "categorie = '" . $categorie . "' ");
   }
 
   if ($id_acheteur > 0) {
-    $sql = appendCondition($sql,"m.id_acheteur = '" . $id_acheteur . "' ");
+    $sql = appendCondition($sql, "m.id_acheteur = '" . $id_acheteur . "' ");
   }
 
   $sql .= " GROUP BY nom ";
@@ -870,74 +870,74 @@ DATE_ADD(mo.date_mois, INTERVAL DAYOFMONTH(CURRENT_DATE()) DAY)
 function getListByTypeArrZeros($connect, $type = null, $months = 12, $id = 0, $date_min = null, $date_max = null)
 {
 
-    $sql = "SELECT SUBSTR(date_notification, 1, 7) AS dates, COALESCE(SUM(montant), 0) montants, COALESCE(COUNT(id), 0) nombre, categorie 
+  $sql = "SELECT SUBSTR(date_notification, 1, 7) AS dates, COALESCE(SUM(montant), 0) montants, COALESCE(COUNT(id), 0) nombre, categorie 
           FROM marche";
 
-    //rajoute un filtrage par date ou par nombre de mois, ajoute un WHERE et des AND au besoin
-    $sql = filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, 35);
+  //rajoute un filtrage par date ou par nombre de mois, ajoute un WHERE et des AND au besoin
+  $sql = filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, 35);
 
-    if (isset($type))
-        $sql = appendCondition($sql, "categorie = '" . $type . "'");
+  if (isset($type))
+    $sql = appendCondition($sql, "categorie = '" . $type . "'");
 
-    if ($id > 0)
-        $sql = appendCondition($sql, "id_acheteur = '" . $id . "' ");
+  if ($id > 0)
+    $sql = appendCondition($sql, "id_acheteur = '" . $id . "' ");
 
-    $sql .= " GROUP BY SUBSTR(date_notification, 1, 7) ORDER BY dates ASC";
+  $sql .= " GROUP BY SUBSTR(date_notification, 1, 7) ORDER BY dates ASC";
 
 
-    // récupération des 36 derniers mois de l'année dans l'ordre
-    $last_months = genLastMonths();
-    try {
-        $result = $connect->query($sql);
-        $dates = [];
-        $montants = [];
-        $nombre = [];
+  // récupération des 36 derniers mois de l'année dans l'ordre
+  $last_months = genLastMonths();
+  try {
+    $result = $connect->query($sql);
+    $dates = [];
+    $montants = [];
+    $nombre = [];
 
-        // positionnement d'un index a la fin du tableau des mois
-        $index_month = count($last_months) - 1;
+    // positionnement d'un index a la fin du tableau des mois
+    $index_month = count($last_months) - 1;
 
-        if ($result) {
-            // parcours des résultats de la requêtes
-            while ($r = mysqli_fetch_assoc($result)) {
-                //si tant que le mois n'a pas été remonté par le sql, alors on possitionne les montants et nombre à 0
-                while ($index_month != -1 && $last_months[$index_month] != $r['dates']) {
-                    $dates[] = '"' . $last_months[$index_month] . '"';
-                    $montants[] = 0;
-                    $nombre[] = 0;
-                    $index_month--; // on passe au mois suivant
-                }
-
-                if ($index_month != -1) {
-                    $dates[] = '"' . $r['dates'] . '"';
-                    $montants[] = $r['montants'];
-                    $nombre[] = $r['nombre'];
-                    $index_month--; // on passe au mois suivant
-                }
-            }
-
-            //si il nous reste des mois à parcourir, on ajouter les mois à 0
-            while ($index_month >= 0) {
-                $dates[] = '"' . $last_months[$index_month] . '"';
-                $montants[] = 0;
-                $nombre[] = 0;
-                $index_month--;
-
-            }
-
-            mysqli_free_result($result);
+    if ($result) {
+      // parcours des résultats de la requêtes
+      while ($r = mysqli_fetch_assoc($result)) {
+        //si tant que le mois n'a pas été remonté par le sql, alors on possitionne les montants et nombre à 0
+        while ($index_month != -1 && $last_months[$index_month] != $r['dates']) {
+          $dates[] = '"' . $last_months[$index_month] . '"';
+          $montants[] = 0;
+          $nombre[] = 0;
+          $index_month--; // on passe au mois suivant
         }
-    } catch (Exception $e) {
-        return array(
-            "sql" => $sql,
-            "erreur" => $e
-        );
+
+        if ($index_month != -1) {
+          $dates[] = '"' . $r['dates'] . '"';
+          $montants[] = $r['montants'];
+          $nombre[] = $r['nombre'];
+          $index_month--; // on passe au mois suivant
+        }
+      }
+
+      //si il nous reste des mois à parcourir, on ajouter les mois à 0
+      while ($index_month >= 0) {
+        $dates[] = '"' . $last_months[$index_month] . '"';
+        $montants[] = 0;
+        $nombre[] = 0;
+        $index_month--;
+
+      }
+
+      mysqli_free_result($result);
     }
+  } catch (Exception $e) {
     return array(
-        "dates" => $dates,
-        "montants" => $montants,
-        "nombre" => $nombre,
-        "sql" => $sql
+      "sql" => $sql,
+      "erreur" => $e
     );
+  }
+  return array(
+    "dates" => $dates,
+    "montants" => $montants,
+    "nombre" => $nombre,
+    "sql" => $sql
+  );
 }
 
 /* -------------------------------
@@ -947,72 +947,72 @@ version titulaires
 */
 function getListByTypeArrZerosTitulaires($connect, $type = null, $months = 12, $id = 0, $date_min = null, $date_max = null)
 {
-    $sql = "SELECT SUBSTR(date_notification, 1, 7) AS dates, COALESCE(SUM(montant), 0) montants, COALESCE(COUNT(id), 0) nombre, categorie 
+  $sql = "SELECT SUBSTR(date_notification, 1, 7) AS dates, COALESCE(SUM(montant), 0) montants, COALESCE(COUNT(id), 0) nombre, categorie 
           FROM marche m
           INNER JOIN marche_titulaires mt ON mt.id_marche = m.id_marche";
 
-    //rajoute un filtrage par date ou par nombre de mois, ajoute un WHERE et des AND au besoin
-    $sql = filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, 35);
+  //rajoute un filtrage par date ou par nombre de mois, ajoute un WHERE et des AND au besoin
+  $sql = filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, 35);
 
-    if (isset($type))
-        $sql = appendCondition($sql, "categorie = '" . $type . "'");
+  if (isset($type))
+    $sql = appendCondition($sql, "categorie = '" . $type . "'");
 
-    if ($id > 0)
-        $sql = appendCondition($sql, "mt.id_titulaires = '" . $id . "' ");
+  if ($id > 0)
+    $sql = appendCondition($sql, "mt.id_titulaires = '" . $id . "' ");
 
-    $sql .= " GROUP BY SUBSTR(date_notification, 1, 7) ORDER BY dates ASC";
+  $sql .= " GROUP BY SUBSTR(date_notification, 1, 7) ORDER BY dates ASC";
 
-    // récupération des 36 derniers mois de l'année dans l'ordre
-    $last_months = genLastMonths();
+  // récupération des 36 derniers mois de l'année dans l'ordre
+  $last_months = genLastMonths();
 
-    try {
-        $result = $connect->query($sql);
-        $dates = [];
-        $montants = [];
-        $nombre = [];
+  try {
+    $result = $connect->query($sql);
+    $dates = [];
+    $montants = [];
+    $nombre = [];
 
-        // positionnement d'un index a la fin du tableau des mois
-        $index_month = count($last_months) - 1;
+    // positionnement d'un index a la fin du tableau des mois
+    $index_month = count($last_months) - 1;
 
-        if ($result) {
-            while ($r = mysqli_fetch_assoc($result)) {
-                //si tant que le mois n'a pas été remonté par le sql, alors on possitionne les montants et nombre à 0
-                while ($last_months[$index_month] != $r['dates']) {
-                    $dates[] = '"' . $last_months[$index_month] . '"';
-                    $montants[] = 0;
-                    $nombre[] = 0;
-                    $index_month--; // on passe au mois suivant
-                }
-
-                $dates[] = '"' . $r['dates'] . '"';
-                $montants[] = $r['montants'];
-                $nombre[] = $r['nombre'];
-                $index_month--; // on passe au mois suivant
-            }
-
-            //si il nous reste des mois à parcourir, on ajouter les mois à 0
-            while ($index_month >= 0) {
-                $dates[] = '"' . $last_months[$index_month] . '"';
-                $montants[] = 0;
-                $nombre[] = 0;
-                $index_month--;
-
-            }
-
-            mysqli_free_result($result);
+    if ($result) {
+      while ($r = mysqli_fetch_assoc($result)) {
+        //si tant que le mois n'a pas été remonté par le sql, alors on possitionne les montants et nombre à 0
+        while ($last_months[$index_month] != $r['dates']) {
+          $dates[] = '"' . $last_months[$index_month] . '"';
+          $montants[] = 0;
+          $nombre[] = 0;
+          $index_month--; // on passe au mois suivant
         }
-    } catch (Exception $e) {
-        return array(
-            "sql" => $sql,
-            "erreur" => $e
-        );
+
+        $dates[] = '"' . $r['dates'] . '"';
+        $montants[] = $r['montants'];
+        $nombre[] = $r['nombre'];
+        $index_month--; // on passe au mois suivant
+      }
+
+      //si il nous reste des mois à parcourir, on ajouter les mois à 0
+      while ($index_month >= 0) {
+        $dates[] = '"' . $last_months[$index_month] . '"';
+        $montants[] = 0;
+        $nombre[] = 0;
+        $index_month--;
+
+      }
+
+      mysqli_free_result($result);
     }
+  } catch (Exception $e) {
     return array(
-        "dates" => $dates,
-        "montants" => $montants,
-        "nombre" => $nombre,
-        "sql" => $sql
+      "sql" => $sql,
+      "erreur" => $e
     );
+  }
+  return array(
+    "dates" => $dates,
+    "montants" => $montants,
+    "nombre" => $nombre,
+    "sql" => $sql
+  );
 }
 
 
@@ -1776,18 +1776,19 @@ $months : nombre de mois
 Si $months est supérieur à 0 et que $date_min et $date_max ne sont pas définis ou ne sont pas des dates, alors on filtre par $months, soit une période
 Si $date_min et $date_max sont définis et sont des dates, alors on filtre par $date_min et $date_max
 */
-function filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, $months){
-  if($months > 0 && (!isset($date_min) && !is_date($date_min)) || (!isset($date_max) && !is_date($date_max))){
-    $sql =appendCondition($sql,"date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)");
+function filterMarchesDateNotificationParDateMinDateMaxOuNbMois($sql, $date_min, $date_max, $months)
+{
+  if ($months > 0 && (!isset($date_min) && !is_date($date_min)) || (!isset($date_max) && !is_date($date_max))) {
+    $sql = appendCondition($sql, "date_notification > DATE_SUB(CURRENT_DATE(), INTERVAL $months MONTH)");
   }
   if (isset($date_min) && is_date($date_min) && isset($date_max) && is_date($date_max)) {
-    $sql =appendCondition($sql,"date_notification BETWEEN '$date_min' AND '$date_max'");
+    $sql = appendCondition($sql, "date_notification BETWEEN '$date_min' AND '$date_max'");
   } else if (isset($date_min)) {
-    $sql =appendCondition($sql,"date_notification > '$date_min'  ");
+    $sql = appendCondition($sql, "date_notification > '$date_min'  ");
   } else if (isset($date_max)) {
-    $sql =appendCondition($sql,"date_notification < '$date_max' ");
+    $sql = appendCondition($sql, "date_notification < '$date_max' ");
   } else {
-    $sql =appendCondition($sql,"date_notification < CURRENT_DATE()");
+    $sql = appendCondition($sql, "date_notification < CURRENT_DATE()");
   }
 
   return $sql;
