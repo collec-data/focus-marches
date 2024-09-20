@@ -104,7 +104,7 @@ if (isset($sirene['siren'])) {
             $iframe_code_gen .= "&widget=1\" ";
             $iframe_code_gen .= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
             $iframe_code_gen .= "style=\"border: 0;\" ";
-            $iframe_code_gen .= "width=\"100%\"";
+            $iframe_code_gen .= "width=\"100%\">";
             $iframe_code_gen .= "</iframe>";
             $iframe_code_1 = $iframe_code_gen
 
