@@ -84,8 +84,8 @@ if ($secured == true) {
 
   $url = strtok("$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", '?');
 
-  $iframe_code_gen = script_iframe_detect_screen_size("dynamic-iframe");
-  $iframe_code_gen .= "<iframe ";
+  $iframe_code = script_iframe_detect_screen_size("dynamic-iframe");
+  $iframe_code .= "<iframe ";
   $iframe_code .= "id=\"dynamic-iframe\" ";
   $iframe_code .= "src=\"{$url}?i={$id}";
   $iframe_code .= isset($date_min) ? "&date_min={$date_min}" : "";
