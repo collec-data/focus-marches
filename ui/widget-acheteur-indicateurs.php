@@ -178,7 +178,10 @@ if ($iframe == true){
         if ($iframe == false) {
 
             $url = strtok("$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", '?');
-            $iframe_code_gen = "<iframe ";
+
+            $iframe_code_gen = script_iframe_detect_screen_size("dynamic-iframe-acheteur-indicateurs");
+            $iframe_code_gen .= "<iframe ";
+            $iframe_code_gen .= "id=\"dynamic-iframe-acheteur-indicateurs\" ";
             $iframe_code_gen .= "src=\"$url/../widget-acheteur-indicateurs.php?i=";
             $iframe_code_gen .= $id_acheteur_param;
             $iframe_code_gen .= isset($date_min) ? "&date_min=" . $date_min : "";
