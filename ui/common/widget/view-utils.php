@@ -36,7 +36,7 @@ function script_iframe_detect_screen_size($id_name, $iframe_code = null)
         $iframe_code .= "<script>";
     }
 
-    $iframe_code .= "document.addEventListener(\"DOMContentLoaded\", function () { function sendHeight() { var h = document.body.scrollHeight; window.parent.postMessage({ height: h }, \"*\") } window.addEventListener(\"message\", function (e) { var t = document.getElementById(\"{$id_name}\"); if (e.data.height) { var newHeight = Math.max(600, Math.min(2000, e.data.height)); t.style.height = newHeight + \"px\"; if (newHeight <= 2000) { t.style.overflow = \"hidden\"; } else { t.style.overflow = \"auto\"; } } }, !1); sendHeight(); window.onresize = sendHeight });";
+    $iframe_code .= "document.addEventListener(\"DOMContentLoaded\", function () { function sendHeight() { var h = document.body.scrollHeight; window.parent.postMessage({ height: h }, \"*\") } window.addEventListener(\"message\", function (e) { var t = document.getElementById(\"{$id_name}\"); if (e.data.height) { var newHeight = Math.max(600, Math.min(2000, e.data.height)); t.style.height = newHeight + \"px\";} }, !1); sendHeight(); window.onresize = sendHeight });";
     $iframe_code .= "</script>";
 
     return $iframe_code;
