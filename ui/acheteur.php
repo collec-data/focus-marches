@@ -91,6 +91,7 @@ if ($secured == true) {
   $iframe_code .= "&hide_filter=" . ($hide_filter == true ? "true" : "false" );
   $iframe_code .= "\" ";
   $iframe_code .= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
+  $iframe_code .= "scrolling=\"no\" ";
   $iframe_code .= "style=\"border: 0;\" ";
   $iframe_code .= "title=\"Marque blanche focus-marches\" width=\"100%\" height=\"8307px\">";
   $iframe_code .= "</iframe>";
