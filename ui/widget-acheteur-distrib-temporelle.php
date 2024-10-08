@@ -108,8 +108,7 @@ if (isset($sirene['siren'])) {
             $iframe_code_gen .= isset($date_max) ? "&date_max=" . $date_max : "";
             $iframe_code_gen .= "&widget=1\" ";
             $iframe_code_gen .= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
-            $iframe_code_gen .= "scrolling=\"no\" ";
-            $iframe_code_gen .= "style=\"border: 0; overflow: hidden;\" ";
+            $iframe_code_gen .= "style=\"border: 0; ";
             $iframe_code_gen .= "width=\"100%\" height=\"785px\">";
             $iframe_code_gen .= "</iframe>";
             $iframe_code_1 = $iframe_code_gen
