@@ -75,7 +75,7 @@ if ($secured == true) {
   $revenuMoyenNational = getMedianeNiveauVie($connect);
   
   // variables pour integrerPage.php
-  $message_info_integration_page = "Copier le code ci-dessous pour intégrer cette page à votre site internet, ainsi les données du tableau de bord seront visibles sur votre site et mises à jour automatiquement.";
+  $message_info_integration_page = "Copier le code ci-dessous pour intégrer cette page à votre site internet, ainsi les données du tableau de bord seront visibles sur votre site et mises à jour automatiquement.<br><span style=\"font-size: 14px;\"><b>Configuration</b> : Selon vos besoins sur votre site vous pouvez ajuster la variable <i>height</i> selon la hauteur que vous souhaitez allouer.</span>";
 
   $default_value_date_min = isset($date_min) ? $date_min : null;
   $default_value_date_max = isset($date_max) ? $date_max : "";
@@ -84,19 +84,17 @@ if ($secured == true) {
 
   $url = strtok("$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", '?');
 
-  $iframe_code = script_iframe_detect_screen_size("dynamic-iframe");
-  $iframe_code .= "<iframe ";
-  $iframe_code .= "id=\"dynamic-iframe\" ";
+  $iframe_code = "<iframe ";
   $iframe_code .= "src=\"{$url}?i={$id}";
   $iframe_code .= isset($date_min) ? "&date_min={$date_min}" : "";
   $iframe_code .= isset($date_max) ? "&date_max={$date_max}" : "";
   $iframe_code .= "&hide_filter=" . ($hide_filter == true ? "true" : "false" );
   $iframe_code .= "\" ";
   $iframe_code .= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
+  $iframe_code .= "scrolling=\"no\" ";
   $iframe_code .= "style=\"border: 0;\" ";
-  $iframe_code .= "title=\"Marque blanche focus-marches\" width=\"100%\">";
+  $iframe_code .= "title=\"Marque blanche focus-marches\" width=\"100%\" height=\"7500px\">";
   $iframe_code .= "</iframe>";
-
 }
 
 // L"affichage de certains éléments dépend de si on est face à une collectivité ou pas

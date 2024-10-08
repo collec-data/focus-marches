@@ -179,15 +179,14 @@ if ($iframe == true && $id_acheteur_param){
         if ($iframe == false){
 
             $url=strtok("$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]",'?');
-            $iframe_code_gen = script_iframe_detect_screen_size("dynamic-iframe-acheteur-localisation");
-            $iframe_code_gen .= "<iframe ";
-            $iframe_code_gen .= "id=\"dynamic-iframe-acheteur-localisation\" ";
+            $iframe_code_gen = "<iframe ";
             $iframe_code_gen.= "src=\"$url/../widget-acheteur-localisation.php?i=";
             $iframe_code_gen.=$id_acheteur_param;
             $iframe_code_gen.="&widget=1\" ";
             $iframe_code_gen.= "referrerpolicy=\"strict-origin-when-cross-origin\" ";
-            $iframe_code_gen.= "style=\"border: 0;\" ";
-            $iframe_code_gen.= "title=\"Widget Localisation et contexte\" width=\"100%\">";
+            $iframe_code_gen .= "scrolling=\"no\" ";
+            $iframe_code_gen .= "style=\"border: 0; overflow: hidden;\" ";
+            $iframe_code_gen .= "title=\"Widget Localisation et contexte\" width=\"100%\" height=\"600px\">";
             $iframe_code_gen.= "</iframe>";
             $iframe_code_1 = $iframe_code_gen
 

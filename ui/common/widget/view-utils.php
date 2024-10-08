@@ -22,22 +22,3 @@ function texte_html_selon_periode($nb_mois, $date_min, $date_max)
         return "depuis le <b>" . date("d-m-Y", strtotime($date_min)) . "</b>.";
     }
 }
-
-function script_iframe_detect_screen_size($id_name, $iframe_code = null)
-{
-    //check if id_name is null
-    if ($id_name == null) {
-        return;
-    }
-    //check if iframe_code is empty
-    elseif ($iframe_code == null) {
-        $iframe_code = "<script>";
-    } else {
-        $iframe_code .= "<script>";
-    }
-
-    $iframe_code .= "document.addEventListener(\"DOMContentLoaded\", function () { function sendHeight() { var h = document.body.scrollHeight; window.parent.postMessage({ height: h }, \"*\") } window.addEventListener(\"message\", function (e) { var t = document.getElementById(\"{$id_name}\"); if (e.data.height) { var newHeight = Math.max(600, Math.min(2000, e.data.height)); t.style.height = newHeight + \"px\";} }, !1); sendHeight(); window.onresize = sendHeight });";
-    $iframe_code .= "</script>";
-
-    return $iframe_code;
-}
