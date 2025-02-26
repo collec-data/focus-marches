@@ -1,18 +1,13 @@
-import calendar, time
 import errno
 import json
 import logging
 import os
 from functools import lru_cache
-from xml.dom import minidom
-from xml.etree import ElementTree
 from os import listdir
 from os.path import isfile, join
-import requests
-import xmltodict
 from model.object import Lieu, db_session, Titulaire, Acheteur, Marche_titulaires, Marche, engine
-from settings.settings import WORKDIR, ATEXO_API_TOKEN, IMPORT_FROM_DIRECTORY, ATEXO_IMPORT_FROM_API, DIRECTORY_DECP_IN_2022, ATEXO_API_URL, \
-    ATEXO_START_YEAR,PURGE_MARCHE
+from settings.settings import WORKDIR, IMPORT_FROM_DIRECTORY, DIRECTORY_DECP_IN_2022
+
 
 
 @lru_cache(maxsize=10)
@@ -187,7 +182,7 @@ def import_one_file(file, dict_titu, dict_acheteur):
                 continue
             elif (len(marcheJson['titulaires']) == 1):
                 titulaireJson = marcheJson['titulaires'][0]['titulaire']
-                if ('id' in titulaireJson and type(titulaireJson['id']) == str):
+                if ('id' in titulaireJson and isinstance(titulaireJson['id']) == str):
                     if str(titulaireJson['id'])[0:14] not in dict_titu:
                         titulaire = Titulaire()
                         titulaire.id_titulaire = str(titulaireJson['id'])[0:14]
@@ -214,7 +209,7 @@ def import_one_file(file, dict_titu, dict_acheteur):
 
             else:
                 for titulaireJson in marcheJson['titulaires']:
-                    if ('id' in titulaireJson and type(titulaireJson['id']) == str):
+                    if ('id' in titulaireJson and isinstance(titulaireJson['id']) == str):
                         if str(titulaireJson['id'])[0:14] not in dict_titu:
                             titulaire = Titulaire()
                             titulaire.id_titulaire = str(titulaireJson['id'])[0:14]
