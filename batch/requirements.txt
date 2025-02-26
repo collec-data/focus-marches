@@ -4,4 +4,4 @@ requests===2.27.1
 lxml
 xmltodict
 pandas===2.2.0
-python-stdnu==1.20
+python-stdnum==1.20
