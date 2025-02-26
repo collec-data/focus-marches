@@ -1,13 +1,17 @@
 from model.object import engine
 import datetime
-from decp import importer_decp
+from decp import importer_decp_2022
+from decp_old import importer_decp
 from sirene import maj_table_sirene,maj_info_greffe
 
 
 
 #ETAPE 1: Import des données essentielles de la commandes publiques
-print("DEBUT : ETAPE 1")
+print("DEBUT : ETAPE 1.1")
 importer_decp()
+
+print("DEBUT : ETAPE 1.2")
+importer_decp_2022()
 
 print("DEBUT : ETAPE 2")
 #ETAPE 2: mise à jour de la table sirenne
@@ -16,7 +20,6 @@ maj_table_sirene()
 print("DEBUT : ETAPE 3")
 #ETAPE 3 : mise à jour des infos greffe dans la table sirene
 maj_info_greffe()
-
 print("DEBUT : ETAPE 4")
 # ETAPE 4 : mise à jour table organisme
 # TODO Mettre à jour la table organisme à partir des dataset de l'insee

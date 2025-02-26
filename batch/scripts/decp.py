@@ -1,17 +1,13 @@
-import calendar, time
 import errno
+import json
 import logging
 import os
 from functools import lru_cache
-from xml.dom import minidom
-from xml.etree import ElementTree
 from os import listdir
 from os.path import isfile, join
-import requests
-import xmltodict
 from model.object import Lieu, db_session, Titulaire, Acheteur, Marche_titulaires, Marche, engine
-from settings.settings import WORKDIR, ATEXO_API_TOKEN, IMPORT_FROM_DIRECTORY, ATEXO_IMPORT_FROM_API, DIRECTORY_DECP_IN, ATEXO_API_URL, \
-    ATEXO_START_YEAR,PURGE_MARCHE
+from settings.settings import WORKDIR, IMPORT_FROM_DIRECTORY, DIRECTORY_DECP_IN_2022
+
 
 
 @lru_cache(maxsize=10)
@@ -32,83 +28,8 @@ def get_or_create_workdir():
 def isBlank (myString):
     return not (myString and myString.strip())
 
-# def clear_wordir():
-#     DIR = get_or_create_workdir()
-#     filelist = [f for f in os.listdir(DIR)]
-#     for f in filelist:
-#         os.remove(os.path.join(DIR, f))
 
 
-def recuperer_decp_in_workdir(annee):
-    ANNEE = str(annee)
-    print("DEBUT recuperer_decp_in_workdir pour " + ANNEE)
-    # clear_wordir()
-    url_jeton_sdm = ATEXO_API_TOKEN
-    try:
-        response = requests.get(url_jeton_sdm)
-        doc = minidom.parseString(response.text)
-        jeton = doc.getElementsByTagName("ticket")[0].firstChild.data
-
-        url_format_pivot = ATEXO_API_URL
-
-        # generation annee
-        t = time.localtime()
-        ANNEE_EN_COURS = time.strftime('%Y', t)
-        MOIS_EN_COURS = time.strftime('%m', t)
-
-        xml_data = None
-        month = 1
-
-        # Récupération par mois pour éviter des timeouts
-        while month <= 12:
-            monthStr = "{:02d}".format(month)
-            maxDay = calendar.monthrange(int(annee), month)[1]
-
-            if int(annee) == int(ANNEE_EN_COURS):
-                if (month > int(MOIS_EN_COURS)):
-                    break
-
-            reponse_export_pivot = requests.post(url_format_pivot, json={
-                'token': jeton,
-                'format': 'xml',
-                'date_notif_min': '01-' + monthStr + '-' + str(ANNEE),
-                'date_notif_max': str(maxDay) + '-' + monthStr + '-' + str(ANNEE)
-            })
-
-            data = ElementTree.fromstring(reponse_export_pivot.text)
-            if xml_data is None:
-                xml_data = data
-            else:
-                xml_data.extend(data)
-            month = month + 1
-
-        # Ecriture du fichier dans dossier workdir
-        print("ecrire le fichier dans " + get_or_create_workdir() + '/decp-' + str(ANNEE) + '.xml')
-        f = open(get_or_create_workdir() + '/decp-' + str(ANNEE) + '.xml', 'w', encoding='utf8')
-        if xml_data is not None:
-            xmlstr = ElementTree.tostring(xml_data, encoding='utf8', method='xml')
-            f.write(xmlstr.decode("utf8"))
-        f.close()
-
-    except Exception as e:
-        print("Erreur lors de la récupération du jeton SDM", e)
-
-    print("END recuperer_decp_in_workdir pour " + ANNEE)
-
-
-def recuperer_all_decp_from_api():
-    print("DEBUT recuperer_all_decp_from_api")
-    annee_debut = ATEXO_START_YEAR
-    # generation annee
-    t = time.localtime()
-    annee_courante = int(time.strftime('%Y', t))
-    annee_a_generer = annee_debut
-
-    while annee_courante >= annee_a_generer:
-        recuperer_decp_in_workdir(str(annee_a_generer))
-        # print("END " + str(annee_a_generer))
-        annee_a_generer += 1
-    print("END recuperer_all_decp_from_api")
 
 
 def import_one_file(file, dict_titu, dict_acheteur):
@@ -119,18 +40,11 @@ def import_one_file(file, dict_titu, dict_acheteur):
     acheteur_mappings = []
     cpt = 0
 
-    #  Filtrer les marchés
-    #  --------------------
-    #  * acheteur sans NOM
-    #  * titulaires sans SIRET ou sans DENOMINATION SOCIALE
-    #  * date antérieure au 1er janvier 2019
-    #  * sans montant
     with open(file, encoding='utf-8') as fd:
-        doc = xmltodict.parse(fd.read())
-        for marcheXml in doc['marches']['marche']:
+        doc = json.load(fd)
+        for marcheJson in doc['marches']['marche']:
+
             if cpt > 100:
-                # logging.info("INSERT bulk")
-                # print("INSERT bulk")
                 db_session.bulk_insert_mappings(Titulaire, titu_mappings)
                 db_session.bulk_insert_mappings(Acheteur, acheteur_mappings)
                 db_session.bulk_insert_mappings(Marche_titulaires, marche_titulaire_mappings)
@@ -142,22 +56,23 @@ def import_one_file(file, dict_titu, dict_acheteur):
                 acheteur_mappings = []
                 cpt = 0
 
+
             marche = Marche()
-            if 'uid' in marcheXml:
-                if isBlank(marcheXml['uid']):
-                    logging.error("Pas d'id de marche, on ignore le marche")
-                continue
-                marche.id_marche = marcheXml['uid']
-            elif 'uuid' in marcheXml:
-                if isBlank(marcheXml['uuid']):
+            if 'id' in marcheJson:
+                if isBlank(marcheJson['id']):
                     logging.error("Pas d'id de marche, on ignore le marche")
                     continue
-                marche.id_marche = marcheXml['uuid']
+                marche.id_marche = marcheJson['id']
+            elif 'uuid' in marcheJson:
+                if isBlank(marcheJson['uuid']):
+                    logging.error("Pas d'id de marche, on ignore le marche")
+                    continue
+                marche.id_marche = marcheJson['uuid']
             else:
-                logging.error("Pas d'id de marche, on ignore le marche")
+                logging.error("Pas d'id de marche, on l'ignore")
                 continue
 
-            if 'codeCPV' not in marcheXml:
+            if 'codeCPV' not in marcheJson:
                 logging.warning(str(marche.id_marche) + " : pas de code cpv, on l'ignore")
                 continue
 
@@ -171,8 +86,8 @@ def import_one_file(file, dict_titu, dict_acheteur):
                 logging.debug("Existe deja " + str(marcheBDD.id))
                 continue
 
-            if 'montant' in marcheXml:
-                marche.montant = float(marcheXml['montant'])
+            if 'montant' in marcheJson:
+                marche.montant = float(marcheJson['montant'])
                 if marche.montant < 0:
                     marche.montant = marche.montant * -1
             else:
@@ -183,108 +98,109 @@ def import_one_file(file, dict_titu, dict_acheteur):
                 logging.warning("montant trop eleve " + str(marche.id_marche))
                 continue
 
-            if 'objet' in marcheXml:
-                marche.objet = marcheXml['objet']
+            if 'objet' in marcheJson:
+                marche.objet = marcheJson['objet']
 
-            if 'dureeMois' in marcheXml:
-                if str(marcheXml['dureeMois']).isnumeric() and int(marcheXml['dureeMois']) < 255:
-                    marche.duree_mois = marcheXml['dureeMois']
+            if 'dureeMois' in marcheJson:
+                if str(marcheJson['dureeMois']).isnumeric() and int(marcheJson['dureeMois']) < 255:
+                    marche.duree_mois = marcheJson['dureeMois']
 
-            marche.date_notification = marcheXml['dateNotification'] if 'dateNotification' in marcheXml else None
-            marche.date_publication_donnees = marcheXml[
-                'datePublicationDonnees'] if 'datePublicationDonnees' in marcheXml else None
-            marche.date_transmission_etalab = marcheXml[
-                'dateTransmissionDonneesEtalab'] if 'dateTransmissionDonneesEtalab' in marcheXml else None
+            marche.date_notification = marcheJson['dateNotification'] if 'dateNotification' in marcheJson else None
+            marche.date_publication_donnees = marcheJson['datePublicationDonnees'] if 'datePublicationDonnees' in marcheJson else None
+            marche.date_transmission_etalab = marcheJson['dateTransmissionDonneesEtalab'] if 'dateTransmissionDonneesEtalab' in marcheJson else None
 
-            if 'procedure' in marcheXml:
-                if marcheXml['procedure'] == 'Procédure adaptée':
+            if 'procedure' in marcheJson:
+                if marcheJson['procedure'] == 'Procédure adaptée':
                     marche.id_procedure = 1
-                elif marcheXml['procedure'] == "Appel d'offres ouvert":
+                elif marcheJson['procedure'] == "Appel d'offres ouvert":
                     marche.id_procedure = 2
-                elif marcheXml['procedure'] == "Appel d'offres restreint":
+                elif marcheJson['procedure'] == "Appel d'offres restreint":
                     marche.id_procedure = 3
-                elif marcheXml['procedure'] == "Procédure concurrentielle avec négociation":
+                elif marcheJson['procedure'] == "Procédure concurrentielle avec négociation":
                     marche.id_procedure = 4
-                elif marcheXml['procedure'] == "Procédure négociée avec mise en concurrence préalable":
+                elif marcheJson['procedure'] == "Procédure négociée avec mise en concurrence préalable":
                     marche.id_procedure = 5
-                elif marcheXml['procedure'] == "Marché négocié sans publicité ni mise en concurrence préalable":
+                elif marcheJson['procedure'] == "Marché négocié sans publicité ni mise en concurrence préalable":
                     marche.id_procedure = 6
-                elif marcheXml['procedure'] == "Dialogue compétitif":
+                elif marcheJson['procedure'] == "Dialogue compétitif":
                     marche.id_procedure = 7
                 else:
                     marche.id_procedure = 1
             else:
                 marche.id_procedure = 1
 
-            if 'formePrix' in marcheXml:
-                if marcheXml['formePrix'] == 'Ferme':
+            if 'formePrix' in marcheJson:
+                if marcheJson['formePrix'] == 'Ferme':
                     marche.id_forme_prix = 1
-                elif marcheXml['formePrix'] == 'actualisable':
+                elif marcheJson['formePrix'] == 'actualisable':
                     marche.id_forme_prix = 2
-                elif marcheXml['formePrix'] == 'Révisable':
+                elif marcheJson['formePrix'] == 'Révisable':
                     marche.id_forme_prix = 3
                 else:
                     marche.id_forme_prix = 1
             else:
                 marche.id_forme_prix = 1
 
-            if 'nature' in marcheXml:
-                if marcheXml['nature'] == 'Marché':
+            if 'nature' in marcheJson:
+                if marcheJson['nature'] == 'Marché':
                     marche.id_nature = 1
-                elif marcheXml['nature'] == 'Marché de partenariat':
+                elif marcheJson['nature'] == 'Marché de partenariat':
                     marche.id_nature = 2
-                elif marcheXml['nature'] == 'Accord-cadre':
+                elif marcheJson['nature'] == 'Accord-cadre':
                     marche.id_nature = 3
-                elif marcheXml['nature'] == 'Marché subséquent':
+                elif marcheJson['nature'] == 'Marché subséquent':
                     marche.id_nature = 4
                 else:
                     marche.id_nature = 1
             else:
                 marche.id_nature = 1
 
-            if isinstance(marcheXml['codeCPV'], str):
-                if marcheXml['codeCPV'].isnumeric():
-                    marche.code_cpv = int(marcheXml['codeCPV'])
-                elif '-' in marcheXml['codeCPV']:
-                    tab = marcheXml['codeCPV'].split("-")
+            if isinstance(marcheJson['codeCPV'], str):
+                if marcheJson['codeCPV'].isnumeric():
+                    marche.code_cpv = int(marcheJson['codeCPV'])
+                elif '-' in marcheJson['codeCPV']:
+                    tab = marcheJson['codeCPV'].split("-")
                     marche.code_cpv = int(tab[0])
             else:
-                marche.code_cpv = int(marcheXml['codeCPV'])
+                marche.code_cpv = int(marcheJson['codeCPV'])
 
             if marche.code_cpv:
-                if marche.code_cpv > 49999999:
-                    marche.categorie = 'services'
-                elif marche.code_cpv < 45000000:
+                cpv_deb=str(marche.code_cpv)[0:2]
+                if (cpv_deb == '45' ) :
+                    marche.categorie = "travaux"
+                elif (cpv_deb in ['50','60','70','80','90']) :
                     marche.categorie = 'fournitures'
                 else:
-                    marche.categorie = "travaux"
+                    marche.categorie = "services"
+            else:
+                #default
+                print(f' id_marche{marche.id_marche}  : code cpv non renseigne')
+                marche.categorie = 'services'
 
-            if ('titulaires' not in marcheXml or marcheXml['titulaires'] == None or len(marcheXml['titulaires']) < 1):
+            if ('titulaires' not in marcheJson or marcheJson['titulaires'] == None or len(marcheJson['titulaires']) < 1):
                 logging.error(marche.id_marche + " : pas de titulaire, on l'ignore")
                 continue
-            elif (len(marcheXml['titulaires']) == 1):
-                titulaireXml = marcheXml['titulaires']['titulaire']
-                # titulaireBDD = Titulaire.query.filter(Titulaire.id_titulaire == titulaireXml['id']).one_or_none()
-                # Le titulaire existe t'il déja en bdd ?
-                if ('id' in titulaireXml and type(titulaireXml['id']) == str):
-                    if str(titulaireXml['id'])[0:14] not in dict_titu:
+            elif (len(marcheJson['titulaires']) == 1):
+                titulaireJson = marcheJson['titulaires'][0]['titulaire']
+                if ('id' in titulaireJson and isinstance(titulaireJson['id']) == str):
+                    if str(titulaireJson['id'])[0:14] not in dict_titu:
                         titulaire = Titulaire()
-                        titulaire.id_titulaire = str(titulaireXml['id'])[0:14]
-                        titulaire.type_identifiant = titulaireXml['typeIdentifiant'] if 'typeIdentifiant' in titulaireXml else ''
+                        titulaire.id_titulaire = str(titulaireJson['id'])[0:14]
+                        titulaire.type_identifiant = titulaireJson['typeIdentifiant'] if 'typeIdentifiant' in titulaireJson else ''
                         try:
-                            if 'denominationSociale' in titulaireXml:
-                                titulaire.denomination_sociale = titulaireXml['denominationSociale'][0:249]
+                            if 'denominationSociale' in titulaireJson:
+                                titulaire.denomination_sociale = titulaireJson['denominationSociale'][0:249]
                             else:
                                 titulaire.denomination_sociale = ''
-                        except Exception as e:
+                        except Exception:
                             logging.error(marche.id_marche + " : mauvais format denomination_sociale du titulaire")
                             titulaire.denomination_sociale = ''
 
-                        dict_titu.append(str(titulaireXml['id'])[0:14])
+                        dict_titu.append(str(titulaireJson['id'])[0:14])
                         titu_mappings.append(titulaire.serialize)
 
                     marche_titulaire = Marche_titulaires()
-                    marche_titulaire.id_titulaires = str(titulaireXml['id'])[0:14]
+                    marche_titulaire.id_titulaires = str(titulaireJson['id'])[0:14]
                     marche_titulaire.id_marche = marche.id_marche
                     marche_titulaire_mappings.append(marche_titulaire.serialize)
                 else:
@@ -292,73 +208,64 @@ def import_one_file(file, dict_titu, dict_acheteur):
                     continue
 
             else:
-                for titulaireXml in marcheXml['titulaires']['titulaire']:
-                    # titulaireBDD = Titulaire.query.filter(Titulaire.id_titulaire == titulaireXml['id']).one_or_none()
-                    # Le titulaire existe t'il déja en bdd ?
-                    if ('id' in titulaireXml and type(titulaireXml['id']) == str):
-                        if str(titulaireXml['id'])[0:14] not in dict_titu:
-
+                for titulaireJson in marcheJson['titulaires']:
+                    if ('id' in titulaireJson and isinstance(titulaireJson['id']) == str):
+                        if str(titulaireJson['id'])[0:14] not in dict_titu:
                             titulaire = Titulaire()
-                            titulaire.id_titulaire = str(titulaireXml['id'])[0:14]
-                            titulaire.type_identifiant = titulaireXml['typeIdentifiant'] if 'typeIdentifiant' in titulaireXml else ''
+                            titulaire.id_titulaire = str(titulaireJson['id'])[0:14]
+                            titulaire.type_identifiant = titulaireJson['typeIdentifiant'] if 'typeIdentifiant' in titulaireJson else ''
                             try:
-                                titulaire.denomination_sociale = titulaireXml['denominationSociale'][0:249]  if 'denominationSociale' in titulaireXml else ''
-                            except Exception as e:
+                                titulaire.denomination_sociale = titulaireJson['denominationSociale'][0:249] if 'denominationSociale' in titulaireJson else ''
+                            except Exception:
                                 logging.error(marche.id_marche + " : mauvais format denomination_sociale du titulaire")
                                 titulaire.denomination_sociale = ''
-                            dict_titu.append(str(titulaireXml['id'])[0:14])
+                            dict_titu.append(str(titulaireJson['id'])[0:14])
                             titu_mappings.append(titulaire.serialize)
 
                         marche_titulaire = Marche_titulaires()
-                        marche_titulaire.id_titulaires = str(titulaireXml['id'])[0:14]
+                        marche_titulaire.id_titulaires = str(titulaireJson['id'])[0:14]
                         marche_titulaire.id_marche = marche.id_marche
                         marche_titulaire_mappings.append(marche_titulaire.serialize)
                     else:
                         logging.error(marche.id_marche + " : mauvais format titulaire, on l'ignore")
                         continue
 
-            if ('acheteur' in marcheXml):
-                acheteurXml = marcheXml['acheteur']
-                # acheteurBDD = Acheteur.query.filter(Acheteur.id_acheteur == acheteurXml['id']).one_or_none()
-                # L'acheteur existe t'il déja en bdd ?
-                if str(acheteurXml['id'])[0:14] not in dict_acheteur:
-                    # creation acheteur
+            if ('acheteur' in marcheJson):
+                acheteurJson = marcheJson['acheteur']
+                if str(acheteurJson['id'])[0:14] not in dict_acheteur:
                     acheteur = Acheteur()
-                    acheteur.id_acheteur = str(acheteurXml['id'])[0:14]
-                    acheteur.nom_acheteur = acheteurXml['nom'] if 'nom' in acheteurXml else ''
-                    acheteur.nom_ui = acheteurXml['nom'] if 'nom' in acheteurXml else ''
-                    dict_acheteur.append(str(acheteurXml['id'])[0:14])
+                    acheteur.id_acheteur = str(acheteurJson['id'])[0:14]
+                    acheteur.nom_acheteur = acheteurJson['nom'] if 'nom' in acheteurJson else ''
+                    acheteur.nom_ui = acheteurJson['nom'] if 'nom' in acheteurJson else ''
+                    dict_acheteur.append(str(acheteurJson['id'])[0:14])
                     acheteur_mappings.append(acheteur.serialize)
 
-                # on valorise l'acheteur_id sur le marche
-                marche.id_acheteur = str(acheteurXml['id'])[0:14]
+                marche.id_acheteur = str(acheteurJson['id'])[0:14]
             else:
                 logging.warning("pas d'acheteur")
                 continue
 
-            if ('lieuExecution' in marcheXml):
-                lieuExecutionXml = marcheXml['lieuExecution']
-                Lieu.query.filter(Lieu.code == lieuExecutionXml['code']).one_or_none()
-                lieuBDD = getLieu(lieuExecutionXml['code'])
-                # L'acheteur existe t'il déja en bdd ?
+            if ('lieuExecution' in marcheJson):
+                lieuExecutionJson = marcheJson['lieuExecution']
+                lieuBDD = getLieu(lieuExecutionJson['code'])
                 if lieuBDD is None:
                     getLieu.cache_clear()
                     lieu = Lieu()
-                    lieu.code = lieuExecutionXml['code']
-                    lieu.type_code = lieuExecutionXml['typeCode']
-                    lieu.nom_lieu = lieuExecutionXml['nom']
-                    db_session.add(lieu)
-                    db_session.commit()
+                    lieu.code = lieuExecutionJson['code']
+                    lieu.type_code = lieuExecutionJson['typeCode']
+                    #lieu.nom_lieu = lieuExecutionJson['nom']
 
-                lieuBDD = Lieu.query.filter(Lieu.code == lieuExecutionXml['code']).one_or_none()
-                marche.id_lieu_execution = lieuBDD.id_lieu
+
+                lieuBDD = Lieu.query.filter(Lieu.code == lieuExecutionJson['code']).one_or_none()
+                if lieuBDD is not None:
+                    marche.id_lieu_execution = lieuBDD.id_lieu
             else:
                 logging.warning("pas de lieuExecution")
 
             marche_mappings.append(marche.serialize)
             cpt = cpt + 1
-    # logging.info("INSERT bulk")
-    # print('LAST INSERT bulk for ' + file)
+
+
     db_session.bulk_insert_mappings(Titulaire, titu_mappings)
     db_session.bulk_insert_mappings(Acheteur, acheteur_mappings)
     db_session.bulk_insert_mappings(Marche_titulaires, marche_titulaire_mappings)
@@ -367,15 +274,19 @@ def import_one_file(file, dict_titu, dict_acheteur):
     print('FIN import decp :' + file)
 
 
-def importer_decp():
+
+
+
+
+def importer_decp_2022():
     dict_titu = []
     dict_acheteur = []
 
     # PURGE DE LA TABLE MARCHE EN DEBUT D'IMPORT
-    if PURGE_MARCHE == 1:
-        engine.execute("truncate table marche")
-        engine.execute("truncate table marche_titulaires")
-
+    # if PURGE_MARCHE == 1:
+    #     engine.execute("truncate table marche")
+    #     engine.execute("truncate table marche_titulaires")
+    #
     with engine.connect() as con:
         result = con.execute("select id_titulaire from titulaire")
         for row in result:
@@ -385,13 +296,6 @@ def importer_decp():
             dict_acheteur.append(str(row[0])[0:14])
 
     if IMPORT_FROM_DIRECTORY == 1:
-        files = [f for f in listdir(DIRECTORY_DECP_IN) if isfile(join(DIRECTORY_DECP_IN, f))]
+        files = [f for f in listdir(DIRECTORY_DECP_IN_2022) if isfile(join(DIRECTORY_DECP_IN_2022, f))]
         for file in files:
-            import_one_file(DIRECTORY_DECP_IN + "/" + file, dict_titu, dict_acheteur)
-
-    if ATEXO_IMPORT_FROM_API == 1:
-        recuperer_all_decp_from_api()
-        files = [f for f in listdir(WORKDIR) if isfile(join(WORKDIR, f))]
-        for file in files:
-            if "decp-" in file:
-                import_one_file(WORKDIR + "/" + file, dict_titu, dict_acheteur)
+            import_one_file(DIRECTORY_DECP_IN_2022 + "/" + file, dict_titu, dict_acheteur)
