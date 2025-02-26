@@ -73,7 +73,7 @@ def recuperer_decp_in_workdir(annee):
                 'format': 'xml',
                 'date_notif_min': '01-' + monthStr + '-' + str(ANNEE),
                 'date_notif_max': str(maxDay) + '-' + monthStr + '-' + str(ANNEE)
-            })
+            },timeout=30)
 
             data = ElementTree.fromstring(reponse_export_pivot.text)
             if xml_data is None:
@@ -281,7 +281,7 @@ def import_one_file(file, dict_titu, dict_acheteur):
                                 titulaire.denomination_sociale = titulaireXml['denominationSociale'][0:249]
                             else:
                                 titulaire.denomination_sociale = ''
-                        except Exception as e:
+                        except Exception:
                             logging.error(marche.id_marche + " : mauvais format denomination_sociale du titulaire")
                             titulaire.denomination_sociale = ''
 
@@ -308,7 +308,7 @@ def import_one_file(file, dict_titu, dict_acheteur):
                             titulaire.type_identifiant = titulaireXml['typeIdentifiant'] if 'typeIdentifiant' in titulaireXml else ''
                             try:
                                 titulaire.denomination_sociale = titulaireXml['denominationSociale'][0:249]  if 'denominationSociale' in titulaireXml else ''
-                            except Exception as e:
+                            except Exception:
                                 logging.error(marche.id_marche + " : mauvais format denomination_sociale du titulaire")
                                 titulaire.denomination_sociale = ''
                             dict_titu.append(str(titulaireXml['id'])[0:14])

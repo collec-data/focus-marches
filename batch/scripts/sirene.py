@@ -41,7 +41,7 @@ def insert_info_api_siren(con, request):
 
         try:
             siretValidator.validate(id_siret[0])
-        except:
+        except Exception:
             logging.error(f"{id_siret[0]} n'est pas un siret valide")
             continue
 

@@ -192,7 +192,7 @@ def import_one_file(file, dict_titu, dict_acheteur):
                                 titulaire.denomination_sociale = titulaireJson['denominationSociale'][0:249]
                             else:
                                 titulaire.denomination_sociale = ''
-                        except Exception as e:
+                        except Exception:
                             logging.error(marche.id_marche + " : mauvais format denomination_sociale du titulaire")
                             titulaire.denomination_sociale = ''
 
@@ -216,7 +216,7 @@ def import_one_file(file, dict_titu, dict_acheteur):
                             titulaire.type_identifiant = titulaireJson['typeIdentifiant'] if 'typeIdentifiant' in titulaireJson else ''
                             try:
                                 titulaire.denomination_sociale = titulaireJson['denominationSociale'][0:249] if 'denominationSociale' in titulaireJson else ''
-                            except Exception as e:
+                            except Exception:
                                 logging.error(marche.id_marche + " : mauvais format denomination_sociale du titulaire")
                                 titulaire.denomination_sociale = ''
                             dict_titu.append(str(titulaireJson['id'])[0:14])
