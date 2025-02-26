@@ -182,7 +182,7 @@ def import_one_file(file, dict_titu, dict_acheteur):
                 continue
             elif (len(marcheJson['titulaires']) == 1):
                 titulaireJson = marcheJson['titulaires'][0]['titulaire']
-                if ('id' in titulaireJson and isinstance(titulaireJson['id']) == str):
+                if ('id' in titulaireJson and isinstance(titulaireJson['id'],str)):
                     if str(titulaireJson['id'])[0:14] not in dict_titu:
                         titulaire = Titulaire()
                         titulaire.id_titulaire = str(titulaireJson['id'])[0:14]
@@ -209,7 +209,7 @@ def import_one_file(file, dict_titu, dict_acheteur):
 
             else:
                 for titulaireJson in marcheJson['titulaires']:
-                    if ('id' in titulaireJson and isinstance(titulaireJson['id']) == str):
+                    if ('id' in titulaireJson and isinstance(titulaireJson['id'],str)):
                         if str(titulaireJson['id'])[0:14] not in dict_titu:
                             titulaire = Titulaire()
                             titulaire.id_titulaire = str(titulaireJson['id'])[0:14]
