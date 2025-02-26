@@ -4,6 +4,8 @@ from settings.settings import enable_http_proxy, proxyDict, URL_FICHIER_INFOS_GR
 import datetime, logging, requests, sqlalchemy, urllib
 from sqlalchemy import text
 import pandas as pd
+from stdnum.fr import siret as siretValidator
+from stdnum.fr import siren as sirenValidator
 
 request_acheteur = text("""select id_acheteur FROM acheteur WHERE id_acheteur NOT IN  (SELECT id_sirene FROM sirene)""")
 request_titulaire = text(
@@ -31,14 +33,23 @@ sql_update_siren_with_infogreffe = """UPDATE sirene
 def insert_info_api_siren(con, request):
     logging.info("DEBUT insert_info_api_siren")
 
-    result = con.execute(request);
+    result = con.execute(request)
     today = datetime.date.today()
     todayStr = today.isoformat()
 
     for id_siret in result.cursor:
 
-        siret = str(id_siret[0])
-        infoEtablissement = None
+        try:
+            siretValidator.validate(id_siret[0])
+        except:
+            logging.error(f"{id_siret[0]} n'est pas un siret valide")
+            continue
+
+        if '00000000000000' == id_siret[0]:
+            logging.error(f"{id_siret[0]} n'est pas un siret valide")
+            continue
+
+        siret = id_siret[0]
 
         # Recherche via siret dans l'api SIRENE V3 consolidée - France
         if enable_http_proxy:
@@ -82,9 +93,13 @@ def insert_info_api_siren(con, request):
                 update_table_sirene(con, id_siret, infoEtablissement, r, todayStr)
             else:
                 logging.info(f"Aucune information trouvée pour le siret : {id_siret[0]}")
+                print(f"Aucune information trouvée pour le siret : {id_siret[0]}")
+
 
         except sqlalchemy.exc.IntegrityError as e:
             logging.warning(f"{id_siret[0]}  deja présent")
+        except Exception as e:
+            logging.error(f"{id_siret[0]}  deja présent")
 
 
 
@@ -277,5 +292,5 @@ def maj_info_greffe():
 def maj_table_sirene():
     with engine.connect() as con:
         # result = con.execute("truncate table sirene");
-        insert_info_api_siren(con, request_titulaire)
+        #insert_info_api_siren(con, request_titulaire)
         insert_info_api_siren(con, request_acheteur)
