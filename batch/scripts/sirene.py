@@ -202,7 +202,7 @@ def valorisation_infoEtablissement(reponse):
     infoEtablissement.nicSiegeUniteLegale = result.get('unite_legale').get('siret_siege_social')[9:15] if result.get('unite_legale').get('siret_siege_social') is not None else None
     infoEtablissement.categorieEntreprise = result.get('unite_legale').get('categorie_entreprise')
 
-     #pas de données pour l'année de la catégorie entreprise
+     #pas de donnée pour l'année de la catégorie entreprise
     #infoEtablissement.anneeCategorieEntreprise = result.get('anneecategorieentreprise')
     infoEtablissement.anneeCategorieEntreprise= "2022"
     infoEtablissement.complementAdresseEtablissement = result.get('adresse').get('complement_adresse')
