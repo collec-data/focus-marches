@@ -1,6 +1,6 @@
 from model.object import InfoEtablissement, Sirene, db_session, engine
 from settings.settings import enable_http_proxy, proxyDict, URL_FICHIER_INFOS_GREFFE, WORKDIR, \
-    DOWNLOAD_INFOS_GREFFE, URL_API_OPENDATASOFT
+    DOWNLOAD_INFOS_GREFFE, URL_API_OPENDATASOFT, URL_API_SIREN_PERSO, TOKEN_API_SIREN_PERSO
 import datetime, logging, requests, sqlalchemy, urllib
 from sqlalchemy import text
 import pandas as pd
@@ -11,6 +11,14 @@ request_acheteur = text("""select id_acheteur FROM acheteur WHERE id_acheteur NO
 request_titulaire = text(
     """select id_titulaire FROM titulaire WHERE id_titulaire NOT IN  (SELECT id_sirene FROM sirene)""")
 request_infogreffe = text("""select siren,nic FROM sirene where fiche_identite is null""")
+
+request_update_titulaire = text(
+    "UPDATE titulaire SET denomination_sociale=:denomination WHERE id_titulaire=:id_titulaire"
+)
+request_update_acheteur = text(
+    "UPDATE acheteur  SET nom_acheteur=:denomination,nom_ui=:denomination  WHERE id_acheteur=:id_acheteur"
+)
+
 
 sql_insert_sirene = """INSERT INTO `sirene` (`id_sirene`, `statut`, `date`, `siren`,`nic`, `siret`, `dateCreationEtablissement`, `trancheEffectifsEtablissement`,
            `anneeEffectifsEtablissement`, `activitePrincipaleRegistreMetiersEtablissement`, `etatAdministratifUniteLegale`, `statutDiffusionUniteLegale`,
@@ -40,7 +48,7 @@ def insert_info_api_siren(con, request):
     for id_siret in result.cursor:
 
         try:
-            siretValidator.validate(id_siret[0])
+            siretValidator.validate(id_siret [0])
         except Exception:
             logging.error(f"{id_siret[0]} n'est pas un siret valide")
             continue
@@ -51,12 +59,16 @@ def insert_info_api_siren(con, request):
 
         siret = id_siret[0]
 
+        headers = {
+            "Authorization": f"Bearer {TOKEN_API_SIREN_PERSO}"
+        }
+
         # Recherche via siret dans l'api SIRENE V3 consolidée - France
         if enable_http_proxy:
-            r = requests.get(f"{URL_API_OPENDATASOFT}/records?where=siret%3D{siret}&limit=20", proxies=proxyDict,
+            r = requests.get(f"{URL_API_SIREN_PERSO}/insee/sirene/etablissements/{siret}",headers=headers,proxies=proxyDict,
                              timeout=5)
         else:
-            r = requests.get(f"{URL_API_OPENDATASOFT}/records?where=siret%3D{siret}&limit=20",timeout=5)
+            r = requests.get(f"{URL_API_SIREN_PERSO}/insee/sirene/etablissements/{siret}",headers=headers,timeout=5)
 
         try:
             # on parse la reponse
@@ -64,33 +76,16 @@ def insert_info_api_siren(con, request):
 
             if (r.status_code == 200):
                 # si la reponse contient des données
-
-                if reponse['total_count'] > 0:
-                    infoEtablissement = valorisation_infoEtablissement(reponse)
-                # si la reponse ne contient pas de données
-                # on recherche avec le siren dans l'api SIRENE V3 consolidée - France
-                else:
-                    siren = id_siret[0][0:9]
-                    if (siren.isnumeric()):
-                        if enable_http_proxy:
-                            r = requests.get(
-                                f"{URL_API_OPENDATASOFT}/records?where=siren%3D{siren}%20and%20etablissementsiege%3D\"oui\"&limit=20",
-                                proxies=proxyDict,timeout=5)
-                        else:
-                            r = requests.get(
-                                f"{URL_API_OPENDATASOFT}/records?where=siren%3D{siren}%20and%20etablissementsiege%3D\"oui\"&limit=20",timeout=5)
-
-                        reponse = r.json()
-                        # si la reponse est ok
-                        if (r.status_code == 200):
-                            # si la reponse ne contient pas de données
-                            if reponse['total_count'] > 0:
-                                infoEtablissement = valorisation_infoEtablissement(reponse)
+                infoEtablissement = valorisation_infoEtablissement(reponse)
 
             # mise à jour de la table sirene si on a réussi à récupérer des données
             if infoEtablissement is not None:
                 logging.info(f"AMise à jour de la table sirene pour le siret :  {id_siret[0]}")
                 update_table_sirene(con, id_siret, infoEtablissement, r, todayStr)
+                # update table acheteur
+                con.execute(request_update_acheteur, {'id_acheteur': infoEtablissement.siret, 'denomination': infoEtablissement.denominationUniteLegale})
+                #update table titulaire
+                con.execute(request_update_titulaire, {'id_titulaire': infoEtablissement.siret, 'denomination': infoEtablissement.denominationUniteLegale})
             else:
                 logging.info(f"Aucune information trouvée pour le siret : {id_siret[0]}")
                 print(f"Aucune information trouvée pour le siret : {id_siret[0]}")
@@ -154,43 +149,75 @@ def update_table_sirene(con, id_siret, infoEtablissement, r, todayStr):
 
 def valorisation_infoEtablissement(reponse):
     infoEtablissement = InfoEtablissement()
-    result = reponse['results'][0]
+    result = reponse['data']
     infoEtablissement.siret = result.get('siret')
-    infoEtablissement.siren = result.get('siren')
-    infoEtablissement.nic = result.get('nic')
-    infoEtablissement.dateCreationEtablissement = result.get('datecreationetablissement')
-    infoEtablissement.trancheEffectifsEtablissement = result.get('trancheeffectifsetablissement')
-    infoEtablissement.anneeEffectifsEtablissement = result.get('anneeeffectifsetablissement')
+    print("SIRET: " + infoEtablissement.siret)
+    infoEtablissement.siren = result.get('unite_legale').get('siren')
+    infoEtablissement.nic = result.get('siret')[9:15]
+    if (result.get('date_creation')):
+
+        if result.get('date_creation') < 0:
+            infoEtablissement.dateCreationEtablissement = (datetime.datetime(1970, 1, 1) + datetime.timedelta(seconds=result.get('date_creation'))).strftime("%Y-%m-%d")
+        else:
+            infoEtablissement.dateCreationEtablissement = datetime.datetime.fromtimestamp(result.get('date_creation')).strftime("%Y-%m-%d")
+
+    # todo mapping
+    infoEtablissement.trancheEffectifsEtablissement = result.get('tranche_effectif_salarie').get('intitule')
+    infoEtablissement.anneeEffectifsEtablissement = result.get('tranche_effectif_salarie').get('date_reference')
+
+    infoEtablissement.trancheEffectifsUniteLegale = result.get('unite_legale').get('tranche_effectif_salarie').get('intitule')
+    infoEtablissement.anneeEffectifsUniteLegale = result.get('unite_legale').get('tranche_effectif_salarie').get('date_reference')
+
+
+
     infoEtablissement.activitePrincipaleRegMet = result.get(
-        'activiteprincipaleregistremetiersetablissement')
-    infoEtablissement.etatAdministratifUniteLegale = result.get('etatadministratifunitelegale')
-    infoEtablissement.statutDiffusionUniteLegale = result.get('statutdiffusionunitelegale')
-    infoEtablissement.dateCreationUniteLegale = result.get('datecreationunitelegale')
-    infoEtablissement.categorieJuridiqueUniteLegale = result.get('categoriejuridiqueunitelegale')
-    infoEtablissement.denominationUniteLegale = result.get('denominationunitelegale')
-    infoEtablissement.sigleUniteLegale = result.get('sigleunitelegale')
-    infoEtablissement.activitePrincipaleUniteLegale = result.get('activiteprincipaleunitelegale')
-    infoEtablissement.nomenclatureActivitePrincipaleUniteLegale = result.get(
-        'nomenclatureactiviteprincipaleunitelegale')
+        'activite_principale').get('code') if result.get('activite_principale') is not None else None
+
+    # todo mapping
+    infoEtablissement.etatAdministratifUniteLegale = result.get('unite_legale').get('etat_administratif')
+    #todo mapping
+    infoEtablissement.statutDiffusionUniteLegale = result.get('unite_legale').get('status_diffusion')
+
+    if (result.get('unite_legale').get('date_creation')):
+        if result.get('unite_legale').get('date_creation') < 0:
+            infoEtablissement.dateCreationUniteLegale = (datetime.datetime(1970, 1, 1) + datetime.timedelta(seconds=result.get('unite_legale').get('date_creation'))).strftime("%Y-%m-%d")
+        else:
+            infoEtablissement.dateCreationUniteLegale = datetime.datetime.fromtimestamp(result.get('unite_legale').get('date_creation')).strftime("%Y-%m-%d")
+
+
+    infoEtablissement.categorieJuridiqueUniteLegale = result.get('unite_legale').get('code')
+    infoEtablissement.denominationUniteLegale = result.get('unite_legale').get('personne_morale_attributs').get('raison_sociale') if result.get('unite_legale').get('personne_morale_attributs') is not None else None
+
+    infoEtablissement.sigleUniteLegale = result.get('unite_legale').get('sigle')
+    infoEtablissement.activitePrincipaleUniteLegale = result.get('unite_legale').get('activite_principale').get('code') if result.get('unite_legale').get('activite_principale') is not None else None
+
+    infoEtablissement.nomenclatureActivitePrincipaleUniteLegale = result.get('unite_legale').get('activite_principale').get('nomenclature') if result.get('unite_legale').get('activite_principale') is not None else None
+
     infoEtablissement.caractereEmployeurUniteLegale = result.get('caractereemployeurunitelegale')
-    infoEtablissement.trancheEffectifsUniteLegale = result.get('trancheeffectifsunitelegale')
-    infoEtablissement.anneeEffectifsUniteLegale = result.get('anneeeffectifsunitelegale')
-    infoEtablissement.nicSiegeUniteLegale = result.get('nicsiegeunitelegale')
-    infoEtablissement.categorieEntreprise = result.get('categorieentreprise')
-    infoEtablissement.anneeCategorieEntreprise = result.get('anneecategorieentreprise')
-    infoEtablissement.complementAdresseEtablissement = result.get('complementadresseetablissement')
-    infoEtablissement.numeroVoieEtablissement = result.get('numerovoieetablissement')
-    infoEtablissement.indiceRepetitionEtablissement = result.get('indicerepetitionetablissement')
-    infoEtablissement.typeVoieEtablissement = result.get('typevoieetablissement')
-    infoEtablissement.libelleVoieEtablissement = result.get('libellevoieetablissement')
-    infoEtablissement.codePostalEtablissement = result.get('codepostaletablissement')
-    infoEtablissement.libelleCommuneEtablissement = result.get('libellecommuneetablissement')
-    infoEtablissement.codeCommuneEtablissement = result.get('codecommuneetablissement')
-    infoEtablissement.codeCedexEtablissement = result.get('codecedexetablissement')
-    infoEtablissement.libelleCedexEtablissement = result.get('libellecedexetablissement')
-    infoEtablissement.codePaysEtrangerEtablissement = result.get('codepaysetrangeretablissement')
-    infoEtablissement.libellePaysEtrangerEtablissement = result.get(
-        'libellepaysetrangeretablissement')
+
+    #todo
+    infoEtablissement.anneeEffectifsUniteLegale = result.get('unite_legale').get('tranche_effectif_salarie').get('intitule')
+    infoEtablissement.anneeEffectifsUniteLegale = result.get('unite_legale').get('tranche_effectif_salarie').get('date_reference')
+
+    infoEtablissement.nicSiegeUniteLegale = result.get('unite_legale').get('siret_siege_social')[9:15] if result.get('unite_legale').get('siret_siege_social') is not None else None
+    infoEtablissement.categorieEntreprise = result.get('unite_legale').get('categorie_entreprise')
+
+     #pas de donnée pour l'année de la catégorie entreprise
+    #infoEtablissement.anneeCategorieEntreprise = result.get('anneecategorieentreprise')
+    infoEtablissement.anneeCategorieEntreprise= "2022"
+    infoEtablissement.complementAdresseEtablissement = result.get('adresse').get('complement_adresse')
+    infoEtablissement.numeroVoieEtablissement = result.get('adresse').get('numero_voie')
+    infoEtablissement.indiceRepetitionEtablissement = result.get('adresse').get('indice_repetition_voie')
+
+    infoEtablissement.typeVoieEtablissement = result.get('adresse').get('type_voie')
+    infoEtablissement.libelleVoieEtablissement = result.get('adresse').get('libelle_voie')
+    infoEtablissement.codePostalEtablissement = result.get('adresse').get('code_postal')
+    infoEtablissement.libelleCommuneEtablissement = result.get('adresse').get('libelle_commune')
+    infoEtablissement.codeCommuneEtablissement = result.get('adresse').get('code_commune')
+    infoEtablissement.codeCedexEtablissement = result.get('adresse').get('code_cedex')
+    infoEtablissement.libelleCedexEtablissement = result.get('adresse').get('libelle_cedex')
+    infoEtablissement.codePaysEtrangerEtablissement = result.get('adresse').get('code_pays_etranger')
+    infoEtablissement.libellePaysEtrangerEtablissement = result.get('adresse').get('libelle_pays_etranger')
 
     geo_info = result.get('geolocetablissement', {})
     if geo_info is not None:
@@ -292,5 +319,5 @@ def maj_info_greffe():
 def maj_table_sirene():
     with engine.connect() as con:
         # result = con.execute("truncate table sirene");
-        #insert_info_api_siren(con, request_titulaire)
+        insert_info_api_siren(con, request_titulaire)
         insert_info_api_siren(con, request_acheteur)

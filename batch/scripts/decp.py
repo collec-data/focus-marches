@@ -6,8 +6,7 @@ from functools import lru_cache
 from os import listdir
 from os.path import isfile, join
 from model.object import Lieu, db_session, Titulaire, Acheteur, Marche_titulaires, Marche, engine
-from settings.settings import WORKDIR, IMPORT_FROM_DIRECTORY, DIRECTORY_DECP_IN_2022
-
+from settings.settings import WORKDIR, IMPORT_FROM_DIRECTORY, DIRECTORY_DECP_IN_2022, PURGE_MARCHE
 
 
 @lru_cache(maxsize=10)
@@ -58,11 +57,32 @@ def import_one_file(file, dict_titu, dict_acheteur):
 
 
             marche = Marche()
+
+            if ('acheteur' in marcheJson):
+                acheteurJson = marcheJson['acheteur']
+                if 'id' in acheteurJson:
+                    if str(acheteurJson['id'])[0:14] not in dict_acheteur:
+                        acheteur = Acheteur()
+                        acheteur.id_acheteur = str(acheteurJson['id'])[0:14]
+                        acheteur.nom_acheteur = acheteurJson['nom'] if 'nom' in acheteurJson else ''
+                        acheteur.nom_ui = acheteurJson['nom'] if 'nom' in acheteurJson else ''
+                        dict_acheteur.append(str(acheteurJson['id'])[0:14])
+                        acheteur_mappings.append(acheteur.serialize)
+
+                    marche.id_acheteur = str(acheteurJson['id'])[0:14]
+                else:
+                    logging.error("Pas d'id acheteur, on l'ignore")
+                    continue
+            else:
+                logging.warning("pas d'acheteur")
+                continue
+
+
             if 'id' in marcheJson:
                 if isBlank(marcheJson['id']):
                     logging.error("Pas d'id de marche, on ignore le marche")
                     continue
-                marche.id_marche = marcheJson['id']
+                marche.id_marche = marche.id_acheteur + "-" + marcheJson['id']
             elif 'uuid' in marcheJson:
                 if isBlank(marcheJson['uuid']):
                     logging.error("Pas d'id de marche, on ignore le marche")
@@ -71,6 +91,7 @@ def import_one_file(file, dict_titu, dict_acheteur):
             else:
                 logging.error("Pas d'id de marche, on l'ignore")
                 continue
+
 
             if 'codeCPV' not in marcheJson:
                 logging.warning(str(marche.id_marche) + " : pas de code cpv, on l'ignore")
@@ -230,20 +251,7 @@ def import_one_file(file, dict_titu, dict_acheteur):
                         logging.error(marche.id_marche + " : mauvais format titulaire, on l'ignore")
                         continue
 
-            if ('acheteur' in marcheJson):
-                acheteurJson = marcheJson['acheteur']
-                if str(acheteurJson['id'])[0:14] not in dict_acheteur:
-                    acheteur = Acheteur()
-                    acheteur.id_acheteur = str(acheteurJson['id'])[0:14]
-                    acheteur.nom_acheteur = acheteurJson['nom'] if 'nom' in acheteurJson else ''
-                    acheteur.nom_ui = acheteurJson['nom'] if 'nom' in acheteurJson else ''
-                    dict_acheteur.append(str(acheteurJson['id'])[0:14])
-                    acheteur_mappings.append(acheteur.serialize)
 
-                marche.id_acheteur = str(acheteurJson['id'])[0:14]
-            else:
-                logging.warning("pas d'acheteur")
-                continue
 
             if ('lieuExecution' in marcheJson):
                 lieuExecutionJson = marcheJson['lieuExecution']
@@ -253,6 +261,7 @@ def import_one_file(file, dict_titu, dict_acheteur):
                     lieu = Lieu()
                     lieu.code = lieuExecutionJson['code']
                     lieu.type_code = lieuExecutionJson['typeCode']
+                    db_session.add(lieu)
                     #lieu.nom_lieu = lieuExecutionJson['nom']
 
 
@@ -283,10 +292,10 @@ def importer_decp_2022():
     dict_acheteur = []
 
     # PURGE DE LA TABLE MARCHE EN DEBUT D'IMPORT
-    # if PURGE_MARCHE == 1:
-    #     engine.execute("truncate table marche")
-    #     engine.execute("truncate table marche_titulaires")
-    #
+    if PURGE_MARCHE == 1:
+        engine.execute("truncate table marche")
+        engine.execute("truncate table marche_titulaires")
+
     with engine.connect() as con:
         result = con.execute("select id_titulaire from titulaire")
         for row in result:
