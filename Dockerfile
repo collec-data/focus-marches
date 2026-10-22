@@ -1,4 +1,4 @@
-FROM php:7.2-apache
+FROM php:8.5.12-apache-trixie
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
@@ -13,6 +13,7 @@ RUN apt-get update -qq && \
     unzip \
     zip  \
     libicu-dev \
+    libonig-dev \
     locales && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -29,10 +30,6 @@ ENV LANG fr_FR.UTF-8
 #RUN docker-php-ext-install curl
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-install mysqli pdo_mysql mbstring gettext intl 
-RUN pecl install xdebug-3.1.3
-RUN docker-php-ext-enable xdebug \     
-&& echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-&& echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 COPY conf/php.ini /usr/local/etc/php/conf.d/app.ini
 

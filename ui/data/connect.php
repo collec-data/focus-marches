@@ -1,6 +1,9 @@
 <?php
 
-
+// Depuis PHP 8.1, mysqli lève des exceptions par défaut en cas d'erreur.
+// On restaure l'ancien comportement pour garder valides les vérifications
+// existantes (connect_error, $result falsy...).
+mysqli_report(MYSQLI_REPORT_OFF);
 
 if (file_exists("data/connect_dev.php"))
 {
