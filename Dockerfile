@@ -5,7 +5,6 @@ WORKDIR /app
 
 RUN apt-get update -qq && \
     apt-get install -qy \
-    gnupg \
     libicu-dev \
     libonig-dev \
     locales && \
