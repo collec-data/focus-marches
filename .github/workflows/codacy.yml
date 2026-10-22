@@ -44,7 +44,7 @@ jobs:
           # You can also omit the token and run the tools that support default configurations
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           verbose: true
-          output: results-sarif
+          output: results.sarif
           format: sarif
           # Adjust severity of non-security issues
           gh-code-scanning-compat: true
@@ -52,8 +52,26 @@ jobs:
           # This will handover control about PR rejection to the GitHub side
           max-allowed-issues: 2147483647
 
+      # GitHub rejects multiple SARIF runs with the same tool and category.
+      - name: Merge SARIF runs by tool
+        shell: bash
+        run: |
+          jq '.runs |= (
+            group_by(.tool.driver.name) |
+            map(
+              . as $group |
+              .[0] as $first |
+              $first + {
+                "results": ([$group[] | (.results // [])[] | if .ruleIndex == -1 then del(.ruleIndex) else . end] | unique),
+                "artifacts": ([$group[] | (.artifacts // [])[]] | unique),
+                "invocations": ([$group[] | (.invocations // [])[] | if .workingDirectory.uri == "file:///codacy" then del(.workingDirectory) else . end])
+              }
+            )
+          )' results.sarif > results-combined.sarif
+
        # Upload the SARIF file generated in the previous step
       - name: Upload SARIF results file
         uses: github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
         with:
-          sarif_file:  results-sarif
+          sarif_file: results-combined.sarif
+          category: Codacy
