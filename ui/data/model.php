@@ -12,7 +12,7 @@ applique htmlspecialchars avec les options par défaut
 */
 function hsc($arg)
 {
-  return htmlspecialchars($arg, ENT_QUOTES, 'UTF-8');
+  return htmlspecialchars((string) ($arg ?? ''), ENT_QUOTES, 'UTF-8');
 }
 
 
@@ -27,7 +27,7 @@ function clean($str)
     return str_replace(
       ['"', "\r", "\t", "\n"],
       [" ", "", " ", "<br>"],
-      $str
+      (string) ($str ?? '')
     );
   } catch (Exception $e) {
     return $e;

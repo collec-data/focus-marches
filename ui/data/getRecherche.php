@@ -190,7 +190,7 @@ try {
       $categorie = "Fournitures";
       $color = 'rgb(44, 160, 101)';
     }
-    list($y, $m, $d) = explode('-', $r['date_notification']);
+    list($y, $m, $d) = explode('-', (string) ($r['date_notification'] ?? ''));
 
     $out .= '{"id":"<button class=\"button voirMarche is-info small\" data-id=\"' . $r['id_marche'] . '\">Voir</button>",' .
       '"idN":"' . hsc(clean($r['id_marche'])) . '",' .

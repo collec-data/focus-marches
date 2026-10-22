@@ -70,8 +70,8 @@ $connect->set_charset("utf8");
 
       while ($r = mysqli_fetch_assoc($result)) {
         // colonnes
-        if ($initiale !== mb_substr($r['nom_ui'], 0, 1)) {
-          $initiale = mb_substr($r['nom_ui'], 0, 1);
+        if ($initiale !== mb_substr((string) ($r['nom_ui'] ?? ''), 0, 1)) {
+          $initiale = mb_substr((string) ($r['nom_ui'] ?? ''), 0, 1);
           if ($nb_cols === 0)
             echo "<div>";
           else
