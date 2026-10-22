@@ -1,17 +1,11 @@
 FROM php:8.5.12-apache-trixie
 
-ENV COMPOSER_ALLOW_SUPERUSER=1
-
 EXPOSE 80
 WORKDIR /app
 
-# git, unzip & zip are for composer
 RUN apt-get update -qq && \
     apt-get install -qy \
-    git \
     gnupg \
-    unzip \
-    zip  \
     libicu-dev \
     libonig-dev \
     locales && \
