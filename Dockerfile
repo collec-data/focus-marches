@@ -1,4 +1,4 @@
-FROM php:8.5.12-apache-trixie@sha256:e25ab14ef2cfec3bab9dd66c6cf871691146f428fbd72241b1a2c38fcacf92f5
+FROM php:8.5.13-apache-trixie@sha256:0a785eab8b7eb4836f9c6093771c8ea15ff8ba7269444f3da70a1d33d15fe664
 
 EXPOSE 80
 WORKDIR /app
